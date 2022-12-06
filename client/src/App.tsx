@@ -1,7 +1,9 @@
 import React from "react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
 
 function App() {
-  return <h1>안녕하세요!</h1>;
+  return <CKEditor editor={ClassicEditer} />;
 }
 
 export default App;
