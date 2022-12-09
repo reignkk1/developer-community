@@ -7,7 +7,7 @@ const db = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "alsrua17931",
-  database: "board",
+  database: "boarddb",
 });
 
 app.use(cors());
@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/api/get", function (req, res) {
-  const sqlQuery = "SELECT * FROM board;";
+  const sqlQuery = "SELECT * From board;";
   db.query(sqlQuery, (error, result) => {
     return res.send(result);
   });
@@ -29,4 +29,4 @@ app.post("/api/insert", (req, res) => {
   });
 });
 
-app.listen(3000, () => console.log("서버가 작동 중입니다!"));
+app.listen(8000, () => console.log("서버가 작동 중입니다!"));
