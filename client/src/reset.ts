@@ -125,6 +125,13 @@ const reset = css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  * {
+    box-sizing: border-box;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 export default reset;

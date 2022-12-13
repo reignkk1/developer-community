@@ -15,7 +15,7 @@ const Container = styled.div`
   width: 1000px;
   margin: 0 auto;
   text-align: center;
-  margin-top: 60px;
+  margin-top: 100px;
 `;
 
 const ListTitle = styled.h1`
