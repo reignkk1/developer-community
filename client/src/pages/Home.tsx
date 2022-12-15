@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
+import axios from "axios";
 import ArticleBox from "../components/ArticleBox";
+import { useState, useEffect } from "react";
+import { IData } from "../interface";
 
 const Main = styled.main`
   border: 1px solid black;
@@ -19,12 +22,25 @@ const ArticleType = {
 };
 
 export default function Home() {
+  const [noticePost, setNoticePost] = useState<IData[]>([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/notice/get")
+      .then((response) => setNoticePost(response.data));
+  }, []);
+
   return (
     <Main>
-      <ArticleBox type={ArticleType.notice} name="공지사항" />
-      <ArticleBox type={ArticleType.questions} name="Q & A" />
-      <ArticleBox type={ArticleType.life} name="사는얘기" />
-      <ArticleBox type={ArticleType.quotes} name="오늘의 명언" />
+      <ArticleBox
+        type={ArticleType.notice}
+        name="공지사항"
+        href="/notice"
+        data={noticePost}
+      />
+      <ArticleBox type={ArticleType.questions} name="Q & A" href="/questions" />
+      <ArticleBox type={ArticleType.life} name="사는얘기" href="/life" />
+      <ArticleBox type={ArticleType.quotes} name="오늘의 명언" href="/quote" />
     </Main>
   );
 }

@@ -5,10 +5,11 @@ import styled from "@emotion/styled";
 import reset from "./reset";
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import Notice from "./pages/Notice";
 
 const Main = styled.main`
   width: 100%;
-  height: 500vh;
+  height: 200vh;
   margin-top: 100px;
 `;
 
@@ -20,6 +21,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/notice" element={<Notice />} />
+          <Route path="/notice/write" element={<View />} />
         </Routes>
       </Router>
     </Main>

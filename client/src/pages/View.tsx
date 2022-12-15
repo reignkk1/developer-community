@@ -1,58 +1,50 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import ReactHtmlParser from "html-react-parser";
+import { useState } from "react";
 import styled from "@emotion/styled";
 
-interface viewPost {
-  id: number;
-  title: string;
-  content: string;
-}
-
 const Container = styled.div`
-  width: 1000px;
+  width: 60%;
+  height: 500px;
   margin: 0 auto;
   text-align: center;
+
   margin-top: 100px;
 `;
 
-const ListTitle = styled.h1`
-  font-size: 50px;
+const Input = styled.input`
+  width: 100%;
+  height: 35px;
+  margin-bottom: 50px;
+  padding: 5px 15px;
+  outline: none;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  &:focus {
+    border: 2px solid #0092fa;
+  }
 `;
 
-const List = styled.ul``;
-const ListItem = styled.li``;
-const ItemTitle = styled.div``;
-const ItemContent = styled.div``;
+const Btn = styled.button``;
 
 export default function View() {
-  const [viewPost, setViewPost] = useState<viewPost[]>([]);
   const [editorData, setEditorData] = useState({
     title: "",
     content: "",
   });
-
-  const getData = () =>
-    axios
-      .get("http://localhost:8000/api/get")
-      .then((response) => setViewPost(response.data));
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   const postSubmit = () => {
     if (editorData.title === "") return alert("제목을 입력해주세요!");
     if (editorData.content === "") return alert("내용을 입력해주세요!");
 
     axios
-      .post("http://localhost:8000/api/insert", {
+      .post("http://localhost:8000/api/notice/insert", {
         title: editorData.title,
         content: editorData.content,
+        date: new Date().toLocaleDateString("ko-kr"),
+        writerID: 123,
       })
-      .then(() => getData().then(() => alert("등록 완료!")));
+      .then(() => alert("등록 완료!"));
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,17 +54,7 @@ export default function View() {
 
   return (
     <Container>
-      <ListTitle>게시글 목록</ListTitle>
-      <List>
-        {viewPost.map((item) => (
-          <ListItem>
-            <ItemTitle>{item.title}</ItemTitle>
-            <ItemContent>{ReactHtmlParser(item.content)}</ItemContent>
-          </ListItem>
-        ))}
-      </List>
-
-      <input
+      <Input
         placeholder="제목을 입력해주세요!"
         onChange={onChangeInput}
         required
@@ -86,7 +68,7 @@ export default function View() {
         }}
       />
 
-      <button onClick={postSubmit}>작성하기</button>
+      <Btn onClick={postSubmit}>작성하기</Btn>
     </Container>
   );
 }
