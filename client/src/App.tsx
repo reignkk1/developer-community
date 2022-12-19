@@ -6,6 +6,8 @@ import reset from "./reset";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Notice from "./pages/Notice";
+import ArticleInfo from "./pages/ArticleInfo";
+import { RecoilRoot } from "recoil";
 
 const Main = styled.main`
   width: 100%;
@@ -19,11 +21,14 @@ function App() {
       <Global styles={reset} />
       <Router>
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/notice" element={<Notice />} />
-          <Route path="/notice/write" element={<View />} />
-        </Routes>
+        <RecoilRoot>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/notice" element={<Notice />} />
+            <Route path="/notice/:id" element={<ArticleInfo />} />
+            <Route path="/notice/write" element={<View />} />
+          </Routes>
+        </RecoilRoot>
       </Router>
     </Main>
   );

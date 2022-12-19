@@ -3,6 +3,8 @@ import axios from "axios";
 import ArticleBox from "../components/ArticleBox";
 import { useState, useEffect } from "react";
 import { IData } from "../interface";
+import { useRecoilState } from "recoil";
+import { noticeGet } from "../atom";
 
 const Main = styled.main`
   border: 1px solid black;
@@ -22,12 +24,12 @@ const ArticleType = {
 };
 
 export default function Home() {
-  const [noticePost, setNoticePost] = useState<IData[]>([]);
+  const [noticeData, setNoticeData] = useRecoilState(noticeGet);
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/notice/get")
-      .then((response) => setNoticePost(response.data));
+      .then((response) => setNoticeData(response.data));
   }, []);
 
   return (
@@ -36,7 +38,7 @@ export default function Home() {
         type={ArticleType.notice}
         name="공지사항"
         href="/notice"
-        data={noticePost}
+        data={noticeData}
       />
       <ArticleBox type={ArticleType.questions} name="Q & A" href="/questions" />
       <ArticleBox type={ArticleType.life} name="사는얘기" href="/life" />

@@ -3,6 +3,7 @@ import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
 import { useState } from "react";
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 60%;
@@ -32,6 +33,7 @@ export default function View() {
     title: "",
     content: "",
   });
+  const navigate = useNavigate();
 
   const postSubmit = () => {
     if (editorData.title === "") return alert("제목을 입력해주세요!");
@@ -44,7 +46,8 @@ export default function View() {
         date: new Date().toLocaleDateString("ko-kr"),
         writerID: 123,
       })
-      .then(() => alert("등록 완료!"));
+      .then(() => alert("등록 완료!"))
+      .then(() => navigate("/"));
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

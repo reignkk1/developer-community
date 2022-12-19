@@ -19,6 +19,21 @@ const TitleName = styled.div`
   font-weight: bold;
 `;
 
+const ListBox = styled.ul``;
+
+const ListItem = styled.li`
+  padding: 10px 0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+`;
+const ListTitle = styled.div`
+  margin-bottom: 5px;
+  font-weight: bold;
+`;
+
+const ListDate = styled.div`
+  opacity: 0.9;
+`;
+
 export default function ArticleBox({ type, name, href, data }: IArticle) {
   return (
     <Container>
@@ -28,14 +43,16 @@ export default function ArticleBox({ type, name, href, data }: IArticle) {
           <Img src={type} />
         </Title>
       </Link>
-      {data?.map((item) => (
-        <ul>
-          <li>
-            <div>{item.title}</div>
-            <div>{item.date}</div>
-          </li>
-        </ul>
-      ))}
+      <ListBox>
+        {data?.map((item) => (
+          <ListItem>
+            <ListTitle>
+              <Link to={`${href}/${item.id}`}>{item.title}</Link>
+            </ListTitle>
+            <ListDate>{item.date}</ListDate>
+          </ListItem>
+        ))}
+      </ListBox>
     </Container>
   );
 }

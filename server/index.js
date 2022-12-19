@@ -15,7 +15,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/api/notice/get", function (req, res) {
-  const sqlQuery = "SELECT * From notice;";
+  const sqlQuery = "SELECT * From notice ORDER BY id DESC;";
+  db.query(sqlQuery, (error, result) => {
+    return res.send(result);
+  });
+});
+
+app.get("/api/notice/get/:id", (req, res) => {
+  const { id } = req.params;
+  const sqlQuery = `SELECT * FROM notice WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
     return res.send(result);
   });
