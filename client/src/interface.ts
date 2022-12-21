@@ -10,6 +10,10 @@ export interface IData {
 export interface IArticle {
   type: string;
   name: string;
-  href: string;
+  page: string;
   data?: IData[];
+}
+
+export interface IPage {
+  page: string;
 }

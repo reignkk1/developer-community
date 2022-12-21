@@ -4,13 +4,13 @@ import axios from "axios";
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
+import { IPage } from "../interface";
 
 const Container = styled.div`
   width: 60%;
   height: 500px;
   margin: 0 auto;
   text-align: center;
-
   margin-top: 100px;
 `;
 
@@ -28,7 +28,7 @@ const Input = styled.input`
 
 const Btn = styled.button``;
 
-export default function View() {
+export default function Write({ page }: IPage) {
   const [editorData, setEditorData] = useState({
     title: "",
     content: "",
@@ -40,7 +40,7 @@ export default function View() {
     if (editorData.content === "") return alert("내용을 입력해주세요!");
 
     axios
-      .post("http://localhost:8000/api/notice/insert", {
+      .post(`http://localhost:8000/${page}`, {
         title: editorData.title,
         content: editorData.content,
         date: new Date().toLocaleDateString("ko-kr"),

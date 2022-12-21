@@ -88,7 +88,7 @@ export default function Header() {
           <Link to="/life">사는얘기</Link>
         </MenuItem>
         <MenuItem>
-          <Link to="/questions">Q & A</Link>
+          <Link to="/question">Q & A</Link>
         </MenuItem>
         <MenuItem>
           <Link to="/quote">오늘의 명언</Link>
