@@ -8,12 +8,40 @@ export interface IData {
 }
 
 export interface IArticle {
-  type: string;
+  ImgeSrc: string;
   name: string;
   page: string;
+  explain?: string;
   data?: IData[];
 }
 
 export interface IPage {
   page: string;
 }
+
+export interface IPagesTitle {
+  ImgeSrc: string;
+  name: string;
+  explain: string;
+}
+
+export const props = {
+  name: {
+    notice: "공지사항",
+    question: "Q & A",
+    life: "사는얘기",
+    quote: "오늘의 명언",
+  },
+  ImgeSrc: {
+    notice: "https://okky.kr/notice.svg",
+    question: "https://okky.kr/questions.svg",
+    life: "https://okky.kr/community.svg",
+    quote: "https://okky.kr/knowledge.svg",
+  },
+  page: {
+    notice: "notice",
+    question: "question",
+    life: "life",
+    quote: "quote",
+  },
+};

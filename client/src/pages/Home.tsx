@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import ArticleBox from "../components/ArticleBox";
+import ArticleBox from "../components/HomeArticleBox";
+import { props } from "../interface";
 
 const Main = styled.main`
   width: 60%;
@@ -10,20 +11,29 @@ const Main = styled.main`
   column-gap: 50px;
 `;
 
-const ArticleType = {
-  notice: "https://okky.kr/notice.svg",
-  question: "https://okky.kr/questions.svg",
-  life: "https://okky.kr/community.svg",
-  quotes: "https://okky.kr/knowledge.svg",
-};
-
 export default function Home() {
   return (
     <Main>
-      <ArticleBox type={ArticleType.notice} name="공지사항" page="notice" />
-      <ArticleBox type={ArticleType.question} name="Q & A" page="question" />
-      <ArticleBox type={ArticleType.life} name="사는얘기" page="life" />
-      <ArticleBox type={ArticleType.quotes} name="오늘의 명언" page="quote" />
+      <ArticleBox
+        ImgeSrc={props.ImgeSrc.notice}
+        name={props.name.notice}
+        page={props.page.notice}
+      />
+      <ArticleBox
+        ImgeSrc={props.ImgeSrc.question}
+        name={props.name.question}
+        page={props.page.question}
+      />
+      <ArticleBox
+        ImgeSrc={props.ImgeSrc.life}
+        name={props.name.life}
+        page={props.page.life}
+      />
+      <ArticleBox
+        ImgeSrc={props.ImgeSrc.quote}
+        name={props.name.quote}
+        page={props.page.quote}
+      />
     </Main>
   );
 }

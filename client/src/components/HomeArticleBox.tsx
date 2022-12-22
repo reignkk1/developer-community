@@ -7,26 +7,7 @@ import { IArticle, IData } from "../interface";
 const Container = styled.div`
   height: 480px;
 `;
-const Title = styled.div`
-  background-color: #e8eef1;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px 25px;
-  &:hover {
-    color: #0092fa;
-  }
-  height: 70px;
-`;
-const Img = styled.img`
-  width: 40%;
-  height: 80px;
-`;
-const TitleName = styled.div`
-  font-weight: bold;
-  font-size: 18px;
-`;
+
 const ListBox = styled.ul`
   padding: 5px;
 `;
@@ -53,7 +34,28 @@ const ListDate = styled.div`
   opacity: 0.9;
 `;
 
-export default function ArticleBox({ type, name, page }: IArticle) {
+const Title = styled.div`
+  background-color: #e8eef1;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 25px;
+  &:hover {
+    color: #0092fa;
+  }
+  height: 70px;
+`;
+const Img = styled.img`
+  width: 40%;
+  height: 80px;
+`;
+const TitleName = styled.div`
+  font-weight: bold;
+  font-size: 18px;
+`;
+
+export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
   const [data, setData] = useState<IData[]>();
   useEffect(() => {
     axios
@@ -66,7 +68,7 @@ export default function ArticleBox({ type, name, page }: IArticle) {
       <Link to={`/${page}`}>
         <Title>
           <TitleName>{name}</TitleName>
-          <Img src={type} />
+          <Img src={ImgeSrc} />
         </Title>
       </Link>
       <ListBox>
