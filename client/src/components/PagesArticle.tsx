@@ -27,7 +27,8 @@ export default function PagesArticle({ page }: IPage) {
     axios
       .get(`http://localhost:8000/${page}`)
       .then((response) => setData(response.data));
-  });
+  }, []);
+
   return (
     <ListBox>
       {data?.map((item) => (

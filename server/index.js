@@ -1,14 +1,24 @@
-const express = require("express");
-const cors = require("cors");
-const mysql = require("mysql");
-const app = express();
+import express from "express";
+import cors from "cors";
+import {
+  lifeDetailGet,
+  lifeGet,
+  noticeDetailGet,
+  noticeGet,
+  questionDetailGet,
+  questionGet,
+  quoteDetailGet,
+  quoteGet,
+} from "./api/get.js";
+import { lifePost, noticePost, questionPost, quotePost } from "./API/post.js";
+import {
+  lifeDelete,
+  noticeDelete,
+  questionDelete,
+  quoteDelete,
+} from "./API/delete.js";
 
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "alsrua17931",
-  database: "boarddb",
-});
+const app = express();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -16,96 +26,28 @@ app.use(express.json());
 
 // ============================== Get 요청 =========================================
 
-app.get("/notice", function (req, res) {
-  const sqlQuery = "SELECT * From notice ORDER BY id DESC;";
-  db.query(sqlQuery, (error, result) => {
-    return res.send(result);
-  });
-});
-app.get("/question", function (req, res) {
-  const sqlQuery = "SELECT * From question ORDER BY id DESC;";
-  db.query(sqlQuery, (error, result) => {
-    return res.send(result);
-  });
-});
-app.get("/life", function (req, res) {
-  const sqlQuery = "SELECT * From life ORDER BY id DESC;";
-  db.query(sqlQuery, (error, result) => {
-    return res.send(result);
-  });
-});
-app.get("/quote", function (req, res) {
-  const sqlQuery = "SELECT * From quote ORDER BY id DESC;";
-  db.query(sqlQuery, (error, result) => {
-    return res.send(result);
-  });
-});
+app.get("/notice", noticeGet);
+app.get("/question", questionGet);
+app.get("/life", lifeGet);
+app.get("/quote", quoteGet);
 
-app.get("/notice/:id", (req, res) => {
-  const { id } = req.params;
-  const sqlQuery = `SELECT * FROM notice WHERE id = ${id}`;
-  db.query(sqlQuery, (error, result) => {
-    return res.send(result);
-  });
-});
-app.get("/question/:id", (req, res) => {
-  const { id } = req.params;
-  const sqlQuery = `SELECT * FROM question WHERE id = ${id}`;
-  db.query(sqlQuery, (error, result) => {
-    return res.send(result);
-  });
-});
-app.get("/life/:id", (req, res) => {
-  const { id } = req.params;
-  const sqlQuery = `SELECT * FROM life WHERE id = ${id}`;
-  db.query(sqlQuery, (error, result) => {
-    return res.send(result);
-  });
-});
-app.get("/quote/:id", (req, res) => {
-  const { id } = req.params;
-  const sqlQuery = `SELECT * FROM quote WHERE id = ${id}`;
-  db.query(sqlQuery, (error, result) => {
-    return res.send(result);
-  });
-});
+app.get("/notice/:id", noticeDetailGet);
+app.get("/question/:id", questionDetailGet);
+app.get("/life/:id", lifeDetailGet);
+app.get("/quote/:id", quoteDetailGet);
+
 // ============================== POST 요청 =========================================
 
-app.post("/notice", (req, res) => {
-  const { title, content, date, writerID } = req.body;
+app.post("/notice", noticePost);
+app.post("/question", questionPost);
+app.post("/life", lifePost);
+app.post("/quote", quotePost);
 
-  const sqlQuery =
-    "INSERT INTO notice (title,content,date,writerID) VALUES (?,?,?,?)";
-  db.query(sqlQuery, [title, content, date, writerID], (error, result) => {
-    res.send("성공!");
-  });
-});
-app.post("/question", (req, res) => {
-  const { title, content, date, writerID } = req.body;
+// ============================== DELETE 요청 =======================================
 
-  const sqlQuery =
-    "INSERT INTO question (title,content,date,writerID) VALUES (?,?,?,?)";
-  db.query(sqlQuery, [title, content, date, writerID], (error, result) => {
-    res.send("성공!");
-  });
-});
-app.post("/life", (req, res) => {
-  const { title, content, date, writerID } = req.body;
-
-  const sqlQuery =
-    "INSERT INTO life (title,content,date,writerID) VALUES (?,?,?,?)";
-  db.query(sqlQuery, [title, content, date, writerID], (error, result) => {
-    res.send("성공!");
-  });
-});
-app.post("/quote", (req, res) => {
-  const { title, content, date, writerID } = req.body;
-
-  const sqlQuery =
-    "INSERT INTO quote (title,content,date,writerID) VALUES (?,?,?,?)";
-  db.query(sqlQuery, [title, content, date, writerID], (error, result) => {
-    res.send("성공!");
-  });
-});
+app.delete("/notice/:id", noticeDelete);
+app.delete("/question/:id", questionDelete);
+app.delete("/life/:id", lifeDelete);
+app.delete("/quote/:id", quoteDelete);
 
 app.listen(8000, () => console.log("서버가 작동 중입니다!"));
