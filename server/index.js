@@ -17,6 +17,7 @@ import {
   questionDelete,
   quoteDelete,
 } from "./API/delete.js";
+import noticePatch from "./api/patch.js";
 
 const app = express();
 
@@ -49,5 +50,9 @@ app.delete("/notice/:id", noticeDelete);
 app.delete("/question/:id", questionDelete);
 app.delete("/life/:id", lifeDelete);
 app.delete("/quote/:id", quoteDelete);
+
+// ============================== PATCH 요청 ========================================
+
+app.patch("/notice/:id", noticePatch);
 
 app.listen(8000, () => console.log("서버가 작동 중입니다!"));

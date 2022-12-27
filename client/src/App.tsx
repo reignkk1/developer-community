@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Notice from "./pages/Notice";
 import ArticleInfo from "./components/ArticleInfo";
+import Edit from "./components/Edit";
 import NoticeWrite from "./pages/write/NoticeWrite";
 import Question from "./pages/Question";
 import Life from "./pages/Life";
@@ -46,6 +47,10 @@ function App() {
           />
           <Route path="/life/:id" element={<ArticleInfo page="life" />} />
           <Route path="/quote/:id" element={<ArticleInfo page="quote" />} />
+          <Route path="/notice/:id/edit" element={<Edit page="notice" />} />
+          <Route path="/question/:id/edit" element={<Edit page="question" />} />
+          <Route path="/life/:id/edit" element={<Edit page="life" />} />
+          <Route path="/quote/:id/edit" element={<Edit page="quote" />} />
         </Routes>
       </Router>
     </Main>
