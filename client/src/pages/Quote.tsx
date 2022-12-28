@@ -3,35 +3,12 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PagesTitle from "../components/PagesTitle";
+import QuoteInput from "../components/QuoteInput";
 import { IData, props } from "../interface";
 
 const Main = styled.main`
   width: 60%;
   margin: 0 auto;
-`;
-
-const InputContainer = styled.div`
-  width: 100%;
-  display: flex;
-  margin-bottom: 50px;
-`;
-
-const Input = styled.input`
-  width: 92%;
-  height: 40px;
-  outline: none;
-  border: 2px solid #0092fa;
-  font-size: 16px;
-  padding: 0px 10px;
-  font-weight: bold;
-`;
-
-const Btn = styled.button`
-  width: 8%;
-  background-color: #0092fa;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
 `;
 
 const ListBox = styled.ul``;
@@ -91,14 +68,11 @@ export default function Quote() {
         ImgeSrc={props.ImgeSrc.quote}
         explain="명언 한 줄로 내 마음가짐을 단단하게 세워볼까요?"
       />
-      <InputContainer>
-        <Input onChange={onChange} value={inputData} />
-        <Btn onClick={onClick}>작성</Btn>
-      </InputContainer>
 
+      <QuoteInput onChange={onChange} onClick={onClick} inputData={inputData} />
       <ListBox>
         {data?.map((item) => (
-          <ListItem>
+          <ListItem key={item.id}>
             <Link to={`${item.id}`}>
               <ListTitle>{item.title}</ListTitle>
             </Link>

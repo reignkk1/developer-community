@@ -32,7 +32,7 @@ export default function PagesArticle({ page }: IPage) {
   return (
     <ListBox>
       {data?.map((item) => (
-        <ListItem>
+        <ListItem key={item.id}>
           <Link to={`/${page}/${item.id}`}>
             <ListTitle>{item.title}</ListTitle>
           </Link>

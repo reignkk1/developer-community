@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import ArticleBox from "../components/HomeArticleBox";
+import ArticleBox from "../components/ArticleBox";
 import { props } from "../interface";
 
 const Main = styled.main`

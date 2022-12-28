@@ -17,7 +17,12 @@ import {
   questionDelete,
   quoteDelete,
 } from "./API/delete.js";
-import noticePatch from "./api/patch.js";
+import {
+  noticePatch,
+  lifePatch,
+  questionPatch,
+  quotePatch,
+} from "./api/patch.js";
 
 const app = express();
 
@@ -54,5 +59,8 @@ app.delete("/quote/:id", quoteDelete);
 // ============================== PATCH 요청 ========================================
 
 app.patch("/notice/:id", noticePatch);
+app.patch("/question/:id", questionPatch);
+app.patch("/life/:id", lifePatch);
+app.patch("/quote/:id", quotePatch);
 
 app.listen(8000, () => console.log("서버가 작동 중입니다!"));

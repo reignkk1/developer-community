@@ -73,7 +73,7 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
       </Link>
       <ListBox>
         {data?.slice(0, 5).map((item) => (
-          <ListItem>
+          <ListItem key={item.id}>
             <ListTitle>
               <Link to={`/${page}/${item.id}`}>{item.title}</Link>
             </ListTitle>

@@ -7,15 +7,15 @@ import Home from "./pages/Home";
 import Notice from "./pages/Notice";
 import ArticleInfo from "./components/ArticleInfo";
 import Edit from "./components/Edit";
-import NoticeWrite from "./pages/write/NoticeWrite";
+
 import Question from "./pages/Question";
 import Life from "./pages/Life";
 import Quote from "./pages/Quote";
 
-import LifeWrite from "./pages/write/LifeWrite";
-import QuoteWrite from "./pages/write/QuoteWrite";
-import QuestionWrite from "./pages/write/QuestionWrite";
 import ScrollToTop from "./ScrollToTop";
+import Write from "./components/Write";
+import { props } from "./interface";
+import QuoteEdit from "./components/QuoteEdit";
 
 const Main = styled.main`
   width: 100%;
@@ -31,15 +31,31 @@ function App() {
         <Header />
         <ScrollToTop />
         <Routes>
+          {/*==================== global page =================== */}
+
           <Route path="/" element={<Home />} />
           <Route path="/notice" element={<Notice />} />
           <Route path="/question" element={<Question />} />
           <Route path="/life" element={<Life />} />
           <Route path="/quote" element={<Quote />} />
-          <Route path="/notice/write" element={<NoticeWrite />} />
-          <Route path="/question/write" element={<QuestionWrite />} />
-          <Route path="/life/write" element={<LifeWrite />} />
-          <Route path="/quote/write" element={<QuoteWrite />} />
+
+          {/*==================== write page =================== */}
+
+          <Route
+            path="/notice/write"
+            element={<Write page={props.page.notice} />}
+          />
+          <Route
+            path="/question/write"
+            element={<Write page={props.page.question} />}
+          />
+          <Route
+            path="/life/write"
+            element={<Write page={props.page.life} />}
+          />
+
+          {/*==================== detail page =================== */}
+
           <Route path="/notice/:id" element={<ArticleInfo page="notice" />} />
           <Route
             path="/question/:id"
@@ -47,10 +63,13 @@ function App() {
           />
           <Route path="/life/:id" element={<ArticleInfo page="life" />} />
           <Route path="/quote/:id" element={<ArticleInfo page="quote" />} />
+
+          {/*==================== edit page =================== */}
+
           <Route path="/notice/:id/edit" element={<Edit page="notice" />} />
           <Route path="/question/:id/edit" element={<Edit page="question" />} />
           <Route path="/life/:id/edit" element={<Edit page="life" />} />
-          <Route path="/quote/:id/edit" element={<Edit page="quote" />} />
+          <Route path="/quote/:id/edit" element={<QuoteEdit />} />
         </Routes>
       </Router>
     </Main>

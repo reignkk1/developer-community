@@ -20,13 +20,20 @@ const Input = styled.input`
   margin-bottom: 50px;
   padding: 5px 15px;
   outline: none;
-  border: 2px solid rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(0, 0, 0, 0.3);
   &:focus {
     border: 2px solid #0092fa;
   }
+  border-radius: 5px;
 `;
 
 const Btn = styled.button``;
+
+const Title = styled.div`
+  text-align: start;
+  font-size: 15px;
+  margin-bottom: 5px;
+`;
 
 export default function Write({ page }: IPage) {
   const [editorData, setEditorData] = useState({
@@ -57,11 +64,13 @@ export default function Write({ page }: IPage) {
 
   return (
     <Container>
+      <Title>제목</Title>
       <Input
         placeholder="제목을 입력해주세요!"
         onChange={onChangeInput}
         required
       />
+      <Title>본문</Title>
       <CKEditor
         editor={ClassicEditer}
         onChange={(event, editor) => {

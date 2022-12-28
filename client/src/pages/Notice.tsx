@@ -1,12 +1,8 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
-
 import { props } from "../interface";
 import PagesTitle from "../components/PagesTitle";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { IData } from "./../interface";
 import PagesArticle from "../components/PagesArticle";
+import Button from "../components/button";
 
 const Main = styled.main`
   width: 60%;
@@ -21,7 +17,7 @@ export default function Notice() {
         ImgeSrc={props.ImgeSrc.notice}
         explain="OKKY의 새소식, 이벤트, 행사 정보를 공유하는 공간입니다."
       />
-      <Link to="write">공지사항 쓰기</Link>
+      <Button text="✏️작성하기" />
       <PagesArticle page={props.page.notice} />
     </Main>
   );
