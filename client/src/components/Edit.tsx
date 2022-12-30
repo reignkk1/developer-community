@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useNavigate, useParams } from "react-router-dom";
 import { IPage } from "../interface";
+import Button from "./button";
 
 const Container = styled.div`
   width: 60%;
@@ -26,7 +27,11 @@ const Input = styled.input`
   }
 `;
 
-const Btn = styled.button``;
+const Title = styled.div`
+  text-align: start;
+  font-size: 15px;
+  margin-bottom: 5px;
+`;
 
 export default function Edit({ page }: IPage) {
   const [inputData, setInputData] = useState("");
@@ -53,8 +58,8 @@ export default function Edit({ page }: IPage) {
         title: inputData,
         content: editorData,
       })
-      .then(() => alert("수정 완료!"))
-      .then(() => navigate(`/${page}`));
+      .then(() => navigate(`/${page}`))
+      .then(() => alert("수정 완료!"));
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,6 +69,7 @@ export default function Edit({ page }: IPage) {
 
   return (
     <Container>
+      <Title>제목</Title>
       <Input
         type="text"
         placeholder="제목을 입력해주세요!"
@@ -71,6 +77,7 @@ export default function Edit({ page }: IPage) {
         required
         value={inputData}
       />
+      <Title>본문</Title>
       <CKEditor
         editor={ClassicEditer}
         onChange={(event, editor) => {
@@ -81,7 +88,7 @@ export default function Edit({ page }: IPage) {
         data={editorData}
       />
 
-      <Btn onClick={postSubmit}>수정</Btn>
+      <Button onClick={postSubmit} text="수정하기" />
     </Container>
   );
 }

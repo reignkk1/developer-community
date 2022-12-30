@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/button";
 import PagesArticle from "../components/PagesArticle";
 import PagesTitle from "../components/PagesTitle";
 import { props } from "../interface";
@@ -8,6 +9,8 @@ const Main = styled.main`
   margin: 0 auto;
 `;
 export default function Questions() {
+  const navigate = useNavigate();
+  const onClick = () => navigate("write");
   return (
     <Main>
       <PagesTitle
@@ -15,7 +18,7 @@ export default function Questions() {
         ImgeSrc={props.ImgeSrc.question}
         explain="좋은 질문과 답변으로 동료의 시간을 아껴주세요."
       />
-      <Link to="write">질문 쓰기</Link>
+      <Button onClick={onClick} text="✏️질문하기" />
       <PagesArticle page={props.page.question} />
     </Main>
   );

@@ -5,6 +5,8 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { IPage } from "../interface";
+import Button from "./button";
+import { css } from "@emotion/react";
 
 const Container = styled.div`
   width: 60%;
@@ -26,8 +28,6 @@ const Input = styled.input`
   }
   border-radius: 5px;
 `;
-
-const Btn = styled.button``;
 
 const Title = styled.div`
   text-align: start;
@@ -53,8 +53,8 @@ export default function Write({ page }: IPage) {
         date: new Date().toLocaleDateString("ko-kr"),
         writerID: 123,
       })
-      .then(() => alert("등록 완료!"))
-      .then(() => navigate("/"));
+      .then(() => navigate(`/${page}`))
+      .then(() => alert("등록 완료!"));
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,7 +80,7 @@ export default function Write({ page }: IPage) {
         }}
       />
 
-      <Btn onClick={postSubmit}>작성하기</Btn>
+      <Button onClick={postSubmit} text="작성하기" />
     </Container>
   );
 }

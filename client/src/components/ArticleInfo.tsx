@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { IData, IPage } from "../interface";
 import Parser from "html-react-parser";
+import Button from "./button";
 
 const Main = styled.main`
   width: 60%;
@@ -14,6 +15,7 @@ const ArticleContainer = styled.div`
   padding: 100px 0px;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
 `;
 
 const ArticleTitle = styled.div`
@@ -26,8 +28,11 @@ const ArticleText = styled.div`
   line-height: 1.3;
 `;
 
-const DeleteBtn = styled.button``;
-const EditBtn = styled.button``;
+const ButtonBox = styled.div`
+  button {
+    margin-right: 10px;
+  }
+`;
 
 export default function ArticleInfo({ page }: IPage) {
   const [data, setData] = useState<IData>();
@@ -50,19 +55,17 @@ export default function ArticleInfo({ page }: IPage) {
       return;
     }
   };
-
-  const editClick = () => {
-    navigate(`edit`);
-  };
-
+  const editClick = () => navigate("edit");
   return (
     <Main>
       <ArticleContainer>
         <ArticleTitle>{data?.title}</ArticleTitle>
         <ArticleText>{Parser(data?.content || "")}</ArticleText>
       </ArticleContainer>
-      <DeleteBtn onClick={deleteClick}>삭제</DeleteBtn>
-      <EditBtn onClick={editClick}>수정</EditBtn>
+      <ButtonBox>
+        <Button onClick={deleteClick} text="삭제" />
+        <Button onClick={editClick} text="수정" />
+      </ButtonBox>
     </Main>
   );
 }

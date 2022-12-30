@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const HeaderBox = styled.header`
+const HeaderBox = styled.header<{ pathname: string }>`
   width: 100%;
   background-color: white;
   padding: 15px 120px;
-  display: flex;
+  display: ${(props) => (props.pathname === "/signup" ? "none" : "flex")};
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -34,12 +34,40 @@ const MenuItem = styled.li`
 
 const SearchBar = styled.input``;
 const ButtonBox = styled.div``;
-const LoginBtn = styled.button``;
-const JoinBtn = styled.button``;
+const LoginBtn = styled.button`
+  background-color: White;
+  cursor: pointer;
+  border: none;
+  color: black;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  font-size: 12px;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
+const JoinBtn = styled.button`
+  background-color: #0092fa;
+  cursor: pointer;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 12px;
+  &:hover {
+    background-color: #0580d7;
+  }
+`;
 
 export default function Header() {
+  const location = useLocation();
+  console.log(location.pathname);
   return (
-    <HeaderBox>
+    <HeaderBox pathname={location.pathname}>
       <Link to="/">
         <Svg>
           <svg
@@ -96,8 +124,12 @@ export default function Header() {
       </Menu>
       <SearchBar />
       <ButtonBox>
-        <LoginBtn>로그인</LoginBtn>
-        <JoinBtn>회원가입</JoinBtn>
+        <Link to="/login">
+          <LoginBtn>로그인</LoginBtn>
+        </Link>
+        <Link to="/signup">
+          <JoinBtn>회원가입</JoinBtn>
+        </Link>
       </ButtonBox>
     </HeaderBox>
   );
