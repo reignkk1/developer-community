@@ -1,10 +1,11 @@
 import mysql from "mysql";
 
 const db = mysql.createPool({
+  // 125.142.99.87
   host: "localhost",
   user: "root",
   password: "alsrua17931",
-  database: "boarddb",
+  database: "webdb",
 });
 
 export function noticeDelete(req, res) {

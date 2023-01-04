@@ -6,7 +6,6 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { IPage } from "../interface";
 import Button from "./button";
-import { css } from "@emotion/react";
 
 const Container = styled.div`
   width: 60%;
