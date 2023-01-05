@@ -1,8 +1,8 @@
 import mysql from "mysql";
 
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
+  host: "125.142.99.87",
+  user: "reignkk",
   password: "alsrua17931",
   database: "webdb",
 });
@@ -10,6 +10,7 @@ const db = mysql.createPool({
 export function noticeGet(req, res) {
   const sqlQuery = "SELECT * From notice ORDER BY id DESC;";
   db.query(sqlQuery, (error, result) => {
+    console.log(result);
     return res.send(result);
   });
 }
