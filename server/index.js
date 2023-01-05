@@ -10,7 +10,13 @@ import {
   quoteDetailGet,
   quoteGet,
 } from "./api/get.js";
-import { lifePost, noticePost, questionPost, quotePost } from "./API/post.js";
+import {
+  lifePost,
+  noticePost,
+  questionPost,
+  quotePost,
+  userPost,
+} from "./API/post.js";
 import {
   lifeDelete,
   noticeDelete,
@@ -48,6 +54,7 @@ app.post("/notice", noticePost);
 app.post("/question", questionPost);
 app.post("/life", lifePost);
 app.post("/quote", quotePost);
+app.post("/user", userPost);
 
 // ============================== DELETE 요청 =======================================
 

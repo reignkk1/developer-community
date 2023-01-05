@@ -1,10 +1,10 @@
 import mysql from "mysql";
-
+// 125.142.99.87
 const db = mysql.createPool({
-  host: "125.142.99.87",
-  user: "reignkk",
+  host: "localhost",
+  user: "root",
   password: "alsrua17931",
-  database: "webdb",
+  database: "boarddb",
 });
 
 export function noticeGet(req, res) {

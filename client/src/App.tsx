@@ -17,6 +17,7 @@ import Write from "./components/Write";
 import { props } from "./interface";
 import QuoteEdit from "./components/QuoteEdit";
 import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
 
 const Main = styled.main`
   width: 100%;
@@ -40,6 +41,7 @@ function App() {
           <Route path="/life" element={<Life />} />
           <Route path="/quote" element={<Quote />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
 
           {/*==================== write page =================== */}
 

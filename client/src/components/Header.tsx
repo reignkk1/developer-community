@@ -5,7 +5,12 @@ const HeaderBox = styled.header<{ pathname: string }>`
   width: 100%;
   background-color: white;
   padding: 15px 120px;
-  display: ${(props) => (props.pathname === "/signup" ? "none" : "flex")};
+  display: ${(props) =>
+    props.pathname === "/signup"
+      ? "none"
+      : props.pathname === "/login"
+      ? "none"
+      : "flex"};
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -65,7 +70,7 @@ const JoinBtn = styled.button`
 
 export default function Header() {
   const location = useLocation();
-  console.log(location.pathname);
+
   return (
     <HeaderBox pathname={location.pathname}>
       <Link to="/">

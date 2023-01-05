@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
-import axios from "axios";
-import { useForm } from "react-hook-form";
-import { FieldErrors } from "react-hook-form/dist/types";
-import { Link, useNavigate } from "react-router-dom";
+import { FieldErrors, useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const Main = styled.main`
   width: 450px;
@@ -67,7 +65,7 @@ const Btn = styled.button`
   }
 `;
 
-const BottomLogin = styled.div`
+const BottomSignUp = styled.div`
   width: 100%;
   font-size: 14px;
   display: flex;
@@ -82,32 +80,20 @@ const BottomLogin = styled.div`
 `;
 
 interface IFormData {
-  userID: string;
+  id: string;
   password: string;
   email: string;
   name: string;
   nickname: string;
 }
 
-export default function SignUp() {
+export default function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormData>();
-  const navigate = useNavigate();
-  const onValid = (data: IFormData) => {
-    axios
-      .post("http://localhost:8000/user", {
-        userID: data.userID,
-        password: data.password,
-        email: data.email,
-        name: data.name,
-        nickname: data.nickname,
-      })
-      .then(() => navigate("/login"))
-      .then(() => alert("가입이 완료되었습니다!"));
-  };
+  const onValid = (data: IFormData) => console.log(data);
   const oninvalid = (error: FieldErrors) => console.log(error);
 
   return (
@@ -124,7 +110,7 @@ export default function SignUp() {
         <Input
           placeholder="4~15자 이내로 입력해주세요"
           type="text"
-          {...register("userID", { required: "아이디를 입력해주세요!" })}
+          {...register("id", { required: "아이디를 입력해주세요!" })}
         />
         <Label>비밀번호</Label>
         <Input
@@ -132,29 +118,12 @@ export default function SignUp() {
           type="password"
           {...register("password", { required: "비밀번호를 입력해주세요!" })}
         />
-        <Label>이메일</Label>
-        <Input
-          placeholder="mingyeom@okky.kr"
-          type="email"
-          {...register("email", { required: "이메일를 입력해주세요!" })}
-        />
-        <Label>실명</Label>
-        <Input
-          placeholder="홍길동"
-          type="text"
-          {...register("name", { required: "실명을 입력해주세요!" })}
-        />
-        <Label>닉네임</Label>
-        <Input
-          placeholder="20자 이하로 입력해주세요"
-          type="text"
-          {...register("nickname", { required: "닉네임을 입력해주세요!" })}
-        />
-        <Btn>가입하기</Btn>
-        <BottomLogin>
-          <span>이미 회원이신가요?</span>
-          <Link to="/login">로그인</Link>
-        </BottomLogin>
+
+        <Btn>로그인</Btn>
+        <BottomSignUp>
+          <span>아직 회원이 아니신가요?</span>
+          <Link to="/signup">회원가입</Link>
+        </BottomSignUp>
       </InputForm>
     </Main>
   );
