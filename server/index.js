@@ -15,6 +15,7 @@ import {
   noticePost,
   questionPost,
   quotePost,
+  userLoginPost,
   userPost,
 } from "./API/post.js";
 import {
@@ -29,12 +30,35 @@ import {
   questionPatch,
   quotePatch,
 } from "./api/patch.js";
+import session from "express-session";
+import MySQLStore from "express-mysql-session";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+const options = {
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "alsrua17931",
+  database: "boarddb",
+};
+
+var sessionStore = new MySQLStore(options);
+
+app.use(
+  session({
+    secret: "mingyeom",
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(cookieParser());
 
 // ============================== Get 요청 =========================================
 
@@ -55,6 +79,7 @@ app.post("/question", questionPost);
 app.post("/life", lifePost);
 app.post("/quote", quotePost);
 app.post("/user", userPost);
+app.post("/user/login", userLoginPost);
 
 // ============================== DELETE 요청 =======================================
 

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import axios from "axios";
 import { FieldErrors, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
@@ -80,7 +81,7 @@ const BottomSignUp = styled.div`
 `;
 
 interface IFormData {
-  id: string;
+  userID: string;
   password: string;
   email: string;
   name: string;
@@ -93,7 +94,14 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormData>();
-  const onValid = (data: IFormData) => console.log(data);
+  const onValid = (data: IFormData) => {
+    axios
+      .post("http://localhost:8000/user/login", {
+        loginUserID: data.userID,
+        loginPassword: data.password,
+      })
+      .then((response) => alert(response.data));
+  };
   const oninvalid = (error: FieldErrors) => console.log(error);
 
   return (
@@ -110,7 +118,7 @@ export default function Login() {
         <Input
           placeholder="4~15자 이내로 입력해주세요"
           type="text"
-          {...register("id", { required: "아이디를 입력해주세요!" })}
+          {...register("userID", { required: "아이디를 입력해주세요!" })}
         />
         <Label>비밀번호</Label>
         <Input

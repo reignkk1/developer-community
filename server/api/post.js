@@ -1,5 +1,6 @@
 import mysql from "mysql";
 import bcrypt from "bcrypt";
+import session from "express-session";
 
 const db = mysql.createPool({
   host: "localhost",
@@ -48,20 +49,35 @@ export function quotePost(req, res) {
 
 //==================================== User ========================================
 
-export function userPost(req, res) {
+export async function userPost(req, res) {
   const { userID, password, email, name, nickname } = req.body;
+  const hashPassword = await bcrypt.hash(password, 10);
 
-  bcrypt.genSalt(10, function (err, salt) {
-    bcrypt.hash(password, salt, function (err, hashPassword) {
-      const sqlQuery =
-        "INSERT INTO user (userID,password,email,name,nickname) VALUES (?,?,?,?,?)";
-      db.query(
-        sqlQuery,
-        [userID, hashPassword, email, name, nickname],
-        (error, result) => {
-          res.send("성공");
-        }
-      );
-    });
+  const sqlQuery =
+    "INSERT INTO user (userID,password,email,name,nickname) VALUES (?,?,?,?,?)";
+  db.query(
+    sqlQuery,
+    [userID, hashPassword, email, name, nickname],
+    (error, result) => {
+      res.send("성공");
+    }
+  );
+}
+
+export async function userLoginPost(req, res) {
+  const { loginUserID, loginPassword } = req.body;
+
+  const sqlQueryUserID = `SELECT * FROM user WHERE userID = '${loginUserID}'`;
+
+  db.query(sqlQueryUserID, async (error, result) => {
+    if (!result.length) return res.send("아이디가 존재하지 않습니다!");
+
+    const matchPassword = await bcrypt.compare(
+      loginPassword,
+      result[0].password
+    );
+    if (!matchPassword) return res.send("비밀번호가 존재하지 않습니다!");
+    req.session.logined = "true";
+    return res.send("로그인 성공!");
   });
 }

@@ -10,7 +10,6 @@ const db = mysql.createPool({
 export function noticeGet(req, res) {
   const sqlQuery = "SELECT * From notice ORDER BY id DESC;";
   db.query(sqlQuery, (error, result) => {
-    console.log(result);
     return res.send(result);
   });
 }
