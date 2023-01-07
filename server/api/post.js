@@ -1,6 +1,5 @@
 import mysql from "mysql";
 import bcrypt from "bcrypt";
-import session from "express-session";
 
 const db = mysql.createPool({
   host: "localhost",
@@ -50,14 +49,14 @@ export function quotePost(req, res) {
 //==================================== User ========================================
 
 export async function userPost(req, res) {
-  const { userID, password, email, name, nickname } = req.body;
+  const { userID, password, email, name, nickname, create_time } = req.body;
   const hashPassword = await bcrypt.hash(password, 10);
 
   const sqlQuery =
-    "INSERT INTO user (userID,password,email,name,nickname) VALUES (?,?,?,?,?)";
+    "INSERT INTO user (userID,password,email,name,nickname,create_time) VALUES (?,?,?,?,?,?)";
   db.query(
     sqlQuery,
-    [userID, hashPassword, email, name, nickname],
+    [userID, hashPassword, email, name, nickname, create_time],
     (error, result) => {
       res.send("성공");
     }
@@ -77,7 +76,10 @@ export async function userLoginPost(req, res) {
       result[0].password
     );
     if (!matchPassword) return res.send("비밀번호가 존재하지 않습니다!");
+
     req.session.logined = "true";
+    req.session.user = result[0];
+
     return res.send("로그인 성공!");
   });
 }

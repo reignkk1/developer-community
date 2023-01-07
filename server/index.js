@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import {
+  getHome,
   lifeDetailGet,
   lifeGet,
   noticeDetailGet,
@@ -42,7 +43,6 @@ app.use(express.json());
 
 const options = {
   host: "localhost",
-  port: 3306,
   user: "root",
   password: "alsrua17931",
   database: "boarddb",
@@ -56,11 +56,14 @@ app.use(
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+    },
   })
 );
-app.use(cookieParser());
 
 // ============================== Get 요청 =========================================
+
 
 app.get("/notice", noticeGet);
 app.get("/question", questionGet);

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { FieldErrors, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Main = styled.main`
   width: 450px;
@@ -94,14 +94,20 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormData>();
+  const navigate = useNavigate();
   const onValid = (data: IFormData) => {
     axios
       .post("http://localhost:8000/user/login", {
         loginUserID: data.userID,
         loginPassword: data.password,
       })
-      .then((response) => alert(response.data));
+      .then((response) => {
+        response.data === "로그인 성공!"
+          ? navigate("/")
+          : alert(`${response.data}`);
+      });
   };
+
   const oninvalid = (error: FieldErrors) => console.log(error);
 
   return (

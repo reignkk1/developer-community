@@ -7,6 +7,10 @@ const db = mysql.createPool({
   database: "boarddb",
 });
 
+export function getHome(req, res) {
+  console.log(req.session);
+}
+
 export function noticeGet(req, res) {
   const sqlQuery = "SELECT * From notice ORDER BY id DESC;";
   db.query(sqlQuery, (error, result) => {

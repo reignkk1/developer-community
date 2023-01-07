@@ -104,6 +104,7 @@ export default function SignUp() {
         email: data.email,
         name: data.name,
         nickname: data.nickname,
+        create_time: new Date().toLocaleDateString("ko-kr"),
       })
       .then(() => navigate("/login"))
       .then(() => alert("가입이 완료되었습니다!"));
