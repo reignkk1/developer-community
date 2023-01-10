@@ -59,7 +59,7 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
   const [data, setData] = useState<IData[]>();
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/${page}`)
+      .get(`http://localhost:8000/${page}`, { withCredentials: true })
       .then((response) => setData(response.data));
   }, []);
 

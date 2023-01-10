@@ -69,15 +69,17 @@ export async function userLoginPost(req, res) {
   const sqlQueryUserID = `SELECT * FROM user WHERE userID = '${loginUserID}'`;
 
   db.query(sqlQueryUserID, async (error, result) => {
-    if (!result.length) return res.send("아이디가 존재하지 않습니다!");
+    if (!result.length)
+      return res.send({ errorMsg: "아이디가 존재하지 않습니다!" });
 
     const matchPassword = await bcrypt.compare(
       loginPassword,
       result[0].password
     );
-    if (!matchPassword) return res.send("비밀번호가 존재하지 않습니다!");
+    if (!matchPassword)
+      return res.send({ errorMsg: "비밀번호가 존재하지 않습니다!" });
 
-    req.session.logined = "true";
+    req.session.logined = true;
     req.session.user = result[0];
 
     return res.send("로그인 성공!");

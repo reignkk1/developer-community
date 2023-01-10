@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import {
-  getHome,
   lifeDetailGet,
   lifeGet,
   noticeDetailGet,
@@ -33,11 +32,10 @@ import {
 } from "./api/patch.js";
 import session from "express-session";
 import MySQLStore from "express-mysql-session";
-import cookieParser from "cookie-parser";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -63,7 +61,6 @@ app.use(
 );
 
 // ============================== Get 요청 =========================================
-
 
 app.get("/notice", noticeGet);
 app.get("/question", questionGet);

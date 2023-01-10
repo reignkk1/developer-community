@@ -94,17 +94,21 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormData>();
+
   const navigate = useNavigate();
   const onValid = (data: IFormData) => {
     axios
-      .post("http://localhost:8000/user/login", {
-        loginUserID: data.userID,
-        loginPassword: data.password,
-      })
+      .post(
+        "http://localhost:8000/user/login",
+        {
+          loginUserID: data.userID,
+          loginPassword: data.password,
+        },
+        { withCredentials: true }
+      )
       .then((response) => {
-        response.data === "로그인 성공!"
-          ? navigate("/")
-          : alert(`${response.data}`);
+        if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
+        return navigate("/");
       });
   };
 
