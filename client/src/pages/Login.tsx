@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { FieldErrors, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { logined } from "../atom";
 
 const Main = styled.main`
   width: 450px;
@@ -95,6 +97,8 @@ export default function Login() {
     formState: { errors },
   } = useForm<IFormData>();
 
+  const setLogin = useSetRecoilState(logined);
+
   const navigate = useNavigate();
   const onValid = (data: IFormData) => {
     axios
@@ -108,6 +112,7 @@ export default function Login() {
       )
       .then((response) => {
         if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
+        setLogin(response.data);
         return navigate("/");
       });
   };

@@ -82,6 +82,6 @@ export async function userLoginPost(req, res) {
     req.session.logined = true;
     req.session.user = result[0];
 
-    return res.send("로그인 성공!");
+    return res.send(req.session.logined);
   });
 }

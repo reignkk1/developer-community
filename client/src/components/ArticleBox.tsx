@@ -60,7 +60,10 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
   useEffect(() => {
     axios
       .get(`http://localhost:8000/${page}`, { withCredentials: true })
-      .then((response) => setData(response.data));
+      .then((response) => {
+        console.log(response);
+        setData(response.data);
+      });
   }, []);
 
   return (

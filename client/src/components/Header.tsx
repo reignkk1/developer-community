@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { Link, useLocation } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { logined } from "../atom";
 
 const HeaderBox = styled.header<{ pathname: string }>`
   width: 100%;
@@ -68,8 +70,27 @@ const JoinBtn = styled.button`
   }
 `;
 
+const Logout = styled.button`
+  background-color: #0092fa;
+  cursor: pointer;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 13px;
+  &:hover {
+    background-color: #0580d7;
+  }
+`;
+
 export default function Header() {
   const location = useLocation();
+
+  const loginState = useRecoilValue(logined);
+
+  const onClick = () => {};
 
   return (
     <HeaderBox pathname={location.pathname}>
@@ -128,14 +149,18 @@ export default function Header() {
         </MenuItem>
       </Menu>
       <SearchBar />
-      <ButtonBox>
-        <Link to="/login">
-          <LoginBtn>로그인</LoginBtn>
-        </Link>
-        <Link to="/signup">
-          <JoinBtn>회원가입</JoinBtn>
-        </Link>
-      </ButtonBox>
+      {loginState ? (
+        <Logout onClick={onClick}>로그아웃</Logout>
+      ) : (
+        <ButtonBox>
+          <Link to="/login">
+            <LoginBtn>로그인</LoginBtn>
+          </Link>
+          <Link to="/signup">
+            <JoinBtn>회원가입</JoinBtn>
+          </Link>
+        </ButtonBox>
+      )}
     </HeaderBox>
   );
 }
