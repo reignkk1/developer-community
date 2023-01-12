@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import axios from "axios";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { logined } from "../atom";
@@ -70,27 +72,91 @@ const JoinBtn = styled.button`
   }
 `;
 
-const Logout = styled.button`
-  background-color: #0092fa;
+const Avartar = styled.img`
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
   cursor: pointer;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 20px;
-  margin-left: 10px;
+`;
+
+interface IAvartarClick {
+  avartarClick: boolean;
+}
+
+const AvartarMenuBox = styled.div<IAvartarClick>`
+  display: ${(props) => (props.avartarClick ? "block" : "none")};
+  width: 220px;
+  height: 180px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: absolute;
+  right: 120px;
+  top: 60px;
+  border-radius: 5px;
+  background-color: white;
+`;
+
+const AvartarMenu = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 130px;
+  padding: 10px 40px;
+`;
+const AvartarMenuItem = styled.li`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 5px;
+  a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      color: #0092fa;
+    }
+  }
+`;
+
+const LogoutBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  cursor: pointer;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 25px 40px;
   font-weight: bold;
-  font-size: 13px;
   &:hover {
-    background-color: #0580d7;
+    color: #0092fa;
   }
 `;
 
 export default function Header() {
   const location = useLocation();
-
   const loginState = useRecoilValue(logined);
+  const [avartarClick, setAvartarClick] = useState(false);
 
-  const onClick = () => {};
+  const onClick = () => {
+    axios
+      .post("http://localhost:8000/user/logout", {}, { withCredentials: true })
+      .then(() => {
+        window.location.assign("/");
+        sessionStorage.clear();
+      });
+  };
+
+  const onAvatarClick = () => {
+    setAvartarClick((current) => !current);
+  };
+  const onAvatarMenuClick = () => {
+    setAvartarClick((current) => !current);
+  };
 
   return (
     <HeaderBox pathname={location.pathname}>
@@ -150,7 +216,28 @@ export default function Header() {
       </Menu>
       <SearchBar />
       {loginState ? (
-        <Logout onClick={onClick}>로그아웃</Logout>
+        <>
+          <Avartar
+            onClick={onAvatarClick}
+            src="https://www.gravatar.com/avatar/bd5cf9ed71814e2271d4eb4836d470cd?d=identicon&s=96"
+          />
+          <AvartarMenuBox avartarClick={avartarClick}>
+            <AvartarMenu>
+              <AvartarMenuItem onClick={onAvatarMenuClick}>
+                <Link to="/profile">내 프로필</Link>
+              </AvartarMenuItem>
+
+              <AvartarMenuItem onClick={onAvatarMenuClick}>
+                <Link to="/account">내 계정</Link>
+              </AvartarMenuItem>
+
+              <AvartarMenuItem onClick={onAvatarMenuClick}>
+                <Link to="/user">활동내역 </Link>
+              </AvartarMenuItem>
+            </AvartarMenu>
+            <LogoutBtn onClick={onClick}>로그아웃</LogoutBtn>
+          </AvartarMenuBox>
+        </>
       ) : (
         <ButtonBox>
           <Link to="/login">

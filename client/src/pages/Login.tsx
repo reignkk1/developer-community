@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { FieldErrors, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { logined } from "../atom";
 
 const Main = styled.main`

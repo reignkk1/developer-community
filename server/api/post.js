@@ -85,3 +85,8 @@ export async function userLoginPost(req, res) {
     return res.send(req.session.logined);
   });
 }
+
+export function userLogout(req, res) {
+  req.session.destroy();
+  return res.send();
+}

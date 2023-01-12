@@ -16,6 +16,7 @@ import {
   questionPost,
   quotePost,
   userLoginPost,
+  userLogout,
   userPost,
 } from "./API/post.js";
 import {
@@ -80,6 +81,7 @@ app.post("/life", lifePost);
 app.post("/quote", quotePost);
 app.post("/user", userPost);
 app.post("/user/login", userLoginPost);
+app.post("/user/logout", userLogout);
 
 // ============================== DELETE 요청 =======================================
 
