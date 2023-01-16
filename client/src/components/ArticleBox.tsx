@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { IArticle, IData } from "../interface";
 
@@ -55,16 +56,28 @@ const TitleName = styled.div`
   font-size: 18px;
 `;
 
+const Loading = styled.div`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
-  const [data, setData] = useState<IData[]>();
-  useEffect(() => {
+  const { isLoading, error, data } = useQuery<IData[]>(`${page}`, () =>
     axios
       .get(`http://localhost:8000/${page}`, { withCredentials: true })
-      .then((response) => {
-        console.log(response);
-        setData(response.data);
-      });
-  }, []);
+      .then((response) => response.data)
+  );
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8000/${page}`, { withCredentials: true })
+  //     .then((response) => {
+  //       setData(response.data);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, []);
 
   return (
     <Container>
@@ -74,16 +87,23 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
           <Img src={ImgeSrc} />
         </Title>
       </Link>
-      <ListBox>
-        {data?.slice(0, 5).map((item) => (
-          <ListItem key={item.id}>
-            <ListTitle>
-              <Link to={`/${page}/${item.id}`}>{item.title}</Link>
-            </ListTitle>
-            <ListDate>{item.date}</ListDate>
-          </ListItem>
-        ))}
-      </ListBox>
+      {isLoading ? (
+        <Loading>
+          <img src="../public/img/loading.gif" />
+          로딩중...
+        </Loading>
+      ) : (
+        <ListBox>
+          {data?.slice(0, 5).map((item) => (
+            <ListItem key={item.id}>
+              <ListTitle>
+                <Link to={`/${page}/${item.id}`}>{item.title}</Link>
+              </ListTitle>
+              <ListDate>{item.date}</ListDate>
+            </ListItem>
+          ))}
+        </ListBox>
+      )}
     </Container>
   );
 }

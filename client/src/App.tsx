@@ -20,6 +20,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 
 import { RecoilRoot } from "recoil";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const Main = styled.main`
   width: 100%;
@@ -28,60 +29,66 @@ const Main = styled.main`
 `;
 
 function App() {
+  const client = new QueryClient();
   return (
     <Main>
       <Global styles={reset} />
       <RecoilRoot>
-        <Router>
-          <Header />
-          <ScrollToTop />
-          <Routes>
-            {/*==================== global page =================== */}
+        <QueryClientProvider client={client}>
+          <Router>
+            <Header />
+            <ScrollToTop />
+            <Routes>
+              {/*==================== global page =================== */}
 
-            <Route path="/" element={<Home />} />
-            <Route path="/notice" element={<Notice />} />
-            <Route path="/question" element={<Question />} />
-            <Route path="/life" element={<Life />} />
-            <Route path="/quote" element={<Quote />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/notice" element={<Notice />} />
+              <Route path="/question" element={<Question />} />
+              <Route path="/life" element={<Life />} />
+              <Route path="/quote" element={<Quote />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
 
-            {/*==================== write page =================== */}
+              {/*==================== write page =================== */}
 
-            <Route
-              path="/notice/write"
-              element={<Write page={props.page.notice} />}
-            />
-            <Route
-              path="/question/write"
-              element={<Write page={props.page.question} />}
-            />
-            <Route
-              path="/life/write"
-              element={<Write page={props.page.life} />}
-            />
+              <Route
+                path="/notice/write"
+                element={<Write page={props.page.notice} />}
+              />
+              <Route
+                path="/question/write"
+                element={<Write page={props.page.question} />}
+              />
+              <Route
+                path="/life/write"
+                element={<Write page={props.page.life} />}
+              />
 
-            {/*==================== detail page =================== */}
+              {/*==================== detail page =================== */}
 
-            <Route path="/notice/:id" element={<ArticleInfo page="notice" />} />
-            <Route
-              path="/question/:id"
-              element={<ArticleInfo page="question" />}
-            />
-            <Route path="/life/:id" element={<ArticleInfo page="life" />} />
-            <Route path="/quote/:id" element={<ArticleInfo page="quote" />} />
+              <Route
+                path="/notice/:id"
+                element={<ArticleInfo page="notice" />}
+              />
+              <Route
+                path="/question/:id"
+                element={<ArticleInfo page="question" />}
+              />
+              <Route path="/life/:id" element={<ArticleInfo page="life" />} />
+              <Route path="/quote/:id" element={<ArticleInfo page="quote" />} />
 
-            {/*==================== edit page =================== */}
+              {/*==================== edit page =================== */}
 
-            <Route path="/notice/:id/edit" element={<Edit page="notice" />} />
-            <Route
-              path="/question/:id/edit"
-              element={<Edit page="question" />}
-            />
-            <Route path="/life/:id/edit" element={<Edit page="life" />} />
-            <Route path="/quote/:id/edit" element={<QuoteEdit />} />
-          </Routes>
-        </Router>
+              <Route path="/notice/:id/edit" element={<Edit page="notice" />} />
+              <Route
+                path="/question/:id/edit"
+                element={<Edit page="question" />}
+              />
+              <Route path="/life/:id/edit" element={<Edit page="life" />} />
+              <Route path="/quote/:id/edit" element={<QuoteEdit />} />
+            </Routes>
+          </Router>
+        </QueryClientProvider>
       </RecoilRoot>
     </Main>
   );
