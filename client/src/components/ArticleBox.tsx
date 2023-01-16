@@ -2,8 +2,6 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { notice } from "../atom";
 import { IArticle, IData } from "../interface";
 
 const Container = styled.div`
@@ -78,7 +76,7 @@ const Error = styled.div`
 `;
 
 export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
-  const { isLoading, error, data } = useQuery<IData[]>(`${page}`, () =>
+  const { isLoading, error, data } = useQuery<IData[]>(`Home${page}`, () =>
     axios
       .get(`http://localhost:8000/${page}`, { withCredentials: true })
       .then((response) => response.data)
@@ -94,7 +92,7 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
       </Link>
       {isLoading ? (
         <Loading>
-          <img src="img/loading.gif" />
+          <img src="img/loading.gif" alt="로딩중" />
         </Loading>
       ) : error ? (
         <Error>404 Not Found</Error>

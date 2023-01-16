@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { IData, IPage } from "../interface";
@@ -56,7 +55,7 @@ const Error = styled.div`
 `;
 
 export default function ArticleInfo({ page }: IPage) {
-  const { isLoading, error, data } = useQuery<IData>(`${page}`, () =>
+  const { isLoading, error, data } = useQuery<IData>(`Detail${page}`, () =>
     axios
       .get(`http://localhost:8000/${page}/${id}`, { withCredentials: true })
       .then((response) => response.data[0])
@@ -64,12 +63,6 @@ export default function ArticleInfo({ page }: IPage) {
   const { id } = useParams();
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:8000/${page}/${id}`)
-  //     .then((response) => setData(response.data[0]));
-  // }, []);
 
   const deleteClick = () => {
     if (window.confirm("정말로 삭제 하시겠습니까?")) {
@@ -86,7 +79,7 @@ export default function ArticleInfo({ page }: IPage) {
       <ArticleContainer>
         {isLoading ? (
           <Loading>
-            <img src="/img/loading.gif" />
+            <img src="/img/loading.gif" alt="로딩중" />
           </Loading>
         ) : error ? (
           <Error>404 Not Found</Error>

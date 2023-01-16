@@ -5,7 +5,7 @@ const db = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "alsrua17931",
-  database: "boarddb",
+  database: "webdb",
 });
 
 export function noticeDelete(req, res) {
