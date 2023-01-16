@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { IData, IPage } from "../interface";
 
@@ -21,15 +22,48 @@ const ListDate = styled.div`
   opacity: 0.9;
 `;
 
-export default function PagesArticle({ page }: IPage) {
-  const [data, setData] = useState<IData[]>();
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/${page}`)
-      .then((response) => setData(response.data));
-  }, []);
+const Loading = styled.div`
+  width: 100%;
 
-  return (
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 60px;
+    height: 60px;
+  }
+`;
+
+const Error = styled.div`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export default function PagesArticle({ page }: IPage) {
+  const { isLoading, error, data } = useQuery<IData[]>(`${page}`, () =>
+    axios
+      .get(`http://localhost:8000/${page}`, { withCredentials: true })
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+  );
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8000/${page}`)
+  //     .then((response) => setData(response.data));
+  // }, []);
+
+  return isLoading ? (
+    <Loading>
+      <img src="/img/loading.gif" />
+    </Loading>
+  ) : error ? (
+    <Error>404 Not Found</Error>
+  ) : (
     <ListBox>
       {data?.map((item) => (
         <ListItem key={item.id}>

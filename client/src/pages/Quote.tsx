@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import PagesTitle from "../components/PagesTitle";
 import QuoteInput from "../components/QuoteInput";
 import { IData, props } from "../interface";
+import { useQuery } from "react-query";
 
 const Main = styled.main`
   width: 60%;
@@ -28,15 +29,39 @@ const ListDate = styled.div`
   opacity: 0.9;
 `;
 
+const Loading = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 60px;
+    height: 60px;
+  }
+`;
+
+const Error = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export default function Quote() {
-  const [data, setData] = useState<IData[]>();
+  const { isLoading, error, data } = useQuery<IData[]>("quote", () =>
+    axios
+      .get("http://localhost:8000/quote", { withCredentials: true })
+      .then((response) => response.data)
+  );
   const [inputData, setInputData] = useState("");
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/quote")
-      .then((response) => setData(response.data));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8000/quote")
+  //     .then((response) => setData(response.data));
+  // }, []);
 
   const onClick = () => {
     if (!inputData) {
@@ -49,11 +74,7 @@ export default function Quote() {
         date: new Date().toLocaleDateString("ko-kr"),
         writerID: 123,
       })
-      .then(() =>
-        axios
-          .get("http://localhost:8000/quote")
-          .then((response) => setData(response.data))
-      )
+
       .then(() => alert("작성이 완료되었습니다!"));
     setInputData("");
   };
@@ -70,17 +91,25 @@ export default function Quote() {
       />
 
       <QuoteInput onChange={onChange} onClick={onClick} inputData={inputData} />
-      <ListBox>
-        {data?.map((item) => (
-          <ListItem key={item.id}>
-            <Link to={`${item.id}`}>
-              <ListTitle>{item.title}</ListTitle>
-            </Link>
+      {isLoading ? (
+        <Loading>
+          <img src="/img/loading.gif" />
+        </Loading>
+      ) : error ? (
+        <Error>404 Not Found</Error>
+      ) : (
+        <ListBox>
+          {data?.map((item) => (
+            <ListItem key={item.id}>
+              <Link to={`${item.id}`}>
+                <ListTitle>{item.title}</ListTitle>
+              </Link>
 
-            <ListDate>{item.date}</ListDate>
-          </ListItem>
-        ))}
-      </ListBox>
+              <ListDate>{item.date}</ListDate>
+            </ListItem>
+          ))}
+        </ListBox>
+      )}
     </Main>
   );
 }

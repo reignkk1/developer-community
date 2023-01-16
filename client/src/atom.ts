@@ -15,3 +15,8 @@ export const logined = atom({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const notice = atom({
+  key: "noticeArticle",
+  default: [],
+});

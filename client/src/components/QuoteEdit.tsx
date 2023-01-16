@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "@emotion/styled";
+import { useQuery } from "react-query";
 
 const Main = styled.main`
   width: 60%;
@@ -13,6 +14,7 @@ export default function QuoteEdit() {
   const [inputData, setInputData] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get(`http://localhost:8000/quote/${id}`)

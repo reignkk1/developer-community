@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IData, IPage } from "../interface";
 import Parser from "html-react-parser";
 import Button from "./button";
+import { useQuery } from "react-query";
 
 const Main = styled.main`
   width: 60%;
@@ -34,17 +35,41 @@ const ButtonBox = styled.div`
   }
 `;
 
+const Loading = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 60px;
+    height: 60px;
+  }
+`;
+
+const Error = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export default function ArticleInfo({ page }: IPage) {
-  const [data, setData] = useState<IData>();
+  const { isLoading, error, data } = useQuery<IData>(`${page}`, () =>
+    axios
+      .get(`http://localhost:8000/${page}/${id}`, { withCredentials: true })
+      .then((response) => response.data[0])
+  );
   const { id } = useParams();
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/${page}/${id}`)
-      .then((response) => setData(response.data[0]));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8000/${page}/${id}`)
+  //     .then((response) => setData(response.data[0]));
+  // }, []);
 
   const deleteClick = () => {
     if (window.confirm("정말로 삭제 하시겠습니까?")) {
@@ -59,8 +84,18 @@ export default function ArticleInfo({ page }: IPage) {
   return (
     <Main>
       <ArticleContainer>
-        <ArticleTitle>{data?.title}</ArticleTitle>
-        <ArticleText>{Parser(data?.content || "")}</ArticleText>
+        {isLoading ? (
+          <Loading>
+            <img src="/img/loading.gif" />
+          </Loading>
+        ) : error ? (
+          <Error>404 Not Found</Error>
+        ) : (
+          <>
+            <ArticleTitle>{data?.title}</ArticleTitle>
+            <ArticleText>{Parser(data?.content || "")}</ArticleText>
+          </>
+        )}
       </ArticleContainer>
       <ButtonBox>
         <Button onClick={deleteClick} text="삭제" />

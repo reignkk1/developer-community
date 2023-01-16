@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { notice } from "../atom";
 import { IArticle, IData } from "../interface";
 
 const Container = styled.div`
@@ -62,6 +63,18 @@ const Loading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  img {
+    width: 60px;
+    height: 60px;
+  }
+`;
+
+const Error = styled.div`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
@@ -70,14 +83,6 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
       .get(`http://localhost:8000/${page}`, { withCredentials: true })
       .then((response) => response.data)
   );
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:8000/${page}`, { withCredentials: true })
-  //     .then((response) => {
-  //       setData(response.data);
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
 
   return (
     <Container>
@@ -89,9 +94,10 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
       </Link>
       {isLoading ? (
         <Loading>
-          <img src="../public/img/loading.gif" />
-          로딩중...
+          <img src="img/loading.gif" />
         </Loading>
+      ) : error ? (
+        <Error>404 Not Found</Error>
       ) : (
         <ListBox>
           {data?.slice(0, 5).map((item) => (

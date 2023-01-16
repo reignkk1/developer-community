@@ -114,7 +114,8 @@ export default function Login() {
         if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
         setLogin(response.data);
         return navigate("/");
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   const oninvalid = (error: FieldErrors) => console.log(error);
