@@ -4,14 +4,20 @@ import PagesArticle from "../components/PagesArticle";
 import PagesTitle from "../components/PagesTitle";
 import { props } from "../interface";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { logined } from "../atom";
 
 const Main = styled.main`
   width: 60%;
   margin: 0 auto;
 `;
 export default function Life() {
+  const login = useRecoilValue(logined);
   const navigate = useNavigate();
-  const onClick = () => navigate("write");
+  const onClick = () => {
+    if (login) return navigate("write");
+    navigate("/login");
+  };
   return (
     <Main>
       <PagesTitle

@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PagesTitle from "../components/PagesTitle";
 import QuoteInput from "../components/QuoteInput";
 import { IData, props } from "../interface";
 import { useQuery } from "react-query";
+import { logined } from "../atom";
+import { useRecoilValue } from "recoil";
 
 const Main = styled.main`
   width: 60%;
@@ -56,24 +58,25 @@ export default function Quote() {
       .then((response) => response.data)
   );
   const [inputData, setInputData] = useState("");
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:8000/quote")
-  //     .then((response) => setData(response.data));
-  // }, []);
+  const login = useRecoilValue(logined);
 
   const onClick = () => {
+    if (!login) return navigate("/login");
     if (!inputData) {
       return alert("내용을 입력해주세요!");
     }
 
     axios
-      .post("http://localhost:8000/quote", {
-        title: inputData,
-        date: new Date().toLocaleDateString("ko-kr"),
-        writerID: 123,
-      })
+      .post(
+        "http://localhost:8000/quote",
+        {
+          title: inputData,
+          date: new Date().toLocaleDateString("ko-kr"),
+        },
+        { withCredentials: true }
+      )
 
       .then(() => alert("작성이 완료되었습니다!"));
     setInputData("");

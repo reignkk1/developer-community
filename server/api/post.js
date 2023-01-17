@@ -5,45 +5,62 @@ const db = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "alsrua17931",
-  database: "webdb",
+  database: "boarddb",
 });
 
 //==================================== Article ========================================
 
 export function noticePost(req, res) {
-  const { title, content, date, writerID } = req.body;
+  const { title, content, date } = req.body;
 
   const sqlQuery =
-    "INSERT INTO notice (title,content,date,writerID) VALUES (?,?,?,?)";
-  db.query(sqlQuery, [title, content, date, writerID], (error, result) => {
-    res.send("성공!");
-  });
+    "INSERT INTO notice (title,content,date,writerID,nickname) VALUES (?,?,?,?,?)";
+  db.query(
+    sqlQuery,
+    [title, content, date, req.session.user.id, req.session.user.nickname],
+    (error, result) => {
+      res.send("성공!");
+    }
+  );
 }
 export function questionPost(req, res) {
   const { title, content, date, writerID } = req.body;
 
   const sqlQuery =
-    "INSERT INTO question (title,content,date,writerID) VALUES (?,?,?,?)";
-  db.query(sqlQuery, [title, content, date, writerID], (error, result) => {
-    res.send("성공!");
-  });
+    "INSERT INTO question (title,content,date,writerID,nickname) VALUES (?,?,?,?,?)";
+  db.query(
+    sqlQuery,
+    [title, content, date, req.session.user.id, req.session.user.nickname],
+    (error, result) => {
+      res.send("성공!");
+    }
+  );
 }
 export function lifePost(req, res) {
   const { title, content, date, writerID } = req.body;
 
   const sqlQuery =
-    "INSERT INTO life (title,content,date,writerID) VALUES (?,?,?,?)";
-  db.query(sqlQuery, [title, content, date, writerID], (error, result) => {
-    res.send("성공!");
-  });
+    "INSERT INTO life (title,content,date,writerID,nickname) VALUES (?,?,?,?,?)";
+  db.query(
+    sqlQuery,
+    [title, content, date, req.session.user.id, req.session.user.nickname],
+    (error, result) => {
+      res.send("성공!");
+    }
+  );
 }
 export function quotePost(req, res) {
-  const { title, date, writerID } = req.body;
+  const { title, date } = req.body;
 
-  const sqlQuery = "INSERT INTO quote (title,date,writerID) VALUES (?,?,?)";
-  db.query(sqlQuery, [title, date, writerID], (error, result) => {
-    res.send("성공!");
-  });
+  const sqlQuery =
+    "INSERT INTO quote (title,date,writerID,nickname) VALUES (?,?,?,?)";
+  db.query(
+    sqlQuery,
+    [title, date, req.session.user.id, req.session.user.nickname],
+    (error, result) => {
+      res.send("성공!");
+    }
+  );
 }
 
 //==================================== User ========================================

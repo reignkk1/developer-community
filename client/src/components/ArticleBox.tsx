@@ -32,6 +32,7 @@ const ListTitle = styled.div`
 `;
 const ListDate = styled.div`
   opacity: 0.9;
+  font-size: 13px;
 `;
 
 const Title = styled.div`
@@ -75,6 +76,22 @@ const Error = styled.div`
   align-items: center;
 `;
 
+const NicknameBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+const Avartar = styled.img`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 5px;
+`;
+const Nickname = styled.div`
+  font-size: 14px;
+  margin-right: 7px;
+`;
+
 export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
   const { isLoading, error, data } = useQuery<IData[]>(`Home${page}`, () =>
     axios
@@ -100,10 +117,14 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
         <ListBox>
           {data?.slice(0, 5).map((item) => (
             <ListItem key={item.id}>
+              <NicknameBox>
+                <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                <Nickname>{item.nickname}</Nickname>
+                <ListDate>- {item.date}</ListDate>
+              </NicknameBox>
               <ListTitle>
                 <Link to={`/${page}/${item.id}`}>{item.title}</Link>
               </ListTitle>
-              <ListDate>{item.date}</ListDate>
             </ListItem>
           ))}
         </ListBox>

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { logined } from "../atom";
@@ -73,18 +73,13 @@ const JoinBtn = styled.button`
 `;
 
 const Avartar = styled.img`
-  width: 33px;
-  height: 33px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   cursor: pointer;
 `;
 
-interface IAvartarClick {
-  avartarClick: boolean;
-}
-
-const AvartarMenuBox = styled.div<IAvartarClick>`
-  display: ${(props) => (props.avartarClick ? "block" : "none")};
+const AvartarMenuBox = styled.div`
   width: 220px;
   height: 180px;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -219,24 +214,26 @@ export default function Header() {
         <>
           <Avartar
             onClick={onAvatarClick}
-            src="https://www.gravatar.com/avatar/bd5cf9ed71814e2271d4eb4836d470cd?d=identicon&s=96"
+            src="	https://graph.facebook.com/555897032021233/picture?width=100&height=100"
           />
-          <AvartarMenuBox avartarClick={avartarClick}>
-            <AvartarMenu>
-              <AvartarMenuItem onClick={onAvatarMenuClick}>
-                <Link to="/profile">내 프로필</Link>
-              </AvartarMenuItem>
+          {avartarClick ? (
+            <AvartarMenuBox>
+              <AvartarMenu>
+                <AvartarMenuItem onClick={onAvatarMenuClick}>
+                  <Link to="/profile">내 프로필</Link>
+                </AvartarMenuItem>
 
-              <AvartarMenuItem onClick={onAvatarMenuClick}>
-                <Link to="/account">내 계정</Link>
-              </AvartarMenuItem>
+                <AvartarMenuItem onClick={onAvatarMenuClick}>
+                  <Link to="/account">내 계정</Link>
+                </AvartarMenuItem>
 
-              <AvartarMenuItem onClick={onAvatarMenuClick}>
-                <Link to="/user">활동내역 </Link>
-              </AvartarMenuItem>
-            </AvartarMenu>
-            <LogoutBtn onClick={onClick}>로그아웃</LogoutBtn>
-          </AvartarMenuBox>
+                <AvartarMenuItem onClick={onAvatarMenuClick}>
+                  <Link to="/user">활동내역 </Link>
+                </AvartarMenuItem>
+              </AvartarMenu>
+              <LogoutBtn onClick={onClick}>로그아웃</LogoutBtn>
+            </AvartarMenuBox>
+          ) : null}
         </>
       ) : (
         <ButtonBox>

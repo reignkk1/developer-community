@@ -6,17 +6,8 @@ const { persistAtom } = recoilPersist({
   storage: sessionStorage,
 });
 
-export const loginUserInfo = atom({
-  key: "loginUser",
-  default: [],
-});
 export const logined = atom({
   key: "logined",
   default: false,
   effects_UNSTABLE: [persistAtom],
-});
-
-export const notice = atom({
-  key: "noticeArticle",
-  default: [],
 });

@@ -5,6 +5,7 @@ export interface IData {
   writeID: number;
   date: string;
   hits: number;
+  nickname: string;
 }
 
 export interface IArticle {
