@@ -8,7 +8,7 @@ import PagesTitle from "../components/PagesTitle";
 import { props } from "../interface";
 
 const Main = styled.main`
-  width: 60%;
+  width: 900px;
   margin: 0 auto;
 `;
 export default function Questions() {

@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 import { logined } from "../atom";
 
 const Main = styled.main`
-  width: 60%;
+  width: 900px;
   margin: 0 auto;
 `;
 export default function Life() {

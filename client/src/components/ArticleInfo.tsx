@@ -12,7 +12,7 @@ const Main = styled.main`
 `;
 
 const ArticleContainer = styled.div`
-  padding: 100px 0px;
+  padding: 40px 0px;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
@@ -25,7 +25,7 @@ const ArticleTitle = styled.div`
 `;
 const ArticleText = styled.div`
   font-size: 17px;
-  line-height: 1.3;
+  line-height: 2;
 `;
 
 const ButtonBox = styled.div`
@@ -52,6 +52,25 @@ const Error = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const UserBox = styled.div`
+  display: flex;
+  margin-bottom: 30px;
+  align-items: center;
+`;
+const Avartar = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+`;
+const NicknameBox = styled.div``;
+const Nickname = styled.div`
+  margin-bottom: 5px;
+`;
+const Date = styled.div`
+  font-size: 14px;
 `;
 
 export default function ArticleInfo({ page }: IPage) {
@@ -85,6 +104,13 @@ export default function ArticleInfo({ page }: IPage) {
           <Error>404 Not Found</Error>
         ) : (
           <>
+            <UserBox>
+              <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+              <NicknameBox>
+                <Nickname>{data?.nickname}</Nickname>
+                <Date>{data?.date}</Date>
+              </NicknameBox>
+            </UserBox>
             <ArticleTitle>{data?.title}</ArticleTitle>
             <ArticleText>{Parser(data?.content || "")}</ArticleText>
           </>

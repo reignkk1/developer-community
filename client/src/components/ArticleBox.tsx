@@ -79,7 +79,7 @@ const Error = styled.div`
 const NicknameBox = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 `;
 const Avartar = styled.img`
   width: 20px;

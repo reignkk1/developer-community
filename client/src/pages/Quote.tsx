@@ -10,13 +10,13 @@ import { logined } from "../atom";
 import { useRecoilValue } from "recoil";
 
 const Main = styled.main`
-  width: 60%;
+  width: 900px;
   margin: 0 auto;
 `;
 
 const ListBox = styled.ul``;
 const ListItem = styled.li`
-  padding: 30px 0px;
+  padding: 20px 0px;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 `;
 const ListTitle = styled.div`
@@ -49,6 +49,22 @@ const Error = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const NicknameBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+`;
+const Avartar = styled.img`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 5px;
+`;
+const Nickname = styled.div`
+  font-size: 14px;
+  margin-right: 7px;
 `;
 
 export default function Quote() {
@@ -104,6 +120,10 @@ export default function Quote() {
         <ListBox>
           {data?.map((item) => (
             <ListItem key={item.id}>
+              <NicknameBox>
+                <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                <Nickname>{item.nickname}</Nickname>
+              </NicknameBox>
               <Link to={`${item.id}`}>
                 <ListTitle>{item.title}</ListTitle>
               </Link>

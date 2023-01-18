@@ -3,7 +3,7 @@ import ArticleBox from "../components/ArticleBox";
 import { props } from "../interface";
 
 const Main = styled.main`
-  width: 60%;
+  width: 950px;
   height: 100vh;
   margin: 0 auto;
   display: grid;

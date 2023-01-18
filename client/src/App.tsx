@@ -21,6 +21,8 @@ import Login from "./pages/Login";
 
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Profile from "./pages/Profile";
+import Account from "./pages/Account";
 
 const Main = styled.main`
   width: 100%;
@@ -48,6 +50,8 @@ function App() {
               <Route path="/quote" element={<Quote />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/account" element={<Account />} />
 
               {/*==================== write page =================== */}
 

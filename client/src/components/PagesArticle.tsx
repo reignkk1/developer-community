@@ -6,7 +6,7 @@ import { IData, IPage } from "../interface";
 
 const ListBox = styled.ul``;
 const ListItem = styled.li`
-  padding: 30px 0px;
+  padding: 20px 0px;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 `;
 const ListTitle = styled.div`
@@ -41,6 +41,22 @@ const Error = styled.div`
   align-items: center;
 `;
 
+const NicknameBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+const Avartar = styled.img`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 5px;
+`;
+const Nickname = styled.div`
+  font-size: 14px;
+  margin-right: 7px;
+`;
+
 export default function PagesArticle({ page }: IPage) {
   const { isLoading, error, data } = useQuery<IData[]>(`Page${page}`, () =>
     axios
@@ -58,6 +74,10 @@ export default function PagesArticle({ page }: IPage) {
     <ListBox>
       {data?.map((item) => (
         <ListItem key={item.id}>
+          <NicknameBox>
+            <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+            <Nickname>{item.nickname}</Nickname>
+          </NicknameBox>
           <Link to={`/${page}/${item.id}`}>
             <ListTitle>{item.title}</ListTitle>
           </Link>

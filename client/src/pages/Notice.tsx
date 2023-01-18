@@ -6,7 +6,7 @@ import Button from "../components/button";
 import { useNavigate } from "react-router-dom";
 
 const Main = styled.main`
-  width: 60%;
+  width: 900px;
   margin: 0 auto;
 `;
 
