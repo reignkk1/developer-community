@@ -5,6 +5,7 @@ import {
   lifeGet,
   noticeDetailGet,
   noticeGet,
+  profileGet,
   questionDetailGet,
   questionGet,
   quoteDetailGet,
@@ -30,6 +31,7 @@ import {
   lifePatch,
   questionPatch,
   quotePatch,
+  profilePatch,
 } from "./api/patch.js";
 import session from "express-session";
 import MySQLStore from "express-mysql-session";
@@ -73,6 +75,8 @@ app.get("/question/:id", questionDetailGet);
 app.get("/life/:id", lifeDetailGet);
 app.get("/quote/:id", quoteDetailGet);
 
+app.get("/profile", profileGet);
+
 // ============================== POST 요청 =========================================
 
 app.post("/notice", noticePost);
@@ -96,5 +100,7 @@ app.patch("/notice/:id", noticePatch);
 app.patch("/question/:id", questionPatch);
 app.patch("/life/:id", lifePatch);
 app.patch("/quote/:id", quotePatch);
+
+app.patch("/profile", profilePatch);
 
 app.listen(8000, () => console.log("서버가 작동 중입니다!"));

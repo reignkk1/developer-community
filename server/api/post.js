@@ -24,7 +24,7 @@ export function noticePost(req, res) {
   );
 }
 export function questionPost(req, res) {
-  const { title, content, date, writerID } = req.body;
+  const { title, content, date } = req.body;
 
   const sqlQuery =
     "INSERT INTO question (title,content,date,writerID,nickname) VALUES (?,?,?,?,?)";

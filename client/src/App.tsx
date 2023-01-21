@@ -24,6 +24,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import Profile from "./pages/Profile";
 import Account from "./pages/Account";
 
+import { ReactQueryDevtools } from "react-query/devtools";
+
 const Main = styled.main`
   width: 100%;
   height: 200vh;
@@ -92,6 +94,7 @@ function App() {
               <Route path="/quote/:id/edit" element={<QuoteEdit />} />
             </Routes>
           </Router>
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </RecoilRoot>
     </Main>

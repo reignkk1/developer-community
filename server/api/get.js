@@ -62,3 +62,14 @@ export function quoteDetailGet(req, res) {
     return res.send(result);
   });
 }
+
+export function profileGet(req, res) {
+  const {
+    user: { id },
+  } = req.session;
+
+  const sqlQuery = `SELECT name,nickname FROM user WHERE id = ${id}`;
+  db.query(sqlQuery, (error, result) => {
+    return res.send(result);
+  });
+}
