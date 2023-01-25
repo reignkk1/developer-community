@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import MyPageMenu from "../components/MyPageMenu";
-
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { FieldErrors, FieldValues } from "react-hook-form/dist/types";
 import { useEffect, useState } from "react";
+import Button from "../components/button";
 
 const Main = styled.main`
   width: 1280px;
@@ -130,7 +130,7 @@ export default function Profile() {
                 value={isLoading ? "" : nickname}
                 onChange={onChangeNickname}
               />
-              <button>확인</button>
+              <Button text="저장" />
             </UserForm>
           </UserInfo>
           <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=200&height=200" />
