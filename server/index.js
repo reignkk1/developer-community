@@ -32,6 +32,7 @@ import {
   questionPatch,
   quotePatch,
   profilePatch,
+  passWordChangePatch,
 } from "./api/patch.js";
 import session from "express-session";
 import MySQLStore from "express-mysql-session";
@@ -102,5 +103,6 @@ app.patch("/life/:id", lifePatch);
 app.patch("/quote/:id", quotePatch);
 
 app.patch("/profile", profilePatch);
+app.patch("/passWord", passWordChangePatch);
 
 app.listen(8000, () => console.log("서버가 작동 중입니다!"));

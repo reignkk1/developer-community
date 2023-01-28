@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { logined } from "../atom";
@@ -13,6 +13,8 @@ const HeaderBox = styled.header<{ pathname: string }>`
     props.pathname === "/signup"
       ? "none"
       : props.pathname === "/login"
+      ? "none"
+      : props.pathname === "/account/password-change"
       ? "none"
       : "flex"};
   justify-content: space-between;

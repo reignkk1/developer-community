@@ -25,6 +25,7 @@ import Profile from "./pages/Profile";
 import Account from "./pages/Account";
 
 import { ReactQueryDevtools } from "react-query/devtools";
+import PasswordChange from "./pages/PasswordChange";
 
 const Main = styled.main`
   width: 100%;
@@ -54,6 +55,10 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/account" element={<Account />} />
+              <Route
+                path="/account/password-change"
+                element={<PasswordChange />}
+              />
 
               {/*==================== write page =================== */}
 

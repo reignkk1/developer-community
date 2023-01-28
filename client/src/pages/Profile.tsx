@@ -3,7 +3,7 @@ import MyPageMenu from "../components/MyPageMenu";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { FieldErrors, FieldValues } from "react-hook-form/dist/types";
+import { FieldErrors } from "react-hook-form/dist/types";
 import { useEffect, useState } from "react";
 import Button from "../components/button";
 
@@ -66,14 +66,7 @@ interface IData {
 }
 
 export default function Profile() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const [name, setName] = useState("");
-  const [nickname, setNickname] = useState("");
+  const { register, handleSubmit, setValue, watch } = useForm<IData>();
 
   const { isLoading, error, data } = useQuery<IData>("user-profile", () =>
     axios
@@ -82,18 +75,14 @@ export default function Profile() {
   );
 
   useEffect(() => {
-    setName(data?.name + "");
-    setNickname(data?.nickname + "");
-  }, [data]);
+    setValue("name", isLoading ? "" : error ? "Not Find" : data?.name + "");
+    setValue(
+      "nickname",
+      isLoading ? "" : error ? "Not Find" : data?.nickname + ""
+    );
+  }, [isLoading]);
 
-  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-  const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
-  };
-
-  const onValid = (data: FieldValues) => {
+  const onValid = (data: IData) => {
     axios
       .patch(
         "http://localhost:8000/profile",
@@ -104,7 +93,8 @@ export default function Profile() {
   };
 
   const oninvalid = (error: FieldErrors) => {
-    console.log(error);
+    if (error.name?.message) return alert(`${error.name.message}`);
+    if (error.nickname?.message) return alert(`${error.nickname.message}`);
   };
   return (
     <Main>
@@ -114,22 +104,30 @@ export default function Profile() {
           <UserInfo>
             <Title>회원정보</Title>
             <UserForm onSubmit={handleSubmit(onValid, oninvalid)}>
-              <Label>이름</Label>
+              <Label htmlFor="name">이름</Label>
               <Input
+                id="name"
                 {...register("name", {
                   required: "이름을 입력해주세요!",
                 })}
-                value={isLoading ? "" : name}
-                onChange={onChangeName}
+                placeholder={
+                  watch("name") === "" ? "이름을 입력해주세요!" : undefined
+                }
               />
-              <Label>닉네임</Label>
+
+              <Label htmlFor="nickname">닉네임</Label>
               <Input
+                id="nickname"
                 {...register("nickname", {
                   required: "닉네임을 입력해주세요!",
                 })}
-                value={isLoading ? "" : nickname}
-                onChange={onChangeNickname}
+                placeholder={
+                  watch("nickname") === ""
+                    ? "닉네임을 입력해주세요!"
+                    : undefined
+                }
               />
+
               <Button text="저장" />
             </UserForm>
           </UserInfo>
