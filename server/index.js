@@ -25,6 +25,7 @@ import {
   noticeDelete,
   questionDelete,
   quoteDelete,
+  userDelete,
 } from "./API/delete.js";
 import {
   noticePatch,
@@ -94,6 +95,7 @@ app.delete("/notice/:id", noticeDelete);
 app.delete("/question/:id", questionDelete);
 app.delete("/life/:id", lifeDelete);
 app.delete("/quote/:id", quoteDelete);
+app.delete("/user", userDelete);
 
 // ============================== PATCH 요청 ========================================
 

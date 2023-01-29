@@ -39,3 +39,12 @@ export function quoteDelete(req, res) {
     return res.send(result);
   });
 }
+
+export function userDelete(req, res) {
+  const { id } = req.session.user;
+  const sqlQuery = `DELETE FROM user WHERE id = ${id}`;
+  db.query(sqlQuery, (error, result) => {
+    req.session.destroy();
+    return res.send(result);
+  });
+}

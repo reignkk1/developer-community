@@ -26,6 +26,7 @@ import Account from "./pages/Account";
 
 import { ReactQueryDevtools } from "react-query/devtools";
 import PasswordChange from "./pages/PasswordChange";
+import WithdrawConfirm from "./pages/WithdrawConfirm";
 
 const Main = styled.main`
   width: 100%;
@@ -58,6 +59,10 @@ function App() {
               <Route
                 path="/account/password-change"
                 element={<PasswordChange />}
+              />
+              <Route
+                path="/account/withdraw-confirm"
+                element={<WithdrawConfirm />}
               />
 
               {/*==================== write page =================== */}

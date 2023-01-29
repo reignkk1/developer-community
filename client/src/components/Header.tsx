@@ -16,6 +16,8 @@ const HeaderBox = styled.header<{ pathname: string }>`
       ? "none"
       : props.pathname === "/account/password-change"
       ? "none"
+      : props.pathname === "/account/withdraw-confirm"
+      ? "none"
       : "flex"};
   justify-content: space-between;
   align-items: center;
@@ -143,8 +145,8 @@ export default function Header() {
     axios
       .post("http://localhost:8000/user/logout", {}, { withCredentials: true })
       .then(() => {
-        window.location.assign("/");
         sessionStorage.clear();
+        window.location.assign("/");
       });
   };
 

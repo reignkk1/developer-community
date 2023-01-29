@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Main = styled.main`
   width: 450px;
   height: 1000px;
   margin: 0 auto;
-
   text-align: center;
 `;
 const LogoBox = styled.div`
@@ -75,6 +74,8 @@ export default function PasswordChange() {
     formState: { errors },
   } = useForm<IData>();
 
+  const navigate = useNavigate();
+
   const onValid = (data: IData) => {
     const { currentPassWord, newPassWord, passWordComfirm } = data;
     if (data.newPassWord !== data.passWordComfirm)
@@ -85,7 +86,10 @@ export default function PasswordChange() {
         { currentPassWord, newPassWord, passWordComfirm },
         { withCredentials: true }
       )
-      .then((response) => alert(`${response.data}`))
+      .then((response) => {
+        navigate("/account");
+        alert(`${response.data}`);
+      })
       .catch((error) => console.log(error));
   };
   const oninvalid = () => {};
