@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { IData, IPage } from "../interface";
+import { IArticleInfo, IData, IPage } from "../interface";
 import Parser from "html-react-parser";
 import Button from "./button";
 import { useQuery } from "react-query";
+import { logined } from "../atom";
+import { useRecoilValue } from "recoil";
 
 const Main = styled.main`
   width: 60%;
@@ -74,11 +76,19 @@ const Date = styled.div`
 `;
 
 export default function ArticleInfo({ page }: IPage) {
-  const { isLoading, error, data } = useQuery<IData>(`Detail${page}`, () =>
-    axios
-      .get(`http://localhost:8000/${page}/${id}`, { withCredentials: true })
-      .then((response) => response.data[0])
+  const { isLoading, error, data } = useQuery<IArticleInfo>(
+    `Detail${page}`,
+    () =>
+      axios
+        .get(`http://localhost:8000/${page}/${id}`, { withCredentials: true })
+        .then((response) => {
+          console.log(response);
+          return response.data;
+        })
   );
+
+  const loginState = useRecoilValue(logined);
+
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -107,19 +117,21 @@ export default function ArticleInfo({ page }: IPage) {
             <UserBox>
               <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
               <NicknameBox>
-                <Nickname>{data?.nickname}</Nickname>
-                <Date>{data?.date}</Date>
+                <Nickname>{data?.user[0].nickname}</Nickname>
+                <Date>{data?.user[0].date}</Date>
               </NicknameBox>
             </UserBox>
-            <ArticleTitle>{data?.title}</ArticleTitle>
-            <ArticleText>{Parser(data?.content || "")}</ArticleText>
+            <ArticleTitle>{data?.user[0].title}</ArticleTitle>
+            <ArticleText>{Parser(data?.user[0].content || "")}</ArticleText>
           </>
         )}
       </ArticleContainer>
-      <ButtonBox>
-        <Button onClick={deleteClick} text="삭제" />
-        <Button onClick={editClick} text="수정" />
-      </ButtonBox>
+      {loginState && data?.writerMatch ? (
+        <ButtonBox>
+          <Button onClick={deleteClick} text="삭제" />
+          <Button onClick={editClick} text="수정" />
+        </ButtonBox>
+      ) : null}
     </Main>
   );
 }

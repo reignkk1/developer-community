@@ -1,3 +1,18 @@
+export interface IArticleInfo {
+  user: [
+    {
+      id: number;
+      title: string;
+      content: string;
+      writeID: number;
+      date: string;
+      hits: number;
+      nickname: string;
+    }
+  ];
+  writerMatch: boolean;
+}
+
 export interface IData {
   id: number;
   title: string;

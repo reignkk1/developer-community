@@ -59,9 +59,6 @@ app.use(
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-    },
   })
 );
 

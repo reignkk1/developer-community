@@ -35,23 +35,45 @@ export function quoteGet(req, res) {
 
 export function noticeDetailGet(req, res) {
   const { id } = req.params;
+
   const sqlQuery = `SELECT * FROM notice WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    if (req.session.user) {
+      const { id } = req.session.user;
+
+      if (String(id) === result[0].writerID) {
+        return res.send({ user: result, writerMatch: true });
+      }
+    }
+    return res.send({ user: result, writerMatch: false });
   });
 }
 export function questionDetailGet(req, res) {
   const { id } = req.params;
   const sqlQuery = `SELECT * FROM question WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    if (req.session.user) {
+      const { id } = req.session.user;
+
+      if (String(id) === result[0].writerID) {
+        return res.send({ user: result, writerMatch: true });
+      }
+    }
+    return res.send({ user: result, writerMatch: false });
   });
 }
 export function lifeDetailGet(req, res) {
   const { id } = req.params;
   const sqlQuery = `SELECT * FROM life WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    if (req.session.user) {
+      const { id } = req.session.user;
+
+      if (String(id) === result[0].writerID) {
+        return res.send({ user: result, writerMatch: true });
+      }
+    }
+    return res.send({ user: result, writerMatch: false });
   });
 }
 
@@ -59,7 +81,14 @@ export function quoteDetailGet(req, res) {
   const { id } = req.params;
   const sqlQuery = `SELECT * FROM quote WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    if (req.session.user) {
+      const { id } = req.session.user;
+
+      if (String(id) === result[0].writerID) {
+        return res.send({ user: result, writerMatch: true });
+      }
+    }
+    return res.send({ user: result, writerMatch: false });
   });
 }
 
