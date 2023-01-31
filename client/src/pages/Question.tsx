@@ -12,11 +12,10 @@ const Main = styled.main`
   margin: 0 auto;
 `;
 export default function Questions() {
-  const login = useRecoilValue(logined);
+  const loginState = useRecoilValue(logined);
   const navigate = useNavigate();
   const onClick = () => {
-    if (login) return navigate("write");
-    navigate("/login");
+    loginState ? navigate("write") : navigate("/login");
   };
   return (
     <Main>

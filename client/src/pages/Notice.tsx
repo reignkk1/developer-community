@@ -4,6 +4,8 @@ import PagesTitle from "../components/PagesTitle";
 import PagesArticle from "../components/PagesArticle";
 import Button from "../components/button";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { logined } from "../atom";
 
 const Main = styled.main`
   width: 900px;
@@ -12,7 +14,10 @@ const Main = styled.main`
 
 export default function Notice() {
   const navigate = useNavigate();
-  const onClick = () => navigate("write");
+  const loginState = useRecoilValue(logined);
+  const onClick = () => {
+    loginState ? navigate("write") : navigate("/login");
+  };
   return (
     <Main>
       <PagesTitle

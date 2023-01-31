@@ -76,10 +76,10 @@ export default function Quote() {
   const [inputData, setInputData] = useState("");
   const navigate = useNavigate();
 
-  const login = useRecoilValue(logined);
+  const loginState = useRecoilValue(logined);
 
   const onClick = () => {
-    if (!login) return navigate("/login");
+    if (!loginState) return navigate("/login");
     if (!inputData) {
       return alert("내용을 입력해주세요!");
     }

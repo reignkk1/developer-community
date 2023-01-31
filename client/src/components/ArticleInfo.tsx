@@ -7,6 +7,7 @@ import Button from "./button";
 import { useQuery } from "react-query";
 import { logined } from "../atom";
 import { useRecoilValue } from "recoil";
+import CommentWrite from "./CommentWrite";
 
 const Main = styled.main`
   width: 60%;
@@ -132,6 +133,7 @@ export default function ArticleInfo({ page }: IPage) {
           <Button onClick={editClick} text="수정" />
         </ButtonBox>
       ) : null}
+      <CommentWrite loginState={loginState} />
     </Main>
   );
 }
