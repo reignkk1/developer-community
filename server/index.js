@@ -3,6 +3,7 @@ import cors from "cors";
 import {
   lifeDetailGet,
   lifeGet,
+  noticeCommentsGet,
   noticeDetailGet,
   noticeGet,
   profileGet,
@@ -12,6 +13,7 @@ import {
   quoteGet,
 } from "./api/get.js";
 import {
+  commentPost,
   lifePost,
   noticePost,
   questionPost,
@@ -69,6 +71,7 @@ app.get("/question", questionGet);
 app.get("/life", lifeGet);
 app.get("/quote", quoteGet);
 
+app.get("/notice/:id/comments", noticeCommentsGet);
 app.get("/notice/:id", noticeDetailGet);
 app.get("/question/:id", questionDetailGet);
 app.get("/life/:id", lifeDetailGet);
@@ -85,6 +88,7 @@ app.post("/quote", quotePost);
 app.post("/user", userPost);
 app.post("/user/login", userLoginPost);
 app.post("/user/logout", userLogout);
+app.post("/comment", commentPost);
 
 // ============================== DELETE 요청 =======================================
 

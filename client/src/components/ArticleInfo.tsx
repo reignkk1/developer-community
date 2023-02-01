@@ -8,6 +8,7 @@ import { useQuery } from "react-query";
 import { logined } from "../atom";
 import { useRecoilValue } from "recoil";
 import CommentWrite from "./CommentWrite";
+import Comments from "./Comments";
 
 const Main = styled.main`
   width: 60%;
@@ -82,10 +83,7 @@ export default function ArticleInfo({ page }: IPage) {
     () =>
       axios
         .get(`http://localhost:8000/${page}/${id}`, { withCredentials: true })
-        .then((response) => {
-          console.log(response);
-          return response.data;
-        })
+        .then((response) => response.data)
   );
 
   const loginState = useRecoilValue(logined);
@@ -133,7 +131,8 @@ export default function ArticleInfo({ page }: IPage) {
           <Button onClick={editClick} text="수정" />
         </ButtonBox>
       ) : null}
-      <CommentWrite loginState={loginState} />
+      <CommentWrite loginState={loginState} postID={id} page={page} />
+      <Comments page={page} postID={id} />
     </Main>
   );
 }

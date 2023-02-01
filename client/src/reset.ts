@@ -132,6 +132,7 @@ const reset = css`
     text-decoration: none;
     color: black;
   }
+
   .ck-editor__editable {
     height: 400px;
     margin-bottom: 30px;

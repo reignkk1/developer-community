@@ -102,3 +102,34 @@ export function profileGet(req, res) {
     return res.send(result);
   });
 }
+
+//==================================== Comments =====================================
+
+export function noticeCommentsGet(req, res) {
+  const { id } = req.params;
+  const sqlQuery = `SELECT * From comments WHERE postID=${Number(
+    id
+  )} AND page = 'notice' `;
+  db.query(sqlQuery, (error, result) => {
+    return res.send(result);
+  });
+}
+export function questionCommentsGet(req, res) {
+  const sqlQuery = "SELECT * From question ORDER BY id DESC;";
+  db.query(sqlQuery, (error, result) => {
+    return res.send(result);
+  });
+}
+export function lifeCommentsGet(req, res) {
+  const sqlQuery = "SELECT * From life ORDER BY id DESC;";
+  db.query(sqlQuery, (error, result) => {
+    return res.send(result);
+  });
+}
+
+export function quoteCommentsGet(req, res) {
+  const sqlQuery = "SELECT * From quote ORDER BY id DESC;";
+  db.query(sqlQuery, (error, result) => {
+    return res.send(result);
+  });
+}

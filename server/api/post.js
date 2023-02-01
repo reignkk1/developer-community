@@ -107,3 +107,22 @@ export function userLogout(req, res) {
   req.session.destroy();
   return res.send();
 }
+
+//==================================== Comment ========================================
+
+export function commentPost(req, res) {
+  const { commentText, date, postID, page } = req.body;
+  const { id, nickname } = req.session.user;
+
+  const sqlQuery = `INSERT INTO comments (text,date,postID,writerID,nickname,page) VALUES (?,?,?,?,?,?)`;
+
+  db.query(
+    sqlQuery,
+    [commentText, date, postID, id, nickname, page],
+    (error, result) => {
+      console.log(error);
+      return res.send();
+    }
+  );
+  return res.send("");
+}

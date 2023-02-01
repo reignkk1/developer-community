@@ -56,6 +56,8 @@ export function profilePatch(req, res) {
    `;
 
   db.query(sqlQuery, (error, result) => {
+    req.session.user.nickname = nickname;
+    console.log(req.session.user);
     return res.send("성공");
   });
 }

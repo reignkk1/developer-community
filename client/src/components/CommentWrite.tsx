@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { FieldErrors } from "react-hook-form/dist/types";
+import axios from "axios";
+import { useQuery } from "react-query";
 
 const Container = styled.div`
   height: 180px;
@@ -47,6 +50,13 @@ const P = styled.p`
 const WriteBtn = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  span {
+    color: red;
+    font-size: 15px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+  }
 `;
 const Btn = styled.button`
   background-color: #0092fa;
@@ -71,63 +81,101 @@ const WriteBox2 = styled.div`
 `;
 const Form = styled.form`
   width: 100%;
+  margin-top: 5px;
 `;
 const Input = styled.input`
   width: 100%;
+  height: 40px;
   padding: 10px;
   margin-bottom: 30px;
+  outline: none;
+  &:focus {
+    border: 1px solid #0580d7;
+  }
 `;
 const UserAvartar = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  margin-right: 8px;
 `;
 
-interface IloginState {
+interface ICommentInfo {
   loginState: Boolean;
+  postID: string | undefined;
+  page: string;
 }
 
-interface IComment {
+interface ICommentText {
   commentText: string;
 }
 
-export default function CommentWrite({ loginState }: IloginState) {
+export default function CommentWrite({
+  loginState,
+  postID,
+  page,
+}: ICommentInfo) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IComment>();
+    setValue,
+  } = useForm<ICommentText>();
 
-  const onValid = (data: IComment) => {
-    console.log(data);
+  const onValid = (data: ICommentText) => {
+    axios
+      .post(
+        "http://localhost:8000/comment",
+        {
+          commentText: data.commentText,
+          date: new Date().toLocaleDateString("ko-kr"),
+          postID: Number(postID),
+          page: page,
+        },
+        { withCredentials: true }
+      )
+      .then(() => {
+        setValue("commentText", "");
+        return alert("댓글 생성완료!");
+      });
   };
-  const oninvalid = () => {};
+  const oninvalid = (error: FieldErrors) => {
+    console.log(error);
+  };
 
   return (
     <Container>
-      {/* <WriteBox>
-        <Avartar src="https://okky.kr/icons/icon-profile.svg" />
-        <TextArea readOnly />
-        <P>
-          댓글을 쓰려면 <Link to="/login">로그인</Link>이 필요합니다.
-        </P>
-      </WriteBox> 
-       <WriteBtn>
-          <Btn disable>댓글쓰기</Btn>
-        </WriteBtn> */}
-      <WriteBox2>
-        <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
-        <Form onSubmit={handleSubmit(onValid, oninvalid)}>
-          <Input
-            {...register("commentText", { required: "1자 이상 입력해주세요!" })}
-            type=""
-          />
+      {loginState ? (
+        <WriteBox2>
+          <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+          <Form onSubmit={handleSubmit(onValid, oninvalid)}>
+            <Input
+              {...register("commentText", {
+                required: "1자 이상 입력해주세요!",
+              })}
+              type="text"
+            />
 
+            <WriteBtn>
+              <span>{errors.commentText?.message}</span>
+              <Btn>댓글쓰기</Btn>
+            </WriteBtn>
+          </Form>
+        </WriteBox2>
+      ) : (
+        <>
+          <WriteBox>
+            <Avartar src="https://okky.kr/icons/icon-profile.svg" />
+            <TextArea readOnly />
+            <P>
+              댓글을 쓰려면 <Link to="/login">로그인</Link>이 필요합니다.
+            </P>
+          </WriteBox>
           <WriteBtn>
-            <Btn>댓글쓰기</Btn>
+            <Btn disabled>댓글쓰기</Btn>
           </WriteBtn>
-        </Form>
-      </WriteBox2>
+        </>
+      )}
     </Container>
   );
 }
