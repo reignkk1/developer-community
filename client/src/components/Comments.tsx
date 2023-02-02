@@ -8,8 +8,7 @@ const Container = styled.div`
 const CommentsBox = styled.ul``;
 const CommentsItem = styled.li`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding-bottom: 80px;
-
+  padding-bottom: 20px;
   margin-bottom: 40px;
 `;
 const User = styled.div`
@@ -33,32 +32,75 @@ const Date = styled.div`
 `;
 const Text = styled.div``;
 
+const BtnBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+`;
+
+const Btn = styled.button`
+  background-color: #0092fa;
+  cursor: pointer;
+  border: none;
+  color: white;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  &:hover {
+    background-color: #0580d7;
+  }
+`;
+const DeleteBtn = styled(Btn)`
+  margin-right: 5px;
+`;
+const ModifyBtn = styled(Btn)``;
+
 interface ICommentsProps {
   page: string;
   postID: string | undefined;
 }
 
 interface IData {
-  id: number;
-  date: string;
-  text: string;
-  postID: number;
-  writerID: number;
-  page: string;
-  nickname: string;
+  info: [
+    {
+      id: number;
+      date: string;
+      text: string;
+      postID: number;
+      writerID: number;
+      page: string;
+      nickname: string;
+      userID: number;
+    }
+  ];
+  userID: number;
 }
 
 export default function Comments({ page, postID }: ICommentsProps) {
-  const { isLoading, data, error } = useQuery<IData[]>(`${page}Comments`, () =>
+  const { isLoading, data, error } = useQuery<IData>(`${page}Comments`, () =>
     axios
-      .get(`http://localhost:8000/${page}/${postID}/comments`)
+      .get(`http://localhost:8000/${page}/${postID}/comments`, {
+        withCredentials: true,
+      })
       .then((response) => response.data)
   );
   console.log(data);
+
+  const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = Number(e.currentTarget.parentElement?.id);
+    if (window.confirm("정말로 삭제하겠습니까?")) {
+      axios
+        .delete(`http://localhost:8000/comment/${id}`)
+        .then((response) => alert("삭제완료!"));
+    }
+
+    return;
+  };
+  const onModify = () => {};
   return (
     <Container>
       <CommentsBox>
-        {data?.map((data) => (
+        {data?.info.map((data) => (
           <CommentsItem key={data.id}>
             <User>
               <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
@@ -68,6 +110,10 @@ export default function Comments({ page, postID }: ICommentsProps) {
               </UserInfo>
             </User>
             <Text>{data.text}</Text>
+            <BtnBox id={`${data.id}`}>
+              <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
+              <ModifyBtn onClick={onModify}>수정</ModifyBtn>
+            </BtnBox>
           </CommentsItem>
         ))}
       </CommentsBox>

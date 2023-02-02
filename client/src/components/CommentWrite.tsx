@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { FieldErrors } from "react-hook-form/dist/types";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
 
 const Container = styled.div`
   height: 180px;

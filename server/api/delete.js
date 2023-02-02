@@ -48,3 +48,13 @@ export function userDelete(req, res) {
     return res.send(result);
   });
 }
+
+export function commentDelete(req, res) {
+  const { id } = req.params;
+
+  const sqlQuery = `DELETE FROM comments WHERE id = ${id}`;
+
+  db.query(sqlQuery, (error, result) => {
+    return res.send(result);
+  });
+}

@@ -107,11 +107,13 @@ export function profileGet(req, res) {
 
 export function noticeCommentsGet(req, res) {
   const { id } = req.params;
+
   const sqlQuery = `SELECT * From comments WHERE postID=${Number(
     id
   )} AND page = 'notice' `;
+
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    return res.send({ info: result, userID: req.session.user.id });
   });
 }
 export function questionCommentsGet(req, res) {

@@ -75,6 +75,7 @@ export default function Write({ page }: IPage) {
       <Title>본문</Title>
       <CKEditor
         editor={ClassicEditer}
+        config={{}}
         onChange={(event, editor) => {
           const data = editor.getData();
 

@@ -23,6 +23,7 @@ import {
   userPost,
 } from "./API/post.js";
 import {
+  commentDelete,
   lifeDelete,
   noticeDelete,
   questionDelete,
@@ -97,6 +98,7 @@ app.delete("/question/:id", questionDelete);
 app.delete("/life/:id", lifeDelete);
 app.delete("/quote/:id", quoteDelete);
 app.delete("/user", userDelete);
+app.delete("/comment/:id", commentDelete);
 
 // ============================== PATCH 요청 ========================================
 
