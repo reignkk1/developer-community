@@ -1,14 +1,17 @@
 import express from "express";
 import cors from "cors";
 import {
+  lifeCommentsGet,
   lifeDetailGet,
   lifeGet,
   noticeCommentsGet,
   noticeDetailGet,
   noticeGet,
   profileGet,
+  questionCommentsGet,
   questionDetailGet,
   questionGet,
+  quoteCommentsGet,
   quoteDetailGet,
   quoteGet,
 } from "./api/get.js";
@@ -37,6 +40,7 @@ import {
   quotePatch,
   profilePatch,
   passWordChangePatch,
+  commentTextChange,
 } from "./api/patch.js";
 import session from "express-session";
 import MySQLStore from "express-mysql-session";
@@ -73,6 +77,10 @@ app.get("/life", lifeGet);
 app.get("/quote", quoteGet);
 
 app.get("/notice/:id/comments", noticeCommentsGet);
+app.get("/question/:id/comments", questionCommentsGet);
+app.get("/life/:id/comments", lifeCommentsGet);
+app.get("/quote/:id/comments", quoteCommentsGet);
+
 app.get("/notice/:id", noticeDetailGet);
 app.get("/question/:id", questionDetailGet);
 app.get("/life/:id", lifeDetailGet);
@@ -109,5 +117,6 @@ app.patch("/quote/:id", quotePatch);
 
 app.patch("/profile", profilePatch);
 app.patch("/passWord", passWordChangePatch);
+app.patch("/comment", commentTextChange);
 
 app.listen(8000, () => console.log("서버가 작동 중입니다!"));

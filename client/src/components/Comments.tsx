@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { logined } from "./../atom";
+import { useState } from "react";
 
 const Container = styled.div`
   margin-top: 100px;
@@ -8,7 +11,7 @@ const Container = styled.div`
 const CommentsBox = styled.ul``;
 const CommentsItem = styled.li`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   margin-bottom: 40px;
 `;
 const User = styled.div`
@@ -55,6 +58,17 @@ const DeleteBtn = styled(Btn)`
 `;
 const ModifyBtn = styled(Btn)``;
 
+const Input = styled.input`
+  width: 100%;
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 14px;
+  outline: none;
+  &:focus {
+    border: 1px solid #0580d7;
+  }
+`;
+
 interface ICommentsProps {
   page: string;
   postID: string | undefined;
@@ -70,21 +84,34 @@ interface IData {
       writerID: number;
       page: string;
       nickname: string;
-      userID: number;
     }
   ];
   userID: number;
 }
 
 export default function Comments({ page, postID }: ICommentsProps) {
-  const { isLoading, data, error } = useQuery<IData>(`${page}Comments`, () =>
-    axios
-      .get(`http://localhost:8000/${page}/${postID}/comments`, {
-        withCredentials: true,
-      })
-      .then((response) => response.data)
+  const { isLoading, data, error } = useQuery<IData>(
+    [`${page}Comments`, postID],
+    () =>
+      axios
+        .get(`http://localhost:8000/${page}/${postID}/comments`, {
+          withCredentials: true,
+        })
+        .then((response) => {
+          setValue(response.data.info[0].text);
+          return response.data;
+        })
   );
   console.log(data);
+
+  const [modify, setModify] = useState(false);
+  const [value, setValue] = useState("");
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.currentTarget.value);
+  };
+  const loginState = useRecoilValue(logined);
+  const userID = data?.userID;
 
   const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const id = Number(e.currentTarget.parentElement?.id);
@@ -93,10 +120,23 @@ export default function Comments({ page, postID }: ICommentsProps) {
         .delete(`http://localhost:8000/comment/${id}`)
         .then((response) => alert("삭제완료!"));
     }
-
     return;
   };
-  const onModify = () => {};
+  const onModify = () => {
+    setModify(true);
+  };
+  const onModifyComplete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = e.currentTarget.parentElement?.id;
+    axios
+      .patch("http://localhost:8000/comment", {
+        commentText: value,
+        commentID: id,
+      })
+      .then(() => {
+        setModify(false);
+        return alert("수정완료!");
+      });
+  };
   return (
     <Container>
       <CommentsBox>
@@ -109,11 +149,21 @@ export default function Comments({ page, postID }: ICommentsProps) {
                 <Date>{data.date}</Date>
               </UserInfo>
             </User>
-            <Text>{data.text}</Text>
-            <BtnBox id={`${data.id}`}>
-              <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
-              <ModifyBtn onClick={onModify}>수정</ModifyBtn>
-            </BtnBox>
+            {modify ? (
+              <Input onChange={onChange} value={value} />
+            ) : (
+              <Text>{data.text}</Text>
+            )}
+            {loginState && userID === data.writerID ? (
+              <BtnBox id={`${data.id}`}>
+                <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
+                {modify ? (
+                  <ModifyBtn onClick={onModifyComplete}>수정완료</ModifyBtn>
+                ) : (
+                  <ModifyBtn onClick={onModify}>수정</ModifyBtn>
+                )}
+              </BtnBox>
+            ) : null}
           </CommentsItem>
         ))}
       </CommentsBox>

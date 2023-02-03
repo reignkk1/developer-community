@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import { Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import reset from "./reset";
@@ -36,6 +41,7 @@ const Main = styled.main`
 
 function App() {
   const client = new QueryClient();
+  const loginState = sessionStorage.getItem("logined");
   return (
     <Main>
       <Global styles={reset} />
@@ -52,32 +58,59 @@ function App() {
               <Route path="/question" element={<Question />} />
               <Route path="/life" element={<Life />} />
               <Route path="/quote" element={<Quote />} />
-              <Route path="/signup" element={<SignUp />} />
+              <Route
+                path="/signup"
+                element={loginState ? <Navigate to="/" /> : <SignUp />}
+              />
               <Route path="/login" element={<Login />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/account" element={<Account />} />
+              <Route
+                path="/profile"
+                element={loginState ? <Profile /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/account"
+                element={loginState ? <Account /> : <Navigate to="/" />}
+              />
               <Route
                 path="/account/password-change"
-                element={<PasswordChange />}
+                element={loginState ? <PasswordChange /> : <Navigate to="/" />}
               />
               <Route
                 path="/account/withdraw-confirm"
-                element={<WithdrawConfirm />}
+                element={loginState ? <WithdrawConfirm /> : <Navigate to="/" />}
               />
 
               {/*==================== write page =================== */}
 
               <Route
                 path="/notice/write"
-                element={<Write page={props.page.notice} />}
+                element={
+                  loginState ? (
+                    <Write page={props.page.notice} />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
               />
               <Route
                 path="/question/write"
-                element={<Write page={props.page.question} />}
+                element={
+                  loginState ? (
+                    <Write page={props.page.question} />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
               />
               <Route
                 path="/life/write"
-                element={<Write page={props.page.life} />}
+                element={
+                  loginState ? (
+                    <Write page={props.page.life} />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
               />
 
               {/*==================== detail page =================== */}
@@ -95,13 +128,28 @@ function App() {
 
               {/*==================== edit page =================== */}
 
-              <Route path="/notice/:id/edit" element={<Edit page="notice" />} />
+              <Route
+                path="/notice/:id/edit"
+                element={
+                  loginState ? <Edit page="notice" /> : <Navigate to="/" />
+                }
+              />
               <Route
                 path="/question/:id/edit"
-                element={<Edit page="question" />}
+                element={
+                  loginState ? <Edit page="question" /> : <Navigate to="/" />
+                }
               />
-              <Route path="/life/:id/edit" element={<Edit page="life" />} />
-              <Route path="/quote/:id/edit" element={<QuoteEdit />} />
+              <Route
+                path="/life/:id/edit"
+                element={
+                  loginState ? <Edit page="life" /> : <Navigate to="/" />
+                }
+              />
+              <Route
+                path="/quote/:id/edit"
+                element={loginState ? <QuoteEdit /> : <Navigate to="/" />}
+              />
             </Routes>
           </Router>
           <ReactQueryDevtools />

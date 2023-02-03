@@ -113,25 +113,40 @@ export function noticeCommentsGet(req, res) {
   )} AND page = 'notice' `;
 
   db.query(sqlQuery, (error, result) => {
-    return res.send({ info: result, userID: req.session.user.id });
+    return res.send({ info: result, userID: req.session.user?.id });
   });
 }
 export function questionCommentsGet(req, res) {
-  const sqlQuery = "SELECT * From question ORDER BY id DESC;";
+  const { id } = req.params;
+
+  const sqlQuery = `SELECT * From comments WHERE postID=${Number(
+    id
+  )} AND page = 'question' `;
+
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    return res.send({ info: result, userID: req.session.user?.id });
   });
 }
 export function lifeCommentsGet(req, res) {
-  const sqlQuery = "SELECT * From life ORDER BY id DESC;";
+  const { id } = req.params;
+
+  const sqlQuery = `SELECT * From comments WHERE postID=${Number(
+    id
+  )} AND page = 'life' `;
+
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    return res.send({ info: result, userID: req.session.user?.id });
   });
 }
 
 export function quoteCommentsGet(req, res) {
-  const sqlQuery = "SELECT * From quote ORDER BY id DESC;";
+  const { id } = req.params;
+
+  const sqlQuery = `SELECT * From comments WHERE postID=${Number(
+    id
+  )} AND page = 'quote' `;
+
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    return res.send({ info: result, userID: req.session.user?.id });
   });
 }

@@ -85,3 +85,11 @@ export async function passWordChangePatch(req, res) {
     }
   });
 }
+
+export function commentTextChange(req, res) {
+  const { commentText, commentID } = req.body;
+  const sqlQuery = `UPDATE comments SET text = '${commentText}' WHERE id =${commentID}`;
+  db.query(sqlQuery, (error, result) => {
+    return res.send(result);
+  });
+}

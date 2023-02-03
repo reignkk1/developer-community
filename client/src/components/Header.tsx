@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { logined } from "../atom";
 
 const HeaderBox = styled.header<{ pathname: string }>`
@@ -138,7 +138,7 @@ const LogoutBtn = styled.div`
 
 export default function Header() {
   const location = useLocation();
-  const loginState = useRecoilValue(logined);
+  const [loginState, setLoginState] = useRecoilState(logined);
   const [avartarClick, setAvartarClick] = useState(false);
 
   const onClick = () => {
@@ -146,7 +146,8 @@ export default function Header() {
       .post("http://localhost:8000/user/logout", {}, { withCredentials: true })
       .then(() => {
         sessionStorage.clear();
-        window.location.assign("/");
+        setLoginState(false);
+        setAvartarClick(false);
       });
   };
 
