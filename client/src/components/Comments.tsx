@@ -105,6 +105,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
   console.log(data);
 
   const [modify, setModify] = useState(false);
+  const [id, setID] = useState("");
   const [value, setValue] = useState("");
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,7 +123,8 @@ export default function Comments({ page, postID }: ICommentsProps) {
     }
     return;
   };
-  const onModify = () => {
+  const onModify = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setID(e.currentTarget.parentElement?.id || "");
     setModify(true);
   };
   const onModifyComplete = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -140,7 +142,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
   return (
     <Container>
       <CommentsBox>
-        {data?.info.map((data) => (
+        {data?.info.map((data, index) => (
           <CommentsItem key={data.id}>
             <User>
               <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
@@ -149,7 +151,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
                 <Date>{data.date}</Date>
               </UserInfo>
             </User>
-            {modify ? (
+            {modify && Number(id) === data.id ? (
               <Input onChange={onChange} value={value} />
             ) : (
               <Text>{data.text}</Text>
@@ -157,7 +159,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
             {loginState && userID === data.writerID ? (
               <BtnBox id={`${data.id}`}>
                 <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
-                {modify ? (
+                {modify && Number(id) === data.id ? (
                   <ModifyBtn onClick={onModifyComplete}>수정완료</ModifyBtn>
                 ) : (
                   <ModifyBtn onClick={onModify}>수정</ModifyBtn>

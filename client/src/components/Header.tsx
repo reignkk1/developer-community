@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { logined } from "../atom";
@@ -140,6 +140,28 @@ export default function Header() {
   const location = useLocation();
   const [loginState, setLoginState] = useRecoilState(logined);
   const [avartarClick, setAvartarClick] = useState(false);
+  const avartarMenu = useRef<HTMLDivElement>(null);
+  const avartar = useRef<HTMLImageElement>(null);
+
+  const onClickOutside = (e: any) => {
+    console.log(
+      !avartarMenu.current?.contains(e.target),
+      !avartar.current?.contains(e.target)
+    );
+    if (
+      !avartarMenu.current?.contains(e.target) &&
+      !avartar.current?.contains(e.target)
+    )
+      setAvartarClick(false);
+  };
+
+  useEffect(() => {
+    if (avartarClick) document.addEventListener("mousedown", onClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", onClickOutside);
+    };
+  }, [avartarClick]);
 
   const onClick = () => {
     axios
@@ -218,11 +240,12 @@ export default function Header() {
       {loginState ? (
         <>
           <Avartar
+            ref={avartar}
             onClick={onAvatarClick}
             src="	https://graph.facebook.com/555897032021233/picture?width=100&height=100"
           />
           {avartarClick ? (
-            <AvartarMenuBox>
+            <AvartarMenuBox ref={avartarMenu}>
               <AvartarMenu>
                 <AvartarMenuItem onClick={onAvatarMenuClick}>
                   <Link to="/profile">내 프로필</Link>
