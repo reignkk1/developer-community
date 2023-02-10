@@ -5,6 +5,7 @@ const db = mysql.createPool({
   user: "root",
   password: "alsrua17931",
   database: "boarddb",
+  multipleStatements: true,
 });
 
 export function noticeGet(req, res) {
@@ -98,6 +99,19 @@ export function profileGet(req, res) {
   } = req.session;
 
   const sqlQuery = `SELECT name,nickname FROM user WHERE id = ${id}`;
+  db.query(sqlQuery, (error, result) => {
+    return res.send(result);
+  });
+}
+
+export function userArticleGet(req, res) {
+  const { id } = req.params;
+  const sqlQuery = `SELECT * From notice WHERE writerID = '${id}'  ORDER BY id DESC  ;
+  SELECT * From question WHERE writerID = '${id}'  ORDER BY id DESC ;
+  SELECT * From life WHERE writerID = '${id}'  ORDER BY id DESC ;
+  SELECT * From quote WHERE writerID = '${id}'  ORDER BY id DESC ;
+  `;
+
   db.query(sqlQuery, (error, result) => {
     return res.send(result);
   });

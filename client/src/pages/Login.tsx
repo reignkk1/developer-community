@@ -3,7 +3,7 @@ import axios from "axios";
 import { FieldErrors, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { logined } from "../atom";
+import { logined, userID } from "../atom";
 
 const Main = styled.main`
   width: 450px;
@@ -98,6 +98,7 @@ export default function Login() {
   } = useForm<IFormData>();
 
   const setLogin = useSetRecoilState(logined);
+  const setUserID = useSetRecoilState(userID);
 
   const navigate = useNavigate();
   const onValid = (data: IFormData) => {
@@ -113,6 +114,7 @@ export default function Login() {
       .then((response) => {
         if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
         setLogin(response.data);
+
         return navigate(-1);
       })
       .catch((error) => console.log(error));

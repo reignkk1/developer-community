@@ -17,7 +17,7 @@ export interface IData {
   id: number;
   title: string;
   content: string;
-  writeID: number;
+  writerID: string;
   date: string;
   hits: number;
   nickname: string;

@@ -14,6 +14,7 @@ import {
   quoteCommentsGet,
   quoteDetailGet,
   quoteGet,
+  userArticleGet,
 } from "./api/get.js";
 import {
   commentPost,
@@ -87,6 +88,9 @@ app.get("/life/:id", lifeDetailGet);
 app.get("/quote/:id", quoteDetailGet);
 
 app.get("/profile", profileGet);
+
+app.get("/user/article/:id", userArticleGet);
+app.get("/user/comment/:id");
 
 // ============================== POST 요청 =========================================
 

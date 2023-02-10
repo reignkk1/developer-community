@@ -118,7 +118,9 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
           {data?.slice(0, 5).map((item) => (
             <ListItem key={item.id}>
               <NicknameBox>
-                <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                <Link to={`/user/${item.writerID}/article`}>
+                  <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                </Link>
                 <Nickname>{item.nickname}</Nickname>
                 <ListDate>- {item.date}</ListDate>
               </NicknameBox>

@@ -32,6 +32,7 @@ import Account from "./pages/Account";
 import { ReactQueryDevtools } from "react-query/devtools";
 import PasswordChange from "./pages/PasswordChange";
 import WithdrawConfirm from "./pages/WithdrawConfirm";
+import UserInfo from "./pages/UserInfo";
 
 const Main = styled.main`
   width: 100%;
@@ -125,6 +126,14 @@ function App() {
               />
               <Route path="/life/:id" element={<ArticleInfo page="life" />} />
               <Route path="/quote/:id" element={<ArticleInfo page="quote" />} />
+              <Route
+                path="/user/:id/article"
+                element={<UserInfo page="article" />}
+              />
+              <Route
+                path="/user/:id/comment"
+                element={<UserInfo page="comment" />}
+              />
 
               {/*==================== edit page =================== */}
 
