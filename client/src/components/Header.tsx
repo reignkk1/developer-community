@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { logined } from "../atom";
 
 const HeaderBox = styled.header<{ pathname: string }>`
@@ -122,6 +122,17 @@ const AvartarMenuItem = styled.li`
   }
 `;
 
+const UserActivity = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    color: #0092fa;
+  }
+`;
+
 const LogoutBtn = styled.div`
   display: flex;
   justify-content: center;
@@ -143,11 +154,9 @@ export default function Header() {
   const avartarMenu = useRef<HTMLDivElement>(null);
   const avartar = useRef<HTMLImageElement>(null);
 
+  const navigate = useNavigate();
+
   const onClickOutside = (e: any) => {
-    console.log(
-      !avartarMenu.current?.contains(e.target),
-      !avartar.current?.contains(e.target)
-    );
     if (
       !avartarMenu.current?.contains(e.target) &&
       !avartar.current?.contains(e.target)
@@ -178,6 +187,12 @@ export default function Header() {
   };
   const onAvatarMenuClick = () => {
     setAvartarClick((current) => !current);
+  };
+
+  const userMe = () => {
+    axios
+      .get("http://localhost:8000/user/me", { withCredentials: true })
+      .then((response) => navigate(`${response.data}`));
   };
 
   return (
@@ -256,7 +271,7 @@ export default function Header() {
                 </AvartarMenuItem>
 
                 <AvartarMenuItem onClick={onAvatarMenuClick}>
-                  <Link to="/user">활동내역 </Link>
+                  <UserActivity onClick={userMe}>활동내역</UserActivity>
                 </AvartarMenuItem>
               </AvartarMenu>
               <LogoutBtn onClick={onClick}>로그아웃</LogoutBtn>

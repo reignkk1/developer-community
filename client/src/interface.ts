@@ -13,7 +13,7 @@ export interface IArticleInfo {
   writerMatch: boolean;
 }
 
-export interface IData {
+export interface IArticleData {
   id: number;
   title: string;
   content: string;
@@ -23,12 +23,22 @@ export interface IData {
   nickname: string;
 }
 
+export interface IComment {
+  id: number;
+  date: string;
+  text: string;
+  postID: number;
+  writerID: number;
+  page: string;
+  nickname: string;
+}
+
 export interface IArticle {
   ImgeSrc: string;
   name: string;
   page: string;
   explain?: string;
-  data?: IData[];
+  data?: IArticleData[];
 }
 
 export interface IPage {

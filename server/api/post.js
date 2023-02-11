@@ -10,55 +10,27 @@ const db = mysql.createPool({
 
 //==================================== Article ========================================
 
-export function noticePost(req, res) {
+export function articlePost(req, res) {
   const { title, content, date } = req.body;
+  const { page } = req.params;
+  const { id, nickname } = req.session.user;
+
+  console.log(title, content, date, page, id, nickname);
 
   const sqlQuery =
-    "INSERT INTO notice (title,content,date,writerID,nickname) VALUES (?,?,?,?,?)";
+    "INSERT INTO posts (title,content,date,writerID,nickname,page) VALUES (?,?,?,?,?,?)";
   db.query(
     sqlQuery,
-    [title, content, date, req.session.user.id, req.session.user.nickname],
+    [
+      title,
+      content,
+      date,
+      req.session.user.id,
+      req.session.user.nickname,
+      page,
+    ],
     (error, result) => {
-      res.send("성공!");
-    }
-  );
-}
-export function questionPost(req, res) {
-  const { title, content, date } = req.body;
-
-  const sqlQuery =
-    "INSERT INTO question (title,content,date,writerID,nickname) VALUES (?,?,?,?,?)";
-  db.query(
-    sqlQuery,
-    [title, content, date, req.session.user.id, req.session.user.nickname],
-    (error, result) => {
-      res.send("성공!");
-    }
-  );
-}
-export function lifePost(req, res) {
-  const { title, content, date, writerID } = req.body;
-
-  const sqlQuery =
-    "INSERT INTO life (title,content,date,writerID,nickname) VALUES (?,?,?,?,?)";
-  db.query(
-    sqlQuery,
-    [title, content, date, req.session.user.id, req.session.user.nickname],
-    (error, result) => {
-      res.send("성공!");
-    }
-  );
-}
-export function quotePost(req, res) {
-  const { title, date } = req.body;
-
-  const sqlQuery =
-    "INSERT INTO quote (title,date,writerID,nickname) VALUES (?,?,?,?)";
-  db.query(
-    sqlQuery,
-    [title, date, req.session.user.id, req.session.user.nickname],
-    (error, result) => {
-      res.send("성공!");
+      return res.send("성공!");
     }
   );
 }

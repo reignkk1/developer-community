@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { IData, IPage } from "../interface";
+import { IArticleData, IPage } from "../interface";
 
 const ListBox = styled.ul``;
 const ListItem = styled.li`
@@ -58,10 +58,12 @@ const Nickname = styled.div`
 `;
 
 export default function PagesArticle({ page }: IPage) {
-  const { isLoading, error, data } = useQuery<IData[]>(`Page${page}`, () =>
-    axios
-      .get(`http://localhost:8000/${page}`, { withCredentials: true })
-      .then((response) => response.data)
+  const { isLoading, error, data } = useQuery<IArticleData[]>(
+    `Page${page}`,
+    () =>
+      axios
+        .get(`http://localhost:8000/${page}`, { withCredentials: true })
+        .then((response) => response.data)
   );
 
   return isLoading ? (

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { IArticleInfo, IData, IPage } from "../interface";
+import { IArticleInfo, IPage } from "../interface";
 import Parser from "html-react-parser";
 import Button from "./button";
 import { useQuery } from "react-query";
@@ -78,6 +78,7 @@ const Date = styled.div`
 `;
 
 export default function ArticleInfo({ page }: IPage) {
+  const { id } = useParams();
   const { isLoading, error, data } = useQuery<IArticleInfo>(
     `Detail${page}`,
     () =>
@@ -87,8 +88,6 @@ export default function ArticleInfo({ page }: IPage) {
   );
 
   const loginState = useRecoilValue(logined);
-
-  const { id } = useParams();
 
   const navigate = useNavigate();
 

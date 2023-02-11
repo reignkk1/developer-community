@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { IData } from "../interface";
-
+import { IArticleData } from "../interface";
 import UserInfoContainer from "../components/UserInfoContainer";
+import { IComment } from "./../interface";
 
 const Main = styled.main`
   width: 800px;
@@ -33,7 +33,7 @@ interface IUserInfoPage {
 export default function UserInfo({ page }: IUserInfoPage) {
   const { id } = useParams();
 
-  const { isLoading, data, error } = useQuery<[]>(["userArticle", page], () =>
+  const { isLoading, data, error } = useQuery<[]>(`user${page}`, () =>
     axios
       .get(`http://localhost:8000/user/${page}/${id}`)
       .then((response) => response.data)
@@ -43,16 +43,27 @@ export default function UserInfo({ page }: IUserInfoPage) {
   return (
     <Main>
       <UserInfoContainer userId={id} />
-      <ItemBox>
-        {data?.map((item: []) =>
-          item.map((item: IData) => (
+      {page === "article" ? (
+        <ItemBox>
+          {data?.map((item: []) =>
+            item.map((item: IArticleData) => (
+              <Item>
+                <ItemTitle>{item.title}</ItemTitle>
+                <ItemDate>{item.date}</ItemDate>
+              </Item>
+            ))
+          )}
+        </ItemBox>
+      ) : (
+        <ItemBox>
+          {data?.map((item: IComment) => (
             <Item>
-              <ItemTitle>{item.title}</ItemTitle>
+              <ItemTitle>{item.text}</ItemTitle>
               <ItemDate>{item.date}</ItemDate>
             </Item>
-          ))
-        )}
-      </ItemBox>
+          ))}
+        </ItemBox>
+      )}
     </Main>
   );
 }

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { IArticle, IData } from "../interface";
+import { IArticle, IArticleData } from "../interface";
 
 const Container = styled.div`
   height: 480px;
@@ -93,10 +93,12 @@ const Nickname = styled.div`
 `;
 
 export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
-  const { isLoading, error, data } = useQuery<IData[]>(`Home${page}`, () =>
-    axios
-      .get(`http://localhost:8000/${page}`, { withCredentials: true })
-      .then((response) => response.data)
+  const { isLoading, error, data } = useQuery<IArticleData[]>(
+    `Home${page}`,
+    () =>
+      axios
+        .get(`http://localhost:8000/${page}`, { withCredentials: true })
+        .then((response) => response.data)
   );
 
   return (

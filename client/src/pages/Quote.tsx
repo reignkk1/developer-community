@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PagesTitle from "../components/PagesTitle";
 import QuoteInput from "../components/QuoteInput";
-import { IData, props } from "../interface";
+import { IArticleData, props } from "../interface";
 import { useQuery } from "react-query";
 import { logined } from "../atom";
 import { useRecoilValue } from "recoil";
@@ -68,7 +68,7 @@ const Nickname = styled.div`
 `;
 
 export default function Quote() {
-  const { isLoading, error, data } = useQuery<IData[]>("quote", () =>
+  const { isLoading, error, data } = useQuery<IArticleData[]>("quote", () =>
     axios
       .get("http://localhost:8000/quote", { withCredentials: true })
       .then((response) => response.data)
@@ -89,6 +89,7 @@ export default function Quote() {
         "http://localhost:8000/quote",
         {
           title: inputData,
+          content: inputData,
           date: new Date().toLocaleDateString("ko-kr"),
         },
         { withCredentials: true }

@@ -1,27 +1,20 @@
 import express from "express";
 import cors from "cors";
 import {
+  articleDetailGet,
+  articleGet,
   lifeCommentsGet,
-  lifeDetailGet,
-  lifeGet,
   noticeCommentsGet,
-  noticeDetailGet,
-  noticeGet,
   profileGet,
   questionCommentsGet,
-  questionDetailGet,
-  questionGet,
   quoteCommentsGet,
-  quoteDetailGet,
-  quoteGet,
   userArticleGet,
+  userCommentGet,
+  userMeActivity,
 } from "./api/get.js";
 import {
+  articlePost,
   commentPost,
-  lifePost,
-  noticePost,
-  questionPost,
-  quotePost,
   userLoginPost,
   userLogout,
   userPost,
@@ -72,32 +65,24 @@ app.use(
 
 // ============================== Get 요청 =========================================
 
-app.get("/notice", noticeGet);
-app.get("/question", questionGet);
-app.get("/life", lifeGet);
-app.get("/quote", quoteGet);
+app.get("/:page", articleGet);
+app.get("/:page/:id", articleDetailGet);
 
 app.get("/notice/:id/comments", noticeCommentsGet);
 app.get("/question/:id/comments", questionCommentsGet);
 app.get("/life/:id/comments", lifeCommentsGet);
 app.get("/quote/:id/comments", quoteCommentsGet);
 
-app.get("/notice/:id", noticeDetailGet);
-app.get("/question/:id", questionDetailGet);
-app.get("/life/:id", lifeDetailGet);
-app.get("/quote/:id", quoteDetailGet);
-
 app.get("/profile", profileGet);
 
 app.get("/user/article/:id", userArticleGet);
-app.get("/user/comment/:id");
+app.get("/user/comment/:id", userCommentGet);
+app.get("/user/me", userMeActivity);
 
 // ============================== POST 요청 =========================================
 
-app.post("/notice", noticePost);
-app.post("/question", questionPost);
-app.post("/life", lifePost);
-app.post("/quote", quotePost);
+app.post("/:page", articlePost);
+
 app.post("/user", userPost);
 app.post("/user/login", userLoginPost);
 app.post("/user/logout", userLogout);
