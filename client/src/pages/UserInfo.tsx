@@ -45,14 +45,12 @@ export default function UserInfo({ page }: IUserInfoPage) {
       <UserInfoContainer userId={id} />
       {page === "article" ? (
         <ItemBox>
-          {data?.map((item: []) =>
-            item.map((item: IArticleData) => (
-              <Item>
-                <ItemTitle>{item.title}</ItemTitle>
-                <ItemDate>{item.date}</ItemDate>
-              </Item>
-            ))
-          )}
+          {data?.map((item: IArticleData) => (
+            <Item>
+              <ItemTitle>{item.title}</ItemTitle>
+              <ItemDate>{item.date}</ItemDate>
+            </Item>
+          ))}
         </ItemBox>
       ) : (
         <ItemBox>

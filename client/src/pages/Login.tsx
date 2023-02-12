@@ -113,7 +113,6 @@ export default function Login() {
       .then((response) => {
         if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
         setLogin(response.data);
-
         return navigate(-1);
       })
       .catch((error) => console.log(error));

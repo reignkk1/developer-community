@@ -176,7 +176,7 @@ export default function Header() {
     axios
       .post("http://localhost:8000/user/logout", {}, { withCredentials: true })
       .then(() => {
-        sessionStorage.clear();
+        window.location.reload();
         setLoginState(false);
         setAvartarClick(false);
       });

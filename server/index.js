@@ -29,9 +29,6 @@ import {
 } from "./API/delete.js";
 import {
   noticePatch,
-  lifePatch,
-  questionPatch,
-  quotePatch,
   profilePatch,
   passWordChangePatch,
   commentTextChange,
@@ -65,9 +62,6 @@ app.use(
 
 // ============================== Get 요청 =========================================
 
-app.get("/:page", articleGet);
-app.get("/:page/:id", articleDetailGet);
-
 app.get("/notice/:id/comments", noticeCommentsGet);
 app.get("/question/:id/comments", questionCommentsGet);
 app.get("/life/:id/comments", lifeCommentsGet);
@@ -79,14 +73,16 @@ app.get("/user/article/:id", userArticleGet);
 app.get("/user/comment/:id", userCommentGet);
 app.get("/user/me", userMeActivity);
 
-// ============================== POST 요청 =========================================
+app.get("/:page", articleGet);
+app.get("/:page/:id", articleDetailGet);
 
-app.post("/:page", articlePost);
+// ============================== POST 요청 =========================================
 
 app.post("/user", userPost);
 app.post("/user/login", userLoginPost);
 app.post("/user/logout", userLogout);
 app.post("/comment", commentPost);
+app.post("/:page", articlePost);
 
 // ============================== DELETE 요청 =======================================
 
@@ -99,10 +95,7 @@ app.delete("/comment/:id", commentDelete);
 
 // ============================== PATCH 요청 ========================================
 
-app.patch("/notice/:id", noticePatch);
-app.patch("/question/:id", questionPatch);
-app.patch("/life/:id", lifePatch);
-app.patch("/quote/:id", quotePatch);
+app.patch("/:page/:id", noticePatch);
 
 app.patch("/profile", profilePatch);
 app.patch("/passWord", passWordChangePatch);

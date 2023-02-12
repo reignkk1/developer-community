@@ -42,7 +42,10 @@ const Main = styled.main`
 
 function App() {
   const client = new QueryClient();
+
   const loginState = sessionStorage.getItem("logined");
+  console.log(loginState);
+
   return (
     <Main>
       <Global styles={reset} />
@@ -59,26 +62,56 @@ function App() {
               <Route path="/question" element={<Question />} />
               <Route path="/life" element={<Life />} />
               <Route path="/quote" element={<Quote />} />
-              <Route
-                path="/signup"
-                element={loginState ? <Navigate to="/" /> : <SignUp />}
-              />
               <Route path="/login" element={<Login />} />
               <Route
+                path="/signup"
+                element={
+                  loginState === `{"logined":true}` ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <SignUp />
+                  )
+                }
+              />
+              <Route
                 path="/profile"
-                element={loginState ? <Profile /> : <Navigate to="/" />}
+                element={
+                  loginState === `{"logined":true}` ? (
+                    <Profile />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
               />
               <Route
                 path="/account"
-                element={loginState ? <Account /> : <Navigate to="/" />}
+                element={
+                  loginState === `{"logined":true}` ? (
+                    <Account />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
               />
               <Route
                 path="/account/password-change"
-                element={loginState ? <PasswordChange /> : <Navigate to="/" />}
+                element={
+                  loginState === `{"logined":true}` ? (
+                    <PasswordChange />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
               />
               <Route
                 path="/account/withdraw-confirm"
-                element={loginState ? <WithdrawConfirm /> : <Navigate to="/" />}
+                element={
+                  loginState === `{"logined":true}` ? (
+                    <WithdrawConfirm />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
               />
 
               {/*==================== write page =================== */}
@@ -86,7 +119,7 @@ function App() {
               <Route
                 path="/notice/write"
                 element={
-                  loginState ? (
+                  loginState === `{"logined":true}` ? (
                     <Write page={props.page.notice} />
                   ) : (
                     <Navigate to="/" />
@@ -96,7 +129,7 @@ function App() {
               <Route
                 path="/question/write"
                 element={
-                  loginState ? (
+                  loginState === `{"logined":true}` ? (
                     <Write page={props.page.question} />
                   ) : (
                     <Navigate to="/" />
@@ -106,7 +139,7 @@ function App() {
               <Route
                 path="/life/write"
                 element={
-                  loginState ? (
+                  loginState === `{"logined":true}` ? (
                     <Write page={props.page.life} />
                   ) : (
                     <Navigate to="/" />
@@ -140,24 +173,42 @@ function App() {
               <Route
                 path="/notice/:id/edit"
                 element={
-                  loginState ? <Edit page="notice" /> : <Navigate to="/" />
+                  loginState === `{"logined":true}` ? (
+                    <Edit page="notice" />
+                  ) : (
+                    <Navigate to="/" />
+                  )
                 }
               />
               <Route
                 path="/question/:id/edit"
                 element={
-                  loginState ? <Edit page="question" /> : <Navigate to="/" />
+                  loginState === `{"logined":true}` ? (
+                    <Edit page="question" />
+                  ) : (
+                    <Navigate to="/" />
+                  )
                 }
               />
               <Route
                 path="/life/:id/edit"
                 element={
-                  loginState ? <Edit page="life" /> : <Navigate to="/" />
+                  loginState === `{"logined":true}` ? (
+                    <Edit page="life" />
+                  ) : (
+                    <Navigate to="/" />
+                  )
                 }
               />
               <Route
                 path="/quote/:id/edit"
-                element={loginState ? <QuoteEdit /> : <Navigate to="/" />}
+                element={
+                  loginState === `{"logined":true}` ? (
+                    <QuoteEdit />
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
               />
             </Routes>
           </Router>

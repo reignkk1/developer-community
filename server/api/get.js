@@ -45,11 +45,7 @@ export function profileGet(req, res) {
 
 export function userArticleGet(req, res) {
   const { id } = req.params;
-  const sqlQuery = `SELECT * From notice WHERE writerID = '${id}';
-  SELECT * From question WHERE writerID = '${id}'; 
-  SELECT * From life WHERE writerID = '${id}'; 
-  SELECT * From quote WHERE writerID = '${id}';
-  `;
+  const sqlQuery = `SELECT * From posts WHERE writerID = '${id}' ORDER BY date DESC;`;
 
   db.query(sqlQuery, (error, result) => {
     return res.send(result);

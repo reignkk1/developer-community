@@ -15,20 +15,11 @@ export function articlePost(req, res) {
   const { page } = req.params;
   const { id, nickname } = req.session.user;
 
-  console.log(title, content, date, page, id, nickname);
-
   const sqlQuery =
     "INSERT INTO posts (title,content,date,writerID,nickname,page) VALUES (?,?,?,?,?,?)";
   db.query(
     sqlQuery,
-    [
-      title,
-      content,
-      date,
-      req.session.user.id,
-      req.session.user.nickname,
-      page,
-    ],
+    [title, content, date, id, nickname, page],
     (error, result) => {
       return res.send("성공!");
     }
@@ -85,6 +76,8 @@ export function userLogout(req, res) {
 export function commentPost(req, res) {
   const { commentText, date, postID, page } = req.body;
   const { id, nickname } = req.session.user;
+
+  console.log(commentText, date, postID, page);
 
   const sqlQuery = `INSERT INTO comments (text,date,postID,writerID,nickname,page) VALUES (?,?,?,?,?,?)`;
 

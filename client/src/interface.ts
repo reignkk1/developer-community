@@ -19,7 +19,6 @@ export interface IArticleData {
   content: string;
   writerID: string;
   date: string;
-  hits: number;
   nickname: string;
 }
 

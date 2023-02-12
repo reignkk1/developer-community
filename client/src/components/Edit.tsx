@@ -43,8 +43,9 @@ export default function Edit({ page }: IPage) {
   useEffect(() => {
     const getAPI = async () => {
       const response = await axios.get(`http://localhost:8000/${page}/${id}`);
-      setInputData(response.data[0].title);
-      setEditorData(response.data[0].content);
+
+      setInputData(response.data.user[0].title);
+      setEditorData(response.data.user[0].content);
     };
     getAPI();
   }, []);
