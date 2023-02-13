@@ -1,40 +1,32 @@
 import express from "express";
 import cors from "cors";
 import {
-  articleDetailGet,
-  articleGet,
-  lifeCommentsGet,
-  noticeCommentsGet,
+  managerConfirm,
+  pageCommentsGet,
+  postDetailGet,
+  postGet,
   profileGet,
-  questionCommentsGet,
-  quoteCommentsGet,
-  userArticleGet,
-  userCommentGet,
+  userActivity,
   userMeActivity,
 } from "./api/get.js";
 import {
-  articlePost,
   commentPost,
+  postPost,
   userLoginPost,
   userLogout,
   userPost,
 } from "./API/post.js";
+import { commentDelete, postDelete, userDelete } from "./API/delete.js";
 import {
-  commentDelete,
-  lifeDelete,
-  noticeDelete,
-  questionDelete,
-  quoteDelete,
-  userDelete,
-} from "./API/delete.js";
-import {
-  noticePatch,
   profilePatch,
   passWordChangePatch,
   commentTextChange,
+  postPatch,
 } from "./api/patch.js";
 import session from "express-session";
 import MySQLStore from "express-mysql-session";
+
+//=======================================================================================
 
 const app = express();
 
@@ -51,6 +43,7 @@ const options = {
 
 var sessionStore = new MySQLStore(options);
 
+// 세션 설정
 app.use(
   session({
     secret: "mingyeom",
@@ -62,19 +55,14 @@ app.use(
 
 // ============================== Get 요청 =========================================
 
-app.get("/notice/:id/comments", noticeCommentsGet);
-app.get("/question/:id/comments", questionCommentsGet);
-app.get("/life/:id/comments", lifeCommentsGet);
-app.get("/quote/:id/comments", quoteCommentsGet);
-
 app.get("/profile", profileGet);
-
-app.get("/user/article/:id", userArticleGet);
-app.get("/user/comment/:id", userCommentGet);
+app.get("/manager-confirm", managerConfirm);
+app.get("/user/:page/:id", userActivity);
 app.get("/user/me", userMeActivity);
 
-app.get("/:page", articleGet);
-app.get("/:page/:id", articleDetailGet);
+app.get("/:page", postGet);
+app.get("/:page/:id", postDetailGet);
+app.get("/:page/:id/comments", pageCommentsGet);
 
 // ============================== POST 요청 =========================================
 
@@ -82,23 +70,21 @@ app.post("/user", userPost);
 app.post("/user/login", userLoginPost);
 app.post("/user/logout", userLogout);
 app.post("/comment", commentPost);
-app.post("/:page", articlePost);
+app.post("/:page", postPost);
 
 // ============================== DELETE 요청 =======================================
 
-app.delete("/notice/:id", noticeDelete);
-app.delete("/question/:id", questionDelete);
-app.delete("/life/:id", lifeDelete);
-app.delete("/quote/:id", quoteDelete);
 app.delete("/user", userDelete);
 app.delete("/comment/:id", commentDelete);
+app.delete("/:page/:id", postDelete);
 
 // ============================== PATCH 요청 ========================================
-
-app.patch("/:page/:id", noticePatch);
 
 app.patch("/profile", profilePatch);
 app.patch("/passWord", passWordChangePatch);
 app.patch("/comment", commentTextChange);
+app.patch("/:page/:id", postPatch);
+
+//=======================================================================================
 
 app.listen(8000, () => console.log("서버가 작동 중입니다!"));

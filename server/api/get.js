@@ -1,5 +1,5 @@
 import mysql from "mysql";
-// 125.142.99.87
+
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
@@ -8,7 +8,10 @@ const db = mysql.createPool({
   multipleStatements: true,
 });
 
-export function articleGet(req, res) {
+//=============================================================================================
+
+// 게시물 불러오기
+export function postGet(req, res) {
   const { page } = req.params;
   const sqlQuery = `SELECT * From posts WHERE page='${page}' ORDER BY date DESC;`;
   db.query(sqlQuery, (error, result) => {
@@ -16,7 +19,8 @@ export function articleGet(req, res) {
   });
 }
 
-export function articleDetailGet(req, res) {
+// 게시물 내용 불러오기
+export function postDetailGet(req, res) {
   const { id } = req.params;
 
   const sqlQuery = `SELECT * FROM posts WHERE id = ${id}`;
@@ -32,6 +36,7 @@ export function articleDetailGet(req, res) {
   });
 }
 
+// 프로필 정보 불러오기
 export function profileGet(req, res) {
   const {
     user: { id },
@@ -43,73 +48,41 @@ export function profileGet(req, res) {
   });
 }
 
-export function userArticleGet(req, res) {
-  const { id } = req.params;
-  const sqlQuery = `SELECT * From posts WHERE writerID = '${id}' ORDER BY date DESC;`;
+// 유저 활동내역 불러오기
+export function userActivity(req, res) {
+  const { id, page } = req.params;
+  const sqlQuery = `SELECT * From ${page} WHERE writerID = '${id}' ORDER BY date DESC;`;
 
   db.query(sqlQuery, (error, result) => {
     return res.send(result);
   });
 }
 
-export function userCommentGet(req, res) {
-  const { id } = req.params;
-  const sqlQuery = `SELECT * From comments WHERE writerID = '${id}'  ORDER BY date DESC;`;
-
-  db.query(sqlQuery, (error, result) => {
-    return res.send(result);
-  });
-}
-
-//==================================== Comments =====================================
-
-export function noticeCommentsGet(req, res) {
-  const { id } = req.params;
+// 페이지 댓글 정보 가져오기
+export function pageCommentsGet(req, res) {
+  const { id, page } = req.params;
 
   const sqlQuery = `SELECT * From comments WHERE postID=${Number(
     id
-  )} AND page = 'notice' `;
-
-  db.query(sqlQuery, (error, result) => {
-    return res.send({ info: result, userID: req.session.user?.id });
-  });
-}
-export function questionCommentsGet(req, res) {
-  const { id } = req.params;
-
-  const sqlQuery = `SELECT * From comments WHERE postID=${Number(
-    id
-  )} AND page = 'question' `;
-
-  db.query(sqlQuery, (error, result) => {
-    return res.send({ info: result, userID: req.session.user?.id });
-  });
-}
-export function lifeCommentsGet(req, res) {
-  const { id } = req.params;
-
-  const sqlQuery = `SELECT * From comments WHERE postID=${Number(
-    id
-  )} AND page = 'life' `;
+  )} AND page = '${page}' `;
 
   db.query(sqlQuery, (error, result) => {
     return res.send({ info: result, userID: req.session.user?.id });
   });
 }
 
-export function quoteCommentsGet(req, res) {
-  const { id } = req.params;
-
-  const sqlQuery = `SELECT * From comments WHERE postID=${Number(
-    id
-  )} AND page = 'quote' `;
-
-  db.query(sqlQuery, (error, result) => {
-    return res.send({ info: result, userID: req.session.user?.id });
-  });
-}
-
+// 로그인 한 유저 활동내역 클릭 시
 export function userMeActivity(req, res) {
   const { id } = req.session.user;
-  return res.send(`/user/${id}/article`);
+  return res.send(`/user/${id}/posts`);
+}
+
+// 관리자 확인
+export function managerConfirm(req, res) {
+  if (req.session.user) {
+    const { manager } = req.session.user;
+    return res.send(`${manager}`);
+  }
+
+  return res.send("0");
 }

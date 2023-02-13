@@ -1,11 +1,15 @@
+import { useEffect } from "react";
 import styled from "@emotion/styled";
-import MyPageMenu from "../components/MyPageMenu";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { FieldErrors } from "react-hook-form/dist/types";
-import { useEffect, useState } from "react";
+
+// File
 import Button from "../components/button";
+import MyPageMenu from "../components/MyPageMenu";
+
+// =============================================================================
 
 const Main = styled.main`
   width: 1280px;
@@ -13,11 +17,9 @@ const Main = styled.main`
   margin: 0 auto;
   display: flex;
 `;
-
 const UserContainer = styled.div`
   width: 75%;
 `;
-
 const UserInfoBox = styled.div`
   display: flex;
   width: 100%;
@@ -51,7 +53,6 @@ const Input = styled.input`
 const Label = styled.label`
   margin-bottom: 5px;
 `;
-
 const UserAvartar = styled.img`
   width: 155px;
   height: 155px;
@@ -60,18 +61,24 @@ const UserAvartar = styled.img`
   border: 1px solid rgba(0, 0, 0, 0.2);
 `;
 
-interface IData {
+// =============================================================================
+
+interface IProfileData {
   name: string;
   nickname: string;
 }
 
-export default function Profile() {
-  const { register, handleSubmit, setValue, watch } = useForm<IData>();
+// =============================================================================
 
-  const { isLoading, error, data } = useQuery<IData>("user-profile", () =>
-    axios
-      .get("http://localhost:8000/profile", { withCredentials: true })
-      .then((response) => response.data[0])
+export default function Profile() {
+  const { register, handleSubmit, setValue, watch } = useForm<IProfileData>();
+
+  const { isLoading, error, data } = useQuery<IProfileData>(
+    "user-profile",
+    () =>
+      axios
+        .get("http://localhost:8000/profile", { withCredentials: true })
+        .then((response) => response.data[0])
   );
 
   useEffect(() => {
@@ -82,7 +89,7 @@ export default function Profile() {
     );
   }, [isLoading]);
 
-  const onValid = (data: IData) => {
+  const onValid = (data: IProfileData) => {
     axios
       .patch(
         "http://localhost:8000/profile",

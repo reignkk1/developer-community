@@ -3,7 +3,11 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
+
+// File
 import { logined } from "../atom";
+
+// =============================================================================
 
 const HeaderBox = styled.header<{ pathname: string }>`
   width: 100%;
@@ -147,13 +151,16 @@ const LogoutBtn = styled.div`
   }
 `;
 
+// =============================================================================
+
 export default function Header() {
-  const location = useLocation();
   const [loginState, setLoginState] = useRecoilState(logined);
   const [avartarClick, setAvartarClick] = useState(false);
+
   const avartarMenu = useRef<HTMLDivElement>(null);
   const avartar = useRef<HTMLImageElement>(null);
 
+  const location = useLocation();
   const navigate = useNavigate();
 
   const onClickOutside = (e: any) => {

@@ -1,13 +1,19 @@
-import QuoteInput from "./QuoteInput";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "@emotion/styled";
 
+// File
+import QuoteInput from "./QuoteInput";
+
+// =============================================================================
+
 const Main = styled.main`
   width: 60%;
   margin: 0 auto;
 `;
+
+// =============================================================================
 
 export default function QuoteEdit() {
   const [inputData, setInputData] = useState("");

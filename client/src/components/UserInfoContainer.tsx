@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import { Link, useLocation } from "react-router-dom";
 
+// =============================================================================
+
 const UserInfoBox = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.2);
   height: 200px;
@@ -54,15 +56,18 @@ const UserMenu = styled.li<UserMenuProps>`
   }
 `;
 
+// =============================================================================
+
 interface IUserID {
   userId: string | undefined;
 }
+// =============================================================================
 
 export default function UserInfoContainer({ userId }: IUserID) {
   const location = useLocation();
 
-  const urlArticleMatch = location.pathname === `/user/${userId}/article`;
-  const urlCommentMatch = location.pathname !== `/user/${userId}/article`;
+  const urlArticleMatch = location.pathname === `/user/${userId}/posts`;
+  const urlCommentMatch = location.pathname !== `/user/${userId}/posts`;
 
   return (
     <UserInfoBox>
@@ -72,10 +77,10 @@ export default function UserInfoContainer({ userId }: IUserID) {
       </UserInfo>
       <UserMenuBox>
         <UserMenu urlMatch={urlArticleMatch}>
-          <Link to={`/user/${userId}/article`}>게시물</Link>
+          <Link to={`/user/${userId}/posts`}>게시물</Link>
         </UserMenu>
         <UserMenu urlMatch={urlCommentMatch}>
-          <Link to={`/user/${userId}/comment`}>댓글</Link>
+          <Link to={`/user/${userId}/comments`}>댓글</Link>
         </UserMenu>
       </UserMenuBox>
     </UserInfoBox>

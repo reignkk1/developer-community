@@ -4,11 +4,15 @@ import { useForm } from "react-hook-form";
 import { FieldErrors } from "react-hook-form/dist/types";
 import { Link, useNavigate } from "react-router-dom";
 
+// File
+import { IUserData } from "../interface";
+
+// =============================================================================
+
 const Main = styled.main`
   width: 450px;
   height: 1000px;
   margin: 0 auto;
-
   text-align: center;
 `;
 const LogoBox = styled.div`
@@ -29,7 +33,6 @@ const P2 = styled.p`
   font-weight: bold;
   color: rgba(0, 0, 0, 0.6);
 `;
-
 const InputForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -66,7 +69,6 @@ const Btn = styled.button`
     background-color: #0580d7;
   }
 `;
-
 const BottomLogin = styled.div`
   width: 100%;
   font-size: 14px;
@@ -81,22 +83,16 @@ const BottomLogin = styled.div`
   }
 `;
 
-interface IFormData {
-  userID: string;
-  password: string;
-  email: string;
-  name: string;
-  nickname: string;
-}
+// =============================================================================
 
 export default function SignUp() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormData>();
+  } = useForm<IUserData>();
   const navigate = useNavigate();
-  const onValid = (data: IFormData) => {
+  const onValid = (data: IUserData) => {
     axios
       .post("http://localhost:8000/user", {
         userID: data.userID,

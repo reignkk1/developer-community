@@ -2,7 +2,10 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+
+// File
 import { IArticleData, IPage } from "../interface";
+// =============================================================================
 
 const ListBox = styled.ul``;
 const ListItem = styled.li`
@@ -56,6 +59,8 @@ const Nickname = styled.div`
   font-size: 14px;
   margin-right: 7px;
 `;
+
+// =============================================================================
 
 export default function PagesArticle({ page }: IPage) {
   const { isLoading, error, data } = useQuery<IArticleData[]>(

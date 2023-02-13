@@ -50,13 +50,15 @@ export interface IPagesTitle {
   explain: string;
 }
 
+export interface IUserData {
+  userID: string;
+  password: string;
+  email: string;
+  name: string;
+  nickname: string;
+}
+
 export const props = {
-  name: {
-    notice: "공지사항",
-    question: "Q & A",
-    life: "사는얘기",
-    quote: "오늘의 명언",
-  },
   ImgeSrc: {
     notice: "https://okky.kr/notice.svg",
     question: "https://okky.kr/questions.svg",

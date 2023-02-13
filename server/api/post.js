@@ -8,9 +8,10 @@ const db = mysql.createPool({
   database: "boarddb",
 });
 
-//==================================== Article ========================================
+//=======================================================================================
 
-export function articlePost(req, res) {
+// 게시물 생성
+export function postPost(req, res) {
   const { title, content, date } = req.body;
   const { page } = req.params;
   const { id, nickname } = req.session.user;
@@ -26,8 +27,7 @@ export function articlePost(req, res) {
   );
 }
 
-//==================================== User ========================================
-
+// 유저 회원가입
 export async function userPost(req, res) {
   const { userID, password, email, name, nickname, create_time } = req.body;
   const hashPassword = await bcrypt.hash(password, 10);
@@ -43,8 +43,9 @@ export async function userPost(req, res) {
   );
 }
 
+// 유저 로그인
 export async function userLoginPost(req, res) {
-  const { loginUserID, loginPassword } = req.body;
+  const { loginUserID, loginPassword, id, password } = req.body;
 
   const sqlQueryUserID = `SELECT * FROM user WHERE userID = '${loginUserID}'`;
 
@@ -66,13 +67,13 @@ export async function userLoginPost(req, res) {
   });
 }
 
+// 유저 로그아웃
 export function userLogout(req, res) {
   req.session.destroy();
   return res.send();
 }
 
-//==================================== Comment ========================================
-
+// 댓글 생성
 export function commentPost(req, res) {
   const { commentText, date, postID, page } = req.body;
   const { id, nickname } = req.session.user;

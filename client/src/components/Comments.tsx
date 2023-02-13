@@ -2,8 +2,12 @@ import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
-import { logined } from "./../atom";
 import { useState } from "react";
+
+// File
+import { logined } from "./../atom";
+
+// =============================================================================
 
 const Container = styled.div`
   margin-top: 100px;
@@ -69,10 +73,13 @@ const Input = styled.input`
   }
 `;
 
+// =============================================================================
+
 interface ICommentsProps {
   page: string;
   postID: string | undefined;
 }
+// =============================================================================
 
 interface IData {
   info: [
@@ -102,7 +109,6 @@ export default function Comments({ page, postID }: ICommentsProps) {
           return response.data;
         })
   );
-  console.log(data);
 
   const [modify, setModify] = useState(false);
   const [id, setID] = useState("");

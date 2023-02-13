@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 
+// =============================================================================
+
 const InputContainer = styled.div`
   width: 100%;
   display: flex;
@@ -24,11 +26,14 @@ const Btn = styled.button`
   font-size: 16px;
 `;
 
+// =============================================================================
+
 interface IQuoteInput {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   inputData: string;
 }
+// =============================================================================
 
 export default function QuoteInput({
   onChange,

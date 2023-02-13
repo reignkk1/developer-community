@@ -1,6 +1,12 @@
 import styled from "@emotion/styled";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSetRecoilState } from "recoil";
+
+// File
+import { logined } from "../atom";
+
+// =============================================================================
 
 const Main = styled.main`
   width: 450px;
@@ -65,19 +71,25 @@ const DeleteBtn = styled(Btn)`
   }
 `;
 
+// =============================================================================
+
 export default function WithdrawConfirm() {
+  const setLogined = useSetRecoilState(logined);
   const navigate = useNavigate();
+
   const onCancelClick = () => {
     navigate("/account");
   };
+
   const onDeleteClick = () => {
     axios
       .delete("http://localhost:8000/user", { withCredentials: true })
       .then(() => {
-        sessionStorage.clear();
+        setLogined(false);
         window.location.assign("/");
       });
   };
+
   return (
     <Main>
       <LogoBox>

@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
-import axios from "axios";
-import { useState } from "react";
 import styled from "@emotion/styled";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+// File
 import { IPage } from "../interface";
 import Button from "./button";
+
+// =============================================================================
 
 const Container = styled.div`
   width: 60%;
@@ -34,11 +38,14 @@ const Title = styled.div`
   margin-bottom: 5px;
 `;
 
+// =============================================================================
+
 export default function Write({ page }: IPage) {
   const [editorData, setEditorData] = useState({
     title: "",
     content: "",
   });
+
   const navigate = useNavigate();
 
   const postSubmit = () => {

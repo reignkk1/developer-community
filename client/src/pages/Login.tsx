@@ -3,13 +3,17 @@ import axios from "axios";
 import { FieldErrors, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
+
+// File
 import { logined } from "../atom";
+import { IUserData } from "../interface";
+
+// =============================================================================
 
 const Main = styled.main`
   width: 450px;
   height: 1000px;
   margin: 0 auto;
-
   text-align: center;
 `;
 const LogoBox = styled.div`
@@ -30,7 +34,6 @@ const P2 = styled.p`
   font-weight: bold;
   color: rgba(0, 0, 0, 0.6);
 `;
-
 const InputForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -67,7 +70,6 @@ const Btn = styled.button`
     background-color: #0580d7;
   }
 `;
-
 const BottomSignUp = styled.div`
   width: 100%;
   font-size: 14px;
@@ -82,25 +84,19 @@ const BottomSignUp = styled.div`
   }
 `;
 
-interface IFormData {
-  userID: string;
-  password: string;
-  email: string;
-  name: string;
-  nickname: string;
-}
+// =============================================================================
 
 export default function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormData>();
+  } = useForm<IUserData>();
 
   const setLogin = useSetRecoilState(logined);
-
   const navigate = useNavigate();
-  const onValid = (data: IFormData) => {
+
+  const onValid = (data: IUserData) => {
     axios
       .post(
         "http://localhost:8000/user/login",
@@ -113,7 +109,7 @@ export default function Login() {
       .then((response) => {
         if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
         setLogin(response.data);
-        return navigate(-1);
+        return navigate("/");
       })
       .catch((error) => console.log(error));
   };
@@ -144,11 +140,11 @@ export default function Login() {
         />
 
         <Btn>로그인</Btn>
-        <BottomSignUp>
-          <span>아직 회원이 아니신가요?</span>
-          <Link to="/signup">회원가입</Link>
-        </BottomSignUp>
       </InputForm>
+      <BottomSignUp>
+        <span>아직 회원이 아니신가요?</span>
+        <Link to="/signup">회원가입</Link>
+      </BottomSignUp>
     </Main>
   );
 }

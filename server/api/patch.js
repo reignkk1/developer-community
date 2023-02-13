@@ -9,7 +9,10 @@ const db = mysql.createPool({
   multipleStatements: true,
 });
 
-export function noticePatch(req, res) {
+//=======================================================================================
+
+// 게시물 수정
+export function postPatch(req, res) {
   const { id } = req.params;
   const { title, content } = req.body;
   const sqlQuery = `UPDATE posts SET title="${title}",content="${content}" WHERE id = ${id}`;
@@ -18,6 +21,7 @@ export function noticePatch(req, res) {
   });
 }
 
+// 프로필 수정
 export function profilePatch(req, res) {
   const { name, nickname } = req.body;
   const {
@@ -36,6 +40,7 @@ export function profilePatch(req, res) {
   });
 }
 
+// 비밀번호 변경 수정
 export async function passWordChangePatch(req, res) {
   const { currentPassWord, newPassWord } = req.body;
 
@@ -60,6 +65,7 @@ export async function passWordChangePatch(req, res) {
   });
 }
 
+// 댓글 수정
 export function commentTextChange(req, res) {
   const { commentText, commentID } = req.body;
   const sqlQuery = `UPDATE comments SET text = '${commentText}' WHERE id =${commentID}`;

@@ -2,9 +2,13 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+
+// File
 import { IArticleData } from "../interface";
 import UserInfoContainer from "../components/UserInfoContainer";
 import { IComment } from "./../interface";
+
+// =============================================================================
 
 const Main = styled.main`
   width: 800px;
@@ -26,9 +30,12 @@ const Item = styled.li`
 const ItemTitle = styled.div``;
 const ItemDate = styled.div``;
 
+// =============================================================================
+
 interface IUserInfoPage {
   page: string;
 }
+// =============================================================================
 
 export default function UserInfo({ page }: IUserInfoPage) {
   const { id } = useParams();
@@ -38,12 +45,11 @@ export default function UserInfo({ page }: IUserInfoPage) {
       .get(`http://localhost:8000/user/${page}/${id}`)
       .then((response) => response.data)
   );
-  console.log(data);
 
   return (
     <Main>
       <UserInfoContainer userId={id} />
-      {page === "article" ? (
+      {page === "posts" ? (
         <ItemBox>
           {data?.map((item: IArticleData) => (
             <Item>

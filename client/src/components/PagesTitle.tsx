@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
+
+// File
 import { IPagesTitle } from "../interface";
+
+// =============================================================================
 
 const Title = styled.div`
   background-color: #e8eef1;
@@ -20,11 +24,12 @@ const TitleName = styled.div`
   font-size: 18px;
   margin-bottom: 6px;
 `;
-
 const Info = styled.div``;
 const Span = styled.span`
   font-size: 14px;
 `;
+
+// =============================================================================
 
 export default function PagesTitle({ name, ImgeSrc, explain }: IPagesTitle) {
   return (
@@ -33,7 +38,6 @@ export default function PagesTitle({ name, ImgeSrc, explain }: IPagesTitle) {
         <TitleName>{name}</TitleName>
         <Span>{explain}</Span>
       </Info>
-
       <Img src={ImgeSrc} />
     </Title>
   );

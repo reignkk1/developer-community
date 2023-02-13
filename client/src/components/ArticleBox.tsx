@@ -4,10 +4,11 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { IArticle, IArticleData } from "../interface";
 
+// =============================================================================
+
 const Container = styled.div`
   height: 480px;
 `;
-
 const ListBox = styled.ul`
   padding: 5px;
 `;
@@ -34,7 +35,6 @@ const ListDate = styled.div`
   opacity: 0.9;
   font-size: 13px;
 `;
-
 const Title = styled.div`
   background-color: #e8eef1;
   border-radius: 10px;
@@ -55,7 +55,6 @@ const TitleName = styled.div`
   font-weight: bold;
   font-size: 18px;
 `;
-
 const Loading = styled.div`
   width: 100%;
   height: 300px;
@@ -67,7 +66,6 @@ const Loading = styled.div`
     height: 60px;
   }
 `;
-
 const Error = styled.div`
   width: 100%;
   height: 300px;
@@ -75,7 +73,6 @@ const Error = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 const NicknameBox = styled.div`
   display: flex;
   align-items: center;
@@ -91,6 +88,8 @@ const Nickname = styled.div`
   font-size: 14px;
   margin-right: 7px;
 `;
+
+// =============================================================================
 
 export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
   const { isLoading, error, data } = useQuery<IArticleData[]>(

@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 
+// =============================================================================
+
 const Btn = styled.button`
   background-color: #0092fa;
   cursor: pointer;
@@ -15,10 +17,13 @@ const Btn = styled.button`
   }
 `;
 
+// =============================================================================
+
 interface IBtn {
   text: string;
   onClick?: () => void;
 }
+// =============================================================================
 
 export default function Button({ text, onClick }: IBtn) {
   return <Btn onClick={onClick}>{text}</Btn>;

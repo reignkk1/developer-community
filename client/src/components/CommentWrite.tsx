@@ -3,9 +3,8 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FieldErrors } from "react-hook-form/dist/types";
 import axios from "axios";
-import { useQuery } from "react-query";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
+
+// =============================================================================
 
 const Container = styled.div`
   height: 180px;
@@ -102,6 +101,8 @@ const UserAvartar = styled.img`
   margin-right: 8px;
 `;
 
+// =============================================================================
+
 interface ICommentInfo {
   loginState: Boolean;
   postID: string | undefined;
@@ -111,6 +112,7 @@ interface ICommentInfo {
 interface ICommentText {
   commentText: string;
 }
+// =============================================================================
 
 export default function CommentWrite({
   loginState,

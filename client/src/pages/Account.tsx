@@ -1,8 +1,11 @@
-import styled from "@emotion/styled";
-import { editableInputTypes } from "@testing-library/user-event/dist/utils";
 import { useState } from "react";
+import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+
+// File
 import MyPageMenu from "../components/MyPageMenu";
+
+// =============================================================================
 
 const Main = styled.main`
   width: 1280px;
@@ -10,11 +13,9 @@ const Main = styled.main`
   margin: 0 auto;
   display: flex;
 `;
-
 const AccountInfoBox = styled.div`
   width: 75%;
 `;
-
 const AccountControlBox = styled.div`
   width: 100%;
   padding: 0px 0px 20px 70px;
@@ -23,25 +24,21 @@ const AccountControlBox = styled.div`
     border-top: 1px solid rgba(0, 0, 0, 0.2);
   }
 `;
-
 const Title = styled.div`
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 40px;
 `;
-
 const ControlBox = styled.div`
   width: 100%;
   display: flex;
 `;
-
 const FirstControlBox = styled(ControlBox)`
   justify-content: flex-end;
 `;
 const SecondControlBox = styled(ControlBox)`
   justify-content: space-between;
 `;
-
 const SignDelete = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.2);
   height: 100px;
@@ -49,7 +46,6 @@ const SignDelete = styled.div`
   margin-bottom: 30px;
   padding: 15px 15px;
 `;
-
 const SignDeleteText = styled.p`
   opacity: 0.7;
   font-size: 13.3px;
@@ -58,7 +54,6 @@ const SignDeleteText = styled.p`
     font-weight: bold;
   }
 `;
-
 const Btn = styled.button`
   background-color: #e40e0e;
   border: none;
@@ -72,11 +67,9 @@ const Btn = styled.button`
     background-color: #b91c1c;
   }
 `;
-
 const PasswordChangeBtn = styled(Btn)`
   padding: 10px 45px 10px 15px;
 `;
-
 const UnRegisterBtn = styled(Btn)`
   a {
     display: flex;
@@ -111,6 +104,8 @@ const CheckBox = styled.input`
 const Label = styled.label`
   font-size: 14px;
 `;
+
+// =============================================================================
 
 export default function Account() {
   const [checked, setChecked] = useState(false);

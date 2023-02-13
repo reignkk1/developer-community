@@ -2,9 +2,7 @@ import styled from "@emotion/styled";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-interface IActive {
-  active: boolean;
-}
+// =============================================================================
 
 const Menu = styled.div`
   width: 25%;
@@ -47,10 +45,19 @@ const MenuItem2 = styled(MenuItem)<IActive>`
   color: ${(props) => (props.active === true ? "black" : "rgba(0,0,0,0.7)")};
 `;
 
+// =============================================================================
+
+interface IActive {
+  active: boolean;
+}
+// =============================================================================
+
 export default function MyPageMenu() {
   const [profile, setProfile] = useState(false);
   const [account, setAccount] = useState(false);
+
   const location = useLocation();
+
   useEffect(() => {
     if (location.pathname === "/profile") {
       setProfile(true);

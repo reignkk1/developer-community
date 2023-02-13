@@ -4,8 +4,12 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useNavigate, useParams } from "react-router-dom";
+
+// File
 import { IPage } from "../interface";
 import Button from "./button";
+
+// =============================================================================
 
 const Container = styled.div`
   width: 60%;
@@ -32,6 +36,8 @@ const Title = styled.div`
   font-size: 15px;
   margin-bottom: 5px;
 `;
+
+// =============================================================================
 
 export default function Edit({ page }: IPage) {
   const [inputData, setInputData] = useState("");

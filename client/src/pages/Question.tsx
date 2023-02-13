@@ -1,16 +1,23 @@
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+
+// File
 import { logined } from "../atom";
 import Button from "../components/button";
 import PagesArticle from "../components/PagesArticle";
 import PagesTitle from "../components/PagesTitle";
 import { props } from "../interface";
 
+// =============================================================================
+
 const Main = styled.main`
   width: 900px;
   margin: 0 auto;
 `;
+
+// =============================================================================
+
 export default function Questions() {
   const loginState = useRecoilValue(logined);
   const navigate = useNavigate();
@@ -20,7 +27,7 @@ export default function Questions() {
   return (
     <Main>
       <PagesTitle
-        name={props.name.question}
+        name="Q & A"
         ImgeSrc={props.ImgeSrc.question}
         explain="좋은 질문과 답변으로 동료의 시간을 아껴주세요."
       />
