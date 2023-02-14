@@ -4,7 +4,7 @@ export interface IArticleInfo {
       id: number;
       title: string;
       content: string;
-      writeID: number;
+      writerID: number;
       date: string;
       hits: number;
       nickname: string;
@@ -20,6 +20,7 @@ export interface IArticleData {
   writerID: string;
   date: string;
   nickname: string;
+  page: string;
 }
 
 export interface IComment {

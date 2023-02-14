@@ -136,6 +136,7 @@ export const reset = css`
   .ck-editor__editable {
     height: 400px;
     margin-bottom: 30px;
+    line-height: 1.7;
   }
 `;
 

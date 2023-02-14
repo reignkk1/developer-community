@@ -26,7 +26,7 @@ import Profile from "./pages/Profile";
 import Account from "./pages/Account";
 import PasswordChange from "./pages/PasswordChange";
 import WithdrawConfirm from "./pages/WithdrawConfirm";
-import UserInfo from "./pages/UserInfo";
+import UserInfo from "./pages/UserActivity";
 
 // =============================================================================
 
@@ -38,7 +38,6 @@ import { props } from "./interface";
 
 const Main = styled.main`
   width: 100%;
-  height: 200vh;
   margin-top: 100px;
 `;
 

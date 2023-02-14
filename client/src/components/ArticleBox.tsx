@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+
+// File
 import { IArticle, IArticleData } from "../interface";
 
 // =============================================================================
@@ -21,6 +23,8 @@ const ListTitle = styled.div`
   font-weight: bold;
   opacity: 0.9;
   a {
+    display: block;
+    height: 20px;
     &:hover {
       color: #0092fa;
     }
@@ -87,6 +91,9 @@ const Avartar = styled.img`
 const Nickname = styled.div`
   font-size: 14px;
   margin-right: 7px;
+  &:hover {
+    color: #0092fa;
+  }
 `;
 
 // =============================================================================
@@ -119,10 +126,12 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
           {data?.slice(0, 5).map((item) => (
             <ListItem key={item.id}>
               <NicknameBox>
-                <Link to={`/user/${item.writerID}/article`}>
+                <Link to={`/user/${item.writerID}/posts`}>
                   <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
                 </Link>
-                <Nickname>{item.nickname}</Nickname>
+                <Link to={`/user/${item.writerID}/posts`}>
+                  <Nickname>{item.nickname}</Nickname>
+                </Link>
                 <ListDate>- {item.date}</ListDate>
               </NicknameBox>
               <ListTitle>

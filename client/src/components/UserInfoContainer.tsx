@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 // =============================================================================
 
@@ -60,10 +61,11 @@ const UserMenu = styled.li<UserMenuProps>`
 
 interface IUserID {
   userId: string | undefined;
+  nickName: string;
 }
 // =============================================================================
 
-export default function UserInfoContainer({ userId }: IUserID) {
+export default function UserInfoContainer({ userId, nickName }: IUserID) {
   const location = useLocation();
 
   const urlArticleMatch = location.pathname === `/user/${userId}/posts`;
@@ -73,7 +75,7 @@ export default function UserInfoContainer({ userId }: IUserID) {
     <UserInfoBox>
       <UserInfo>
         <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
-        <UserNickname>김민겸</UserNickname>
+        <UserNickname>{nickName}</UserNickname>
       </UserInfo>
       <UserMenuBox>
         <UserMenu urlMatch={urlArticleMatch}>
