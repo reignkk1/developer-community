@@ -48,12 +48,18 @@ const NicknameBox = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  a {
+    display: block;
+    &:hover {
+      color: #0092fa;
+    }
+    margin-right: 5px;
+  }
 `;
 const Avartar = styled.img`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  margin-right: 5px;
 `;
 const Nickname = styled.div`
   font-size: 14px;
@@ -82,8 +88,12 @@ export default function PagesArticle({ page }: IPage) {
       {data?.map((item) => (
         <ListItem key={item.id}>
           <NicknameBox>
-            <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
-            <Nickname>{item.nickname}</Nickname>
+            <Link to={`/user/${item.writerID}/posts`}>
+              <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+            </Link>
+            <Link to={`/user/${item.writerID}/posts`}>
+              <Nickname>{item.nickname}</Nickname>
+            </Link>
           </NicknameBox>
           <Link to={`/${page}/${item.id}`}>
             <ListTitle>{item.title}</ListTitle>

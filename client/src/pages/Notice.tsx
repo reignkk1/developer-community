@@ -15,6 +15,7 @@ import { logined } from "../atom";
 
 const Main = styled.main`
   width: 900px;
+  height: 200vh;
   margin: 0 auto;
 `;
 

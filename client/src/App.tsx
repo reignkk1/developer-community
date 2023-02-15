@@ -33,6 +33,7 @@ import UserInfo from "./pages/UserActivity";
 import reset from "./reset";
 import ScrollToTop from "./ScrollToTop";
 import { props } from "./interface";
+import Footer from "./components/Footer";
 
 // =============================================================================
 
@@ -121,6 +122,7 @@ function App() {
               <Route path="/life/:id/edit" element={<Edit page="life" />} />
               <Route path="/quote/:id/edit" element={<QuoteEdit />} />
             </Routes>
+            <Footer />
           </Router>
           <ReactQueryDevtools />
         </QueryClientProvider>

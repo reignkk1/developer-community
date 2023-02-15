@@ -6,7 +6,6 @@ import { props } from "../interface";
 
 const Main = styled.main`
   width: 950px;
-  height: 100vh;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);

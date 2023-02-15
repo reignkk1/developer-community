@@ -7,6 +7,7 @@ import {
   postGet,
   profileGet,
   userActivity,
+  userInfoGet,
   userMeActivity,
 } from "./api/get.js";
 import {
@@ -57,8 +58,9 @@ app.use(
 
 app.get("/profile", profileGet);
 app.get("/manager-confirm", managerConfirm);
-app.get("/user/:page/:id", userActivity);
+app.get("/user-info/:id", userInfoGet);
 app.get("/user/me", userMeActivity);
+app.get("/user/:page/:id", userActivity);
 
 app.get("/:page", postGet);
 app.get("/:page/:id", postDetailGet);

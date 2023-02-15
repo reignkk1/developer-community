@@ -83,16 +83,17 @@ interface IData {
 
 export default function UserInfo({ page }: IUserInfoPage) {
   const { id } = useParams();
-
-  const { isLoading, data, error } = useQuery<IData[]>(`user${page}`, () =>
-    axios
-      .get(`http://localhost:8000/user/${page}/${id}`)
-      .then((response) => response.data)
+  const { isLoading, data, error } = useQuery<IData[]>(
+    `[user${page},${id}]`,
+    () =>
+      axios
+        .get(`http://localhost:8000/user/${page}/${id}`)
+        .then((response) => response.data)
   );
 
   return (
     <Main>
-      <UserInfoContainer userId={id} nickName={data![0].nickname} />
+      <UserInfoContainer userId={id} />
       {page === "posts" ? (
         <ItemBox>
           {data?.map((item) => (

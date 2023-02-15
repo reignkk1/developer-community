@@ -6,6 +6,7 @@ import { useState } from "react";
 
 // File
 import { logined } from "./../atom";
+import { Link } from "react-router-dom";
 
 // =============================================================================
 
@@ -22,12 +23,18 @@ const User = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  a {
+    display: block;
+    &:hover {
+      color: #0092fa;
+    }
+    margin-right: 10px;
+  }
 `;
 const Avartar = styled.img`
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  margin-right: 10px;
 `;
 const UserInfo = styled.div``;
 const Nickname = styled.div`
@@ -151,9 +158,13 @@ export default function Comments({ page, postID }: ICommentsProps) {
         {data?.info.map((data, index) => (
           <CommentsItem key={data.id}>
             <User>
-              <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+              <Link to={`/user/${data.writerID}/posts`}>
+                <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+              </Link>
               <UserInfo>
-                <Nickname>{data.nickname}</Nickname>
+                <Link to={`/user/${data.writerID}/posts`}>
+                  <Nickname>{data.nickname}</Nickname>
+                </Link>
                 <Date>{data.date}</Date>
               </UserInfo>
             </User>

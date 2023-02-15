@@ -57,6 +57,8 @@ export interface IUserData {
   email: string;
   name: string;
   nickname: string;
+  create_time: string;
+  manager: number;
 }
 
 export const props = {

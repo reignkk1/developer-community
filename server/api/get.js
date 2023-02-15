@@ -48,10 +48,20 @@ export function profileGet(req, res) {
   });
 }
 
+// 유저 정보 불러오기
+export function userInfoGet(req, res) {
+  const { id } = req.params;
+  const sqlQuery = `SELECT * FROM user WHERE id = ${id}`;
+  db.query(sqlQuery, (error, result) => {
+    console.log(result);
+    return res.send(result);
+  });
+}
+
 // 유저 활동내역 불러오기
 export function userActivity(req, res) {
   const { id, page } = req.params;
-  const sqlQuery = `SELECT * From ${page} WHERE writerID = '${id}' ORDER BY date DESC;`;
+  const sqlQuery = `SELECT * From ${page} WHERE writerID = '${id}' ORDER BY date DESC`;
 
   db.query(sqlQuery, (error, result) => {
     return res.send(result);

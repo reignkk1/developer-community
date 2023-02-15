@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { IUserData } from "../interface";
 
 // =============================================================================
 
@@ -61,21 +63,28 @@ const UserMenu = styled.li<UserMenuProps>`
 
 interface IUserID {
   userId: string | undefined;
-  nickName: string;
 }
 // =============================================================================
 
-export default function UserInfoContainer({ userId, nickName }: IUserID) {
+export default function UserInfoContainer({ userId }: IUserID) {
   const location = useLocation();
 
   const urlArticleMatch = location.pathname === `/user/${userId}/posts`;
   const urlCommentMatch = location.pathname !== `/user/${userId}/posts`;
 
+  const { isLoading, data, error } = useQuery<IUserData>(
+    `[nickname,${userId}]`,
+    () =>
+      axios
+        .get(`http://localhost:8000/user-info/${userId}`)
+        .then((response) => response.data[0])
+  );
+
   return (
     <UserInfoBox>
       <UserInfo>
         <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
-        <UserNickname>{nickName}</UserNickname>
+        <UserNickname>{data?.nickname}</UserNickname>
       </UserInfo>
       <UserMenuBox>
         <UserMenu urlMatch={urlArticleMatch}>
