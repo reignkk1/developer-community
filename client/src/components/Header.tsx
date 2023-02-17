@@ -9,18 +9,15 @@ import { logined } from "../atom";
 
 // =============================================================================
 
-const HeaderBox = styled.header<{ pathname: string }>`
+const HeaderBox = styled.header<{ pathname: String }>`
   width: 100%;
   background-color: white;
   padding: 15px 120px;
   display: ${(props) =>
-    props.pathname === "/signup"
-      ? "none"
-      : props.pathname === "/login"
-      ? "none"
-      : props.pathname === "/account/password-change"
-      ? "none"
-      : props.pathname === "/account/withdraw-confirm"
+    props.pathname === "/signup" ||
+    props.pathname === "/login" ||
+    props.pathname === "/account/password-change" ||
+    props.pathname === "/account/withdraw-confirm"
       ? "none"
       : "flex"};
   justify-content: space-between;
@@ -39,7 +36,7 @@ const Menu = styled.ul`
   justify-content: space-between;
   align-items: center;
 `;
-const MenuItem = styled.li`
+const MenuItem = styled.li<{ pathname: String }>`
   margin-right: 35px;
   a {
     &:hover {
@@ -154,6 +151,13 @@ const LogoutBtn = styled.div`
 // =============================================================================
 
 export default function Header() {
+  const menu = [
+    { name: "공지사항", path: "/notice" },
+    { name: "사는얘기", path: "/life" },
+    { name: "Q n A", path: "/question" },
+    { name: "오늘의 명언", path: "/quote" },
+  ];
+
   const [loginState, setLoginState] = useRecoilState(logined);
   const [avartarClick, setAvartarClick] = useState(false);
 
@@ -245,18 +249,20 @@ export default function Header() {
         </Svg>
       </Link>
       <Menu>
-        <MenuItem>
-          <Link to="/notice">공지사항</Link>
-        </MenuItem>
-        <MenuItem>
-          <Link to="/life">사는얘기</Link>
-        </MenuItem>
-        <MenuItem>
-          <Link to="/question">Q & A</Link>
-        </MenuItem>
-        <MenuItem>
-          <Link to="/quote">오늘의 명언</Link>
-        </MenuItem>
+        {menu.map((item) => (
+          <MenuItem pathname={location.pathname}>
+            <Link
+              to={item.path}
+              style={{
+                color: `${
+                  location.pathname === item.path ? "#0092fa" : "black"
+                }`,
+              }}
+            >
+              {item.name}
+            </Link>
+          </MenuItem>
+        ))}
       </Menu>
       <SearchBar />
       {loginState ? (

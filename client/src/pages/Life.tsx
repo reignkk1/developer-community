@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
@@ -8,13 +7,7 @@ import PagesArticle from "../components/PagesArticle";
 import PagesTitle from "../components/PagesTitle";
 import { props } from "../interface";
 import { logined } from "../atom";
-
-// =============================================================================
-
-const Main = styled.main`
-  width: 900px;
-  margin: 0 auto;
-`;
+import { Main } from "./../PageShareStyle";
 
 // =============================================================================
 

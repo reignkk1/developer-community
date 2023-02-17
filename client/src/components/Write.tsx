@@ -13,7 +13,7 @@ import Button from "./button";
 
 const Container = styled.div`
   width: 60%;
-  height: 500px;
+  height: 100vh;
   margin: 0 auto;
   text-align: center;
   margin-top: 100px;

@@ -10,13 +10,9 @@ import PagesTitle from "../components/PagesTitle";
 import QuoteInput from "../components/QuoteInput";
 import { IArticleData, props } from "../interface";
 import { logined } from "../atom";
+import { Main } from "../PageShareStyle";
 
 // =============================================================================
-
-const Main = styled.main`
-  width: 900px;
-  margin: 0 auto;
-`;
 const ListBox = styled.ul``;
 const ListItem = styled.li`
   padding: 20px 0px;

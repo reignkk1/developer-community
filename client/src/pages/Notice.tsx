@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
@@ -10,14 +9,7 @@ import PagesTitle from "../components/PagesTitle";
 import PagesArticle from "../components/PagesArticle";
 import Button from "../components/button";
 import { logined } from "../atom";
-
-// =============================================================================
-
-const Main = styled.main`
-  width: 900px;
-  height: 200vh;
-  margin: 0 auto;
-`;
+import { Main } from "./../PageShareStyle";
 
 // =============================================================================
 
