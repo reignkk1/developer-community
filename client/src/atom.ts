@@ -1,13 +1,14 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
-const { persistAtom } = recoilPersist({
+const { persistAtom: loginPersist } = recoilPersist({
   key: "logined",
   storage: sessionStorage,
 });
 
+// 로그인 유무
 export const logined = atom({
   key: "logined",
   default: false,
-  effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [loginPersist],
 });

@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Global } from "@emotion/react";
+import { css, Global, ThemeProvider, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { useState } from "react";
 
 // =============================================================================
 
@@ -30,10 +31,10 @@ import UserInfo from "./pages/UserActivity";
 
 // =============================================================================
 
-import reset from "./reset";
 import ScrollToTop from "./ScrollToTop";
 import { props } from "./interface";
 import Footer from "./components/Footer";
+import { darkMode, lightMode } from "./theme";
 
 // =============================================================================
 
@@ -47,87 +48,254 @@ const Main = styled.main`
 function App() {
   const client = new QueryClient();
 
+  const [isDarkMode, SetDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    SetDarkMode((current) => !current);
+  };
+
+  function GlobalStyles() {
+    const theme = useTheme();
+    const reset = css`
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+      /* HTML5 display-role reset for older browsers */
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      section {
+        display: block;
+      }
+      body {
+        line-height: 1;
+      }
+      ol,
+      ul {
+        list-style: none;
+      }
+      blockquote,
+      q {
+        quotes: none;
+      }
+      blockquote:before,
+      blockquote:after,
+      q:before,
+      q:after {
+        content: "";
+        content: none;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+
+      .ck-editor__editable {
+        height: 400px;
+        margin-bottom: 30px;
+        line-height: 1.7;
+      }
+      body {
+        background-color: ${theme.bgColor};
+        color: ${theme.textColor};
+      }
+    `;
+    return <Global styles={reset} />;
+  }
+
   return (
-    <Main>
-      <Global styles={reset} />
-      <RecoilRoot>
-        <QueryClientProvider client={client}>
-          <Router>
-            <Header />
-            <ScrollToTop />
-            <Routes>
-              {/*==================== global page =================== */}
+    <>
+      <ThemeProvider theme={isDarkMode ? darkMode : lightMode}>
+        <Main>
+          <RecoilRoot>
+            <QueryClientProvider client={client}>
+              <Router>
+                <GlobalStyles />
+                <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+                <ScrollToTop />
+                <Routes>
+                  {/*==================== global page =================== */}
 
-              <Route path="/" element={<Home />} />
-              <Route path="/notice" element={<Notice />} />
-              <Route path="/question" element={<Question />} />
-              <Route path="/life" element={<Life />} />
-              <Route path="/quote" element={<Quote />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/account" element={<Account />} />
-              <Route
-                path="/account/password-change"
-                element={<PasswordChange />}
-              />
-              <Route
-                path="/account/withdraw-confirm"
-                element={<WithdrawConfirm />}
-              />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/notice" element={<Notice />} />
+                  <Route path="/question" element={<Question />} />
+                  <Route path="/life" element={<Life />} />
+                  <Route path="/quote" element={<Quote />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/account" element={<Account />} />
+                  <Route
+                    path="/account/password-change"
+                    element={<PasswordChange />}
+                  />
+                  <Route
+                    path="/account/withdraw-confirm"
+                    element={<WithdrawConfirm />}
+                  />
 
-              {/*==================== write page =================== */}
+                  {/*==================== write page =================== */}
 
-              <Route
-                path="/notice/write"
-                element={<Write page={props.page.notice} />}
-              />
-              <Route
-                path="/question/write"
-                element={<Write page={props.page.question} />}
-              />
-              <Route
-                path="/life/write"
-                element={<Write page={props.page.life} />}
-              />
+                  <Route
+                    path="/notice/write"
+                    element={<Write page={props.page.notice} />}
+                  />
+                  <Route
+                    path="/question/write"
+                    element={<Write page={props.page.question} />}
+                  />
+                  <Route
+                    path="/life/write"
+                    element={<Write page={props.page.life} />}
+                  />
 
-              {/*==================== detail page =================== */}
+                  {/*==================== detail page =================== */}
 
-              <Route
-                path="/notice/:id"
-                element={<ArticleInfo page="notice" />}
-              />
-              <Route
-                path="/question/:id"
-                element={<ArticleInfo page="question" />}
-              />
-              <Route path="/life/:id" element={<ArticleInfo page="life" />} />
-              <Route path="/quote/:id" element={<ArticleInfo page="quote" />} />
-              <Route
-                path="/user/:id/posts"
-                element={<UserInfo page="posts" />}
-              />
-              <Route
-                path="/user/:id/comments"
-                element={<UserInfo page="comments" />}
-              />
+                  <Route
+                    path="/notice/:id"
+                    element={<ArticleInfo page="notice" />}
+                  />
+                  <Route
+                    path="/question/:id"
+                    element={<ArticleInfo page="question" />}
+                  />
+                  <Route
+                    path="/life/:id"
+                    element={<ArticleInfo page="life" />}
+                  />
+                  <Route
+                    path="/quote/:id"
+                    element={<ArticleInfo page="quote" />}
+                  />
+                  <Route
+                    path="/user/:id/posts"
+                    element={<UserInfo page="posts" />}
+                  />
+                  <Route
+                    path="/user/:id/comments"
+                    element={<UserInfo page="comments" />}
+                  />
 
-              {/*==================== edit page =================== */}
+                  {/*==================== edit page =================== */}
 
-              <Route path="/notice/:id/edit" element={<Edit page="notice" />} />
-              <Route
-                path="/question/:id/edit"
-                element={<Edit page="question" />}
-              />
-              <Route path="/life/:id/edit" element={<Edit page="life" />} />
-              <Route path="/quote/:id/edit" element={<QuoteEdit />} />
-            </Routes>
-            <Footer />
-          </Router>
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </RecoilRoot>
-    </Main>
+                  <Route
+                    path="/notice/:id/edit"
+                    element={<Edit page="notice" />}
+                  />
+                  <Route
+                    path="/question/:id/edit"
+                    element={<Edit page="question" />}
+                  />
+                  <Route path="/life/:id/edit" element={<Edit page="life" />} />
+                  <Route path="/quote/:id/edit" element={<QuoteEdit />} />
+                </Routes>
+                <Footer />
+              </Router>
+              <ReactQueryDevtools />
+            </QueryClientProvider>
+          </RecoilRoot>
+        </Main>
+      </ThemeProvider>
+    </>
   );
 }
 
