@@ -6,7 +6,7 @@ import { IPagesTitle } from "../interface";
 // =============================================================================
 
 const Title = styled.div`
-  background-color: #e8eef1;
+  background-color: ${(props) => props.theme.bgTitleColor};
   border-radius: 10px;
   display: flex;
   justify-content: space-between;

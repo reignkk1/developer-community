@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 const Menu = styled.div`
   width: 25%;
   height: 100%;
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid ${(props) => props.theme.borderColor};
 `;
 const MenuTitle = styled.div`
   font-size: 18px;
@@ -23,10 +23,10 @@ const MenuItem = styled.li<IActive>`
   padding: 10px 15px;
   margin-bottom: 5px;
   border-radius: 5px;
-  color: rgba(0, 0, 0, 0.7);
+  color: ${(props) => props.theme.textColor};
   &:hover {
-    color: black;
-    background-color: #e5e7eb;
+    color: ${(props) => props.theme.textColor};
+    background-color: ${(props) => props.theme.bgTitleColor};
   }
   svg {
     width: 25px;
@@ -36,13 +36,21 @@ const MenuItem = styled.li<IActive>`
 `;
 
 const MenuItem1 = styled(MenuItem)<IActive>`
-  background-color: ${(props) => (props.active === true ? "#e5e7eb" : null)};
-  color: ${(props) => (props.active === true ? "black" : "rgba(0,0,0,0.7)")};
+  background-color: ${(props) =>
+    props.active === true ? props.theme.bgTitleColor : null};
+  color: ${(props) =>
+    props.active === true
+      ? props.theme.textColor
+      : props.theme.borderHoverColor};
 `;
 
 const MenuItem2 = styled(MenuItem)<IActive>`
-  background-color: ${(props) => (props.active === true ? "#e5e7eb" : null)};
-  color: ${(props) => (props.active === true ? "black" : "rgba(0,0,0,0.7)")};
+  background-color: ${(props) =>
+    props.active === true ? props.theme.bgTitleColor : null};
+  color: ${(props) =>
+    props.active === true
+      ? props.theme.textColor
+      : props.theme.borderHoverColor};
 `;
 
 // =============================================================================
@@ -74,7 +82,7 @@ export default function MyPageMenu() {
       <MenuTitle>내 계정</MenuTitle>
       <MenuList>
         <Link to="/profile">
-          <MenuItem1 active={profile}>
+          <MenuItem1 style={{}} active={profile}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

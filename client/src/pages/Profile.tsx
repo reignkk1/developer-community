@@ -44,10 +44,12 @@ const Input = styled.input`
   padding: 10px 15px;
   border-radius: 5px;
   outline: none;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  color: ${(props) => props.theme.textColor};
+  border: 1px solid ${(props) => props.theme.borderColor};
+  background-color: ${(props) => props.theme.inputColor};
   font-size: 17px;
   &:focus {
-    border-color: black;
+    border-color: ${(props) => props.theme.textColor};
   }
 `;
 const Label = styled.label`
@@ -58,7 +60,7 @@ const UserAvartar = styled.img`
   height: 155px;
   border-radius: 50%;
   margin-top: 50px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 // =============================================================================

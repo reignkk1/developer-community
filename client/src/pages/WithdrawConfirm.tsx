@@ -26,17 +26,18 @@ const P1 = styled.p`
   font-size: 26px;
   font-weight: bold;
   margin-bottom: 12px;
-  color: black;
+  color: ${(props) => props.theme.textColor};
 `;
 
-const SignDelete = styled.div`
+const SignTextBox = styled.div`
   border: 0px solid rgba(0, 0, 0, 0.2);
   height: 180px;
   padding: 25px 10px;
-  background-color: #f9fafb;
+  background-color: ${(props) => props.theme.bgTitleColor};
   border-radius: 5px;
 `;
 const SignText = styled.p`
+  color: ${(props) => props.theme.textColor};
   font-size: 14px;
   line-height: 1.4;
   span {
@@ -98,7 +99,7 @@ export default function WithdrawConfirm() {
         </Link>
         <P1>회원 탈퇴 시 아래와 같이 처리됩니다.</P1>
       </LogoBox>
-      <SignDelete>
+      <SignTextBox>
         <SignText>
           회원 탈퇴일로부터 계정과 닉네임을 포함한 계정
           정보(아이디/이메일/닉네임)는 개인정보 보호정책에 따라 60일간
@@ -112,7 +113,7 @@ export default function WithdrawConfirm() {
             모든 개인 정보는 완전히 삭제되며 더 이상 복구할 수 없게 됩니다.
           </span>
         </SignText>
-      </SignDelete>
+      </SignTextBox>
       <BtnBox>
         <CancelBtn onClick={onCancelClick}>취소</CancelBtn>
         <DeleteBtn onClick={onDeleteClick}>예, 탈퇴하겠습니다.</DeleteBtn>

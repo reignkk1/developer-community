@@ -21,7 +21,7 @@ const AccountControlBox = styled.div`
   padding: 0px 0px 20px 70px;
   &:nth-child(2) {
     padding-top: 30px;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 1px solid ${(props) => props.theme.borderColor};
   }
 `;
 const Title = styled.div`
@@ -40,7 +40,7 @@ const SecondControlBox = styled(ControlBox)`
   justify-content: space-between;
 `;
 const SignDelete = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${(props) => props.theme.borderColor};
   height: 100px;
   border-radius: 8px;
   margin-bottom: 30px;

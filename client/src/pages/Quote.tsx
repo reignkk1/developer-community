@@ -41,7 +41,6 @@ const Loading = styled.div`
 `;
 const Error = styled.div`
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;

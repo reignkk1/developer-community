@@ -23,9 +23,11 @@ const Input = styled.input`
   width: 100%;
   height: 35px;
   margin-bottom: 50px;
-  padding: 5px 15px;
+  padding: 10px 15px;
   outline: none;
   border: 2px solid rgba(0, 0, 0, 0.3);
+  background-color: ${(props) => props.theme.inputColor};
+  color: ${(props) => props.theme.textColor};
   &:focus {
     border: 2px solid #0092fa;
   }

@@ -10,12 +10,13 @@ import { IArticleData, IPage } from "../interface";
 const ListBox = styled.ul``;
 const ListItem = styled.li`
   padding: 20px 0px;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid ${(props) => props.theme.borderColor};
 `;
 const ListTitle = styled.div`
   font-weight: bold;
   opacity: 0.9;
   margin-bottom: 10px;
+  color: ${(props) => props.theme.textColor};
   &:hover {
     color: #0092fa;
   }
@@ -26,7 +27,6 @@ const ListDate = styled.div`
 
 const Loading = styled.div`
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,6 +50,7 @@ const NicknameBox = styled.div`
   margin-bottom: 10px;
   a {
     display: block;
+    color: ${(props) => props.theme.textColor};
     &:hover {
       color: #0092fa;
     }

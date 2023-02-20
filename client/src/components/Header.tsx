@@ -57,7 +57,7 @@ const LoginBtn = styled.button`
   border: none;
   padding: 10px 15px;
   border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${(props) => props.theme.borderColor};
   font-weight: bold;
   font-size: 12px;
   &:hover {
@@ -89,12 +89,12 @@ const Avartar = styled.img`
 const AvartarMenuBox = styled.div`
   width: 220px;
   height: 180px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid ${(props) => props.theme.borderColor};
   position: absolute;
   right: 120px;
   top: 60px;
   border-radius: 5px;
-  background-color: white;
+  background-color: ${(props) => props.theme.bgColor};
 `;
 
 const AvartarMenu = styled.ul`
@@ -144,7 +144,7 @@ const LogoutBtn = styled.div`
   align-items: center;
   height: 40px;
   cursor: pointer;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid ${(props) => props.theme.borderColor};
   padding: 25px 40px;
   font-weight: bold;
   &:hover {
@@ -168,7 +168,7 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
   const menu = [
     { name: "공지사항", path: "/notice" },
     { name: "사는얘기", path: "/life" },
-    { name: "Q n A", path: "/question" },
+    { name: "Q & A", path: "/question" },
     { name: "오늘의 명언", path: "/quote" },
   ];
 

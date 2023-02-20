@@ -8,7 +8,7 @@ import axios from "axios";
 
 const Container = styled.div`
   height: 180px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 10px;
   padding: 30px;
   margin-top: 100px;
@@ -28,14 +28,15 @@ const Avartar = styled.img`
   margin-bottom: 5px;
 `;
 const TextArea = styled.textarea`
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${(props) => props.theme.borderColor}s;
   width: 100%;
   height: 70px;
   resize: none;
   border-radius: 7px;
   padding: 10px;
   outline: none;
-
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgCommentWriteColor};
   font-size: 15px;
 `;
 const P = styled.p`

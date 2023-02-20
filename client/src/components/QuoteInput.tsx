@@ -16,6 +16,8 @@ const Input = styled.input`
   font-size: 16px;
   padding: 0px 10px;
   font-weight: bold;
+  background-color: ${(props) => props.theme.inputColor};
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Btn = styled.button`

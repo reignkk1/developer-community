@@ -23,7 +23,7 @@ const Item = styled.li`
   align-items: center;
   justify-content: space-between;
   padding: 30px 0px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   font-weight: bold;
 `;
 const ItemPage = styled.div`
@@ -33,18 +33,18 @@ const ItemPage = styled.div`
   font-size: 14px;
 `;
 const Page = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.2);
-
+  border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 15px;
   font-size: 12px;
   margin-right: 5px;
+
   a {
-    color: #0092fa;
     display: block;
     padding: 9px 10px;
+    color: #0092fa;
   }
   &:hover {
-    border-color: rgba(0, 0, 0, 0.5);
+    border-color: ${(props) => props.theme.borderHoverColor};
     cursor: pointer;
   }
 `;
@@ -55,6 +55,9 @@ const Span = styled.span`
 const ItemTitle = styled.div`
   a:hover {
     color: #0092fa;
+  }
+  a {
+    color: ${(props) => props.theme.textColor};
   }
 `;
 const ItemDate = styled.div`

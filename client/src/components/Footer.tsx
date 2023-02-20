@@ -12,10 +12,18 @@ const snowCat = css`
   text-align: center;
 `;
 
-const Container = css`
+interface ITheme {
+  bgColor: string;
+  textColor: string;
+  borderColor: string;
+  bgTitleColor: string;
+  bgCommentWriteColor: string;
+}
+
+const Container = (theme: ITheme) => css`
   height: 200px;
   width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid ${theme.borderColor};
 `;
 
 const Content = css`
@@ -80,7 +88,7 @@ export default function Footer() {
         <img src="https://okky.kr/okky-snowman.svg" />
         <img src="https://okky.kr/cat-footer.svg" />
       </div>
-      <div css={Container}>
+      <div css={Container(theme)}>
         <div css={Content}>
           <div css={LogoBox}>
             <svg

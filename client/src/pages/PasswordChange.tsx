@@ -23,7 +23,7 @@ const P1 = styled.p`
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 12px;
-  color: black;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const InputForm = styled.form`
@@ -36,8 +36,10 @@ const Input = styled.input`
   padding: 8px 15px;
   font-size: 18px;
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  color: ${(props) => props.theme.textColor};
+  border: 1px solid ${(props) => props.theme.borderColor};
   letter-spacing: 2px;
+  background-color: ${(props) => props.theme.inputColor};
   &:focus {
     border: 1px solid black;
   }

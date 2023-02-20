@@ -22,9 +22,11 @@ const ListTitle = styled.div`
   margin-bottom: 5px;
   font-weight: bold;
   opacity: 0.9;
+
   a {
     display: block;
     height: 20px;
+    color: ${(props) => props.theme.textColor};
     &:hover {
       color: #0092fa;
     }
@@ -40,15 +42,12 @@ const ListDate = styled.div`
   font-size: 13px;
 `;
 const Title = styled.div`
-  background-color: #e8eef1;
+  background-color: ${(props) => props.theme.bgTitleColor};
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0px 25px;
-  &:hover {
-    color: #0092fa;
-  }
   height: 70px;
 `;
 const Img = styled.img`
@@ -58,6 +57,11 @@ const Img = styled.img`
 const TitleName = styled.div`
   font-weight: bold;
   font-size: 18px;
+  color: ${(props) => props.theme.textColor};
+
+  &:hover {
+    color: #0092fa;
+  }
 `;
 const Loading = styled.div`
   width: 100%;
@@ -65,6 +69,7 @@ const Loading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   img {
     width: 60px;
     height: 60px;
@@ -91,6 +96,8 @@ const Avartar = styled.img`
 const Nickname = styled.div`
   font-size: 14px;
   margin-right: 7px;
+  color: ${(props) => props.theme.textColor};
+
   &:hover {
     color: #0092fa;
   }

@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 const CommentsBox = styled.ul``;
 const CommentsItem = styled.li`
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   padding-bottom: 40px;
   margin-bottom: 40px;
 `;
@@ -25,6 +25,7 @@ const User = styled.div`
   margin-bottom: 10px;
   a {
     display: block;
+    color: ${(props) => props.theme.textColor};
     &:hover {
       color: #0092fa;
     }

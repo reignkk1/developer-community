@@ -21,8 +21,8 @@ const Main = styled.main`
 
 const ArticleContainer = styled.div`
   padding: 40px 0px;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid ${(props) => props.theme.borderColor};
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   margin-bottom: 30px;
 `;
 
@@ -78,6 +78,7 @@ const Avartar = styled.img`
 const NicknameBox = styled.div`
   a {
     display: block;
+    color: ${(props) => props.theme.textColor};
     &:hover {
       color: #0092fa;
     }

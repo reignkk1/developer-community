@@ -189,10 +189,11 @@ function App() {
         color: black;
       }
 
-      .ck-editor__editable {
+      .ck {
         height: 400px;
         margin-bottom: 30px;
         line-height: 1.7;
+        color: black;
       }
       body {
         background-color: ${theme.bgColor};

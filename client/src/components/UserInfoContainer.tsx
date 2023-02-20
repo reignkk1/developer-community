@@ -7,7 +7,7 @@ import { IUserData } from "../interface";
 // =============================================================================
 
 const UserInfoBox = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${(props) => props.theme.borderColor};
   height: 200px;
   overflow: hidden;
   border-radius: 8px;
@@ -31,10 +31,10 @@ const UserNickname = styled.div`
 const UserMenuBox = styled.ul`
   display: flex;
   align-items: center;
-  background-color: #f3f4f6;
   height: 25%;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid ${(props) => props.theme.borderColor};
   padding: 20px 30px;
+  background-color: ${(props) => props.theme.bgUserInfoMenuColor};
 `;
 
 interface UserMenuProps {
@@ -43,13 +43,13 @@ interface UserMenuProps {
 const UserMenu = styled.li<UserMenuProps>`
   margin-right: 50px;
   font-size: 15px;
-  color: rgba(0, 0, 0, 0.6);
 
   a {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 45px;
+    color: ${(props) => props.theme.textColor};
 
     &:hover {
       color: #0092fa;
