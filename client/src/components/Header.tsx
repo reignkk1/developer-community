@@ -2,11 +2,13 @@ import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
 // File
 import { logined } from "../atom";
+import { FieldErrors } from "react-hook-form/dist/types";
 
 // =============================================================================
 
@@ -153,12 +155,26 @@ const LogoutBtn = styled.div`
 `;
 
 const ThemeBtn = styled.button`
-  width: 150px;
+  width: 130px;
+  text-align: center;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgThemeBtnColor};
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 8px 15px 8px 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  &:hover {
+    color: ${(props) => props.theme.textColor};
+  }
 `;
 
 interface ItoggleTheme {
   toggleTheme: () => void;
   isDarkMode: boolean;
+}
+
+interface ISearchKeyword {
+  searchKeyword: string;
 }
 
 // =============================================================================
@@ -171,6 +187,12 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
     { name: "Q & A", path: "/question" },
     { name: "오늘의 명언", path: "/quote" },
   ];
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISearchKeyword>();
 
   const [loginState, setLoginState] = useRecoilState(logined);
   const [avartarClick, setAvartarClick] = useState(false);
@@ -213,6 +235,11 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
   const onAvatarMenuClick = () => {
     setAvartarClick((current) => !current);
   };
+
+  const onValid = (data: ISearchKeyword) => {
+    navigate(`/search/${data.searchKeyword}`);
+  };
+  const oninvalid = (error: FieldErrors) => console.log(error);
 
   const userMe = () => {
     axios
@@ -281,9 +308,12 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
             </MenuItem>
           ))}
         </Menu>
-        <SearchBar />
+        <form onSubmit={handleSubmit(onValid, oninvalid)}>
+          <SearchBar {...register("searchKeyword")} />
+          <button>검색</button>
+        </form>
         <ThemeBtn onClick={toggleTheme}>
-          {isDarkMode ? "라이트모드 보기" : "다크모드 보기"}
+          {isDarkMode ? "☀️ 라이트모드" : "🌙 다크모드"}
         </ThemeBtn>
         {loginState ? (
           <>

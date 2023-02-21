@@ -28,6 +28,7 @@ import Account from "./pages/Account";
 import PasswordChange from "./pages/PasswordChange";
 import WithdrawConfirm from "./pages/WithdrawConfirm";
 import UserInfo from "./pages/UserActivity";
+import Search from "./pages/Search";
 
 // =============================================================================
 
@@ -233,6 +234,7 @@ function App() {
                     path="/account/withdraw-confirm"
                     element={<WithdrawConfirm />}
                   />
+                  <Route path="/search/:keyword" element={<Search />} />
 
                   {/*==================== write page =================== */}
 

@@ -59,6 +59,26 @@ const UserMenu = styled.li<UserMenuProps>`
   }
 `;
 
+const Loading = styled.div`
+  width: 78%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
+`;
+const Error = styled.div`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 // =============================================================================
 
 interface IUserID {
@@ -84,7 +104,15 @@ export default function UserInfoContainer({ userId }: IUserID) {
     <UserInfoBox>
       <UserInfo>
         <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
-        <UserNickname>{data?.nickname}</UserNickname>
+        {isLoading ? (
+          <Loading>
+            <img src="/img/loading.gif" alt="로딩중" />
+          </Loading>
+        ) : error ? (
+          <div>404 Not Found</div>
+        ) : (
+          <UserNickname>{data?.nickname}</UserNickname>
+        )}
       </UserInfo>
       <UserMenuBox>
         <UserMenu urlMatch={urlArticleMatch}>

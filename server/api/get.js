@@ -36,6 +36,16 @@ export function postDetailGet(req, res) {
   });
 }
 
+// 검색한 게시물 불러오기
+export function searchPostGet(req, res) {
+  const { keyword } = req.params;
+  const sqlQuery = `SELECT * FROM posts WHERE title like '%${keyword}%'`;
+
+  db.query(sqlQuery, (error, result) => {
+    return res.send(result);
+  });
+}
+
 // 프로필 정보 불러오기
 export function profileGet(req, res) {
   const {

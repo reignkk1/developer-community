@@ -7,6 +7,7 @@ export const darkMode = {
   borderHoverColor: "rgba(255,255,255,0.5)",
   bgUserInfoMenuColor: "#18202F",
   inputColor: "#2E3846",
+  bgThemeBtnColor: "#374151",
 };
 
 export const lightMode = {
@@ -18,4 +19,5 @@ export const lightMode = {
   borderHoverColor: "rgba(0,0,0,0.5)",
   bgUserInfoMenuColor: "#F3F4F6",
   inputColor: "white",
+  bgThemeBtnColor: "white",
 };

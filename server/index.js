@@ -6,6 +6,7 @@ import {
   postDetailGet,
   postGet,
   profileGet,
+  searchPostGet,
   userActivity,
   userInfoGet,
   userMeActivity,
@@ -61,6 +62,7 @@ app.get("/manager-confirm", managerConfirm);
 app.get("/user-info/:id", userInfoGet);
 app.get("/user/me", userMeActivity);
 app.get("/user/:page/:id", userActivity);
+app.get("/search/:keyword", searchPostGet);
 
 app.get("/:page", postGet);
 app.get("/:page/:id", postDetailGet);

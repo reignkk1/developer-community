@@ -10,5 +10,6 @@ declare module "@emotion/react" {
     borderHoverColor: string;
     bgUserInfoMenuColor: string;
     inputColor: string;
+    bgThemeBtnColor: string;
   }
 }
