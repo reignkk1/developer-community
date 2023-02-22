@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 // File
 import { IArticleData, IPage } from "../interface";
+import { ErrorBox, LoadingBox } from "./LoadingError";
 // =============================================================================
 
 const ListBox = styled.ul``;
@@ -23,25 +24,6 @@ const ListTitle = styled.div`
 `;
 const ListDate = styled.div`
   opacity: 0.9;
-`;
-
-const Loading = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    width: 60px;
-    height: 60px;
-  }
-`;
-
-const Error = styled.div`
-  width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const NicknameBox = styled.div`
@@ -79,11 +61,9 @@ export default function PagesArticle({ page }: IPage) {
   );
 
   return isLoading ? (
-    <Loading>
-      <img src="/img/loading.gif" alt="로딩중" />
-    </Loading>
+    <LoadingBox />
   ) : error ? (
-    <Error>404 Not Found</Error>
+    <ErrorBox />
   ) : (
     <ListBox>
       {data?.map((item) => (

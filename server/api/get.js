@@ -22,16 +22,13 @@ export function postGet(req, res) {
 // 게시물 내용 불러오기
 export function postDetailGet(req, res) {
   const { id } = req.params;
-
   const sqlQuery = `SELECT * FROM posts WHERE id = ${id}`;
 
   db.query(sqlQuery, (error, result) => {
-    if (req.session.user) {
-      const { id } = req.session.user;
-      if (id === result[0].writerID) {
-        return res.send({ user: result, writerMatch: true });
-      }
+    if (req.session?.user?.id === result[0].writerID) {
+      return res.send({ user: result, writerMatch: true });
     }
+
     return res.send({ user: result, writerMatch: false });
   });
 }
@@ -63,7 +60,6 @@ export function userInfoGet(req, res) {
   const { id } = req.params;
   const sqlQuery = `SELECT * FROM user WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
-    console.log(result);
     return res.send(result);
   });
 }

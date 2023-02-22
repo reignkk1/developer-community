@@ -7,6 +7,7 @@ import { useState } from "react";
 // File
 import { logined } from "./../atom";
 import { Link } from "react-router-dom";
+import { ErrorBox, LoadingBox } from "./LoadingError";
 
 // =============================================================================
 
@@ -154,39 +155,47 @@ export default function Comments({ page, postID }: ICommentsProps) {
       });
   };
   return (
-    <Container>
-      <CommentsBox>
-        {data?.info.map((data, index) => (
-          <CommentsItem key={data.id}>
-            <User>
-              <Link to={`/user/${data.writerID}/posts`}>
-                <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
-              </Link>
-              <UserInfo>
-                <Link to={`/user/${data.writerID}/posts`}>
-                  <Nickname>{data.nickname}</Nickname>
-                </Link>
-                <Date>{data.date}</Date>
-              </UserInfo>
-            </User>
-            {modify && Number(id) === data.id ? (
-              <Input onChange={onChange} value={value} />
-            ) : (
-              <Text>{data.text}</Text>
-            )}
-            {loginState && userID === data.writerID ? (
-              <BtnBox id={`${data.id}`}>
-                <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
+    <>
+      {isLoading ? (
+        <LoadingBox />
+      ) : error ? (
+        <ErrorBox />
+      ) : (
+        <Container>
+          <CommentsBox>
+            {data?.info.map((data, index) => (
+              <CommentsItem key={data.id}>
+                <User>
+                  <Link to={`/user/${data.writerID}/posts`}>
+                    <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                  </Link>
+                  <UserInfo>
+                    <Link to={`/user/${data.writerID}/posts`}>
+                      <Nickname>{data.nickname}</Nickname>
+                    </Link>
+                    <Date>{data.date}</Date>
+                  </UserInfo>
+                </User>
                 {modify && Number(id) === data.id ? (
-                  <ModifyBtn onClick={onModifyComplete}>수정완료</ModifyBtn>
+                  <Input onChange={onChange} value={value} />
                 ) : (
-                  <ModifyBtn onClick={onModify}>수정</ModifyBtn>
+                  <Text>{data.text}</Text>
                 )}
-              </BtnBox>
-            ) : null}
-          </CommentsItem>
-        ))}
-      </CommentsBox>
-    </Container>
+                {loginState && userID === data.writerID ? (
+                  <BtnBox id={`${data.id}`}>
+                    <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
+                    {modify && Number(id) === data.id ? (
+                      <ModifyBtn onClick={onModifyComplete}>수정완료</ModifyBtn>
+                    ) : (
+                      <ModifyBtn onClick={onModify}>수정</ModifyBtn>
+                    )}
+                  </BtnBox>
+                ) : null}
+              </CommentsItem>
+            ))}
+          </CommentsBox>
+        </Container>
+      )}
+    </>
   );
 }

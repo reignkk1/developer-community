@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { IUserData } from "../interface";
+import { ErrorBox, LoadingBox } from "./LoadingError";
 
 // =============================================================================
 
@@ -59,26 +60,6 @@ const UserMenu = styled.li<UserMenuProps>`
   }
 `;
 
-const Loading = styled.div`
-  width: 78%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    width: 60px;
-    height: 60px;
-  }
-`;
-const Error = styled.div`
-  width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 // =============================================================================
 
 interface IUserID {
@@ -105,11 +86,9 @@ export default function UserInfoContainer({ userId }: IUserID) {
       <UserInfo>
         <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
         {isLoading ? (
-          <Loading>
-            <img src="/img/loading.gif" alt="로딩중" />
-          </Loading>
+          <LoadingBox />
         ) : error ? (
-          <div>404 Not Found</div>
+          <ErrorBox />
         ) : (
           <UserNickname>{data?.nickname}</UserNickname>
         )}

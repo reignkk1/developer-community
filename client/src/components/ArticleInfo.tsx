@@ -11,6 +11,7 @@ import CommentWrite from "./CommentWrite";
 import Comments from "./Comments";
 import { logined } from "../atom";
 import { IArticleInfo, IPage } from "../interface";
+import { ErrorBox, LoadingBox } from "./LoadingError";
 
 // =============================================================================
 
@@ -41,27 +42,6 @@ const ButtonBox = styled.div`
     margin-right: 10px;
   }
 `;
-
-const Loading = styled.div`
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    width: 60px;
-    height: 60px;
-  }
-`;
-
-const Error = styled.div`
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const UserBox = styled.div`
   display: flex;
   margin-bottom: 30px;
@@ -121,11 +101,9 @@ export default function ArticleInfo({ page }: IPage) {
     <Main>
       <ArticleContainer>
         {isLoading ? (
-          <Loading>
-            <img src="/img/loading.gif" alt="로딩중" />
-          </Loading>
+          <LoadingBox />
         ) : error ? (
-          <Error>404 Not Found</Error>
+          <ErrorBox />
         ) : (
           <>
             <UserBox>

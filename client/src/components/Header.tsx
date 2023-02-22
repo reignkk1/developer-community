@@ -50,7 +50,30 @@ const MenuItem = styled.li`
   font-weight: bold;
 `;
 
-const SearchBar = styled.input``;
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  button {
+    background-color: #0092fa;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      background-color: #0580d7;
+    }
+  }
+`;
+
+const SearchBar = styled.input`
+  background-color: ${(props) => props.theme.inputColor};
+  border: 1px solid ${(props) => props.theme.borderColor};
+  outline: none;
+  color: ${(props) => props.theme.textColor};
+  padding: 5px 15px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+`;
+
 const ButtonBox = styled.div``;
 const LoginBtn = styled.button`
   background-color: ${(props) => props.theme.bgColor};
@@ -168,6 +191,8 @@ const ThemeBtn = styled.button`
   }
 `;
 
+// =============================================================================
+
 interface ItoggleTheme {
   toggleTheme: () => void;
   isDarkMode: boolean;
@@ -192,6 +217,7 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<ISearchKeyword>();
 
   const [loginState, setLoginState] = useRecoilState(logined);
@@ -237,9 +263,11 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
   };
 
   const onValid = (data: ISearchKeyword) => {
+    setValue("searchKeyword", "");
     navigate(`/search/${data.searchKeyword}`);
   };
-  const oninvalid = (error: FieldErrors) => console.log(error);
+  const oninvalid = (error: FieldErrors) =>
+    alert(`${error.searchKeyword?.message}`);
 
   const userMe = () => {
     axios
@@ -308,10 +336,15 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
             </MenuItem>
           ))}
         </Menu>
-        <form onSubmit={handleSubmit(onValid, oninvalid)}>
-          <SearchBar {...register("searchKeyword")} />
+        <Form onSubmit={handleSubmit(onValid, oninvalid)}>
+          <SearchBar
+            type="text"
+            {...register("searchKeyword", {
+              required: "검색어를 입력해주세요.",
+            })}
+          />
           <button>검색</button>
-        </form>
+        </Form>
         <ThemeBtn onClick={toggleTheme}>
           {isDarkMode ? "☀️ 라이트모드" : "🌙 다크모드"}
         </ThemeBtn>

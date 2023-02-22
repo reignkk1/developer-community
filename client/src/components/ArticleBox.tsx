@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 // File
 import { IArticle, IArticleData } from "../interface";
+import { ErrorBox, LoadingBox } from "./LoadingError";
 
 // =============================================================================
 
@@ -63,25 +64,7 @@ const TitleName = styled.div`
     color: #0092fa;
   }
 `;
-const Loading = styled.div`
-  width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  img {
-    width: 60px;
-    height: 60px;
-  }
-`;
-const Error = styled.div`
-  width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 const NicknameBox = styled.div`
   display: flex;
   align-items: center;
@@ -123,11 +106,9 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
         </Title>
       </Link>
       {isLoading ? (
-        <Loading>
-          <img src="img/loading.gif" alt="로딩중" />
-        </Loading>
+        <LoadingBox />
       ) : error ? (
-        <Error>404 Not Found</Error>
+        <ErrorBox />
       ) : (
         <ListBox>
           {data?.slice(0, 5).map((item) => (

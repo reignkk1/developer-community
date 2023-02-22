@@ -1,19 +1,20 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate, useParams } from "react-router-dom";
 
 // File
-import { IPage } from "../interface";
+import { IArticleData, IPage } from "../interface";
 import Button from "./button";
+import { useQuery } from "react-query";
 
 // =============================================================================
 
 const Container = styled.div`
   width: 60%;
-  height: 500px;
+  height: 100vh;
   margin: 0 auto;
   text-align: center;
   margin-top: 100px;
@@ -46,15 +47,17 @@ export default function Edit({ page }: IPage) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getAPI = async () => {
-      const response = await axios.get(`http://localhost:8000/${page}/${id}`);
-
-      setInputData(response.data.user[0].title);
-      setEditorData(response.data.user[0].content);
-    };
-    getAPI();
-  }, []);
+  const { isLoading, data, error } = useQuery<IArticleData>(
+    `[edit,${id}]`,
+    () =>
+      axios
+        .get(`http://localhost:8000/${page}/${id}`, { withCredentials: true })
+        .then((response) => {
+          setInputData(data?.title || "");
+          setEditorData(data?.content || "");
+          return response.data.user[0];
+        })
+  );
 
   const postSubmit = () => {
     if (inputData === "") return alert("제목을 입력해주세요!");
@@ -82,7 +85,7 @@ export default function Edit({ page }: IPage) {
         placeholder="제목을 입력해주세요!"
         onChange={onChangeInput}
         required
-        value={inputData}
+        value={isLoading ? "로딩중.." : error ? "404 Not Found" : inputData}
       />
       <Title>본문</Title>
       <CKEditor
@@ -92,7 +95,7 @@ export default function Edit({ page }: IPage) {
 
           setEditorData(editorData);
         }}
-        data={editorData}
+        data={isLoading ? "로딩중.." : error ? "404 Not Found" : editorData}
       />
 
       <Button onClick={postSubmit} text="수정하기" />
