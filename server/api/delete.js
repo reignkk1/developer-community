@@ -23,7 +23,10 @@ export function postDelete(req, res) {
 // 유저 삭제
 export function userDelete(req, res) {
   const { id } = req.session.user;
-  const sqlQuery = `DELETE FROM user WHERE id = ${id}`;
+  const sqlQuery = `DELETE FROM user WHERE id = ${id};
+                    DELETE FROM posts WHERE writerID = ${id};
+                    DELETE FROM comments WHERE writerID = ${id};
+  `;
   db.query(sqlQuery, (error, result) => {
     req.session.destroy();
     return res.send(result);

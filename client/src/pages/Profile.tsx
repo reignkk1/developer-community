@@ -8,6 +8,9 @@ import { FieldErrors } from "react-hook-form/dist/types";
 // File
 import Button from "../components/button";
 import MyPageMenu from "../components/MyPageMenu";
+import { Navigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { logined } from "../atom";
 
 // =============================================================================
 
@@ -74,6 +77,7 @@ interface IProfileData {
 
 export default function Profile() {
   const { register, handleSubmit, setValue, watch } = useForm<IProfileData>();
+  const loginState = useRecoilValue(logined);
 
   const { isLoading, error, data } = useQuery<IProfileData>(
     "user-profile",
@@ -105,7 +109,7 @@ export default function Profile() {
     if (error.name?.message) return alert(`${error.name.message}`);
     if (error.nickname?.message) return alert(`${error.nickname.message}`);
   };
-  return (
+  return loginState ? (
     <Main>
       <MyPageMenu />
       <UserContainer>
@@ -144,5 +148,7 @@ export default function Profile() {
         </UserInfoBox>
       </UserContainer>
     </Main>
+  ) : (
+    <Navigate to="/login" />
   );
 }

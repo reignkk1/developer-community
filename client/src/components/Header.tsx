@@ -264,7 +264,7 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
 
   const onValid = (data: ISearchKeyword) => {
     setValue("searchKeyword", "");
-    navigate(`/search/${data.searchKeyword}`);
+    navigate(`/search?keyword=${data.searchKeyword}`);
   };
   const oninvalid = (error: FieldErrors) =>
     alert(`${error.searchKeyword?.message}`);

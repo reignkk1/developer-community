@@ -35,7 +35,7 @@ export function postDetailGet(req, res) {
 
 // 검색한 게시물 불러오기
 export function searchPostGet(req, res) {
-  const { keyword } = req.params;
+  const { keyword } = req.query;
   const sqlQuery = `SELECT * FROM posts WHERE title like '%${keyword}%'`;
 
   db.query(sqlQuery, (error, result) => {
@@ -83,6 +83,7 @@ export function pageCommentsGet(req, res) {
   )} AND page = '${page}' `;
 
   db.query(sqlQuery, (error, result) => {
+    if (result[0] === undefined) return res.send("false");
     return res.send({ info: result, userID: req.session.user?.id });
   });
 }

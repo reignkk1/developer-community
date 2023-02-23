@@ -1,5 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { Link, useParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import axios from "axios";
 import { css } from "@emotion/react";
 import { useTheme } from "@emotion/react";
@@ -72,13 +77,14 @@ interface ITheme {
 
 export default function Search() {
   const theme = useTheme();
-  const { keyword: keyword } = useParams();
+  const [search] = useSearchParams();
+  const keyword = search.get("keyword");
 
   const { isLoading, data, error } = useQuery<IArticleData[]>(
     `[searchKeyword,${keyword}]`,
     () =>
       axios
-        .get(`http://localhost:8000/search/${keyword}`)
+        .get(`http://localhost:8000/search?keyword=${keyword}`)
         .then((response) => response.data)
   );
 

@@ -2,10 +2,12 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { FieldErrors } from "react-hook-form/dist/types";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 // File
 import { IUserData } from "../interface";
+import { useRecoilValue } from "recoil";
+import { logined } from "../atom";
 
 // =============================================================================
 
@@ -93,6 +95,7 @@ export default function SignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm<IUserData>();
+  const loginState = useRecoilValue(logined);
   const navigate = useNavigate();
   const onValid = (data: IUserData) => {
     axios
@@ -109,7 +112,9 @@ export default function SignUp() {
   };
   const oninvalid = (error: FieldErrors) => console.log(error);
 
-  return (
+  return loginState ? (
+    <Navigate to="/" />
+  ) : (
     <Main>
       <LogoBox>
         <Link to="/">

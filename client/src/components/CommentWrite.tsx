@@ -18,8 +18,8 @@ const WriteBox = styled.div`
   display: flex;
   justify-content: flex-end;
   height: 50%;
-  margin-bottom: 30px;
   position: relative;
+  margin-bottom: 30px;
 `;
 const Avartar = styled.img`
   width: 50px;

@@ -234,7 +234,7 @@ function App() {
                     path="/account/withdraw-confirm"
                     element={<WithdrawConfirm />}
                   />
-                  <Route path="/search/:keyword" element={<Search />} />
+                  <Route path="/search" element={<Search />} />
 
                   {/*==================== write page =================== */}
 

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 // File
 import MyPageMenu from "../components/MyPageMenu";
+import { useRecoilValue } from "recoil";
+import { logined } from "../atom";
 
 // =============================================================================
 
@@ -109,12 +111,13 @@ const Label = styled.label`
 
 export default function Account() {
   const [checked, setChecked] = useState(false);
+  const loginState = useRecoilValue(logined);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
   };
 
-  return (
+  return loginState ? (
     <Main>
       <MyPageMenu />
 
@@ -180,5 +183,7 @@ export default function Account() {
         </AccountControlBox>
       </AccountInfoBox>
     </Main>
+  ) : (
+    <Navigate to="/login" />
   );
 }

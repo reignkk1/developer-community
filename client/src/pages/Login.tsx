@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { FieldErrors, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 // File
 import { logined } from "../atom";
@@ -95,7 +95,7 @@ export default function Login() {
     formState: { errors },
   } = useForm<IUserData>();
 
-  const setLogin = useSetRecoilState(logined);
+  const [loginState, setLogin] = useRecoilState(logined);
   const navigate = useNavigate();
 
   const onValid = (data: IUserData) => {
@@ -118,7 +118,9 @@ export default function Login() {
 
   const oninvalid = (error: FieldErrors) => console.log(error);
 
-  return (
+  return loginState ? (
+    <Navigate to="/" />
+  ) : (
     <Main>
       <LogoBox>
         <Link to="/">

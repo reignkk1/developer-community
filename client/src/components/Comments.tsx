@@ -12,7 +12,7 @@ import { ErrorBox, LoadingBox } from "./LoadingError";
 // =============================================================================
 
 const Container = styled.div`
-  margin-top: 100px;
+  margin-top: 20px;
 `;
 const CommentsBox = styled.ul``;
 const CommentsItem = styled.li`
@@ -82,6 +82,15 @@ const Input = styled.input`
   }
 `;
 
+const Undifined = styled.div`
+  text-align: center;
+  margin: 100px 0px;
+`;
+
+const Count = styled.div`
+  margin-bottom: 50px;
+`;
+
 // =============================================================================
 
 interface ICommentsProps {
@@ -114,6 +123,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
           withCredentials: true,
         })
         .then((response) => {
+          if (!response.data) return setUndifined(true);
           setValue(response.data.info[0].text);
           return response.data;
         })
@@ -122,6 +132,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
   const [modify, setModify] = useState(false);
   const [id, setID] = useState("");
   const [value, setValue] = useState("");
+  const [undifined, setUndifined] = useState(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
@@ -162,8 +173,9 @@ export default function Comments({ page, postID }: ICommentsProps) {
         <ErrorBox />
       ) : (
         <Container>
+          <Count>{undifined ? 0 : data?.info.length}개의 댓글</Count>
           <CommentsBox>
-            {data?.info.map((data, index) => (
+            {data?.info.map((data) => (
               <CommentsItem key={data.id}>
                 <User>
                   <Link to={`/user/${data.writerID}/posts`}>

@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { logined } from "../atom";
 
 // =============================================================================
 
@@ -81,6 +83,7 @@ export default function PasswordChange() {
     formState: { errors },
   } = useForm<IData>();
 
+  const loginState = useRecoilValue(logined);
   const navigate = useNavigate();
 
   const onValid = (data: IData) => {
@@ -100,7 +103,7 @@ export default function PasswordChange() {
       .catch((error) => console.log(error));
   };
   const oninvalid = () => {};
-  return (
+  return loginState ? (
     <Main>
       <LogoBox>
         <Link to="/">
@@ -136,5 +139,7 @@ export default function PasswordChange() {
         <Btn>비밀번호 변경</Btn>
       </InputForm>
     </Main>
+  ) : (
+    <Navigate to="/login" />
   );
 }
