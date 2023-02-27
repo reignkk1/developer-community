@@ -8,6 +8,7 @@ import { useState } from "react";
 import { logined } from "./../atom";
 import { Link } from "react-router-dom";
 import { ErrorBox, LoadingBox } from "./LoadingError";
+import { commentsGet } from "../axios";
 
 // =============================================================================
 
@@ -115,24 +116,21 @@ interface IData {
 }
 
 export default function Comments({ page, postID }: ICommentsProps) {
-  const { isLoading, data, error } = useQuery<IData>(
-    [`${page}Comments`, postID],
-    () =>
-      axios
-        .get(`http://localhost:8000/${page}/${postID}/comments`, {
-          withCredentials: true,
-        })
-        .then((response) => {
-          if (!response.data) return setUndifined(true);
-          setValue(response.data.info[0].text);
-          return response.data;
-        })
-  );
-
   const [modify, setModify] = useState(false);
   const [id, setID] = useState("");
   const [value, setValue] = useState("");
   const [undifined, setUndifined] = useState(false);
+
+  const { isLoading, data, error } = useQuery<IData>(
+    [`${page}Comments`, postID],
+    () =>
+      commentsGet(page, postID).then((response) => {
+        if (!response.data) return setUndifined(true);
+        setUndifined(false);
+        setValue(response.data.info[0].text);
+        return response.data;
+      })
+  );
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
@@ -145,7 +143,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
     if (window.confirm("정말로 삭제하겠습니까?")) {
       axios
         .delete(`http://localhost:8000/comment/${id}`)
-        .then((response) => alert("삭제완료!"));
+        .then(() => alert("삭제완료!"));
     }
     return;
   };

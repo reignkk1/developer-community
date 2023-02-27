@@ -109,10 +109,7 @@ export default function UserInfo({ page }: IUserInfoPage) {
   const { id } = useParams();
   const { isLoading, data, error } = useQuery<IData[]>(
     `[user${page},${id}]`,
-    () =>
-      axios
-        .get(`http://localhost:8000/user/${page}/${id}`)
-        .then((response) => response.data)
+    () => axios.get(`/user/${page}/${id}`).then((response) => response.data)
   );
 
   return (

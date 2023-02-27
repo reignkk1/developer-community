@@ -75,10 +75,7 @@ export default function UserInfoContainer({ userId }: IUserID) {
 
   const { isLoading, data, error } = useQuery<IUserData>(
     `[nickname,${userId}]`,
-    () =>
-      axios
-        .get(`http://localhost:8000/user-info/${userId}`)
-        .then((response) => response.data[0])
+    () => axios.get(`/user-info/${userId}`).then((response) => response.data[0])
   );
 
   return (

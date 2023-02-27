@@ -130,7 +130,7 @@ export default function CommentWrite({
   const onValid = (data: ICommentText) => {
     axios
       .post(
-        "http://localhost:8000/comment",
+        "/comment",
         {
           commentText: data.commentText,
           date: new Date().toLocaleDateString("ko-kr"),

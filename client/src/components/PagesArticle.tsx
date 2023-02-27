@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
-import axios from "axios";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { articleGet } from "../axios";
 
 // File
 import { IArticleData, IPage } from "../interface";
 import { ErrorBox, LoadingBox } from "./LoadingError";
+import PageNumberBar from "./pageNumBar";
+
 // =============================================================================
 
 const ListBox = styled.ul``;
@@ -54,10 +56,7 @@ const Nickname = styled.div`
 export default function PagesArticle({ page }: IPage) {
   const { isLoading, error, data } = useQuery<IArticleData[]>(
     `Page${page}`,
-    () =>
-      axios
-        .get(`http://localhost:8000/${page}`, { withCredentials: true })
-        .then((response) => response.data)
+    () => articleGet(page).then((response) => response.data)
   );
 
   return isLoading ? (
@@ -65,24 +64,26 @@ export default function PagesArticle({ page }: IPage) {
   ) : error ? (
     <ErrorBox />
   ) : (
-    <ListBox>
-      {data?.map((item) => (
-        <ListItem key={item.id}>
-          <NicknameBox>
-            <Link to={`/user/${item.writerID}/posts`}>
-              <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+    <>
+      <ListBox>
+        {data?.slice(0, 10).map((item) => (
+          <ListItem key={item.id}>
+            <NicknameBox>
+              <Link to={`/user/${item.writerID}/posts`}>
+                <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+              </Link>
+              <Link to={`/user/${item.writerID}/posts`}>
+                <Nickname>{item.nickname}</Nickname>
+              </Link>
+            </NicknameBox>
+            <Link to={`/${page}/${item.id}`}>
+              <ListTitle>{item.title}</ListTitle>
             </Link>
-            <Link to={`/user/${item.writerID}/posts`}>
-              <Nickname>{item.nickname}</Nickname>
-            </Link>
-          </NicknameBox>
-          <Link to={`/${page}/${item.id}`}>
-            <ListTitle>{item.title}</ListTitle>
-          </Link>
-
-          <ListDate>{item.date}</ListDate>
-        </ListItem>
-      ))}
-    </ListBox>
+            <ListDate>{item.date}</ListDate>
+          </ListItem>
+        ))}
+      </ListBox>
+      <PageNumberBar dataLength={data?.length} page={page} />
+    </>
   );
 }

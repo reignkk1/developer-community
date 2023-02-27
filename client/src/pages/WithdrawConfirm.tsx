@@ -83,12 +83,10 @@ export default function WithdrawConfirm() {
   };
 
   const onDeleteClick = () => {
-    axios
-      .delete("http://localhost:8000/user", { withCredentials: true })
-      .then(() => {
-        setLogined(false);
-        window.location.assign("/");
-      });
+    axios.delete("/user", { withCredentials: true }).then(() => {
+      setLogined(false);
+      window.location.assign("/");
+    });
   };
 
   return loginState ? (

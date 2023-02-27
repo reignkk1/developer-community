@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import axios from "axios";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 
 // File
+import { articleGet } from "../axios";
 import { IArticle, IArticleData } from "../interface";
 import { ErrorBox, LoadingBox } from "./LoadingError";
 
@@ -91,10 +91,7 @@ const Nickname = styled.div`
 export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
   const { isLoading, error, data } = useQuery<IArticleData[]>(
     `Home${page}`,
-    () =>
-      axios
-        .get(`http://localhost:8000/${page}`, { withCredentials: true })
-        .then((response) => response.data)
+    () => articleGet(page).then((response) => response.data)
   );
 
   return (
@@ -111,7 +108,7 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
         <ErrorBox />
       ) : (
         <ListBox>
-          {data?.slice(0, 5).map((item) => (
+          {data?.slice(0, 4).map((item) => (
             <ListItem key={item.id}>
               <NicknameBox>
                 <Link to={`/user/${item.writerID}/posts`}>

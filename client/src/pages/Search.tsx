@@ -83,9 +83,7 @@ export default function Search() {
   const { isLoading, data, error } = useQuery<IArticleData[]>(
     `[searchKeyword,${keyword}]`,
     () =>
-      axios
-        .get(`http://localhost:8000/search?keyword=${keyword}`)
-        .then((response) => response.data)
+      axios.get(`/search?keyword=${keyword}`).then((response) => response.data)
   );
 
   return (

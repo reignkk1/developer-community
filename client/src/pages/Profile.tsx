@@ -83,7 +83,7 @@ export default function Profile() {
     "user-profile",
     () =>
       axios
-        .get("http://localhost:8000/profile", { withCredentials: true })
+        .get("/profile", { withCredentials: true })
         .then((response) => response.data[0])
   );
 

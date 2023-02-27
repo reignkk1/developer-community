@@ -12,6 +12,7 @@ import Comments from "./Comments";
 import { logined } from "../atom";
 import { IArticleInfo, IPage } from "../interface";
 import { ErrorBox, LoadingBox } from "./LoadingError";
+import { articleDetail } from "../axios";
 
 // =============================================================================
 
@@ -77,10 +78,7 @@ export default function ArticleInfo({ page }: IPage) {
   const { id } = useParams();
   const { isLoading, error, data } = useQuery<IArticleInfo>(
     `Detail${page}`,
-    () =>
-      axios
-        .get(`http://localhost:8000/${page}/${id}`, { withCredentials: true })
-        .then((response) => response.data)
+    () => articleDetail(page, id).then((response) => response.data)
   );
 
   const loginState = useRecoilValue(logined);
@@ -89,7 +87,7 @@ export default function ArticleInfo({ page }: IPage) {
 
   const deleteClick = () => {
     if (window.confirm("정말로 삭제 하시겠습니까?")) {
-      axios.delete(`http://localhost:8000/${page}/${id}`).then(() => {
+      axios.delete(`/${page}/${id}`).then(() => {
         navigate(`/${page}`);
       });
     } else {

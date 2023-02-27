@@ -92,7 +92,7 @@ export default function PasswordChange() {
       return alert("비밀번호가 서로 일치하지 않습니다!");
     axios
       .patch(
-        "http://localhost:8000/password",
+        "/password",
         { currentPassWord, newPassWord, passWordComfirm },
         { withCredentials: true }
       )
