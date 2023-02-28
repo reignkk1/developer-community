@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { articleGet } from "../axios";
 
 // File
 import { IArticleData, IPage } from "../interface";
 import { ErrorBox, LoadingBox } from "./LoadingError";
 import PageNumberBar from "./pageNumBar";
+import { useState } from "react";
+import { useEffect } from "react";
 
 // =============================================================================
 
@@ -58,6 +60,15 @@ export default function PagesArticle({ page }: IPage) {
     `Page${page}`,
     () => articleGet(page).then((response) => response.data)
   );
+  const [query, setQuery] = useSearchParams();
+  const pageCount = query.get("page");
+
+  const [pageNumber, setPageNumber] = useState(0);
+  console.log(pageNumber);
+
+  useEffect(() => {
+    setPageNumber(Number(pageCount));
+  }, [pageCount]);
 
   return isLoading ? (
     <LoadingBox />
@@ -66,22 +77,27 @@ export default function PagesArticle({ page }: IPage) {
   ) : (
     <>
       <ListBox>
-        {data?.slice(0, 10).map((item) => (
-          <ListItem key={item.id}>
-            <NicknameBox>
-              <Link to={`/user/${item.writerID}/posts`}>
-                <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+        {data
+          ?.slice(
+            pageCount === null ? 0 : pageNumber * 10 - 10,
+            pageCount === null ? 10 : pageNumber * 10
+          )
+          .map((item) => (
+            <ListItem key={item.id}>
+              <NicknameBox>
+                <Link to={`/user/${item.writerID}/posts`}>
+                  <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                </Link>
+                <Link to={`/user/${item.writerID}/posts`}>
+                  <Nickname>{item.nickname}</Nickname>
+                </Link>
+              </NicknameBox>
+              <Link to={`/${page}/${item.id}`}>
+                <ListTitle>{item.title}</ListTitle>
               </Link>
-              <Link to={`/user/${item.writerID}/posts`}>
-                <Nickname>{item.nickname}</Nickname>
-              </Link>
-            </NicknameBox>
-            <Link to={`/${page}/${item.id}`}>
-              <ListTitle>{item.title}</ListTitle>
-            </Link>
-            <ListDate>{item.date}</ListDate>
-          </ListItem>
-        ))}
+              <ListDate>{item.date}</ListDate>
+            </ListItem>
+          ))}
       </ListBox>
       <PageNumberBar dataLength={data?.length} page={page} />
     </>

@@ -19,11 +19,9 @@ interface IDataLength {
 export default function PageNumberBar({ dataLength, page }: IDataLength) {
   const buttonCount = Math.ceil(dataLength! / 10);
   const navigate = useNavigate();
-  const onClick = (pageNumber: string) => {
-    axios
-      .get(`/${page}?page=${pageNumber}`)
-      .then(() => navigate(`/${page}?page=${pageNumber}`));
-  };
+  const onClick = (pageNumber: string) =>
+    navigate(`/${page}?page=${pageNumber}`);
+
   return (
     <div css={Container}>
       <div css={PageBar}>

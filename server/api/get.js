@@ -13,7 +13,6 @@ const db = mysql.createPool({
 // 게시물 불러오기
 export function postGet(req, res) {
   const { page } = req.params;
-  console.log(req.query);
   const sqlQuery = `SELECT * From posts WHERE page='${page}' ORDER BY id DESC;`;
   db.query(sqlQuery, (error, result) => {
     return res.send(result);
