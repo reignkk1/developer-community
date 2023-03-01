@@ -1,34 +1,73 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { css, useTheme } from "@emotion/react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
-const Container = css`
+interface ITheme {
+  borderColor: string;
+  textColor: string;
+}
+
+const Container = (theme: ITheme) => css`
   margin-top: 100px;
+  border-top: 1px solid ${theme.borderColor};
 `;
 
 const PageBar = css`
   text-align: center;
 `;
 
+const PageBtn = (index: number, pageCount: string | null, theme: ITheme) => css`
+  font-size: 15px;
+  width: 30px;
+  color: ${theme.textColor};
+  margin-right: 10px;
+  padding-top: 30px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-top: ${index + 1 === Number(pageCount) ||
+  (pageCount === null && index === 0)
+    ? "3px solid #0092fa"
+    : null};
+  &:hover {
+    color: #0092fa;
+  }
+`;
+
 interface IDataLength {
   dataLength?: number;
   page: string;
+  pageCount: string | null;
 }
 
-export default function PageNumberBar({ dataLength, page }: IDataLength) {
+export default function PageNumberBar({
+  dataLength,
+  page,
+  pageCount,
+}: IDataLength) {
   const buttonCount = Math.ceil(dataLength! / 10);
+  const theme = useTheme();
   const navigate = useNavigate();
+
   const onClick = (pageNumber: string) =>
     navigate(`/${page}?page=${pageNumber}`);
+  window.scrollTo(0, 0);
 
   return (
-    <div css={Container}>
+    <div css={Container(theme)}>
       <div css={PageBar}>
         {Array(buttonCount)
           .fill("")
           .map((item, index) => (
-            <button onClick={() => onClick(index + 1 + "")}>{index + 1}</button>
+            <button
+              key={index}
+              css={PageBtn(index, pageCount, theme)}
+              onClick={() => onClick(index + 1 + "")}
+            >
+              {index + 1}
+            </button>
           ))}
       </div>
     </div>

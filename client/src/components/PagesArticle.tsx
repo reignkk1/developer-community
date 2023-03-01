@@ -64,7 +64,6 @@ export default function PagesArticle({ page }: IPage) {
   const pageCount = query.get("page");
 
   const [pageNumber, setPageNumber] = useState(0);
-  console.log(pageNumber);
 
   useEffect(() => {
     setPageNumber(Number(pageCount));
@@ -99,7 +98,11 @@ export default function PagesArticle({ page }: IPage) {
             </ListItem>
           ))}
       </ListBox>
-      <PageNumberBar dataLength={data?.length} page={page} />
+      <PageNumberBar
+        dataLength={data?.length}
+        page={page}
+        pageCount={pageCount}
+      />
     </>
   );
 }

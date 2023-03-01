@@ -6,7 +6,6 @@ const footer = (pathname: string) => css`
   display: ${pathname === "/login" || pathname === "/signup"
     ? "none"
     : "block"};
-  margin-top: 400px;
 `;
 
 const snowCat = css`
