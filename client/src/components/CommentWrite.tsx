@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FieldErrors } from "react-hook-form/dist/types";
 import axios from "axios";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 // =============================================================================
 
@@ -151,9 +153,10 @@ export default function CommentWrite({
   return (
     <Container>
       {loginState ? (
-        <WriteBox2>
+        <WriteBox2 className="commentWrite">
           <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
-          <Form onSubmit={handleSubmit(onValid, oninvalid)}>
+          <CKEditor editor={ClassicEditor} />
+          {/*<Form onSubmit={handleSubmit(onValid, oninvalid)}>
             <Input
               {...register("commentText", {
                 required: "1자 이상 입력해주세요!",
@@ -165,7 +168,7 @@ export default function CommentWrite({
               <span>{errors.commentText?.message}</span>
               <Btn>댓글쓰기</Btn>
             </WriteBtn>
-          </Form>
+            </Form>*/}
         </WriteBox2>
       ) : (
         <>

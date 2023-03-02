@@ -74,7 +74,7 @@ export default function Write({ page }: IPage) {
   };
 
   return (
-    <Container>
+    <Container className="articleWrite">
       <Title>제목</Title>
       <Input
         placeholder="제목을 입력해주세요!"
@@ -84,10 +84,8 @@ export default function Write({ page }: IPage) {
       <Title>본문</Title>
       <CKEditor
         editor={ClassicEditer}
-        config={{}}
         onChange={(event, editor) => {
           const data = editor.getData();
-
           setEditorData({ ...editorData, content: data });
         }}
       />

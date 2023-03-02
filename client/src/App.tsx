@@ -190,15 +190,25 @@ function App() {
         color: black;
       }
 
-      .ck {
-        height: 400px;
-        margin-bottom: 30px;
-        line-height: 1.7;
-        color: black;
-      }
       body {
         background-color: ${theme.bgColor};
         color: ${theme.textColor};
+      }
+      .articleWrite {
+        .ck-editor__editable_inline {
+          height: 400px;
+          line-height: 1.5;
+          margin-bottom: 20px;
+        }
+      }
+      .commentWrite {
+        .ck.ck-editor {
+          width: 100%;
+        }
+        .ck-editor__editable_inline {
+          height: 60px;
+          line-height: 1.2;
+        }
       }
     `;
     return <Global styles={reset} />;
