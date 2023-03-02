@@ -203,11 +203,11 @@ function App() {
       }
       .commentWrite {
         .ck.ck-editor {
-          width: 100%;
+          width: 93%;
         }
         .ck-editor__editable_inline {
-          height: 60px;
-          line-height: 1.2;
+          height: auto;
+          line-height: 1.5;
         }
       }
     `;

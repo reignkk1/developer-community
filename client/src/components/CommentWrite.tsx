@@ -1,15 +1,13 @@
 import styled from "@emotion/styled";
-import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { FieldErrors } from "react-hook-form/dist/types";
 import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useState } from "react";
 
 // =============================================================================
 
 const Container = styled.div`
-  height: 180px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 10px;
   padding: 30px;
@@ -69,7 +67,7 @@ const Btn = styled.button`
   color: white;
   padding: 10px 40px;
   border-radius: 5px;
-  margin-bottom: 20px;
+
   font-weight: bold;
   font-size: 14px;
   &:hover {
@@ -82,6 +80,7 @@ const Btn = styled.button`
 `;
 const WriteBox2 = styled.div`
   display: flex;
+  margin-bottom: 10px;
 `;
 const Form = styled.form`
   width: 100%;
@@ -122,19 +121,14 @@ export default function CommentWrite({
   postID,
   page,
 }: ICommentInfo) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<ICommentText>();
+  const [text, setText] = useState("");
 
-  const onValid = (data: ICommentText) => {
+  const onClick = () => {
     axios
       .post(
         "/comment",
         {
-          commentText: data.commentText,
+          commentText: text,
           date: new Date().toLocaleDateString("ko-kr"),
           postID: Number(postID),
           page: page,
@@ -142,34 +136,31 @@ export default function CommentWrite({
         { withCredentials: true }
       )
       .then(() => {
-        setValue("commentText", "");
+        setText("");
         return alert("댓글 생성완료!");
       });
-  };
-  const oninvalid = (error: FieldErrors) => {
-    console.log(error);
   };
 
   return (
     <Container>
       {loginState ? (
-        <WriteBox2 className="commentWrite">
-          <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
-          <CKEditor editor={ClassicEditor} />
-          {/*<Form onSubmit={handleSubmit(onValid, oninvalid)}>
-            <Input
-              {...register("commentText", {
-                required: "1자 이상 입력해주세요!",
-              })}
-              type="text"
+        <>
+          <WriteBox2 className="commentWrite">
+            <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+            <CKEditor
+              editor={ClassicEditor}
+              data={text}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setText(data);
+              }}
             />
+          </WriteBox2>
 
-            <WriteBtn>
-              <span>{errors.commentText?.message}</span>
-              <Btn>댓글쓰기</Btn>
-            </WriteBtn>
-            </Form>*/}
-        </WriteBox2>
+          <WriteBtn>
+            <Btn onClick={onClick}>댓글쓰기</Btn>
+          </WriteBtn>
+        </>
       ) : (
         <>
           <WriteBox>

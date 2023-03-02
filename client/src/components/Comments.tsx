@@ -9,6 +9,7 @@ import { logined } from "./../atom";
 import { Link } from "react-router-dom";
 import { ErrorBox, LoadingBox } from "./LoadingError";
 import { commentsGet } from "../axios";
+import Parser from "html-react-parser";
 
 // =============================================================================
 
@@ -189,7 +190,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
                 {modify && Number(id) === data.id ? (
                   <Input onChange={onChange} value={value} />
                 ) : (
-                  <Text>{data.text}</Text>
+                  <Text>{Parser(data.text)}</Text>
                 )}
                 {loginState && userID === data.writerID ? (
                   <BtnBox id={`${data.id}`}>
