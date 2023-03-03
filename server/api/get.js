@@ -68,8 +68,9 @@ export function userInfoGet(req, res) {
 export function userActivity(req, res) {
   const { id, page } = req.params;
   const sqlQuery = `SELECT * From ${page} WHERE writerID = '${id}' ORDER BY date DESC`;
-
+  console.log(id, page);
   db.query(sqlQuery, (error, result) => {
+    console.log(error);
     return res.send(result);
   });
 }

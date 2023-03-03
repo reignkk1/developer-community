@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
 
 interface ITheme {
   borderColor: string;
@@ -40,19 +38,23 @@ interface IDataLength {
   dataLength?: number;
   page: string;
   pageCount: string | null;
+  userID?: string;
 }
 
 export default function PageNumberBar({
   dataLength,
   page,
   pageCount,
+  userID,
 }: IDataLength) {
-  const buttonCount = Math.ceil(dataLength! / 10);
+  const buttonCount = Math.ceil((dataLength || 0) / 10);
   const theme = useTheme();
   const navigate = useNavigate();
 
   const onClick = (pageNumber: string) =>
-    navigate(`/${page}?page=${pageNumber}`);
+    userID
+      ? navigate(`/user/${userID}/${page}?page=${pageNumber}`)
+      : navigate(`/${page}?page=${pageNumber}`);
   window.scrollTo(0, 0);
 
   return (

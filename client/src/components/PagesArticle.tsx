@@ -60,7 +60,7 @@ export default function PagesArticle({ page }: IPage) {
     `Page${page}`,
     () => articleGet(page).then((response) => response.data)
   );
-  const [query, setQuery] = useSearchParams();
+  const [query] = useSearchParams();
   const pageCount = query.get("page");
 
   const [pageNumber, setPageNumber] = useState(0);
