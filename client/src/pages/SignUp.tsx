@@ -40,6 +40,12 @@ const InputForm = styled.form`
   flex-direction: column;
   align-items: flex-start;
 `;
+const InputBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+`;
 const Input = styled.input`
   width: 100%;
   padding: 10px 15px;
@@ -52,11 +58,17 @@ const Input = styled.input`
     border: 1px solid #0580d7;
   }
   outline: none;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 `;
 const Label = styled.label`
   margin-bottom: 5px;
   font-weight: bold;
+`;
+
+const ErrorMsg = styled.span`
+  color: red;
+  text-align: start;
+  font-size: 13px;
 `;
 const Btn = styled.button`
   width: 100%;
@@ -125,35 +137,60 @@ export default function SignUp() {
       </LogoBox>
       <InputForm onSubmit={handleSubmit(onValid, oninvalid)}>
         <Label>아이디</Label>
-        <Input
-          placeholder="4~15자 이내로 입력해주세요"
-          type="text"
-          {...register("userID", { required: "아이디를 입력해주세요!" })}
-        />
+        <InputBox>
+          <Input
+            placeholder="4~15자 이내로 입력해주세요"
+            type="text"
+            {...register("userID", {
+              required: "아이디를 입력해주세요!",
+              minLength: { value: 4, message: "4자 이상 입력해주세요." },
+              maxLength: { value: 15, message: "15자 이하로 입력해주세요." },
+            })}
+          />
+          <ErrorMsg>{errors.userID?.message}</ErrorMsg>
+        </InputBox>
         <Label>비밀번호</Label>
-        <Input
-          placeholder="최소 6자 이상"
-          type="password"
-          {...register("password", { required: "비밀번호를 입력해주세요!" })}
-        />
+        <InputBox>
+          <Input
+            placeholder="최소 6자 이상"
+            type="password"
+            {...register("password", {
+              required: "비밀번호를 입력해주세요!",
+              minLength: { value: 6, message: "6자 이상 입력해주세요." },
+            })}
+          />
+          <ErrorMsg>{errors.password?.message}</ErrorMsg>
+        </InputBox>
         <Label>이메일</Label>
-        <Input
-          placeholder="mingyeom@okky.kr"
-          type="email"
-          {...register("email", { required: "이메일를 입력해주세요!" })}
-        />
+        <InputBox>
+          <Input
+            placeholder="mingyeom@okky.kr"
+            type="email"
+            {...register("email", { required: "이메일를 입력해주세요!" })}
+          />
+          <ErrorMsg>{errors.email?.message}</ErrorMsg>
+        </InputBox>
         <Label>실명</Label>
-        <Input
-          placeholder="홍길동"
-          type="text"
-          {...register("name", { required: "실명을 입력해주세요!" })}
-        />
+        <InputBox>
+          <Input
+            placeholder="홍길동"
+            type="text"
+            {...register("name", { required: "실명을 입력해주세요!" })}
+          />
+          <ErrorMsg>{errors.name?.message}</ErrorMsg>
+        </InputBox>
         <Label>닉네임</Label>
-        <Input
-          placeholder="20자 이하로 입력해주세요"
-          type="text"
-          {...register("nickname", { required: "닉네임을 입력해주세요!" })}
-        />
+        <InputBox>
+          <Input
+            placeholder="20자 이하로 입력해주세요"
+            type="text"
+            {...register("nickname", {
+              required: "닉네임을 입력해주세요!",
+              maxLength: { value: 20, message: "20자 이하로 입력해주세요." },
+            })}
+          />
+          <ErrorMsg>{errors.nickname?.message}</ErrorMsg>
+        </InputBox>
         <Btn>가입하기</Btn>
         <BottomLogin>
           <span>이미 회원이신가요?</span>
