@@ -66,7 +66,7 @@ const Nickname = styled.div`
 export default function Quote() {
   const { isLoading, error, data } = useQuery<IArticleData[]>("quote", () =>
     axios
-      .get("/quote", { withCredentials: true })
+      .get("/article/quote", { withCredentials: true })
       .then((response) => response.data)
   );
 

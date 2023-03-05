@@ -6,10 +6,12 @@ const footer = (pathname: string) => css`
   display: ${pathname === "/login" || pathname === "/signup"
     ? "none"
     : "block"};
+  margin-top: 50px;
 `;
 
 const snowCat = css`
   text-align: center;
+  margin-left: 900px;
 `;
 
 interface ITheme {

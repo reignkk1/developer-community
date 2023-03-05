@@ -202,11 +202,32 @@ function App() {
         }
       }
       .commentWrite {
+        color: ${theme.textColor};
+
         .ck.ck-editor {
           width: 93%;
         }
+        .ck.ck-toolbar {
+          background: ${theme.bgCommentWriteColor};
+        }
+        .ck-icon_inherit-color {
+          color: ${theme.textColor};
+        }
+        .ck.ck-button:hover {
+          background: none;
+        }
+        .ck .ck-button__label {
+          color: ${theme.textColor};
+        }
+        .ck.ck-button.ck-on {
+          &:hover {
+            background: ${theme.borderColor};
+          }
+          background: ${theme.borderColor};
+        }
         .ck-editor__editable_inline {
           height: auto;
+          background: ${theme.bgCommentWriteColor};
           line-height: 1.5;
         }
       }

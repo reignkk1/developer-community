@@ -10,7 +10,7 @@ import { ErrorBox, LoadingBox } from "./LoadingError";
 // =============================================================================
 
 const Container = styled.div`
-  height: 480px;
+  height: 500px;
 `;
 const ListBox = styled.ul`
   padding: 5px;

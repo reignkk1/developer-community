@@ -83,7 +83,7 @@ export default function Profile() {
     "user-profile",
     () =>
       axios
-        .get("/profile", { withCredentials: true })
+        .get("/user/profile", { withCredentials: true })
         .then((response) => response.data[0])
   );
 
@@ -98,7 +98,7 @@ export default function Profile() {
   const onValid = (data: IProfileData) => {
     axios
       .patch(
-        "http://localhost:8000/profile",
+        "/user/profile",
         { name: data.name, nickname: data.nickname },
         { withCredentials: true }
       )
