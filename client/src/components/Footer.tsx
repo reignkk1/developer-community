@@ -134,8 +134,10 @@ export default function Footer() {
           </div>
           <div css={menuBox}>
             <ul css={Menu}>
-              {list.map((list) => (
-                <li css={MenuItem}>{list}</li>
+              {list.map((list, index) => (
+                <li key={index} css={MenuItem}>
+                  {list}
+                </li>
               ))}
             </ul>
             <div css={Info}>

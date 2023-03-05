@@ -319,8 +319,8 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
           </Svg>
         </Link>
         <Menu>
-          {menu.map((item) => (
-            <MenuItem>
+          {menu.map((item, index) => (
+            <MenuItem key={index}>
               <Link
                 to={item.path}
                 style={{

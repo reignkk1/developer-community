@@ -96,7 +96,7 @@ export default function Search() {
       ) : (
         <ul>
           {data?.map((item) => (
-            <li css={ItemList(theme)}>
+            <li key={item.id} css={ItemList(theme)}>
               <div css={Info}>
                 <Link to={`/user/${item.writerID}/posts`}>
                   <img
