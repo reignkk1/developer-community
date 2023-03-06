@@ -38,7 +38,7 @@ export default function PagesTitle({ name, ImgeSrc, explain }: IPagesTitle) {
         <TitleName>{name}</TitleName>
         <Span>{explain}</Span>
       </Info>
-      <Img src={ImgeSrc} />
+      <Img src={ImgeSrc} alt={name} />
     </Title>
   );
 }

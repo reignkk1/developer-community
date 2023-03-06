@@ -206,6 +206,7 @@ function App() {
 
         .ck.ck-editor {
           width: 93%;
+          margin-left: 10px;
         }
         .ck.ck-toolbar {
           background: ${theme.bgCommentWriteColor};

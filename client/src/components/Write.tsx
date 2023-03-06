@@ -56,7 +56,7 @@ export default function Write({ page }: IPage) {
 
     axios
       .post(
-        `http://localhost:8000/${page}`,
+        `/article/${page}`,
         {
           title: editorData.title,
           content: editorData.content,

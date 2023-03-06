@@ -130,7 +130,7 @@ export default function SignUp() {
     <Main>
       <LogoBox>
         <Link to="/">
-          <Logo src="https://okky.kr/okky.svg" />
+          <Logo src="https://okky.kr/okky.svg" alt="로고" />
         </Link>
         <P1>OKKY에 오신것을 환영합니다.</P1>
         <P2>OKKY는 소프트웨어 개발자를 위한 지식공유 플랫폼입니다.</P2>

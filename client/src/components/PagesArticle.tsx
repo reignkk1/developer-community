@@ -9,6 +9,7 @@ import { ErrorBox, LoadingBox } from "./LoadingError";
 import PageNumberBar from "./pageNumBar";
 import { useState } from "react";
 import { useEffect } from "react";
+import Avartar from "./Avartar";
 
 // =============================================================================
 
@@ -43,11 +44,7 @@ const NicknameBox = styled.div`
     margin-right: 5px;
   }
 `;
-const Avartar = styled.img`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-`;
+
 const Nickname = styled.div`
   font-size: 14px;
   margin-right: 7px;
@@ -85,7 +82,7 @@ export default function PagesArticle({ page }: IPage) {
             <ListItem key={item.id}>
               <NicknameBox>
                 <Link to={`/user/${item.writerID}/posts`}>
-                  <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                  <Avartar width="20px" heigth="20px" />
                 </Link>
                 <Link to={`/user/${item.writerID}/posts`}>
                   <Nickname>{item.nickname}</Nickname>

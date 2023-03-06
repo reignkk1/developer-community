@@ -4,6 +4,7 @@ import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useState } from "react";
+import Avartar from "./Avartar";
 
 // =============================================================================
 
@@ -21,7 +22,7 @@ const WriteBox = styled.div`
   position: relative;
   margin-bottom: 30px;
 `;
-const Avartar = styled.img`
+const AvartarCat = styled.img`
   width: 50px;
   height: 50px;
   padding: 5px;
@@ -82,26 +83,6 @@ const WriteBox2 = styled.div`
   display: flex;
   margin-bottom: 10px;
 `;
-const Form = styled.form`
-  width: 100%;
-  margin-top: 5px;
-`;
-const Input = styled.input`
-  width: 100%;
-  height: 40px;
-  padding: 10px;
-  margin-bottom: 30px;
-  outline: none;
-  &:focus {
-    border: 1px solid #0580d7;
-  }
-`;
-const UserAvartar = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 8px;
-`;
 
 // =============================================================================
 
@@ -111,9 +92,6 @@ interface ICommentInfo {
   page: string;
 }
 
-interface ICommentText {
-  commentText: string;
-}
 // =============================================================================
 
 export default function CommentWrite({
@@ -146,7 +124,7 @@ export default function CommentWrite({
       {loginState ? (
         <>
           <WriteBox2 className="commentWrite">
-            <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+            <Avartar width="50px" heigth="50px" />
             <CKEditor
               editor={ClassicEditor}
               data={text}
@@ -164,7 +142,10 @@ export default function CommentWrite({
       ) : (
         <>
           <WriteBox>
-            <Avartar src="https://okky.kr/icons/icon-profile.svg" />
+            <AvartarCat
+              src="https://okky.kr/icons/icon-profile.svg"
+              alt="고양이사진"
+            />
             <TextArea readOnly />
             <P>
               댓글을 쓰려면 <Link to="/login">로그인</Link>이 필요합니다.

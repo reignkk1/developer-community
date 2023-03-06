@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { IUserData } from "../interface";
 import { ErrorBox, LoadingBox } from "./LoadingError";
+import Avartar from "./Avartar";
 
 // =============================================================================
 
@@ -19,15 +20,11 @@ const UserInfo = styled.div`
   display: flex;
   align-items: center;
 `;
-const UserAvartar = styled.img`
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  margin-right: 15px;
-`;
+
 const UserNickname = styled.div`
   font-weight: bold;
   font-size: 20px;
+  margin-left: 20px;
 `;
 const UserMenuBox = styled.ul`
   display: flex;
@@ -81,7 +78,7 @@ export default function UserInfoContainer({ userId }: IUserID) {
   return (
     <UserInfoBox>
       <UserInfo>
-        <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+        <Avartar width="70px" heigth="70px" />
         {isLoading ? (
           <LoadingBox />
         ) : error ? (

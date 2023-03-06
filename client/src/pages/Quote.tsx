@@ -11,6 +11,8 @@ import QuoteInput from "../components/QuoteInput";
 import { IArticleData, props } from "../interface";
 import { logined } from "../atom";
 import { Main } from "../PageShareStyle";
+import { ErrorBox, LoadingBox } from "../components/LoadingError";
+import Avartar from "../components/Avartar";
 
 // =============================================================================
 const ListBox = styled.ul``;
@@ -29,35 +31,16 @@ const ListTitle = styled.div`
 const ListDate = styled.div`
   opacity: 0.9;
 `;
-const Loading = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    width: 60px;
-    height: 60px;
-  }
-`;
-const Error = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+
 const NicknameBox = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 6px;
 `;
-const Avartar = styled.img`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-right: 5px;
-`;
+
 const Nickname = styled.div`
   font-size: 14px;
+  margin-left: 5px;
   margin-right: 7px;
 `;
 
@@ -81,7 +64,7 @@ export default function Quote() {
     }
     axios
       .post(
-        "http://localhost:8000/quote",
+        "/article/quote",
         {
           title: inputData,
           content: inputData,
@@ -106,17 +89,15 @@ export default function Quote() {
       />
       <QuoteInput onChange={onChange} onClick={onClick} inputData={inputData} />
       {isLoading ? (
-        <Loading>
-          <img src="/img/loading.gif" />
-        </Loading>
+        <LoadingBox />
       ) : error ? (
-        <Error>404 Not Found</Error>
+        <ErrorBox />
       ) : (
         <ListBox>
           {data?.map((item) => (
             <ListItem key={item.id}>
               <NicknameBox>
-                <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                <Avartar width="20px" heigth="20px" />
                 <Nickname>{item.nickname}</Nickname>
               </NicknameBox>
               <Link to={`${item.id}`}>

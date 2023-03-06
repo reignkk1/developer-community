@@ -77,11 +77,7 @@ interface IData {
 // =============================================================================
 
 export default function PasswordChange() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IData>();
+  const { register, handleSubmit } = useForm<IData>();
 
   const loginState = useRecoilValue(logined);
   const navigate = useNavigate();
@@ -107,7 +103,7 @@ export default function PasswordChange() {
     <Main>
       <LogoBox>
         <Link to="/">
-          <Logo src="https://okky.kr/okky.svg" />
+          <Logo src="https://okky.kr/okky.svg" alt="로고" />
         </Link>
         <P1>변경하실 비밀번호를 입력해주세요.</P1>
       </LogoBox>

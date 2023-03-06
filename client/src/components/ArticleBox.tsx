@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 // File
 import { articleGet } from "../axios";
 import { IArticle, IArticleData } from "../interface";
+import Avartar from "./Avartar";
 import { ErrorBox, LoadingBox } from "./LoadingError";
 
 // =============================================================================
@@ -70,14 +71,10 @@ const NicknameBox = styled.div`
   align-items: center;
   margin-bottom: 8px;
 `;
-const Avartar = styled.img`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-right: 5px;
-`;
+
 const Nickname = styled.div`
   font-size: 14px;
+  margin-left: 5px;
   margin-right: 7px;
   color: ${(props) => props.theme.textColor};
 
@@ -99,7 +96,7 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
       <Link to={`/${page}`}>
         <Title>
           <TitleName>{name}</TitleName>
-          <Img src={ImgeSrc} />
+          <Img src={ImgeSrc} alt={name} />
         </Title>
       </Link>
       {isLoading ? (
@@ -112,7 +109,7 @@ export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
             <ListItem key={item.id}>
               <NicknameBox>
                 <Link to={`/user/${item.writerID}/posts`}>
-                  <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                  <Avartar width="20px" heigth="20px" />
                 </Link>
                 <Link to={`/user/${item.writerID}/posts`}>
                   <Nickname>{item.nickname}</Nickname>

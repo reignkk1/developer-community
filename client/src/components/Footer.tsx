@@ -87,8 +87,18 @@ export default function Footer() {
   return (
     <div css={footer(location.pathname)}>
       <div css={snowCat}>
-        <img src="https://okky.kr/okky-snowman.svg" />
-        <img src="https://okky.kr/cat-footer.svg" />
+        <img
+          src="https://okky.kr/okky-snowman.svg"
+          alt="눈사람"
+          width="50px"
+          height="50px"
+        />
+        <img
+          src="https://okky.kr/cat-footer.svg"
+          alt="고양이"
+          width="50px"
+          height="30px"
+        />
       </div>
       <div css={Container(theme)}>
         <div css={Content}>

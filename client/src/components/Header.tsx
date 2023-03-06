@@ -216,7 +216,7 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+
     setValue,
   } = useForm<ISearchKeyword>();
 
@@ -354,6 +354,7 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
               ref={avartar}
               onClick={onAvatarClick}
               src="	https://graph.facebook.com/555897032021233/picture?width=100&height=100"
+              alt="프로필"
             />
             {avartarClick ? (
               <AvartarMenuBox ref={avartarMenu}>

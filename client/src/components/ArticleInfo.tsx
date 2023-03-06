@@ -13,6 +13,7 @@ import { logined } from "../atom";
 import { IArticleInfo, IPage } from "../interface";
 import { ErrorBox, LoadingBox } from "./LoadingError";
 import { articleDetail } from "../axios";
+import Avartar from "./Avartar";
 
 // =============================================================================
 
@@ -51,11 +52,7 @@ const UserBox = styled.div`
     margin-right: 10px;
   }
 `;
-const Avartar = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-`;
+
 const NicknameBox = styled.div`
   a {
     display: block;
@@ -106,7 +103,7 @@ export default function ArticleInfo({ page }: IPage) {
           <>
             <UserBox>
               <Link to={`/user/${data?.user[0].writerID}/posts`}>
-                <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                <Avartar width="50px" heigth="50px" />
               </Link>
               <NicknameBox>
                 <Link to={`/user/${data?.user[0].writerID}/posts`}>

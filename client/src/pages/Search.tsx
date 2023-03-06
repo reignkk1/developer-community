@@ -1,10 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import {
-  Link,
-  useLocation,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { css } from "@emotion/react";
 import { useTheme } from "@emotion/react";
@@ -102,6 +97,7 @@ export default function Search() {
                   <img
                     css={Avartar}
                     src="https://graph.facebook.com/555897032021233/picture?width=100&height=100"
+                    alt="아바타"
                   />
                 </Link>
                 <Link to={`/user/${item.writerID}/posts`}>

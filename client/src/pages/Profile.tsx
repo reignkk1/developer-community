@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -76,7 +75,7 @@ interface IProfileData {
 // =============================================================================
 
 export default function Profile() {
-  const { register, handleSubmit, setValue, watch } = useForm<IProfileData>();
+  const { register, handleSubmit, watch } = useForm<IProfileData>();
   const loginState = useRecoilValue(logined);
 
   const { isLoading, error, data } = useQuery<IProfileData>(
@@ -86,14 +85,6 @@ export default function Profile() {
         .get("/user/profile", { withCredentials: true })
         .then((response) => response.data[0])
   );
-
-  useEffect(() => {
-    setValue("name", isLoading ? "" : error ? "Not Find" : data?.name + "");
-    setValue(
-      "nickname",
-      isLoading ? "" : error ? "Not Find" : data?.nickname + ""
-    );
-  }, [isLoading]);
 
   const onValid = (data: IProfileData) => {
     axios
@@ -120,6 +111,7 @@ export default function Profile() {
               <Label htmlFor="name">이름</Label>
               <Input
                 id="name"
+                value={isLoading ? "" : error ? "Not Found" : data?.name}
                 {...register("name", {
                   required: "이름을 입력해주세요!",
                 })}
@@ -131,6 +123,7 @@ export default function Profile() {
               <Label htmlFor="nickname">닉네임</Label>
               <Input
                 id="nickname"
+                value={isLoading ? "" : error ? "Not Found" : data?.nickname}
                 {...register("nickname", {
                   required: "닉네임을 입력해주세요!",
                 })}
@@ -144,7 +137,10 @@ export default function Profile() {
               <Button text="저장" />
             </UserForm>
           </UserInfo>
-          <UserAvartar src="https://graph.facebook.com/555897032021233/picture?width=200&height=200" />
+          <UserAvartar
+            src="https://graph.facebook.com/555897032021233/picture?width=200&height=200"
+            alt="프로필"
+          />
         </UserInfoBox>
       </UserContainer>
     </Main>

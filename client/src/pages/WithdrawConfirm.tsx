@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 // File
 import { logined } from "../atom";
@@ -93,7 +93,7 @@ export default function WithdrawConfirm() {
     <Main>
       <LogoBox>
         <Link to="/">
-          <Logo src="https://okky.kr/okky.svg" />
+          <Logo src="https://okky.kr/okky.svg" alt="로고" />
         </Link>
         <P1>회원 탈퇴 시 아래와 같이 처리됩니다.</P1>
       </LogoBox>

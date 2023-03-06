@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { ErrorBox, LoadingBox } from "./LoadingError";
 import { commentsGet } from "../axios";
 import Parser from "html-react-parser";
+import Avartar from "./Avartar";
 
 // =============================================================================
 
@@ -35,11 +36,7 @@ const User = styled.div`
     margin-right: 10px;
   }
 `;
-const Avartar = styled.img`
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-`;
+
 const UserInfo = styled.div``;
 const Nickname = styled.div`
   font-size: 15px;
@@ -82,11 +79,6 @@ const Input = styled.input`
   &:focus {
     border: 1px solid #0580d7;
   }
-`;
-
-const Undifined = styled.div`
-  text-align: center;
-  margin: 100px 0px;
 `;
 
 const Count = styled.div`
@@ -177,7 +169,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
               <CommentsItem key={data.id}>
                 <User>
                   <Link to={`/user/${data.writerID}/posts`}>
-                    <Avartar src="https://graph.facebook.com/555897032021233/picture?width=100&height=100" />
+                    <Avartar width="50px" heigth="50px" />
                   </Link>
                   <UserInfo>
                     <Link to={`/user/${data.writerID}/posts`}>
