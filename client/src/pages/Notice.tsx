@@ -23,7 +23,7 @@ export default function Notice() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/manager-confirm", {
+      .get("/manager-confirm", {
         withCredentials: true,
       })
       .then((response) => {

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL =
+  "http://webcommunity-env.eba-dtigpzad.ap-northeast-2.elasticbeanstalk.com";
 
 export function articleGet(page: string) {
   return axios.get(`/article/${page}`, { withCredentials: true });
