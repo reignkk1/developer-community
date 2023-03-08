@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "http://localhost:8080";
 
 export function articleGet(page: string) {
   return axios.get(`/article/${page}`, { withCredentials: true });

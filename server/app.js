@@ -18,10 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const options = {
-  host: "localhost",
-  user: "root",
-  password: "alsrua17931",
-  database: "boarddb",
+  host: "web-db.czezlldmbgmn.ap-northeast-2.rds.amazonaws.com",
+  user: "admin",
+  password: "alsrua17931!",
+  database: "board_DB",
 };
 
 var sessionStore = new MySQLStore(options);
@@ -45,4 +45,4 @@ app.use("/article", articleRouter);
 
 //=======================================================================================
 
-app.listen(8000, () => console.log("서버가 작동 중입니다!"));
+app.listen(8080, () => console.log("서버가 작동 중입니다!"));
