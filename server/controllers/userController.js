@@ -1,10 +1,10 @@
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import db from "../mysql.js";
 
 // 유저 회원가입
 export async function userSignUp(req, res) {
   const { userID, password, email, name, nickname, create_time } = req.body;
-  const hashPassword = await bcrypt.hash(password, 10);
+  const hashPassword = await bcryptjs.hash(password, 10);
 
   const sqlQuery =
     "INSERT INTO user (userID,password,email,name,nickname,create_time) VALUES (?,?,?,?,?,?)";
@@ -18,7 +18,7 @@ export async function userSignUp(req, res) {
 }
 // 유저 로그인
 export async function userLogin(req, res) {
-  const { loginUserID, loginPassword, id, password } = req.body;
+  const { loginUserID, loginPassword } = req.body;
 
   const sqlQueryUserID = `SELECT * FROM user WHERE userID = '${loginUserID}'`;
 
@@ -26,7 +26,7 @@ export async function userLogin(req, res) {
     if (!result.length)
       return res.send({ errorMsg: "아이디가 존재하지 않습니다!" });
 
-    const matchPassword = await bcrypt.compare(
+    const matchPassword = await bcryptjs.compare(
       loginPassword,
       result[0].password
     );
