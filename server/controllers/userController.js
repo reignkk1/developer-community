@@ -1,5 +1,5 @@
-import bcryptjs from "bcryptjs";
 import db from "../mysql.js";
+import bcryptjs from "bcryptjs";
 
 // 유저 회원가입
 export async function userSignUp(req, res) {
