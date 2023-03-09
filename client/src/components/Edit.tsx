@@ -27,7 +27,9 @@ const Input = styled.input`
   margin-bottom: 50px;
   padding: 5px 15px;
   outline: none;
-  border: 2px solid rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.inputColor};
+  border: 2px solid ${(props) => props.theme.borderColor};
+  color: ${(props) => props.theme.textColor};
   &:focus {
     border: 2px solid #0092fa;
   }
@@ -75,7 +77,7 @@ export default function Edit({ page }: IPage) {
   };
 
   return (
-    <Container>
+    <Container className="editWrite">
       <Title>제목</Title>
       <Input
         type="text"

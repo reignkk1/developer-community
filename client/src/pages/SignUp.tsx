@@ -111,7 +111,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const onValid = (data: IUserData) => {
     axios
-      .post("http://localhost:8000/user", {
+      .post("/user", {
         userID: data.userID,
         password: data.password,
         email: data.email,

@@ -143,7 +143,7 @@ function App() {
         padding: 0;
         border: 0;
         font-size: 100%;
-        font: inherit;
+        font: none;
         vertical-align: baseline;
       }
       /* HTML5 display-role reset for older browsers */
@@ -194,11 +194,32 @@ function App() {
         background-color: ${theme.bgColor};
         color: ${theme.textColor};
       }
-      .articleWrite {
+
+      .articleWrite,
+      .editWrite {
         .ck-editor__editable_inline {
-          height: 400px;
+          height: 600px;
           line-height: 1.5;
           margin-bottom: 20px;
+          color: ${theme.textColor};
+        }
+        .ck.ck-toolbar {
+          background: ${theme.bgCommentWriteColor};
+        }
+        .ck-icon_inherit-color {
+          color: ${theme.textColor};
+        }
+        .ck.ck-button:hover {
+          background: none;
+        }
+        .ck .ck-button__label {
+          color: ${theme.textColor};
+        }
+        .ck.ck-button.ck-on {
+          &:hover {
+            background: ${theme.borderColor};
+          }
+          background: ${theme.borderColor};
         }
       }
       .commentWrite {
@@ -228,8 +249,11 @@ function App() {
         }
         .ck-editor__editable_inline {
           height: auto;
-          background: ${theme.bgCommentWriteColor};
           line-height: 1.5;
+          color: ${theme.textColor};
+        }
+        .ck.ck-editor__main > .ck-editor__editable {
+          background: none;
         }
       }
     `;

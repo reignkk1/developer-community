@@ -134,9 +134,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
   const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const id = Number(e.currentTarget.parentElement?.id);
     if (window.confirm("정말로 삭제하겠습니까?")) {
-      axios
-        .delete(`http://localhost:8000/comment/${id}`)
-        .then(() => alert("삭제완료!"));
+      axios.delete(`/comment/${id}`).then(() => alert("삭제완료!"));
     }
     return;
   };
@@ -179,7 +177,10 @@ export default function Comments({ page, postID }: ICommentsProps) {
                   </UserInfo>
                 </User>
                 {modify && Number(id) === data.id ? (
-                  <Input onChange={onChange} value={value} />
+                  <Input
+                    onChange={onChange}
+                    value={value.replace(/<\/?[^>]+(>|$)/g, "")}
+                  />
                 ) : (
                   <Text>{Parser(data.text)}</Text>
                 )}

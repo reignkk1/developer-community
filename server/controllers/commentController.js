@@ -1,12 +1,4 @@
-import mysql from "mysql";
-
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "alsrua17931",
-  database: "boarddb",
-  multipleStatements: true,
-});
+import db from "../mysql.js";
 
 // 댓글 생성
 export function commentCreate(req, res) {
