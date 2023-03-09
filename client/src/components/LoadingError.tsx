@@ -22,7 +22,7 @@ const Error = styled.div`
 export function LoadingBox() {
   return (
     <Loading>
-      <img src="/img/Loading.gif" />
+      <img src="/img/loading.gif" />
     </Loading>
   );
 }

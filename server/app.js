@@ -13,7 +13,12 @@ import articleRouter from "./routers/articleRouter.js";
 
 const app = express();
 
-app.use(cors({ origin: "https://minforum.netlify.app/", credentials: true }));
+app.use(
+  cors({
+    origin: "https://web-board-web-6g2llexw0nts.sel3.cloudtype.app/",
+    credentials: true,
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

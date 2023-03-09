@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.baseURL =
-  "http://webcommunity-env.eba-dtigpzad.ap-northeast-2.elasticbeanstalk.com";
+  "https://port-0-board-server-6g2llexw0nts.sel3.cloudtype.app/";
 
 export function articleGet(page: string) {
   return axios.get(`/article/${page}`, { withCredentials: true });
