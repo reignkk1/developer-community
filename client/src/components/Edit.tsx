@@ -48,14 +48,12 @@ export default function Edit({ page }: IPage) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { isLoading, data, error } = useQuery<IArticleData>(
-    `[edit,${id}]`,
-    () =>
-      articleDetail(page, id).then((response) => {
-        setInputData(data?.title || "");
-        setEditorData(data?.content || "");
-        return response.data.user[0];
-      })
+  const { isLoading, error } = useQuery<IArticleData>(`[edit,${id}]`, () =>
+    articleDetail(page, id).then((response) => {
+      setInputData(response.data.user[0].title || "");
+      setEditorData(response.data.user[0].content || "");
+      return response.data.user[0];
+    })
   );
 
   const postSubmit = () => {
@@ -63,7 +61,7 @@ export default function Edit({ page }: IPage) {
     if (editorData === "") return alert("내용을 입력해주세요!");
 
     axios
-      .patch(`/${page}/${id}`, {
+      .patch(`/article/${page}/${id}`, {
         title: inputData,
         content: editorData,
       })

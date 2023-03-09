@@ -84,7 +84,7 @@ export default function ArticleInfo({ page }: IPage) {
 
   const deleteClick = () => {
     if (window.confirm("정말로 삭제 하시겠습니까?")) {
-      axios.delete(`/${page}/${id}`).then(() => {
+      axios.delete(`/article/${page}/${id}`).then(() => {
         navigate(`/${page}`);
       });
     } else {
