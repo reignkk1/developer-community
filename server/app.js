@@ -15,7 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://web-board-web-6g2llexw0nts.sel3.cloudtype.app",
+    origin: true,
     credentials: true,
   })
 );
