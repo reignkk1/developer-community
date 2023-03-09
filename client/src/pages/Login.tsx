@@ -97,7 +97,7 @@ export default function Login() {
   const onValid = (data: IUserData) => {
     axios
       .post(
-        "http://localhost:8000/user/login",
+        "/user/login",
         {
           loginUserID: data.userID,
           loginPassword: data.password,

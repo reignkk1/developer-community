@@ -147,7 +147,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
   const onModifyComplete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const id = e.currentTarget.parentElement?.id;
     axios
-      .patch(`http://localhost:8000/comment/${id}`, {
+      .patch(`/comment/${id}`, {
         commentText: value,
       })
       .then(() => {

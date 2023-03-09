@@ -246,13 +246,11 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
   }, [avartarClick]);
 
   const onClick = () => {
-    axios
-      .post("http://localhost:8000/user/logout", {}, { withCredentials: true })
-      .then(() => {
-        window.location.reload();
-        setLoginState(false);
-        setAvartarClick(false);
-      });
+    axios.post("/user/logout", {}, { withCredentials: true }).then(() => {
+      window.location.reload();
+      setLoginState(false);
+      setAvartarClick(false);
+    });
   };
 
   const onAvatarClick = () => {
@@ -271,7 +269,7 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
 
   const userMe = () => {
     axios
-      .get("http://localhost:8000/user/me", { withCredentials: true })
+      .get("/user/me", { withCredentials: true })
       .then((response) => navigate(`${response.data}`));
   };
 

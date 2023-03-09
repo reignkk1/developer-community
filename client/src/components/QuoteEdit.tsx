@@ -22,7 +22,7 @@ export default function QuoteEdit() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/quote/${id}`)
+      .get(`/quote/${id}`)
       .then((response) => setInputData(response.data[0].title));
   }, []);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ export default function QuoteEdit() {
   };
   const onClick = () => {
     axios
-      .patch(`http://localhost:8000/quote/${id}`, {
+      .patch(`/quote/${id}`, {
         title: inputData,
       })
       .then(() => {

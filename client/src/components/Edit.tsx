@@ -63,7 +63,7 @@ export default function Edit({ page }: IPage) {
     if (editorData === "") return alert("내용을 입력해주세요!");
 
     axios
-      .patch(`http://localhost:8000/${page}/${id}`, {
+      .patch(`/${page}/${id}`, {
         title: inputData,
         content: editorData,
       })
