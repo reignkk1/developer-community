@@ -197,6 +197,9 @@ function App() {
 
       .articleWrite,
       .editWrite {
+        .ck.ck-editor__main > .ck-editor__editable {
+          background: none;
+        }
         .ck-editor__editable_inline {
           height: 600px;
           line-height: 1.5;
