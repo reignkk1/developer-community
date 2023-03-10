@@ -186,7 +186,9 @@ export default function UserInfo({ page }: IUserInfoPage) {
                     </Page>
                     <Span>에 댓글을 달았습니다.</Span>
                   </ItemPage>
-                  <Link to={`/${item.page}/${item.postID}`}>{item.text}</Link>
+                  <Link to={`/${item.page}/${item.postID}`}>
+                    {item.text.replace(/<\/?[^>]+(>|$)/g, "")}
+                  </Link>
                 </ItemTitle>
                 <ItemDate>{item.date}</ItemDate>
               </Item>
