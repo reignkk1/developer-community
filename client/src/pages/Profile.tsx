@@ -10,6 +10,7 @@ import MyPageMenu from "../components/MyPageMenu";
 import { Navigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { logined } from "../atom";
+import { useState } from "react";
 
 // =============================================================================
 
@@ -77,13 +78,20 @@ interface IProfileData {
 export default function Profile() {
   const { register, handleSubmit, watch } = useForm<IProfileData>();
   const loginState = useRecoilValue(logined);
+  const [name, setName] = useState("");
+  const [nickName, setNickName] = useState("");
 
   const { isLoading, error, data } = useQuery<IProfileData>(
     "user-profile",
     () =>
       axios
         .get("/user/profile", { withCredentials: true })
-        .then((response) => response.data[0])
+        .then((response) => {
+          setName(response.data[0].name);
+          setNickName(response.data[0].nickname);
+          return response.data[0];
+        })
+        .catch((error) => console.log(error))
   );
 
   const onValid = (data: IProfileData) => {
@@ -100,6 +108,13 @@ export default function Profile() {
     if (error.name?.message) return alert(`${error.name.message}`);
     if (error.nickname?.message) return alert(`${error.nickname.message}`);
   };
+
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const onNickNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickName(e.target.value);
+  };
   return loginState ? (
     <Main>
       <MyPageMenu />
@@ -111,10 +126,11 @@ export default function Profile() {
               <Label htmlFor="name">이름</Label>
               <Input
                 id="name"
-                value={isLoading ? "" : error ? "Not Found" : data?.name}
+                value={isLoading ? "" : error ? "Not Found" : name}
                 {...register("name", {
                   required: "이름을 입력해주세요!",
                 })}
+                onChange={onNameChange}
                 placeholder={
                   watch("name") === "" ? "이름을 입력해주세요!" : undefined
                 }
@@ -123,10 +139,11 @@ export default function Profile() {
               <Label htmlFor="nickname">닉네임</Label>
               <Input
                 id="nickname"
-                value={isLoading ? "" : error ? "Not Found" : data?.nickname}
+                value={isLoading ? "" : error ? "Not Found" : nickName}
                 {...register("nickname", {
                   required: "닉네임을 입력해주세요!",
                 })}
+                onChange={onNickNameChange}
                 placeholder={
                   watch("nickname") === ""
                     ? "닉네임을 입력해주세요!"
