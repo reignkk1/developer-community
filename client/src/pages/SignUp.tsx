@@ -25,7 +25,7 @@ const Logo = styled.img`
   margin-bottom: 30px;
 `;
 const P1 = styled.p`
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
   margin-bottom: 12px;
   color: ${(props) => props.theme.textColor};
@@ -132,8 +132,8 @@ export default function SignUp() {
         <Link to="/">
           <Logo src="https://okky.kr/okky.svg" alt="로고" />
         </Link>
-        <P1>OKKY에 오신것을 환영합니다.</P1>
-        <P2>OKKY는 소프트웨어 개발자를 위한 지식공유 플랫폼입니다.</P2>
+        <P1>Developer에 오신것을 환영합니다.</P1>
+        <P2>소프트웨어 개발자를 위한 지식공유 플랫폼입니다.</P2>
       </LogoBox>
       <InputForm onSubmit={handleSubmit(onValid, oninvalid)}>
         <Label>아이디</Label>

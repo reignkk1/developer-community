@@ -36,7 +36,7 @@ export default function Notice() {
       <PagesTitle
         name="공지사항"
         ImgeSrc={props.ImgeSrc.notice}
-        explain="OKKY의 새소식, 이벤트, 행사 정보를 공유하는 공간입니다."
+        explain="Developer의 새소식, 이벤트, 행사 정보를 공유하는 공간입니다."
       />
       {managerState === 1 ? (
         <Button text="✏️작성하기" onClick={onClick} />
