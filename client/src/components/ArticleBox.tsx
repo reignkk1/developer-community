@@ -86,9 +86,8 @@ const Nickname = styled.div`
 // =============================================================================
 
 export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
-  const { isLoading, error, data } = useQuery<IArticleData[]>(
-    `Home${page}`,
-    () => articleGet(page).then((response) => response.data)
+  const { isLoading, error, data } = useQuery<IArticleData[]>(`${page}`, () =>
+    articleGet(page).then((response) => response.data)
   );
 
   return (

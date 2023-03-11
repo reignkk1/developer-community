@@ -76,12 +76,7 @@ interface IProfileData {
 // =============================================================================
 
 export default function Profile() {
-  const { register, handleSubmit, watch } = useForm<IProfileData>();
-  const loginState = useRecoilValue(logined);
-  const [name, setName] = useState("");
-  const [nickName, setNickName] = useState("");
-
-  const { isLoading, error, data } = useQuery<IProfileData>(
+  const { isLoading, error, data, refetch } = useQuery<IProfileData>(
     "user-profile",
     () =>
       axios
@@ -91,8 +86,15 @@ export default function Profile() {
           setNickName(response.data[0].nickname);
           return response.data[0];
         })
-        .catch((error) => console.log(error))
+        .catch((error) => console.log(error)),
+    { refetchOnMount: false, refetchOnWindowFocus: false }
   );
+
+  const [name, setName] = useState(data?.name);
+  const [nickName, setNickName] = useState(data?.nickname);
+
+  const { register, handleSubmit, watch } = useForm<IProfileData>();
+  const loginState = useRecoilValue(logined);
 
   const onValid = (data: IProfileData) => {
     axios
@@ -101,7 +103,10 @@ export default function Profile() {
         { name: data.name, nickname: data.nickname },
         { withCredentials: true }
       )
-      .then(() => alert("변경이 완료되었습니다!"));
+      .then(() => {
+        refetch();
+        return alert("변경이 완료되었습니다!");
+      });
   };
 
   const oninvalid = (error: FieldErrors) => {

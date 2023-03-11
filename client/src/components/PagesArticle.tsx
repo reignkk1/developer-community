@@ -53,9 +53,8 @@ const Nickname = styled.div`
 // =============================================================================
 
 export default function PagesArticle({ page }: IPage) {
-  const { isLoading, error, data } = useQuery<IArticleData[]>(
-    `Page${page}`,
-    () => articleGet(page).then((response) => response.data)
+  const { isLoading, error, data } = useQuery<IArticleData[]>(`${page}`, () =>
+    articleGet(page).then((response) => response.data)
   );
   const [query] = useSearchParams();
   const pageCount = query.get("page");
