@@ -7,6 +7,9 @@ import { articleGet } from "../axios";
 import { IArticle, IArticleData } from "../interface";
 import Avartar from "./Avartar";
 import { ErrorBox, LoadingBox } from "./LoadingError";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { logined } from "../atom";
+import { useRecoilState } from "recoil";
 
 // =============================================================================
 
@@ -86,8 +89,16 @@ const Nickname = styled.div`
 // =============================================================================
 
 export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
+  const loginState = useSetRecoilState(logined);
   const { isLoading, error, data } = useQuery<IArticleData[]>(`${page}`, () =>
-    articleGet(page).then((response) => response.data)
+    articleGet(page).then((response) => {
+      if (response.data.logined) {
+        loginState(true);
+        return response.data.result;
+      }
+      loginState(false);
+      return response.data.result;
+    })
   );
 
   return (

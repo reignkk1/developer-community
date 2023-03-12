@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Parser from "html-react-parser";
 import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 
 // File
 import Button from "./button";
@@ -72,13 +72,20 @@ const Date = styled.div`
 // =============================================================================
 
 export default function ArticleInfo({ page }: IPage) {
+  const [loginState, setLoginState] = useRecoilState(logined);
   const { id } = useParams();
   const { isLoading, error, data } = useQuery<IArticleInfo>(
     `Detail${page}`,
-    () => articleDetail(page, id).then((response) => response.data)
+    () =>
+      articleDetail(page, id).then((response) => {
+        if (response.data.logined) {
+          setLoginState(true);
+          return response.data;
+        }
+        setLoginState(false);
+        return response.data;
+      })
   );
-
-  const loginState = useRecoilValue(logined);
 
   const navigate = useNavigate();
 

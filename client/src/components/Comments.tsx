@@ -90,6 +90,7 @@ const Count = styled.div`
 interface ICommentsProps {
   page: string;
   postID: string | undefined;
+  loginState: boolean;
 }
 // =============================================================================
 
@@ -108,7 +109,7 @@ interface IData {
   userID: number;
 }
 
-export default function Comments({ page, postID }: ICommentsProps) {
+export default function Comments({ page, postID, loginState }: ICommentsProps) {
   const [modify, setModify] = useState(false);
   const [id, setID] = useState("");
   const [value, setValue] = useState("");
@@ -128,7 +129,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
   };
-  const loginState = useRecoilValue(logined);
+
   const userID = data?.userID;
 
   const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {

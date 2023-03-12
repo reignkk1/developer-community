@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import { Link, useSearchParams } from "react-router-dom";
 import { articleGet } from "../axios";
+import { useSetRecoilState } from "recoil";
+import { logined } from "../atom";
 
 // File
 import { IArticleData, IPage } from "../interface";
@@ -53,9 +55,18 @@ const Nickname = styled.div`
 // =============================================================================
 
 export default function PagesArticle({ page }: IPage) {
+  const setLoginState = useSetRecoilState(logined);
   const { isLoading, error, data } = useQuery<IArticleData[]>(`${page}`, () =>
-    articleGet(page).then((response) => response.data)
+    articleGet(page).then((response) => {
+      if (response.data.logined) {
+        setLoginState(true);
+        return response.data.result;
+      }
+      setLoginState(false);
+      return response.data.result;
+    })
   );
+
   const [query] = useSearchParams();
   const pageCount = query.get("page");
 

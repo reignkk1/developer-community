@@ -6,7 +6,7 @@ export function articleAllGet(req, res) {
 
   const sqlQuery = `SELECT * From posts WHERE page='${page}' ORDER BY id DESC;`;
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    return res.send({ result, logined: req.session.logined });
   });
 }
 
@@ -16,11 +16,15 @@ export function articleGet(req, res) {
   const sqlQuery = `SELECT * FROM posts WHERE id = ${id}`;
 
   db.query(sqlQuery, (error, result) => {
-    if (req.session?.user?.id === result[0].writerID) {
-      return res.send({ user: result, writerMatch: true });
+    try {
+      return res.send({
+        user: result,
+        writerMatch: req.session?.user?.id === result[0].writerID,
+        logined: req.session.logined,
+      });
+    } catch {
+      return res.status(404).send();
     }
-
-    return res.send({ user: result, writerMatch: false });
   });
 }
 

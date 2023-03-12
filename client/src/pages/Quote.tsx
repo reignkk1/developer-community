@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -47,15 +47,20 @@ const Nickname = styled.div`
 // =============================================================================
 
 export default function Quote() {
+  const [loginState, setLoginState] = useRecoilState(logined);
   const { isLoading, error, data } = useQuery<IArticleData[]>("quote", () =>
-    axios
-      .get("/article/quote", { withCredentials: true })
-      .then((response) => response.data)
+    axios.get("/article/quote", { withCredentials: true }).then((response) => {
+      if (response.data.logined) {
+        setLoginState(true);
+        return response.data.result;
+      }
+      setLoginState(false);
+      return response.data.result;
+    })
   );
 
   const [inputData, setInputData] = useState("");
   const navigate = useNavigate();
-  const loginState = useRecoilValue(logined);
 
   const onClick = () => {
     if (!loginState) return navigate("/login");
