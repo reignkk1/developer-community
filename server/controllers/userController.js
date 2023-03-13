@@ -112,6 +112,6 @@ export function userActivity(req, res) {
 
   db.query(sqlQuery, (error, result) => {
     console.log(error);
-    return res.send(result);
+    return res.send({ result, logined: req.session.logined });
   });
 }
