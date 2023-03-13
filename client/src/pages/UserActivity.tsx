@@ -2,13 +2,15 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import PageNumberBar from "../components/pageNumBar";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 
 // File
 
+import PageNumberBar from "../components/pageNumBar";
 import UserInfoContainer from "../components/UserInfoContainer";
-import { useEffect } from "react";
-import { useState } from "react";
+import { logined } from "../atom";
 
 // =============================================================================
 
@@ -109,10 +111,19 @@ interface IData {
 // =============================================================================
 
 export default function UserInfo({ page }: IUserInfoPage) {
+  const setLoginState = useSetRecoilState(logined);
   const { id } = useParams();
   const { isLoading, data, error } = useQuery<IData[]>(
     `[user${page},${id}]`,
-    () => axios.get(`/user/${page}/${id}`).then((response) => response.data)
+    () =>
+      axios.get(`/user/${page}/${id}`).then((response) => {
+        if (response.data.logined) {
+          setLoginState(true);
+          return response.data.result;
+        }
+        setLoginState(false);
+        return response.data.result;
+      })
   );
 
   const [query] = useSearchParams();

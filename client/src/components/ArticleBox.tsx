@@ -89,14 +89,14 @@ const Nickname = styled.div`
 // =============================================================================
 
 export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
-  const loginState = useSetRecoilState(logined);
+  const setLoginState = useSetRecoilState(logined);
   const { isLoading, error, data } = useQuery<IArticleData[]>(`${page}`, () =>
     articleGet(page).then((response) => {
       if (response.data.logined) {
-        loginState(true);
+        setLoginState(true);
         return response.data.result;
       }
-      loginState(false);
+      setLoginState(false);
       return response.data.result;
     })
   );

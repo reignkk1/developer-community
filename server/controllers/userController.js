@@ -42,7 +42,7 @@ export async function userLogin(req, res) {
 
 // 유저 로그아웃
 export function userLogout(req, res) {
-  req.session.destroy();
+  req.session.logined = false;
   return res.send();
 }
 
