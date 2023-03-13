@@ -131,7 +131,7 @@ export default function ArticleInfo({ page }: IPage) {
         </ButtonBox>
       ) : null}
       <CommentWrite loginState={loginState} postID={id} page={page} />
-      <Comments page={page} postID={id} />
+      <Comments loginState={loginState} page={page} postID={id} />
     </Main>
   );
 }
