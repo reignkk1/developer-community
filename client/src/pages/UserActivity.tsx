@@ -116,14 +116,16 @@ export default function UserInfo({ page }: IUserInfoPage) {
   const { isLoading, data, error } = useQuery<IData[]>(
     `[user${page},${id}]`,
     () =>
-      axios.get(`/user/${page}/${id}`).then((response) => {
-        if (response.data.logined) {
-          setLoginState(true);
+      axios
+        .get(`/user/${page}/${id}`, { withCredentials: true })
+        .then((response) => {
+          if (response.data.logined) {
+            setLoginState(true);
+            return response.data.result;
+          }
+          setLoginState(false);
           return response.data.result;
-        }
-        setLoginState(false);
-        return response.data.result;
-      })
+        })
   );
 
   const [query] = useSearchParams();
