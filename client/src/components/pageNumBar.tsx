@@ -2,10 +2,14 @@
 import { css, useTheme } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
 
+// =============================================================================
+
 interface ITheme {
   borderColor: string;
   textColor: string;
 }
+
+// =============================================================================
 
 const Container = (theme: ITheme) => css`
   margin-top: 100px;
@@ -34,18 +38,24 @@ const PageBtn = (index: number, pageCount: string | null, theme: ITheme) => css`
   }
 `;
 
+// =============================================================================
+
 interface IDataLength {
   dataLength?: number;
   page: string;
   pageCount: string | null;
   userID?: string;
+  keyword?: string | null;
 }
+
+// =============================================================================
 
 export default function PageNumberBar({
   dataLength,
   page,
   pageCount,
   userID,
+  keyword,
 }: IDataLength) {
   const buttonCount = Math.ceil((dataLength || 0) / 10);
   const theme = useTheme();
@@ -54,6 +64,8 @@ export default function PageNumberBar({
   const onClick = (pageNumber: string) =>
     userID
       ? navigate(`/user/${userID}/${page}?page=${pageNumber}`)
+      : page === "search"
+      ? navigate(`/${page}?keyword=${keyword}&page=${pageNumber}`)
       : navigate(`/${page}?page=${pageNumber}`);
   window.scrollTo(0, 0);
 

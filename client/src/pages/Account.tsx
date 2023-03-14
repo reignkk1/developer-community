@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Link, Navigate } from "react-router-dom";
 
 // File
-import MyPageMenu from "../components/MyPageMenu";
+import MyPageMenu from "../components/userActivity/MyPageMenu";
 import { useRecoilValue } from "recoil";
 import { logined } from "../atom";
 
@@ -21,7 +21,7 @@ const AccountInfoBox = styled.div`
 const AccountControlBox = styled.div`
   width: 100%;
   padding: 0px 0px 20px 70px;
-  &:nth-child(2) {
+  &:nth-of-type(2) {
     padding-top: 30px;
     border-top: 1px solid ${(props) => props.theme.borderColor};
   }

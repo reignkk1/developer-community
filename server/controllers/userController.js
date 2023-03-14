@@ -59,8 +59,8 @@ export function userInfoGet(req, res) {
 export function userDelete(req, res) {
   const { id } = req.session.user;
   const sqlQuery = `DELETE FROM user WHERE id = ${id};
-                      DELETE FROM posts WHERE writerID = ${id};
-                      DELETE FROM comments WHERE writerID = ${id};
+                    DELETE FROM posts WHERE writerID = ${id};
+                    DELETE FROM comments WHERE writerID = ${id};
     `;
   db.query(sqlQuery, (error, result) => {
     req.session.destroy();
@@ -94,7 +94,6 @@ export function userProfileModify(req, res) {
 
   db.query(sqlQuery, (error, result) => {
     req.session.user.nickname = nickname;
-    console.log(req.session.user);
     return res.send("성공");
   });
 }

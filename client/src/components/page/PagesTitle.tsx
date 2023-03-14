@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 // File
-import { IPagesTitle } from "../interface";
+import { IPagesTitle } from "../../interface";
 
 // =============================================================================
 

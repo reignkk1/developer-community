@@ -15,12 +15,12 @@ import Notice from "./pages/Notice";
 import Question from "./pages/Question";
 import Life from "./pages/Life";
 import Quote from "./pages/Quote";
-import ArticleInfo from "./components/ArticleInfo";
+import ArticleInfo from "./components/pageDetail/ArticleInfo";
 
 import Edit from "./components/Edit";
 import Write from "./components/Write";
 
-import QuoteEdit from "./components/QuoteEdit";
+import QuoteEdit from "./pages/QuoteEdit";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
@@ -33,7 +33,6 @@ import Search from "./pages/Search";
 // =============================================================================
 
 import ScrollToTop from "./ScrollToTop";
-import { props } from "./interface";
 import Footer from "./components/Footer";
 import { darkMode, lightMode } from "./theme";
 
@@ -299,16 +298,13 @@ function App() {
 
                   <Route
                     path="/notice/write"
-                    element={<Write page={props.page.notice} />}
+                    element={<Write page="notice" />}
                   />
                   <Route
                     path="/question/write"
-                    element={<Write page={props.page.question} />}
+                    element={<Write page="question" />}
                   />
-                  <Route
-                    path="/life/write"
-                    element={<Write page={props.page.life} />}
-                  />
+                  <Route path="/life/write" element={<Write page="life" />} />
 
                   {/*==================== detail page =================== */}
 

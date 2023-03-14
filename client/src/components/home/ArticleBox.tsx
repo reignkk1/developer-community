@@ -1,15 +1,14 @@
 import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 
 // File
-import { articleGet } from "../axios";
-import { IArticle, IArticleData } from "../interface";
-import Avartar from "./Avartar";
-import { ErrorBox, LoadingBox } from "./LoadingError";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { logined } from "../atom";
-import { useRecoilState } from "recoil";
+import { IArticle, IArticleData } from "../../interface";
+import Avartar from "../Avartar";
+import { ErrorBox, LoadingBox } from "../LoadingError";
+import { logined } from "../../atom";
+import { articleAllGet } from "../../axios";
 
 // =============================================================================
 
@@ -46,28 +45,6 @@ const ListDate = styled.div`
   opacity: 0.9;
   font-size: 13px;
 `;
-const Title = styled.div`
-  background-color: ${(props) => props.theme.bgTitleColor};
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px 25px;
-  height: 70px;
-`;
-const Img = styled.img`
-  width: 40%;
-  height: 80px;
-`;
-const TitleName = styled.div`
-  font-weight: bold;
-  font-size: 18px;
-  color: ${(props) => props.theme.textColor};
-
-  &:hover {
-    color: #0092fa;
-  }
-`;
 
 const NicknameBox = styled.div`
   display: flex;
@@ -88,27 +65,15 @@ const Nickname = styled.div`
 
 // =============================================================================
 
-export default function ArticleBox({ ImgeSrc, name, page }: IArticle) {
+export default function ArticleBox({ page }: IArticle) {
   const setLoginState = useSetRecoilState(logined);
+
   const { isLoading, error, data } = useQuery<IArticleData[]>(`${page}`, () =>
-    articleGet(page).then((response) => {
-      if (response.data.logined) {
-        setLoginState(true);
-        return response.data.result;
-      }
-      setLoginState(false);
-      return response.data.result;
-    })
+    articleAllGet(page, setLoginState)
   );
 
   return (
     <Container>
-      <Link to={`/${page}`}>
-        <Title>
-          <TitleName>{name}</TitleName>
-          <Img src={ImgeSrc} alt={name} />
-        </Title>
-      </Link>
       {isLoading ? (
         <LoadingBox />
       ) : error ? (

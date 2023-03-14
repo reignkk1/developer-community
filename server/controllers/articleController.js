@@ -6,7 +6,12 @@ export function articleAllGet(req, res) {
 
   const sqlQuery = `SELECT * From posts WHERE page='${page}' ORDER BY id DESC;`;
   db.query(sqlQuery, (error, result) => {
-    return res.send({ result, logined: req.session.logined });
+    try {
+      return res.send({ result, logined: req.session.logined });
+    } catch (error) {
+      console.log(error);
+      return res.status(404).send();
+    }
   });
 }
 
@@ -18,11 +23,12 @@ export function articleGet(req, res) {
   db.query(sqlQuery, (error, result) => {
     try {
       return res.send({
-        user: result,
+        result,
         writerMatch: req.session?.user?.id === result[0].writerID,
         logined: req.session.logined,
       });
-    } catch {
+    } catch (error) {
+      console.log(error);
       return res.status(404).send();
     }
   });
@@ -37,8 +43,13 @@ export function articleCommentsGet(req, res) {
   )} AND page = '${page}' `;
 
   db.query(sqlQuery, (error, result) => {
-    if (result[0] === undefined) return res.send("false");
-    return res.send({ info: result, userID: req.session.user?.id });
+    try {
+      if (result[0] === undefined) return res.send("false");
+      return res.send({ info: result, userID: req.session.user?.id });
+    } catch (error) {
+      console.log(error);
+      return res.status(404).send();
+    }
   });
 }
 

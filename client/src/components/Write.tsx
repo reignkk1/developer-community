@@ -55,17 +55,15 @@ export default function Write({ page }: IPage) {
     if (editorData.content === "") return alert("내용을 입력해주세요!");
 
     axios
-      .post(
-        `/article/${page}`,
-        {
-          title: editorData.title,
-          content: editorData.content,
-          date: new Date().toLocaleDateString("ko-kr"),
-        },
-        { withCredentials: true }
-      )
-      .then(() => navigate(`/${page}`))
-      .then(() => alert("등록 완료!"));
+      .post(`/article/${page}`, {
+        title: editorData.title,
+        content: editorData.content,
+        date: new Date().toLocaleDateString("ko-kr"),
+      })
+      .then(() => {
+        navigate(`/${page}`);
+        alert("등록 완료!");
+      });
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

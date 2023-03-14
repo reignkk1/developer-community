@@ -1,5 +1,5 @@
 export interface IArticleInfo {
-  user: [
+  result: [
     {
       id: number;
       title: string;
@@ -34,8 +34,6 @@ export interface IComment {
 }
 
 export interface IArticle {
-  ImgeSrc: string;
-  name: string;
   page: string;
   explain?: string;
   data?: IArticleData[];
@@ -60,18 +58,3 @@ export interface IUserData {
   create_time: string;
   manager: number;
 }
-
-export const props = {
-  ImgeSrc: {
-    notice: "https://okky.kr/notice.svg",
-    question: "https://okky.kr/questions.svg",
-    life: "https://okky.kr/community.svg",
-    quote: "https://okky.kr/knowledge.svg",
-  },
-  page: {
-    notice: "notice",
-    question: "question",
-    life: "life",
-    quote: "quote",
-  },
-};

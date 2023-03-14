@@ -83,7 +83,7 @@ export default function WithdrawConfirm() {
   };
 
   const onDeleteClick = () => {
-    axios.delete("/user", { withCredentials: true }).then(() => {
+    axios.delete("/user").then(() => {
       setLogined(false);
       window.location.assign("/");
     });

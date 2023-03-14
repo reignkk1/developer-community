@@ -39,7 +39,7 @@ export function managerConfirm(req, res) {
 // 검색한 게시물 불러오기
 export function searchArticleGet(req, res) {
   const { keyword } = req.query;
-  const sqlQuery = `SELECT * FROM posts WHERE title like '%${keyword}%'`;
+  const sqlQuery = `SELECT * FROM posts WHERE title like '%${keyword}%' ORDER BY id DESC;`;
 
   db.query(sqlQuery, (error, result) => {
     return res.send(result);

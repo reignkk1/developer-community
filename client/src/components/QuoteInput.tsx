@@ -34,6 +34,7 @@ interface IQuoteInput {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   inputData: string;
+  btnText: string;
 }
 // =============================================================================
 
@@ -41,11 +42,12 @@ export default function QuoteInput({
   onChange,
   onClick,
   inputData,
+  btnText,
 }: IQuoteInput) {
   return (
     <InputContainer>
       <Input onChange={onChange} value={inputData} />
-      <Btn onClick={onClick}>작성</Btn>
+      <Btn onClick={onClick}>{btnText}</Btn>
     </InputContainer>
   );
 }

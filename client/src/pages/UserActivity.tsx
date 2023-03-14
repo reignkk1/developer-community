@@ -1,16 +1,14 @@
 import styled from "@emotion/styled";
-import axios from "axios";
 import { useQuery } from "react-query";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 // File
 
 import PageNumberBar from "../components/pageNumBar";
-import UserInfoContainer from "../components/UserInfoContainer";
+import UserInfoContainer from "../components/userActivity/UserInfoContainer";
 import { logined } from "../atom";
+import { userActivityGet } from "../axios";
 
 // =============================================================================
 
@@ -110,31 +108,16 @@ interface IData {
 
 // =============================================================================
 
-export default function UserInfo({ page }: IUserInfoPage) {
+export default function UserActivity({ page }: IUserInfoPage) {
   const setLoginState = useSetRecoilState(logined);
   const { id } = useParams();
   const { isLoading, data, error } = useQuery<IData[]>(
     `[user${page},${id}]`,
-    () =>
-      axios
-        .get(`/user/${page}/${id}`, { withCredentials: true })
-        .then((response) => {
-          if (response.data.logined) {
-            setLoginState(true);
-            return response.data.result;
-          }
-          setLoginState(false);
-          return response.data.result;
-        })
+    () => userActivityGet(id, page, setLoginState)
   );
 
   const [query] = useSearchParams();
   const pageCount = query.get("page");
-  const [pageNumber, setPageNumber] = useState(0);
-
-  useEffect(() => {
-    setPageNumber(Number(pageCount));
-  }, [pageCount]);
 
   return (
     <Main>
@@ -149,11 +132,11 @@ export default function UserInfo({ page }: IUserInfoPage) {
         <ItemBox>
           {data
             ?.slice(
-              pageCount === null ? 0 : pageNumber * 10 - 10,
-              pageCount === null ? 10 : pageNumber * 10
+              pageCount === null ? 0 : Number(pageCount) * 10 - 10,
+              pageCount === null ? 10 : Number(pageCount) * 10
             )
             .map((item) => (
-              <Item>
+              <Item key={item.id}>
                 <ItemTitle>
                   <ItemPage>
                     <Page>
@@ -179,11 +162,11 @@ export default function UserInfo({ page }: IUserInfoPage) {
         <ItemBox>
           {data
             ?.slice(
-              pageCount === null ? 0 : pageNumber * 10 - 10,
-              pageCount === null ? 10 : pageNumber * 10
+              pageCount === null ? 0 : Number(pageCount) * 10 - 10,
+              pageCount === null ? 10 : Number(pageCount) * 10
             )
             .map((item) => (
-              <Item>
+              <Item key={item.id}>
                 <ItemTitle>
                   <ItemPage>
                     <Page>

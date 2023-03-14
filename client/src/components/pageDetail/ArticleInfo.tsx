@@ -6,14 +6,14 @@ import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 
 // File
-import Button from "./button";
+import Button from "../button";
 import CommentWrite from "./CommentWrite";
 import Comments from "./Comments";
-import { logined } from "../atom";
-import { IArticleInfo, IPage } from "../interface";
-import { ErrorBox, LoadingBox } from "./LoadingError";
-import { articleDetail } from "../axios";
-import Avartar from "./Avartar";
+import { logined } from "../../atom";
+import { IArticleInfo, IPage } from "../../interface";
+import { ErrorBox, LoadingBox } from "../LoadingError";
+import { articleDetail } from "../../axios";
+import Avartar from "../Avartar";
 
 // =============================================================================
 
@@ -76,15 +76,8 @@ export default function ArticleInfo({ page }: IPage) {
   const { id } = useParams();
   const { isLoading, error, data } = useQuery<IArticleInfo>(
     `Detail${page}`,
-    () =>
-      articleDetail(page, id).then((response) => {
-        if (response.data.logined) {
-          setLoginState(true);
-          return response.data;
-        }
-        setLoginState(false);
-        return response.data;
-      })
+    () => articleDetail(page, id, setLoginState),
+    { refetchOnWindowFocus: false }
   );
 
   const navigate = useNavigate();
@@ -92,7 +85,7 @@ export default function ArticleInfo({ page }: IPage) {
   const deleteClick = () => {
     if (window.confirm("정말로 삭제 하시겠습니까?")) {
       axios.delete(`/article/${page}/${id}`).then(() => {
-        navigate(`/${page}`);
+        return navigate(`/${page}`);
       });
     } else {
       return;
@@ -109,18 +102,20 @@ export default function ArticleInfo({ page }: IPage) {
         ) : (
           <>
             <UserBox>
-              <Link to={`/user/${data?.user[0].writerID}/posts`}>
+              <Link to={`/user/${data?.result[0].writerID}/posts`}>
                 <Avartar width="50px" heigth="50px" />
               </Link>
               <NicknameBox>
-                <Link to={`/user/${data?.user[0].writerID}/posts`}>
-                  <Nickname>{data?.user[0].nickname}</Nickname>
+                <Link to={`/user/${data?.result[0].writerID}/posts`}>
+                  <Nickname>{data?.result[0].nickname}</Nickname>
                 </Link>
-                <Date>{data?.user[0].date}</Date>
+                <Date>{data?.result[0].date}</Date>
               </NicknameBox>
             </UserBox>
-            <ArticleTitle>{data?.user[0].title}</ArticleTitle>
-            <ArticleText>{Parser(data?.user[0].content || "")}</ArticleText>
+            <ArticleTitle>{data?.result[0].title}</ArticleTitle>
+            <ArticleText>
+              {page === "quote" ? null : Parser(data?.result[0].content || "")}
+            </ArticleText>
           </>
         )}
       </ArticleContainer>

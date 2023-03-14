@@ -87,11 +87,7 @@ export default function PasswordChange() {
     if (data.newPassWord !== data.passWordComfirm)
       return alert("비밀번호가 서로 일치하지 않습니다!");
     axios
-      .patch(
-        "/password",
-        { currentPassWord, newPassWord, passWordComfirm },
-        { withCredentials: true }
-      )
+      .patch("/password", { currentPassWord, newPassWord, passWordComfirm })
       .then((response) => {
         navigate("/account");
         alert(`${response.data}`);

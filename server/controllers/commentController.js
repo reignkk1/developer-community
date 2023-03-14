@@ -5,15 +5,12 @@ export function commentCreate(req, res) {
   const { commentText, date, postID, page } = req.body;
   const { id, nickname } = req.session.user;
 
-  console.log(commentText, date, postID, page);
-
   const sqlQuery = `INSERT INTO comments (text,date,postID,writerID,nickname,page) VALUES (?,?,?,?,?,?)`;
 
   db.query(
     sqlQuery,
     [commentText, date, postID, id, nickname, page],
     (error, result) => {
-      console.log(error);
       return res.send();
     }
   );

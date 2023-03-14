@@ -1,17 +1,15 @@
 import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import { Link, useSearchParams } from "react-router-dom";
-import { articleGet } from "../axios";
 import { useSetRecoilState } from "recoil";
-import { logined } from "../atom";
 
 // File
-import { IArticleData, IPage } from "../interface";
-import { ErrorBox, LoadingBox } from "./LoadingError";
-import PageNumberBar from "./pageNumBar";
-import { useState } from "react";
-import { useEffect } from "react";
-import Avartar from "./Avartar";
+import { IArticleData, IPage } from "../../interface";
+import { ErrorBox, LoadingBox } from "../LoadingError";
+import PageNumberBar from "../pageNumBar";
+import Avartar from "../Avartar";
+import { articleAllGet } from "../../axios";
+import { logined } from "../../atom";
 
 // =============================================================================
 
@@ -57,24 +55,11 @@ const Nickname = styled.div`
 export default function PagesArticle({ page }: IPage) {
   const setLoginState = useSetRecoilState(logined);
   const { isLoading, error, data } = useQuery<IArticleData[]>(`${page}`, () =>
-    articleGet(page).then((response) => {
-      if (response.data.logined) {
-        setLoginState(true);
-        return response.data.result;
-      }
-      setLoginState(false);
-      return response.data.result;
-    })
+    articleAllGet(page, setLoginState)
   );
 
   const [query] = useSearchParams();
   const pageCount = query.get("page");
-
-  const [pageNumber, setPageNumber] = useState(0);
-
-  useEffect(() => {
-    setPageNumber(Number(pageCount));
-  }, [pageCount]);
 
   return isLoading ? (
     <LoadingBox />
@@ -85,8 +70,8 @@ export default function PagesArticle({ page }: IPage) {
       <ListBox>
         {data
           ?.slice(
-            pageCount === null ? 0 : pageNumber * 10 - 10,
-            pageCount === null ? 10 : pageNumber * 10
+            pageCount === null ? 0 : Number(pageCount) * 10 - 10,
+            pageCount === null ? 10 : Number(pageCount) * 10
           )
           .map((item) => (
             <ListItem key={item.id}>

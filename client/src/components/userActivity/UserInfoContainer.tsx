@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
-import axios from "axios";
-import { IUserData } from "../interface";
-import { ErrorBox, LoadingBox } from "./LoadingError";
-import Avartar from "./Avartar";
+
+// File
+import { IUserData } from "../../interface";
+import { ErrorBox, LoadingBox } from "../LoadingError";
+import Avartar from "../Avartar";
+import { userInfoGet } from "../../axios";
 
 // =============================================================================
 
@@ -72,7 +74,7 @@ export default function UserInfoContainer({ userId }: IUserID) {
 
   const { isLoading, data, error } = useQuery<IUserData>(
     `[nickname,${userId}]`,
-    () => axios.get(`/user/${userId}`).then((response) => response.data[0])
+    () => userInfoGet(userId)
   );
 
   return (

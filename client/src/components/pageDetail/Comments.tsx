@@ -1,16 +1,14 @@
 import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { useRecoilValue } from "recoil";
 import { useState } from "react";
 
 // File
-import { logined } from "./../atom";
 import { Link } from "react-router-dom";
-import { ErrorBox, LoadingBox } from "./LoadingError";
-import { commentsGet } from "../axios";
+import { ErrorBox, LoadingBox } from "../LoadingError";
+import { commentsGet } from "../../axios";
 import Parser from "html-react-parser";
-import Avartar from "./Avartar";
+import Avartar from "../Avartar";
 
 // =============================================================================
 
@@ -117,13 +115,7 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
 
   const { isLoading, data, error } = useQuery<IData>(
     [`${page}Comments`, postID],
-    () =>
-      commentsGet(page, postID).then((response) => {
-        if (!response.data) return setUndifined(true);
-        setUndifined(false);
-        setValue(response.data.info[0].text);
-        return response.data;
-      })
+    () => commentsGet(page, postID, setUndifined, setValue)
   );
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

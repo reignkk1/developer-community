@@ -1,46 +1,59 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "@emotion/styled";
 
 // File
-import QuoteInput from "./QuoteInput";
+import QuoteInput from "../components/QuoteInput";
+import { useRecoilValue } from "recoil";
+import { logined } from "../atom";
 
 // =============================================================================
 
 const Main = styled.main`
   width: 60%;
+  height: 50vh;
+  display: flex;
+  align-items: center;
   margin: 0 auto;
 `;
 
 // =============================================================================
 
 export default function QuoteEdit() {
+  const loginState = useRecoilValue(logined);
   const [inputData, setInputData] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`/quote/${id}`)
-      .then((response) => setInputData(response.data[0].title));
-  }, []);
+      .get(`/article/quote/${id}`)
+      .then((response) => setInputData(response.data.result[0].title));
+  }, [id]);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData(e.target.value);
   };
   const onClick = () => {
     axios
-      .patch(`/quote/${id}`, {
+      .patch(`/article/quote/${id}`, {
         title: inputData,
       })
       .then(() => {
+        navigate(`/quote/${id}`);
         alert("수정이 완료되었습니다!");
-      })
-      .then(() => navigate(`/quote/${id}`));
+      });
   };
-  return (
+  return loginState ? (
     <Main>
-      <QuoteInput onChange={onChange} onClick={onClick} inputData={inputData} />
+      <QuoteInput
+        onChange={onChange}
+        onClick={onClick}
+        inputData={inputData}
+        btnText="수정"
+      />
     </Main>
+  ) : (
+    <Navigate to="/quote" />
   );
 }
