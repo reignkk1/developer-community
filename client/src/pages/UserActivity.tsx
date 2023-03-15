@@ -14,7 +14,7 @@ import { userActivityGet } from "../axios";
 
 const Main = styled.main`
   width: 800px;
-  height: 230vh;
+
   margin: 0 auto;
 `;
 

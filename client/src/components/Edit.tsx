@@ -52,9 +52,9 @@ export default function Edit({ page }: IPage) {
 
   const { isLoading, error } = useQuery<IArticleData>(`[edit,${id}]`, () =>
     articleDetail(page, id).then((response) => {
-      setInputData(response.data.user[0].title || "");
-      setEditorData(response.data.user[0].content || "");
-      return response.data.user[0];
+      setInputData(response.data.result[0].title || "");
+      setEditorData(response.data.result[0].content || "");
+      return response.data.result[0];
     })
   );
 
