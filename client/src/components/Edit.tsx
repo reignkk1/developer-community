@@ -9,7 +9,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IArticleData, IPage } from "../interface";
 import Button from "./button";
 import { useQuery } from "react-query";
-import { articleDetail } from "../axios";
 
 // =============================================================================
 
@@ -51,7 +50,7 @@ export default function Edit({ page }: IPage) {
   const navigate = useNavigate();
 
   const { isLoading, error } = useQuery<IArticleData>(`[edit,${id}]`, () =>
-    articleDetail(page, id).then((response) => {
+    axios.get(`/article/${page}/${id}`).then((response) => {
       setInputData(response.data.result[0].title || "");
       setEditorData(response.data.result[0].content || "");
       return response.data.result[0];
