@@ -5,7 +5,8 @@ import { SetterOrUpdater } from "recoil";
 //https://port-0-board-server-6g2llexw0nts.sel3.cloudtype.app
 
 // Axios defaults option 설정
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL =
+  "https://port-0-board-server-6g2llexw0nts.sel3.cloudtype.app";
 axios.defaults.withCredentials = true;
 
 // 모든 게시물 정보 불러오기
