@@ -66,9 +66,11 @@ const Nickname = styled.div`
 // =============================================================================
 
 export default function ArticleBox({ page }: IArticle) {
+  // 로그인 상태
   const setLoginState = useSetRecoilState(logined);
 
-  const { isLoading, error, data } = useQuery<IArticleData[]>(`${page}`, () =>
+  // 모든 게시물 가져옴
+  const { isLoading, error, data } = useQuery<IArticleData>(`${page}`, () =>
     articleAllGet(page, setLoginState)
   );
 
@@ -80,7 +82,7 @@ export default function ArticleBox({ page }: IArticle) {
         <ErrorBox />
       ) : (
         <ListBox>
-          {data?.slice(0, 4).map((item) => (
+          {data?.result.slice(0, 4).map((item) => (
             <ListItem key={item.id}>
               <NicknameBox>
                 <Link to={`/user/${item.writerID}/posts`}>

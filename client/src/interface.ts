@@ -14,13 +14,18 @@ export interface IArticleInfo {
 }
 
 export interface IArticleData {
-  id: number;
-  title: string;
-  content: string;
-  writerID: string;
-  date: string;
-  nickname: string;
-  page: string;
+  logined: boolean;
+  result: [
+    {
+      id: number;
+      title: string;
+      content: string;
+      writerID: string;
+      date: string;
+      nickname: string;
+      page: string;
+    }
+  ];
 }
 
 export interface IComment {

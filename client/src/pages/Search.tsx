@@ -70,6 +70,16 @@ interface ITheme {
   borderColor: string;
   textColor: string;
 }
+
+interface ISearch {
+  id: number;
+  title: string;
+  content: string;
+  writerID: string;
+  date: string;
+  nickname: string;
+  page: string;
+}
 // =============================================================================
 
 export default function Search() {
@@ -77,7 +87,7 @@ export default function Search() {
   const [search] = useSearchParams();
   const keyword = search.get("keyword");
 
-  const { isLoading, data, error } = useQuery<IArticleData[]>(
+  const { isLoading, data, error } = useQuery<ISearch[]>(
     `[searchKeyword,${keyword}]`,
     () => articleSearchGet(keyword)
   );

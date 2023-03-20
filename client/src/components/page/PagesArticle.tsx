@@ -54,7 +54,7 @@ const Nickname = styled.div`
 
 export default function PagesArticle({ page }: IPage) {
   const setLoginState = useSetRecoilState(logined);
-  const { isLoading, error, data } = useQuery<IArticleData[]>(`${page}`, () =>
+  const { isLoading, error, data } = useQuery<IArticleData>(`${page}`, () =>
     articleAllGet(page, setLoginState)
   );
 
@@ -68,8 +68,8 @@ export default function PagesArticle({ page }: IPage) {
   ) : (
     <>
       <ListBox>
-        {data
-          ?.slice(
+        {data?.result
+          .slice(
             pageCount === null ? 0 : Number(pageCount) * 10 - 10,
             pageCount === null ? 10 : Number(pageCount) * 10
           )
@@ -91,7 +91,7 @@ export default function PagesArticle({ page }: IPage) {
           ))}
       </ListBox>
       <PageNumberBar
-        dataLength={data?.length}
+        dataLength={data?.result.length}
         page={page}
         pageCount={pageCount}
       />

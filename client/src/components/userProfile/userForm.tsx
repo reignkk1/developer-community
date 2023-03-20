@@ -42,28 +42,22 @@ interface IProfileData {
 
 // =============================================================================
 export default function UserForm() {
-  const { isLoading, error, data, refetch } = useQuery<IProfileData>(
+  const { data, refetch } = useQuery<IProfileData>(
     "user-profile",
-    () => profileUserInfoGet(setName, setNickName),
+    () => profileUserInfoGet(),
     { refetchOnMount: false, refetchOnWindowFocus: false }
   );
 
-  const [name, setName] = useState(data?.name);
-  const [nickName, setNickName] = useState(data?.nickname);
+  const [name, setName] = useState("");
+  const [nickName, setNickName] = useState("");
 
   const { register, handleSubmit, watch } = useForm<IProfileData>();
 
   const onValid = (data: IProfileData) => {
-    axios
-      .patch(
-        "/user/profile",
-        { name: data.name, nickname: data.nickname },
-        { withCredentials: true }
-      )
-      .then(() => {
-        refetch();
-        return alert("변경이 완료되었습니다!");
-      });
+    axios.patch("/user/profile", { name, nickname: nickName }).then(() => {
+      refetch();
+      return alert("변경이 완료되었습니다!");
+    });
   };
 
   const oninvalid = (error: FieldErrors) => {
@@ -82,7 +76,7 @@ export default function UserForm() {
       <Label htmlFor="name">이름</Label>
       <Input
         id="name"
-        value={isLoading ? "" : error ? "Not Found" : name}
+        defaultValue={data?.name}
         {...register("name", {
           required: "이름을 입력해주세요!",
         })}
@@ -93,7 +87,7 @@ export default function UserForm() {
       <Label htmlFor="nickname">닉네임</Label>
       <Input
         id="nickname"
-        value={isLoading ? "" : error ? "Not Found" : nickName}
+        defaultValue={data?.nickname}
         {...register("nickname", {
           required: "닉네임을 입력해주세요!",
         })}

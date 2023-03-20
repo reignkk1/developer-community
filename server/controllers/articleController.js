@@ -45,7 +45,7 @@ export function articleCommentsGet(req, res) {
   db.query(sqlQuery, (error, result) => {
     try {
       if (result[0] === undefined) return res.send("false");
-      return res.send({ info: result, userID: req.session.user?.id });
+      return res.send({ result, userID: req.session.user?.id });
     } catch (error) {
       console.log(error);
       return res.status(404).send();

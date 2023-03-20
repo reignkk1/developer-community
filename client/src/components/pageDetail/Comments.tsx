@@ -93,7 +93,7 @@ interface ICommentsProps {
 // =============================================================================
 
 interface IData {
-  info: [
+  result: [
     {
       id: number;
       date: string;
@@ -111,11 +111,10 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
   const [modify, setModify] = useState(false);
   const [id, setID] = useState("");
   const [value, setValue] = useState("");
-  const [undifined, setUndifined] = useState(false);
 
   const { isLoading, data, error } = useQuery<IData>(
     [`${page}Comments`, postID],
-    () => commentsGet(page, postID, setUndifined, setValue)
+    () => commentsGet(page, postID)
   );
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,6 +131,7 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
     return;
   };
   const onModify = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(e.currentTarget.parentElement);
     setID(e.currentTarget.parentElement?.id || "");
     setModify(true);
   };
@@ -154,42 +154,46 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
         <ErrorBox />
       ) : (
         <Container>
-          <Count>{undifined ? 0 : data?.info.length}개의 댓글</Count>
-          <CommentsBox>
-            {data?.info.map((data) => (
-              <CommentsItem key={data.id}>
-                <User>
-                  <Link to={`/user/${data.writerID}/posts`}>
-                    <Avartar width="50px" heigth="50px" />
-                  </Link>
-                  <UserInfo>
+          <Count>{data ? data?.result.length : 0}개의 댓글</Count>
+          {data ? (
+            <CommentsBox>
+              {data?.result.map((data) => (
+                <CommentsItem key={data.id}>
+                  <User>
                     <Link to={`/user/${data.writerID}/posts`}>
-                      <Nickname>{data.nickname}</Nickname>
+                      <Avartar width="50px" heigth="50px" />
                     </Link>
-                    <Date>{data.date}</Date>
-                  </UserInfo>
-                </User>
-                {modify && Number(id) === data.id ? (
-                  <Input
-                    onChange={onChange}
-                    value={value.replace(/<\/?[^>]+(>|$)/g, "")}
-                  />
-                ) : (
-                  <Text>{Parser(data.text)}</Text>
-                )}
-                {loginState && userID === data.writerID ? (
-                  <BtnBox id={`${data.id}`}>
-                    <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
-                    {modify && Number(id) === data.id ? (
-                      <ModifyBtn onClick={onModifyComplete}>수정완료</ModifyBtn>
-                    ) : (
-                      <ModifyBtn onClick={onModify}>수정</ModifyBtn>
-                    )}
-                  </BtnBox>
-                ) : null}
-              </CommentsItem>
-            ))}
-          </CommentsBox>
+                    <UserInfo>
+                      <Link to={`/user/${data.writerID}/posts`}>
+                        <Nickname>{data.nickname}</Nickname>
+                      </Link>
+                      <Date>{data.date}</Date>
+                    </UserInfo>
+                  </User>
+                  {modify && Number(id) === data.id ? (
+                    <Input
+                      onChange={onChange}
+                      defaultValue={data.text.replace(/<\/?[^>]+(>|$)/g, "")}
+                    />
+                  ) : (
+                    <Text>{Parser(data.text)}</Text>
+                  )}
+                  {loginState && userID === data.writerID ? (
+                    <BtnBox id={`${data.id}`}>
+                      <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
+                      {modify && Number(id) === data.id ? (
+                        <ModifyBtn onClick={onModifyComplete}>
+                          수정완료
+                        </ModifyBtn>
+                      ) : (
+                        <ModifyBtn onClick={onModify}>수정</ModifyBtn>
+                      )}
+                    </BtnBox>
+                  ) : null}
+                </CommentsItem>
+              ))}
+            </CommentsBox>
+          ) : null}
         </Container>
       )}
     </>
