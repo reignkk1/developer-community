@@ -66,7 +66,7 @@ const Nickname = styled.div`
 // =============================================================================
 
 export default function ArticleBox({ page }: IArticle) {
-  // 로그인 상태
+  // 로그인 상태 Controller
   const setLoginState = useSetRecoilState(logined);
 
   // 모든 게시물 가져옴

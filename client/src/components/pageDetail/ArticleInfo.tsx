@@ -72,15 +72,19 @@ const Date = styled.div`
 // =============================================================================
 
 export default function ArticleInfo({ page }: IPage) {
+  const navigate = useNavigate();
+
+  // 로그인 상태값과 Controller
   const [loginState, setLoginState] = useRecoilState(logined);
+
+  // URL 파라미터 ID값
   const { id } = useParams();
+
+  // 파라미터 ID값 게시물 가져오기
   const { isLoading, error, data } = useQuery<IArticleInfo>(
     `Detail${page}`,
-    () => articleDetail(page, id, setLoginState),
-    { refetchOnWindowFocus: false }
+    () => articleDetail(page, id, setLoginState)
   );
-
-  const navigate = useNavigate();
 
   const deleteClick = () => {
     if (window.confirm("정말로 삭제 하시겠습니까?")) {
@@ -119,6 +123,7 @@ export default function ArticleInfo({ page }: IPage) {
           </>
         )}
       </ArticleContainer>
+
       {loginState && data?.writerMatch ? (
         <ButtonBox>
           <Button onClick={deleteClick} text="삭제" />

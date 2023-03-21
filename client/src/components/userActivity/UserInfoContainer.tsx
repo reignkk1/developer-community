@@ -70,8 +70,9 @@ export default function UserInfoContainer({ userId }: IUserID) {
   const location = useLocation();
 
   const urlArticleMatch = location.pathname === `/user/${userId}/posts`;
-  const urlCommentMatch = location.pathname !== `/user/${userId}/posts`;
+  const urlCommentMatch = location.pathname === `/user/${userId}/comments`;
 
+  // 유저정보 Fetch
   const { isLoading, data, error } = useQuery<IUserData>(
     `[nickname,${userId}]`,
     () => userInfoGet(userId)

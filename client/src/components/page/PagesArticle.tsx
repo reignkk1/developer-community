@@ -53,11 +53,15 @@ const Nickname = styled.div`
 // =============================================================================
 
 export default function PagesArticle({ page }: IPage) {
+  // 로그인 상태 Controller
   const setLoginState = useSetRecoilState(logined);
+
+  // 모든 게시물 Fetch
   const { isLoading, error, data } = useQuery<IArticleData>(`${page}`, () =>
     articleAllGet(page, setLoginState)
   );
 
+  // URL 쿼리에 담긴 Page 데이터 가져옴
   const [query] = useSearchParams();
   const pageCount = query.get("page");
 
@@ -70,6 +74,7 @@ export default function PagesArticle({ page }: IPage) {
       <ListBox>
         {data?.result
           .slice(
+            // 한 페이지당 10개의 게시물을 보여줌
             pageCount === null ? 0 : Number(pageCount) * 10 - 10,
             pageCount === null ? 10 : Number(pageCount) * 10
           )
@@ -90,6 +95,7 @@ export default function PagesArticle({ page }: IPage) {
             </ListItem>
           ))}
       </ListBox>
+
       <PageNumberBar
         dataLength={data?.result.length}
         page={page}

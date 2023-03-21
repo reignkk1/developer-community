@@ -108,43 +108,49 @@ interface IData {
 }
 
 export default function Comments({ page, postID, loginState }: ICommentsProps) {
-  const [modify, setModify] = useState(false);
-  const [id, setID] = useState("");
-  const [value, setValue] = useState("");
+  const [modify, setModify] = useState(false); // 수정모드 True or False
 
-  const { isLoading, data, error } = useQuery<IData>(
+  const [id, setID] = useState(""); // 수정버튼 클릭 시 해당 댓글의 ID값
+
+  const [value, setValue] = useState(""); // 수정모드 시 input의 Value값
+
+  // 해당 게시물의 댓글들 Fetch
+  const { isLoading, data, error, refetch } = useQuery<IData>(
     [`${page}Comments`, postID],
     () => commentsGet(page, postID)
   );
 
+  // input value 값 변할때마다 value state 변경
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
   };
 
+  // 현재 로그인 하고있는 유저ID
   const userID = data?.userID;
 
+  // 삭제버튼 클릭 시
   const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const id = Number(e.currentTarget.parentElement?.id);
+    const id = e.currentTarget.parentElement?.id; // 댓글 ID값
     if (window.confirm("정말로 삭제하겠습니까?")) {
       axios.delete(`/comment/${id}`).then(() => alert("삭제완료!"));
     }
     return;
   };
+
+  // 수정버튼 클릭 시
   const onModify = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(e.currentTarget.parentElement);
-    setID(e.currentTarget.parentElement?.id || "");
-    setModify(true);
+    setID(e.currentTarget.parentElement?.id || ""); //댓글 ID값
+    return setModify(true); //수정모드 ON
   };
-  const onModifyComplete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const id = e.currentTarget.parentElement?.id;
-    axios
-      .patch(`/comment/${id}`, {
-        commentText: value,
-      })
-      .then(() => {
-        setModify(false);
-        return alert("수정완료!");
-      });
+
+  // 수정완료 버튼 클릭 시
+  const onModifyComplete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = e.currentTarget.parentElement?.id; //댓글 ID값
+    await axios.patch(`/comment/${id}`, {
+      commentText: value,
+    });
+    setModify(false);
+    return refetch();
   };
   return (
     <>

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Link, Navigate } from "react-router-dom";
 
 // File
-import MyPageMenu from "../components/userActivity/MyPageMenu";
+import MyPageMenu from "../components/userProfile/MyPageMenu";
 import { useRecoilValue } from "recoil";
 import { logined } from "../atom";
 

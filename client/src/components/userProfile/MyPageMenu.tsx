@@ -61,20 +61,14 @@ interface IActive {
 // =============================================================================
 
 export default function MyPageMenu() {
-  const [profile, setProfile] = useState(false);
-  const [account, setAccount] = useState(false);
+  const [profile, setProfile] = useState(false); // 유저가 프로필 페이지에 있는지 여부
+  const [account, setAccount] = useState(false); // 유저가 계정 페이지에 있는지 여부
 
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/profile") {
-      setProfile(true);
-    }
-    setProfile((current) => current);
-    if (location.pathname === "/account") {
-      setAccount(true);
-    }
-    setAccount((current) => current);
+    location.pathname === "/profile" && setProfile(true);
+    location.pathname === "/account" && setAccount(true);
   }, [location.pathname]);
 
   return (
@@ -82,7 +76,7 @@ export default function MyPageMenu() {
       <MenuTitle>내 계정</MenuTitle>
       <MenuList>
         <Link to="/profile">
-          <MenuItem1 style={{}} active={profile}>
+          <MenuItem1 active={profile}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

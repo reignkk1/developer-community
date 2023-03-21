@@ -4,6 +4,8 @@ import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useState } from "react";
+
+// File
 import Avartar from "../Avartar";
 
 // =============================================================================
@@ -99,24 +101,18 @@ export default function CommentWrite({
   postID,
   page,
 }: ICommentInfo) {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(""); // 댓글 Text
 
-  const onClick = () => {
-    axios
-      .post(
-        "/comment",
-        {
-          commentText: text,
-          date: new Date().toLocaleDateString("ko-kr"),
-          postID: Number(postID),
-          page: page,
-        },
-        { withCredentials: true }
-      )
-      .then(() => {
-        setText("");
-        return alert("댓글 생성완료!");
-      });
+  // 댓글쓰기 클릭 시
+  const onClick = async () => {
+    await axios.post("/comment", {
+      commentText: text,
+      date: new Date().toLocaleDateString("ko-kr"),
+      postID: Number(postID),
+      page: page,
+    });
+    setText("");
+    return alert("댓글 생성완료!");
   };
 
   return (

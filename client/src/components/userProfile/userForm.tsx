@@ -42,18 +42,20 @@ interface IProfileData {
 
 // =============================================================================
 export default function UserForm() {
+  // 유저 프로필 정보 Fetch
   const { data, refetch } = useQuery<IProfileData>(
     "user-profile",
     () => profileUserInfoGet(),
     { refetchOnMount: false, refetchOnWindowFocus: false }
   );
 
-  const [name, setName] = useState("");
-  const [nickName, setNickName] = useState("");
+  const [name, setName] = useState(""); // name input 상태
+  const [nickName, setNickName] = useState(""); // nickname input 상태
 
   const { register, handleSubmit, watch } = useForm<IProfileData>();
 
-  const onValid = (data: IProfileData) => {
+  // Form Submit
+  const onValid = () => {
     axios.patch("/user/profile", { name, nickname: nickName }).then(() => {
       refetch();
       return alert("변경이 완료되었습니다!");
