@@ -6,7 +6,7 @@ import { logined } from "../atom";
 import Button from "../components/button";
 import PagesArticle from "../components/page/PagesArticle";
 import PagesTitle from "../components/page/PagesTitle";
-import { Main } from "../PageShareStyle";
+import { Main } from "../styles/PageShareStyle";
 
 // =============================================================================
 

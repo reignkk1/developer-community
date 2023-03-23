@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 import ArticleBox from "../components/home/ArticleBox";
 import Category from "../components/home/Category";
+import { Main } from "../styles/PageShareStyle";
 
 // =============================================================================
 
-const Main = styled.main`
-  width: 950px;
-  margin: 0 auto;
+const Container = styled(Main)`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 50px;
@@ -16,7 +15,7 @@ const Main = styled.main`
 
 export default function Home() {
   return (
-    <Main>
+    <Container>
       <div>
         <Category
           imgeSrc="https://okky.kr/notice.svg"
@@ -49,6 +48,6 @@ export default function Home() {
         />
         <ArticleBox page="quote" />
       </div>
-    </Main>
+    </Container>
   );
 }

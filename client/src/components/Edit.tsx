@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import { useNavigate, useParams } from "react-router-dom";
 
 // File
-import { IArticleData, IPage } from "../interface";
+import { IArticleCommentData, IPage } from "../type";
 import Button from "./button";
 import { useQuery } from "react-query";
 
@@ -49,12 +49,14 @@ export default function Edit({ page }: IPage) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { isLoading, error } = useQuery<IArticleData>(`[edit,${id}]`, () =>
-    axios.get(`/article/${page}/${id}`).then((response) => {
-      setInputData(response.data.result[0].title || "");
-      setEditorData(response.data.result[0].content || "");
-      return response.data.result[0];
-    })
+  const { isLoading, error } = useQuery<IArticleCommentData>(
+    `[edit,${id}]`,
+    () =>
+      axios.get(`/article/${page}/${id}`).then((response) => {
+        setInputData(response.data.result[0].title || "");
+        setEditorData(response.data.result[0].content || "");
+        return response.data.result[0];
+      })
   );
 
   const postSubmit = () => {

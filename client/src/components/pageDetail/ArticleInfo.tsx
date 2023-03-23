@@ -10,17 +10,13 @@ import Button from "../button";
 import CommentWrite from "./CommentWrite";
 import Comments from "./Comments";
 import { logined } from "../../atom";
-import { IArticleInfo, IPage } from "../../interface";
+import { IArticleInfo, IPage } from "../../type";
 import { ErrorBox, LoadingBox } from "../LoadingError";
 import { articleDetail } from "../../axios";
 import Avartar from "../Avartar";
+import { Main } from "../../styles/PageShareStyle";
 
 // =============================================================================
-
-const Main = styled.main`
-  width: 60%;
-  margin: 0 auto;
-`;
 
 const ArticleContainer = styled.div`
   padding: 40px 0px;

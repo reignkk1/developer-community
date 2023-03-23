@@ -4,7 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 // File
-import { IArticleData, IPage } from "../../interface";
+import { IArticleCommentData, IPage } from "../../type";
 import { ErrorBox, LoadingBox } from "../LoadingError";
 import PageNumberBar from "../pageNumBar";
 import Avartar from "../Avartar";
@@ -57,8 +57,9 @@ export default function PagesArticle({ page }: IPage) {
   const setLoginState = useSetRecoilState(logined);
 
   // 모든 게시물 Fetch
-  const { isLoading, error, data } = useQuery<IArticleData>(`${page}`, () =>
-    articleAllGet(page, setLoginState)
+  const { isLoading, error, data } = useQuery<IArticleCommentData>(
+    `${page}`,
+    () => articleAllGet(page, setLoginState)
   );
 
   // URL 쿼리에 담긴 Page 데이터 가져옴

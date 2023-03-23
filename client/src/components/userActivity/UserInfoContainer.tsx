@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 
 // File
-import { IUserData } from "../../interface";
+import { IUserData } from "../../type";
 import { ErrorBox, LoadingBox } from "../LoadingError";
 import Avartar from "../Avartar";
 import { userInfoGet } from "../../axios";

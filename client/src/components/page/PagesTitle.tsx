@@ -1,8 +1,5 @@
 import styled from "@emotion/styled";
 
-// File
-import { IPagesTitle } from "../../interface";
-
 // =============================================================================
 
 const Title = styled.div`
@@ -28,6 +25,14 @@ const Info = styled.div``;
 const Span = styled.span`
   font-size: 14px;
 `;
+
+// =============================================================================
+
+interface IPagesTitle {
+  ImgeSrc: string;
+  name: string;
+  explain: string;
+}
 
 // =============================================================================
 

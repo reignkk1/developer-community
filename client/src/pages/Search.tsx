@@ -4,12 +4,13 @@ import { css } from "@emotion/react";
 import { useTheme } from "@emotion/react";
 
 //File
-import { IArticleData } from "../interface";
+
 import Parser from "html-react-parser";
 import { useQuery } from "react-query";
 import { ErrorBox, LoadingBox } from "../components/LoadingError";
 import { articleSearchGet } from "../axios";
 import PageNumberBar from "../components/pageNumBar";
+import { IArticleCommentData } from "../type";
 
 // =============================================================================
 
@@ -71,15 +72,6 @@ interface ITheme {
   textColor: string;
 }
 
-interface ISearch {
-  id: number;
-  title: string;
-  content: string;
-  writerID: string;
-  date: string;
-  nickname: string;
-  page: string;
-}
 // =============================================================================
 
 export default function Search() {
@@ -87,7 +79,7 @@ export default function Search() {
   const [search] = useSearchParams();
   const keyword = search.get("keyword");
 
-  const { isLoading, data, error } = useQuery<ISearch[]>(
+  const { isLoading, data, error } = useQuery<IArticleCommentData>(
     `[searchKeyword,${keyword}]`,
     () => articleSearchGet(keyword)
   );
@@ -104,7 +96,7 @@ export default function Search() {
         <ErrorBox />
       ) : (
         <ul>
-          {data
+          {data?.result
             ?.slice(
               pageCount === null ? 0 : Number(pageCount) * 10 - 10,
               pageCount === null ? 10 : Number(pageCount) * 10
@@ -140,7 +132,7 @@ export default function Search() {
         </ul>
       )}
       <PageNumberBar
-        dataLength={data?.length}
+        dataLength={data?.result.length}
         page="search"
         pageCount={pageCount}
         keyword={keyword}

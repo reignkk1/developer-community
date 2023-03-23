@@ -8,7 +8,7 @@ import PagesTitle from "../components/page/PagesTitle";
 import PagesArticle from "../components/page/PagesArticle";
 import Button from "../components/button";
 import { logined } from "../atom";
-import { Main } from "./../PageShareStyle";
+import { Main } from "../styles/PageShareStyle";
 
 // =============================================================================
 

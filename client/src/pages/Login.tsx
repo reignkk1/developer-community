@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil";
 
 // File
 import { logined } from "../atom";
-import { IUserData } from "../interface";
+import { IUserData } from "../type";
 
 // =============================================================================
 

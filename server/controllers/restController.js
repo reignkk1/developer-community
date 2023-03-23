@@ -42,6 +42,6 @@ export function searchArticleGet(req, res) {
   const sqlQuery = `SELECT * FROM posts WHERE title like '%${keyword}%' ORDER BY id DESC;`;
 
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    return res.send({ result, logined: req.session.logined });
   });
 }

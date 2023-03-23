@@ -1,12 +1,10 @@
 import axios from "axios";
-import { Dispatch, SetStateAction } from "react";
 import { SetterOrUpdater } from "recoil";
 
 //https://port-0-board-server-6g2llexw0nts.sel3.cloudtype.app
 
 // Axios defaults option 설정
-axios.defaults.baseURL =
-  "https://port-0-board-server-6g2llexw0nts.sel3.cloudtype.app";
+axios.defaults.baseURL = "https://port-0-board-server-6g2llexw0nts.sel3.cloudtype.app";
 axios.defaults.withCredentials = true;
 
 // 모든 게시물 정보 불러오기
@@ -57,7 +55,7 @@ export async function userActivityGet(
 ) {
   const response = await axios.get(`/user/${page}/${id}`);
   response.data.logined ? setLoginState(true) : setLoginState(false);
-  return response.data.result;
+  return response.data;
 }
 
 // 특정 유저 정보 불러오기

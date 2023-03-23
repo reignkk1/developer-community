@@ -13,8 +13,7 @@ export interface IArticleInfo {
   writerMatch: boolean;
 }
 
-export interface IArticleData {
-  logined: boolean;
+export interface IArticleCommentData {
   result: [
     {
       id: number;
@@ -24,34 +23,21 @@ export interface IArticleData {
       date: string;
       nickname: string;
       page: string;
+      postID?: string;
+      text?: string;
     }
   ];
-}
-
-export interface IComment {
-  id: number;
-  date: string;
-  text: string;
-  postID: number;
-  writerID: number;
-  page: string;
-  nickname: string;
+  logined: boolean;
 }
 
 export interface IArticle {
   page: string;
   explain?: string;
-  data?: IArticleData[];
+  data?: IArticleCommentData[];
 }
 
 export interface IPage {
   page: string;
-}
-
-export interface IPagesTitle {
-  ImgeSrc: string;
-  name: string;
-  explain: string;
 }
 
 export interface IUserData {

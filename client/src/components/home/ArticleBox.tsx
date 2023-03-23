@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 // File
-import { IArticle, IArticleData } from "../../interface";
+import { IArticleCommentData, IPage } from "../../type";
 import Avartar from "../Avartar";
 import { ErrorBox, LoadingBox } from "../LoadingError";
 import { logined } from "../../atom";
@@ -65,13 +65,14 @@ const Nickname = styled.div`
 
 // =============================================================================
 
-export default function ArticleBox({ page }: IArticle) {
+export default function ArticleBox({ page }: IPage) {
   // 로그인 상태 Controller
   const setLoginState = useSetRecoilState(logined);
 
   // 모든 게시물 가져옴
-  const { isLoading, error, data } = useQuery<IArticleData>(`${page}`, () =>
-    articleAllGet(page, setLoginState)
+  const { isLoading, error, data } = useQuery<IArticleCommentData>(
+    `${page}`,
+    () => articleAllGet(page, setLoginState)
   );
 
   return (

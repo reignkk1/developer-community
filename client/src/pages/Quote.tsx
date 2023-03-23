@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import PagesTitle from "../components/page/PagesTitle";
 import QuoteInput from "../components/QuoteInput";
 import { logined } from "../atom";
-import { Main } from "../PageShareStyle";
+import { Main } from "../styles/PageShareStyle";
 import PagesArticle from "../components/page/PagesArticle";
 
 // =============================================================================

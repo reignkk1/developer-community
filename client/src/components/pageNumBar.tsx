@@ -61,7 +61,8 @@ export default function PageNumberBar({
   const navigate = useNavigate();
 
   // 게시글 수에 따른 버튼 갯수
-  const buttonCount = Math.ceil(dataLength || 0 / 10);
+
+  const buttonCount = Math.ceil((dataLength || 0) / 10);
 
   const onClick = (pageNumber: string) =>
     userID

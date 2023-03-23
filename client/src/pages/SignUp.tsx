@@ -5,7 +5,7 @@ import { FieldErrors } from "react-hook-form/dist/types";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 // File
-import { IUserData } from "../interface";
+import { IUserData } from "../type";
 import { useRecoilValue } from "recoil";
 import { logined } from "../atom";
 

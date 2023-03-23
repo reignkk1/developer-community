@@ -9,14 +9,10 @@ import PageNumberBar from "../components/pageNumBar";
 import UserInfoContainer from "../components/userActivity/UserInfoContainer";
 import { logined } from "../atom";
 import { userActivityGet } from "../axios";
+import { Main } from "../styles/PageShareStyle";
+import { IArticleCommentData, IPage } from "../type";
 
 // =============================================================================
-
-const Main = styled.main`
-  width: 800px;
-
-  margin: 0 auto;
-`;
 
 const ItemBox = styled.ul`
   margin-top: 70px;
@@ -90,28 +86,10 @@ const Error = styled.div`
 
 // =============================================================================
 
-interface IUserInfoPage {
-  page: string;
-}
-
-interface IData {
-  id: number;
-  title: string;
-  content: string;
-  writerID: string;
-  date: string;
-  nickname: string;
-  page: string;
-  postID: number;
-  text: string;
-}
-
-// =============================================================================
-
-export default function UserActivity({ page }: IUserInfoPage) {
+export default function UserActivity({ page }: IPage) {
   const setLoginState = useSetRecoilState(logined);
   const { id } = useParams();
-  const { isLoading, data, error } = useQuery<IData[]>(
+  const { isLoading, data, error } = useQuery<IArticleCommentData>(
     `[user${page},${id}]`,
     () => userActivityGet(id, page, setLoginState)
   );
@@ -130,8 +108,8 @@ export default function UserActivity({ page }: IUserInfoPage) {
         <Error>404 Not Found</Error>
       ) : page === "posts" ? (
         <ItemBox>
-          {data
-            ?.slice(
+          {data?.result
+            .slice(
               pageCount === null ? 0 : Number(pageCount) * 10 - 10,
               pageCount === null ? 10 : Number(pageCount) * 10
             )
@@ -160,8 +138,8 @@ export default function UserActivity({ page }: IUserInfoPage) {
         </ItemBox>
       ) : (
         <ItemBox>
-          {data
-            ?.slice(
+          {data?.result
+            .slice(
               pageCount === null ? 0 : Number(pageCount) * 10 - 10,
               pageCount === null ? 10 : Number(pageCount) * 10
             )
@@ -183,7 +161,7 @@ export default function UserActivity({ page }: IUserInfoPage) {
                     <Span>에 댓글을 달았습니다.</Span>
                   </ItemPage>
                   <Link to={`/${item.page}/${item.postID}`}>
-                    {item.text.replace(/<\/?[^>]+(>|$)/g, "")}
+                    {item.text?.replace(/<\/?[^>]+(>|$)/g, "")}
                   </Link>
                 </ItemTitle>
                 <ItemDate>{item.date}</ItemDate>
@@ -192,7 +170,7 @@ export default function UserActivity({ page }: IUserInfoPage) {
         </ItemBox>
       )}
       <PageNumberBar
-        dataLength={data?.length}
+        dataLength={data?.result.length}
         page={page}
         pageCount={pageCount}
         userID={id}

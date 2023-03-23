@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // File
-import { IPage } from "../interface";
+import { IPage } from "../type";
 import Button from "./button";
 
 // =============================================================================
