@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil";
 
 // File
 import { logined } from "../atom";
+import InputContainer from "../components/InputContainer";
 import { IUserData } from "../type";
 
 // =============================================================================
@@ -38,25 +39,11 @@ const InputForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`;
-const Input = styled.input`
-  width: 100%;
-  padding: 10px 15px;
-  font-size: 18px;
-  border-radius: 5px;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  background-color: ${(props) => props.theme.inputColor};
-  color: ${(props) => props.theme.textColor};
-  &:focus {
-    border: 1px solid #0580d7;
+  input {
+    margin-bottom: 15px;
   }
-  outline: none;
-  margin-bottom: 20px;
 `;
-const Label = styled.label`
-  margin-bottom: 5px;
-  font-weight: bold;
-`;
+
 const Btn = styled.button`
   width: 100%;
   background-color: #0092fa;
@@ -89,21 +76,17 @@ const BottomSignUp = styled.div`
 // =============================================================================
 
 export default function Login() {
+  const [loginState, setLogin] = useRecoilState(logined);
   const { register, handleSubmit } = useForm<IUserData>();
 
-  const [loginState, setLogin] = useRecoilState(logined);
   const navigate = useNavigate();
 
   const onValid = (data: IUserData) => {
     axios
-      .post(
-        "/user/login",
-        {
-          loginUserID: data.userID,
-          loginPassword: data.password,
-        },
-        { withCredentials: true }
-      )
+      .post("/user/login", {
+        loginUserID: data.userID,
+        loginPassword: data.password,
+      })
       .then((response) => {
         if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
         setLogin(response.data);
@@ -126,19 +109,22 @@ export default function Login() {
         <P2>Developer는 소프트웨어 개발자를 위한 지식공유 플랫폼입니다.</P2>
       </LogoBox>
       <InputForm onSubmit={handleSubmit(onValid, oninvalid)}>
-        <Label>아이디</Label>
-        <Input
-          placeholder="4~15자 이내로 입력해주세요"
+        <InputContainer
+          register={register}
+          label="아이디"
+          name="userID"
           type="text"
-          {...register("userID", { required: "아이디를 입력해주세요!" })}
+          placeholder="4~15자 이내로 입력해주세요."
+          required={true}
         />
-        <Label>비밀번호</Label>
-        <Input
-          placeholder="최소 6자 이상"
+        <InputContainer
+          register={register}
+          label="비밀번호"
+          name="password"
           type="password"
-          {...register("password", { required: "비밀번호를 입력해주세요!" })}
+          placeholder="최소 6자 이상"
+          required={true}
         />
-
         <Btn>로그인</Btn>
       </InputForm>
       <BottomSignUp>

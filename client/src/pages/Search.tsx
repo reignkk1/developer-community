@@ -11,6 +11,8 @@ import { ErrorBox, LoadingBox } from "../components/LoadingError";
 import { articleSearchGet } from "../axios";
 import PageNumberBar from "../components/pageNumBar";
 import { IArticleCommentData } from "../type";
+import { useSetRecoilState } from "recoil";
+import { logined } from "../atom";
 
 // =============================================================================
 
@@ -75,13 +77,15 @@ interface ITheme {
 // =============================================================================
 
 export default function Search() {
+  // 로그인 상태 Controller
+  const setLoginState = useSetRecoilState(logined);
   const theme = useTheme();
   const [search] = useSearchParams();
   const keyword = search.get("keyword");
 
   const { isLoading, data, error } = useQuery<IArticleCommentData>(
     `[searchKeyword,${keyword}]`,
-    () => articleSearchGet(keyword)
+    () => articleSearchGet(keyword, setLoginState)
   );
 
   const [query] = useSearchParams();

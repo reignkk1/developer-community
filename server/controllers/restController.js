@@ -45,3 +45,10 @@ export function searchArticleGet(req, res) {
     return res.send({ result, logined: req.session.logined });
   });
 }
+
+// 파일 업로드
+
+export function uploadFile(req, res) {
+  console.log(req.file);
+  return res.send();
+}

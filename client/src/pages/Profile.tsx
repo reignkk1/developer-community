@@ -37,14 +37,50 @@ const UserAvartar = styled.img`
   width: 155px;
   height: 155px;
   border-radius: 50%;
-  margin-top: 50px;
   border: 1px solid ${(props) => props.theme.borderColor};
+  margin-top: 50px;
 `;
+
+const UserAvartarContainer = styled.div`
+  position: relative;
+`;
+
+const UserAvartarModal = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 155px;
+  height: 155px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50px;
+  color: white;
+  opacity: 0;
+  &:hover {
+    opacity: 1;
+  }
+  cursor: pointer;
+`;
+
+const Input = styled.input`
+  display: none;
+`;
+
+const Form = styled.form``;
 
 // =============================================================================
 
 export default function Profile() {
   const loginState = useRecoilValue(logined);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.currentTarget.files);
+    const uploadFile = e.currentTarget.files;
+  };
+
+  const onsubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(e);
+  };
 
   return loginState ? (
     <Main>
@@ -55,10 +91,21 @@ export default function Profile() {
             <Title>회원정보</Title>
             <UserForm />
           </UserInfo>
-          <UserAvartar
-            src="https://graph.facebook.com/555897032021233/picture?width=200&height=200"
-            alt="프로필"
-          />
+          <UserAvartarContainer>
+            <UserAvartar
+              src="https://graph.facebook.com/555897032021233/picture?width=200&height=200"
+              alt="프로필"
+            />
+            <Form onSubmit={onsubmit}>
+              <UserAvartarModal htmlFor="image">변경</UserAvartarModal>
+              <Input
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={onChange}
+              />
+            </Form>
+          </UserAvartarContainer>
         </UserInfoBox>
       </UserContainer>
     </Main>
