@@ -6,6 +6,8 @@ import { Navigate } from "react-router-dom";
 import MyPageMenu from "../components/userProfile/MyPageMenu";
 import { logined } from "../atom";
 import UserForm from "./../components/userProfile/userForm";
+import axios from "axios";
+import { useState } from "react";
 
 // =============================================================================
 
@@ -73,13 +75,22 @@ const Form = styled.form``;
 
 export default function Profile() {
   const loginState = useRecoilValue(logined);
+
+  const [image, setImage] = useState(null);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.currentTarget.files);
-    const uploadFile = e.currentTarget.files;
+    const uploadImage = e.target.files![0];
+    const formData = new FormData();
+    formData.append("image", uploadImage);
+
+    axios.post("/upload", formData, {
+      headers: { "Content-type": "multipart/form-data" },
+    });
   };
 
   const onsubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(e);
+    e.preventDefault();
+    console.log(e.currentTarget[0]);
   };
 
   return loginState ? (
@@ -102,8 +113,9 @@ export default function Profile() {
                 id="image"
                 type="file"
                 accept="image/*"
-                onChange={onChange}
+                onChange={(e) => onChange(e)}
               />
+              <button>변경</button>
             </Form>
           </UserAvartarContainer>
         </UserInfoBox>

@@ -50,5 +50,6 @@ export function searchArticleGet(req, res) {
 
 export function uploadFile(req, res) {
   console.log(req.file);
+
   return res.send();
 }
