@@ -74,7 +74,7 @@ export function userProfileGet(req, res) {
     user: { id },
   } = req.session;
 
-  const sqlQuery = `SELECT name,nickname FROM user WHERE id = ${id}`;
+  const sqlQuery = `SELECT name,nickname,avartar FROM user WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
     return res.send(result);
   });

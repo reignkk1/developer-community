@@ -5,9 +5,15 @@ import { Navigate } from "react-router-dom";
 // File
 import MyPageMenu from "../components/userProfile/MyPageMenu";
 import { logined } from "../atom";
-import UserForm from "./../components/userProfile/userForm";
+
 import axios from "axios";
 import { useState } from "react";
+import { useQuery } from "react-query";
+import { profileUserInfoGet } from "../axios";
+import { useForm } from "react-hook-form";
+import { FieldErrors } from "react-hook-form";
+import Button from "../components/button";
+import InputContainer from "../components/InputContainer";
 
 // =============================================================================
 
@@ -65,32 +71,72 @@ const UserAvartarModal = styled.label`
   cursor: pointer;
 `;
 
-const Input = styled.input`
+const InputAvartar = styled.input`
   display: none;
 `;
 
-const Form = styled.form``;
+const FormAvartar = styled.form``;
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  input {
+    margin-bottom: 30px;
+  }
+`;
+
+interface IProfileData {
+  name: string;
+  nickname: string;
+  avartar: string;
+}
 // =============================================================================
 
 export default function Profile() {
+  // 로그인 상태
   const loginState = useRecoilValue(logined);
 
-  const [image, setImage] = useState(null);
+  // 유저 프로필 정보 Fetch
+  const { data, refetch } = useQuery<IProfileData>(
+    "user-profile",
+    () => profileUserInfoGet(),
+    { refetchOnMount: false, refetchOnWindowFocus: false }
+  );
+  const { register, handleSubmit, watch } = useForm<IProfileData>();
 
+  const [name, setName] = useState(""); // name input 상태
+  const [nickName, setNickName] = useState(""); // nickname input 상태
+
+  // 닉네임, 이름 변경 시
+  const onValid = () => {
+    axios.patch("/user/profile", { name, nickname: nickName }).then(() => {
+      refetch();
+      return alert("변경이 완료되었습니다!");
+    });
+  };
+
+  const oninvalid = (error: FieldErrors) => {
+    if (error.name?.message) return alert(`${error.name.message}`);
+    if (error.nickname?.message) return alert(`${error.nickname.message}`);
+  };
+
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const onNickNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickName(e.target.value);
+  };
+
+  // 프로필 사진 변경 시
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadImage = e.target.files![0];
     const formData = new FormData();
     formData.append("image", uploadImage);
-
-    axios.post("/upload", formData, {
-      headers: { "Content-type": "multipart/form-data" },
-    });
-  };
-
-  const onsubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(e.currentTarget[0]);
+    axios
+      .post("/upload", formData, {
+        headers: { "Content-type": "multipart/form-data" },
+      })
+      .then(() => refetch());
   };
 
   return loginState ? (
@@ -100,23 +146,50 @@ export default function Profile() {
         <UserInfoBox>
           <UserInfo>
             <Title>회원정보</Title>
-            <UserForm />
+            <Form onSubmit={handleSubmit(onValid, oninvalid)}>
+              <InputContainer
+                register={register}
+                label="이름"
+                placeholder={watch("name") === "" ? "이름을 입력해주세요!" : ""}
+                type="text"
+                name="name"
+                required={true}
+                onChange={onNameChange}
+                defaultValue={data?.name}
+              />
+              <InputContainer
+                register={register}
+                label="닉네임"
+                placeholder={
+                  watch("nickname") === "" ? "닉네임을 입력해주세요!" : ""
+                }
+                type="text"
+                name="nickName"
+                required={true}
+                onChange={onNickNameChange}
+                defaultValue={data?.nickname}
+              />
+              <Button text="저장" />
+            </Form>
           </UserInfo>
           <UserAvartarContainer>
             <UserAvartar
-              src="https://graph.facebook.com/555897032021233/picture?width=200&height=200"
+              src={
+                data?.avartar === ""
+                  ? "https://graph.facebook.com/555897032021233/picture?width=200&height=200"
+                  : data?.avartar
+              }
               alt="프로필"
             />
-            <Form onSubmit={onsubmit}>
+            <FormAvartar>
               <UserAvartarModal htmlFor="image">변경</UserAvartarModal>
-              <Input
+              <InputAvartar
                 id="image"
                 type="file"
                 accept="image/*"
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
-              <button>변경</button>
-            </Form>
+            </FormAvartar>
           </UserAvartarContainer>
         </UserInfoBox>
       </UserContainer>

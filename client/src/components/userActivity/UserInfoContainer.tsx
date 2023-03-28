@@ -81,7 +81,7 @@ export default function UserInfoContainer({ userId }: IUserID) {
   return (
     <UserInfoBox>
       <UserInfo>
-        <Avartar width="70px" heigth="70px" />
+        <Avartar width="70px" heigth="70px" src={data?.avartar} />
         {isLoading ? (
           <LoadingBox />
         ) : error ? (

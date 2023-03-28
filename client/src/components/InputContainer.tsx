@@ -37,6 +37,8 @@ interface InputContainerProps {
   required: boolean;
   minLength?: number;
   maxlength?: number;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  defaultValue?: string;
 }
 
 // =============================================================================
@@ -50,12 +52,15 @@ export default function InputContainer({
   required,
   minLength,
   maxlength,
+  onChange,
+  defaultValue,
 }: InputContainerProps) {
   return (
     <>
-      <Label>{label}</Label>
+      <Label htmlFor={name}>{label}</Label>
       <InputBox>
         <Input
+          id={name}
           placeholder={placeholder}
           type={type}
           {...register(name, {
@@ -69,6 +74,8 @@ export default function InputContainer({
               message: `${maxlength}자 이하로 입력해주세요.`,
             },
           })}
+          onChange={onChange}
+          defaultValue={defaultValue}
         />
       </InputBox>
     </>

@@ -46,10 +46,13 @@ export function searchArticleGet(req, res) {
   });
 }
 
-// 파일 업로드
+// 유저 프로필 사진 업로드
 
 export function uploadFile(req, res) {
-  console.log(req.file);
+  const userAvartarImg = req.file.location;
+  const sqlQuery = `UPDATE user SET avartar= '${userAvartarImg}' WHERE id = ${req.session.user.id}`;
 
-  return res.send();
+  db.query(sqlQuery, (error, result) => {
+    return res.send();
+  });
 }

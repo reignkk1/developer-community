@@ -25,6 +25,7 @@ export interface IArticleCommentData {
       page: string;
       postID?: string;
       text?: string;
+      avartar: string;
     }
   ];
   logined: boolean;
@@ -48,4 +49,5 @@ export interface IUserData {
   nickname: string;
   create_time: string;
   manager: number;
+  avartar: string;
 }

@@ -87,7 +87,11 @@ export default function ArticleBox({ page }: IPage) {
             <ListItem key={item.id}>
               <NicknameBox>
                 <Link to={`/user/${item.writerID}/posts`}>
-                  <Avartar width="20px" heigth="20px" />
+                  <Avartar
+                    width="20px"
+                    heigth="20px"
+                    src={data.result[0].avartar}
+                  />
                 </Link>
                 <Link to={`/user/${item.writerID}/posts`}>
                   <Nickname>{item.nickname}</Nickname>

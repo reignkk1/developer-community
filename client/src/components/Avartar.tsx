@@ -9,12 +9,17 @@ const Img = styled.img`
 interface IAvartar {
   width: string;
   heigth: string;
+  src?: string;
 }
 
-export default function Avartar({ width, heigth }: IAvartar) {
+export default function Avartar({ width, heigth, src }: IAvartar) {
   return (
     <Img
-      src="https://graph.facebook.com/555897032021233/picture?width=100&height=100"
+      src={
+        src === ""
+          ? "https://graph.facebook.com/555897032021233/picture?width=100&height=100"
+          : src
+      }
       alt="프로필"
       width={width}
       height={heigth}
