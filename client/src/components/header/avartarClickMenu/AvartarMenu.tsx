@@ -37,8 +37,8 @@ export default function AvartarClickMenu() {
     });
   };
 
+  const navigate = useNavigate();
   const userMe = () => {
-    const navigate = useNavigate();
     axios.get("/user/me").then((response) => navigate(`${response.data}`));
   };
 

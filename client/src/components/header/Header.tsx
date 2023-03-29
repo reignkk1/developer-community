@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 // File
@@ -34,6 +35,7 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
   ];
 
   const onClickAvartar = () => setIsOpend((current) => !current);
+  const location = useLocation();
 
   return (
     <Styles.HeaderContainer pathname={location.pathname}>

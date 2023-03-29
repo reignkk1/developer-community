@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Styles } from "./styles";
 
 interface IMenu {
@@ -8,7 +8,7 @@ interface IMenu {
 
 export default function Menu({ menu }: IMenu) {
   const theme = useTheme();
-
+  const location = useLocation();
   return (
     <Styles.Container>
       {menu.map((item, index) => (
