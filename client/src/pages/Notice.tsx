@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 // File
 import PagesTitle from "../components/page/PagesTitle";
 import PagesArticle from "../components/page/PagesArticle";
-import Button from "../components/button";
+import Button from "../components/button/button";
 import { logined } from "../atom";
 import { Main } from "../styles/PageShareStyle";
 
@@ -34,7 +34,7 @@ export default function Notice() {
         explain="Developer의 새소식, 이벤트, 행사 정보를 공유하는 공간입니다."
       />
       {managerState === 1 ? (
-        <Button text="✏️작성하기" onClick={onClick} />
+        <Button onClick={onClick}>✏️작성하기</Button>
       ) : null}
 
       <PagesArticle page="notice" />

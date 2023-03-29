@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 // File
 import { IArticleCommentData, IPage } from "../type";
-import Button from "./button";
+import Button from "./button/button";
 import { useQuery } from "react-query";
 
 // =============================================================================
@@ -98,7 +98,7 @@ export default function Edit({ page }: IPage) {
         data={isLoading ? "로딩중.." : error ? "404 Not Found" : editorData}
       />
 
-      <Button onClick={postSubmit} text="수정하기" />
+      <Button onClick={postSubmit}>수정하기</Button>
     </Container>
   );
 }

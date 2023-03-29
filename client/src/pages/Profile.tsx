@@ -96,6 +96,7 @@ export default function Profile() {
   // 로그인 상태
   const loginState = useRecoilValue(logined);
 
+<<<<<<< Updated upstream
   // 유저 프로필 정보 Fetch
   const { data, refetch } = useQuery<IProfileData>(
     "user-profile",
@@ -128,15 +129,24 @@ export default function Profile() {
   };
 
   // 프로필 사진 변경 시
+=======
+>>>>>>> Stashed changes
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadImage = e.target.files![0];
     const formData = new FormData();
     formData.append("image", uploadImage);
+<<<<<<< Updated upstream
     axios
       .post("/upload", formData, {
         headers: { "Content-type": "multipart/form-data" },
       })
       .then(() => refetch());
+=======
+
+    axios.post("/upload", formData, {
+      headers: { "Content-type": "multipart/form-data" },
+    });
+>>>>>>> Stashed changes
   };
 
   return loginState ? (
@@ -181,7 +191,11 @@ export default function Profile() {
               }
               alt="프로필"
             />
+<<<<<<< Updated upstream
             <FormAvartar>
+=======
+            <Form>
+>>>>>>> Stashed changes
               <UserAvartarModal htmlFor="image">변경</UserAvartarModal>
               <InputAvartar
                 id="image"
@@ -189,7 +203,11 @@ export default function Profile() {
                 accept="image/*"
                 onChange={onChange}
               />
+<<<<<<< Updated upstream
             </FormAvartar>
+=======
+            </Form>
+>>>>>>> Stashed changes
           </UserAvartarContainer>
         </UserInfoBox>
       </UserContainer>

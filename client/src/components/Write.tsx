@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 // File
 import { IPage } from "../type";
-import Button from "./button";
+import Button from "./button/button";
 
 // =============================================================================
 
@@ -88,7 +88,7 @@ export default function Write({ page }: IPage) {
         }}
       />
 
-      <Button onClick={postSubmit} text="작성하기" />
+      <Button onClick={postSubmit}>작성하기</Button>
     </Container>
   );
 }

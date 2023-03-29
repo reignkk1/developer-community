@@ -4,8 +4,8 @@ import { S3 } from "@aws-sdk/client-s3";
 
 const s3 = new S3({
   credentials: {
-    accessKeyId: "AKIA52WFCBJXIZ34I3CG",
-    secretAccessKey: "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",
+    accessKeyId: process.env.AWS_ID,
+    secretAccessKey: process.env.AWS_SECRET,
   },
   region: "ap-northeast-2",
 });

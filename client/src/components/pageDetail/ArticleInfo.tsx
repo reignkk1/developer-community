@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 
 // File
-import Button from "../button";
+import Button from "../button/button";
 import CommentWrite from "./CommentWrite";
 import Comments from "./Comments";
 import { logined } from "../../atom";
@@ -122,8 +122,8 @@ export default function ArticleInfo({ page }: IPage) {
 
       {loginState && data?.writerMatch ? (
         <ButtonBox>
-          <Button onClick={deleteClick} text="삭제" />
-          <Button onClick={editClick} text="수정" />
+          <Button onClick={deleteClick}>삭제</Button>
+          <Button onClick={editClick}>수정</Button>
         </ButtonBox>
       ) : null}
       <CommentWrite loginState={loginState} postID={id} page={page} />

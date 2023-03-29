@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 // File
-import Button from "../components/button";
+import Button from "../components/button/button";
 import PagesArticle from "../components/page/PagesArticle";
 import PagesTitle from "../components/page/PagesTitle";
 import { logined } from "../atom";
@@ -23,7 +23,7 @@ export default function Life() {
         ImgeSrc="https://okky.kr/community.svg"
         explain="삶과 애환에 관한 다양한 이야기를 나누는 공간입니다."
       />
-      <Button onClick={onClick} text="✏️작성하기" />
+      <Button onClick={onClick}>✏️작성하기</Button>
       <PagesArticle page="life" />
     </Main>
   );

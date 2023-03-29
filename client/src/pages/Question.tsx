@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 
 // File
 import { logined } from "../atom";
-import Button from "../components/button";
+import Button from "../components/button/button";
 import PagesArticle from "../components/page/PagesArticle";
 import PagesTitle from "../components/page/PagesTitle";
 import { Main } from "../styles/PageShareStyle";
@@ -23,7 +23,7 @@ export default function Questions() {
         ImgeSrc="https://okky.kr/questions.svg"
         explain="좋은 질문과 답변으로 동료의 시간을 아껴주세요."
       />
-      <Button onClick={onClick} text="✏️질문하기" />
+      <Button onClick={onClick}>✏️질문하기</Button>
       <PagesArticle page="question" />
     </Main>
   );

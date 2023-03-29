@@ -12,3 +12,10 @@ export const logined = atom({
   default: false,
   effects_UNSTABLE: [loginPersist],
 });
+
+// Avartar Click Menu State
+
+export const isOpendAvartarMenu = atom({
+  key: "avartarMenu",
+  default: false,
+});

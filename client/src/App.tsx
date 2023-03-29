@@ -9,7 +9,7 @@ import { useState } from "react";
 // =============================================================================
 
 // Page
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import Home from "./pages/Home";
 import Notice from "./pages/Notice";
 import Question from "./pages/Question";

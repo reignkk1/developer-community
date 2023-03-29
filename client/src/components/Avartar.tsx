@@ -10,9 +10,10 @@ interface IAvartar {
   width: string;
   heigth: string;
   src?: string;
+  onClick?(): void;
 }
 
-export default function Avartar({ width, heigth, src }: IAvartar) {
+export default function Avartar({ width, heigth, src, onClick }: IAvartar) {
   return (
     <Img
       src={
@@ -23,6 +24,7 @@ export default function Avartar({ width, heigth, src }: IAvartar) {
       alt="프로필"
       width={width}
       height={heigth}
+      onClick={onClick}
     />
   );
 }
