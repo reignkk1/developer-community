@@ -174,14 +174,7 @@ export default function Profile() {
             </Form>
           </UserInfo>
           <UserAvartarContainer>
-            <UserAvartar
-              src={
-                data?.avartar === ""
-                  ? "https://graph.facebook.com/555897032021233/picture?width=200&height=200"
-                  : data?.avartar
-              }
-              alt="프로필"
-            />
+            <UserAvartar src={data?.avartar} alt="프로필" />
             <FormAvartar>
               <UserAvartarModal htmlFor="image">변경</UserAvartarModal>
               <InputAvartar

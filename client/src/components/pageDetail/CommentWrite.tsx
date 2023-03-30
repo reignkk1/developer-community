@@ -92,6 +92,7 @@ interface ICommentInfo {
   loginState: Boolean;
   postID: string | undefined;
   page: string;
+  avartarURL?: string;
 }
 
 // =============================================================================
@@ -100,6 +101,7 @@ export default function CommentWrite({
   loginState,
   postID,
   page,
+  avartarURL,
 }: ICommentInfo) {
   const [text, setText] = useState(""); // 댓글 Text
 
@@ -120,7 +122,7 @@ export default function CommentWrite({
       {loginState ? (
         <>
           <WriteBox2 className="commentWrite">
-            <Avartar width="50px" heigth="50px" />
+            <Avartar width="50px" heigth="50px" src={avartarURL} />
             <CKEditor
               editor={ClassicEditor}
               data={text}

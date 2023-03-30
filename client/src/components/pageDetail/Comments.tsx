@@ -102,6 +102,7 @@ interface IData {
       writerID: number;
       page: string;
       nickname: string;
+      avartar: string;
     }
   ];
   userID: number;
@@ -167,7 +168,7 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
                 <CommentsItem key={data.id}>
                   <User>
                     <Link to={`/user/${data.writerID}/posts`}>
-                      <Avartar width="50px" heigth="50px" />
+                      <Avartar width="50px" heigth="50px" src={data.avartar} />
                     </Link>
                     <UserInfo>
                       <Link to={`/user/${data.writerID}/posts`}>

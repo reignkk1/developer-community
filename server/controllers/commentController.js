@@ -3,13 +3,13 @@ import db from "../mysql.js";
 // 댓글 생성
 export function commentCreate(req, res) {
   const { commentText, date, postID, page } = req.body;
-  const { id, nickname } = req.session.user;
+  const { id, nickname, avartar } = req.session.user;
 
-  const sqlQuery = `INSERT INTO comments (text,date,postID,writerID,nickname,page) VALUES (?,?,?,?,?,?)`;
+  const sqlQuery = `INSERT INTO comments (text,date,postID,writerID,nickname,page,avartar) VALUES (?,?,?,?,?,?,?)`;
 
   db.query(
     sqlQuery,
-    [commentText, date, postID, id, nickname, page],
+    [commentText, date, postID, id, nickname, page, avartar],
     (error, result) => {
       return res.send();
     }

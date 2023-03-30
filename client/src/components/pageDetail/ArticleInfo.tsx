@@ -103,7 +103,11 @@ export default function ArticleInfo({ page }: IPage) {
           <>
             <UserBox>
               <Link to={`/user/${data?.result[0].writerID}/posts`}>
-                <Avartar width="50px" heigth="50px" />
+                <Avartar
+                  width="50px"
+                  heigth="50px"
+                  src={data?.result[0].avartar}
+                />
               </Link>
               <NicknameBox>
                 <Link to={`/user/${data?.result[0].writerID}/posts`}>

@@ -90,7 +90,11 @@ export default function ArticleBox({ page }: IPage) {
                   <Avartar
                     width="20px"
                     heigth="20px"
-                    src={data.result[0].avartar}
+                    src={
+                      item.avartar
+                        ? item.avartar
+                        : "https://graph.facebook.com/555897032021233/picture?width=200&height=200"
+                    }
                   />
                 </Link>
                 <Link to={`/user/${item.writerID}/posts`}>

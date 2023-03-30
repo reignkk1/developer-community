@@ -1,6 +1,7 @@
 import express from "express";
 import {
   userActivity,
+  userAvartarUrl,
   userDelete,
   userInfoGet,
   userLogin,
@@ -18,6 +19,7 @@ userRouter.post("/login", userLogin);
 userRouter.post("/logout", userLogout);
 userRouter.route("/profile").get(userProfileGet).patch(userProfileModify);
 userRouter.get("/me", userMeActivity);
+userRouter.get("/avartar", userAvartarUrl);
 userRouter.get("/:id", userInfoGet);
 userRouter.get("/:page/:id", userActivity);
 

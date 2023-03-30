@@ -114,3 +114,9 @@ export function userActivity(req, res) {
     return res.send({ result, logined: req.session.logined });
   });
 }
+
+// 유저 아바타 URL 불러오기
+export function userAvartarUrl(req, res) {
+  const { avartar } = req.session.user;
+  return res.send(avartar);
+}

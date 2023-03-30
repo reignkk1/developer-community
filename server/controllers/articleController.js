@@ -57,14 +57,16 @@ export function articleCommentsGet(req, res) {
 export function articleCreate(req, res) {
   const { title, content, date } = req.body;
   const { page } = req.params;
-  const { id, nickname } = req.session.user;
+  const { id, nickname, avartar } = req.session.user;
+  console.log(req.session.user.avartar);
 
   const sqlQuery =
-    "INSERT INTO posts (title,content,date,writerID,nickname,page) VALUES (?,?,?,?,?,?)";
+    "INSERT INTO posts (title,content,date,writerID,nickname,page,avartar) VALUES (?,?,?,?,?,?,?)";
   db.query(
     sqlQuery,
-    [title, content, date, id, nickname, page],
+    [title, content, date, id, nickname, page, avartar],
     (error, result) => {
+      console.log(error);
       return res.send("성공!");
     }
   );

@@ -83,14 +83,14 @@ export default function PagesArticle({ page }: IPage) {
             <ListItem key={item.id}>
               <NicknameBox>
                 <Link to={`/user/${item.writerID}/posts`}>
-                  <Avartar width="20px" heigth="20px" />
+                  <Avartar width="20px" heigth="20px" src={item.avartar} />
                 </Link>
                 <Link to={`/user/${item.writerID}/posts`}>
                   <Nickname>{item.nickname}</Nickname>
                 </Link>
               </NicknameBox>
               <Link to={`/${page}/${item.id}`}>
-                <ListTitle>{item.title}</ListTitle>
+                <ListTitle>{item.title}</ListTitle>''
               </Link>
               <ListDate>{item.date}</ListDate>
             </ListItem>

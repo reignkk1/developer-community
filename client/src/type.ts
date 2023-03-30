@@ -8,6 +8,7 @@ export interface IArticleInfo {
       date: string;
       hits: number;
       nickname: string;
+      avartar: string;
     }
   ];
   writerMatch: boolean;

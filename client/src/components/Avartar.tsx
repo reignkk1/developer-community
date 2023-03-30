@@ -17,9 +17,8 @@ export default function Avartar({ width, heigth, src, onClick }: IAvartar) {
   return (
     <Img
       src={
-        src === ""
-          ? "https://graph.facebook.com/555897032021233/picture?width=100&height=100"
-          : src
+        src ||
+        "https://graph.facebook.com/555897032021233/picture?width=100&height=100"
       }
       alt="프로필"
       width={width}

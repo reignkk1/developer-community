@@ -12,6 +12,8 @@ import Menu from "./menu/Menu";
 import SearchBar from "./search/Search";
 import { Styles } from "./styles";
 import ThemeToggle from "./themeButton/ThemeButton";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 // =============================================================================
 
@@ -24,6 +26,10 @@ interface ItoggleTheme {
 
 export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
   const loginState = useRecoilValue(logined);
+  const [avartarURL, setAvartarURL] = useState("");
+  useEffect(() => {
+    axios.get("/user/avartar").then((response) => setAvartarURL(response.data));
+  }, []);
 
   const [isOpend, setIsOpend] = useRecoilState(isOpendAvartarMenu);
 
@@ -48,7 +54,12 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
         </ThemeToggle>
         {loginState ? (
           <>
-            <Avartar width="35px" heigth="35px" onClick={onClickAvartar} />
+            <Avartar
+              width="35px"
+              heigth="35px"
+              onClick={onClickAvartar}
+              src={avartarURL}
+            />
             {isOpend ? <AvartarClickMenu /> : null}
           </>
         ) : (
