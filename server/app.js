@@ -46,7 +46,6 @@ app.use(
 
 //=======================================================================================
 
-app.use("/upload", express.static("uploads"));
 app.use("/", restRouter);
 app.use("/user", userRouter);
 app.use("/comment", commentRouter);

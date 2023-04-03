@@ -1,9 +1,9 @@
 import { useLocation } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 
 // File
-import { isOpendAvartarMenu, logined } from "../../atom";
-import Avartar from "../Avartar";
+import { logined } from "../../atom";
+
 import AvartarClickMenu from "./avartarClickMenu/AvartarMenu";
 import LoginSignUpBtn from "./loginSignUpButton/Buttons";
 
@@ -12,8 +12,6 @@ import Menu from "./menu/Menu";
 import SearchBar from "./search/Search";
 import { Styles } from "./styles";
 import ThemeToggle from "./themeButton/ThemeButton";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 // =============================================================================
 
@@ -26,12 +24,7 @@ interface ItoggleTheme {
 
 export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
   const loginState = useRecoilValue(logined);
-  const [avartarURL, setAvartarURL] = useState("");
-  useEffect(() => {
-    axios.get("/user/avartar").then((response) => setAvartarURL(response.data));
-  }, []);
-
-  const [isOpend, setIsOpend] = useRecoilState(isOpendAvartarMenu);
+  const location = useLocation();
 
   const menuData = [
     { name: "공지사항", path: "/notice" },
@@ -39,9 +32,6 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
     { name: "Q & A", path: "/question" },
     { name: "오늘의 명언", path: "/quote" },
   ];
-
-  const onClickAvartar = () => setIsOpend((current) => !current);
-  const location = useLocation();
 
   return (
     <Styles.HeaderContainer pathname={location.pathname}>
@@ -52,19 +42,7 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
         <ThemeToggle toggleTheme={toggleTheme}>
           {isDarkMode ? "☀️ 라이트모드" : "🌙 다크모드"}
         </ThemeToggle>
-        {loginState ? (
-          <>
-            <Avartar
-              width="35px"
-              heigth="35px"
-              onClick={onClickAvartar}
-              src={avartarURL}
-            />
-            {isOpend ? <AvartarClickMenu /> : null}
-          </>
-        ) : (
-          <LoginSignUpBtn />
-        )}
+        {loginState ? <AvartarClickMenu /> : <LoginSignUpBtn />}
       </Styles.HeaderBox>
     </Styles.HeaderContainer>
   );

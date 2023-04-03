@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Navigate } from "react-router-dom";
 
 // File
 import MyPageMenu from "../components/userProfile/MyPageMenu";
-import { logined } from "../atom";
+import { avartarUrl, logined } from "../atom";
 
 import axios from "axios";
 import { useState } from "react";
@@ -89,13 +89,14 @@ const Form = styled.form`
 interface IProfileData {
   name: string;
   nickname: string;
-  avartar: string;
 }
 // =============================================================================
 
 export default function Profile() {
   // 로그인 상태
   const loginState = useRecoilValue(logined);
+
+  const [avartarURL, setAvartarURL] = useRecoilState(avartarUrl);
 
   // 유저 프로필 정보 Fetch
   const { data, refetch } = useQuery<IProfileData>(
@@ -129,15 +130,15 @@ export default function Profile() {
   };
 
   // 프로필 사진 변경 시
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadImage = e.target.files![0];
     const formData = new FormData();
     formData.append("image", uploadImage);
-    axios
-      .post("/upload", formData, {
-        headers: { "Content-type": "multipart/form-data" },
-      })
-      .then(() => refetch());
+    const response = await axios.post("/user/upload", formData, {
+      headers: { "Content-type": "multipart/form-data" },
+    });
+
+    setAvartarURL(response.data);
   };
 
   return loginState ? (
@@ -174,7 +175,7 @@ export default function Profile() {
             </Form>
           </UserInfo>
           <UserAvartarContainer>
-            <UserAvartar src={data?.avartar} alt="프로필" />
+            <UserAvartar src={avartarURL} alt="프로필" />
             <FormAvartar>
               <UserAvartarModal htmlFor="image">변경</UserAvartarModal>
               <InputAvartar

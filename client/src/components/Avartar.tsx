@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { RefObject } from "react";
 
 const Img = styled.img`
   border-radius: 50%;
@@ -11,9 +12,16 @@ interface IAvartar {
   heigth: string;
   src?: string;
   onClick?(): void;
+  refAvartar?: RefObject<HTMLImageElement>;
 }
 
-export default function Avartar({ width, heigth, src, onClick }: IAvartar) {
+export default function Avartar({
+  width,
+  heigth,
+  src,
+  onClick,
+  refAvartar,
+}: IAvartar) {
   return (
     <Img
       src={
@@ -24,6 +32,7 @@ export default function Avartar({ width, heigth, src, onClick }: IAvartar) {
       width={width}
       height={heigth}
       onClick={onClick}
+      ref={refAvartar}
     />
   );
 }

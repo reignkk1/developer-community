@@ -7,6 +7,8 @@ import { useState } from "react";
 
 // File
 import Avartar from "../Avartar";
+import { useRecoilValue } from "recoil";
+import { avartarUrl } from "../../atom";
 
 // =============================================================================
 
@@ -101,9 +103,9 @@ export default function CommentWrite({
   loginState,
   postID,
   page,
-  avartarURL,
 }: ICommentInfo) {
   const [text, setText] = useState(""); // 댓글 Text
+  const avartarURL = useRecoilValue(avartarUrl);
 
   // 댓글쓰기 클릭 시
   const onClick = async () => {

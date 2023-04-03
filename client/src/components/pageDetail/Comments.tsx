@@ -147,6 +147,7 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
   // 수정완료 버튼 클릭 시
   const onModifyComplete = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const id = e.currentTarget.parentElement?.id; //댓글 ID값
+    console.log(value);
     await axios.patch(`/comment/${id}`, {
       commentText: value,
     });

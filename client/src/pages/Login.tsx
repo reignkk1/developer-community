@@ -2,12 +2,13 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { FieldErrors, useForm } from "react-hook-form";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 // File
 import { logined } from "../atom";
 import InputContainer from "../components/InputContainer";
 import { IUserData } from "../type";
+import { avartarUrl } from "./../atom";
 
 // =============================================================================
 
@@ -77,22 +78,21 @@ const BottomSignUp = styled.div`
 
 export default function Login() {
   const [loginState, setLogin] = useRecoilState(logined);
+  const setAvartarURL = useSetRecoilState(avartarUrl);
   const { register, handleSubmit } = useForm<IUserData>();
 
   const navigate = useNavigate();
 
-  const onValid = (data: IUserData) => {
-    axios
-      .post("/user/login", {
-        loginUserID: data.userID,
-        loginPassword: data.password,
-      })
-      .then((response) => {
-        if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
-        setLogin(response.data);
-        return navigate("/");
-      })
-      .catch((error) => console.log(error));
+  const onValid = async (data: IUserData) => {
+    const response = await axios.post("/user/login", {
+      loginUserID: data.userID,
+      loginPassword: data.password,
+    });
+
+    if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
+    setLogin(response.data.isLogined);
+    setAvartarURL(response.data.avartarUrl);
+    return navigate("/");
   };
 
   const oninvalid = (error: FieldErrors) => console.log(error);

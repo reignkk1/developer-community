@@ -90,7 +90,7 @@ export default function PagesArticle({ page }: IPage) {
                 </Link>
               </NicknameBox>
               <Link to={`/${page}/${item.id}`}>
-                <ListTitle>{item.title}</ListTitle>''
+                <ListTitle>{item.title}</ListTitle>
               </Link>
               <ListDate>{item.date}</ListDate>
             </ListItem>

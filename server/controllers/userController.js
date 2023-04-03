@@ -36,7 +36,10 @@ export async function userLogin(req, res) {
     req.session.logined = true;
     req.session.user = result[0];
 
-    return res.send(req.session.logined);
+    const isLogined = req.session.logined;
+    const avartarUrl = req.session.user.avartar;
+
+    return res.send({ isLogined, avartarUrl });
   });
 }
 
@@ -74,7 +77,7 @@ export function userProfileGet(req, res) {
     user: { id },
   } = req.session;
 
-  const sqlQuery = `SELECT name,nickname,avartar FROM user WHERE id = ${id}`;
+  const sqlQuery = `SELECT name,nickname FROM user WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
     return res.send(result);
   });
@@ -98,6 +101,21 @@ export function userProfileModify(req, res) {
   });
 }
 
+// 유저 프로필 사진 업로드
+
+export function uploadFile(req, res) {
+  const userAvartarImg = req.file.location;
+  const sqlQuery = `UPDATE user SET avartar= '${userAvartarImg}' WHERE id = ${req.session.user.id};
+                    UPDATE posts SET avartar = '${userAvartarImg}' WHERE writerID = ${req.session.user.id};
+                    UPDATE comments SET avartar = '${userAvartarImg}' WHERE writerID = ${req.session.user.id};`;
+
+  db.query(sqlQuery, (error, result) => {
+    req.session.user.avartar = userAvartarImg;
+
+    return res.send(req.session.user.avartar);
+  });
+}
+
 // 로그인 한 유저 활동내역 클릭 시
 export function userMeActivity(req, res) {
   const { id } = req.session.user;
@@ -110,7 +128,6 @@ export function userActivity(req, res) {
   const sqlQuery = `SELECT * From ${page} WHERE writerID = '${id}' ORDER BY date DESC`;
 
   db.query(sqlQuery, (error, result) => {
-    console.log(error);
     return res.send({ result, logined: req.session.logined });
   });
 }

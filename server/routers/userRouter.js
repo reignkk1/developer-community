@@ -1,5 +1,7 @@
 import express from "express";
+
 import {
+  uploadFile,
   userActivity,
   userAvartarUrl,
   userDelete,
@@ -12,8 +14,11 @@ import {
   userSignUp,
 } from "../controllers/userController.js";
 
+import upload from "./../multer.js";
+
 const userRouter = express.Router();
 
+userRouter.post("/upload", upload.single("image"), uploadFile);
 userRouter.route("/").post(userSignUp).delete(userDelete);
 userRouter.post("/login", userLogin);
 userRouter.post("/logout", userLogout);

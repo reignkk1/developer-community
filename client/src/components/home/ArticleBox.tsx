@@ -91,9 +91,8 @@ export default function ArticleBox({ page }: IPage) {
                     width="20px"
                     heigth="20px"
                     src={
-                      item.avartar
-                        ? item.avartar
-                        : "https://graph.facebook.com/555897032021233/picture?width=200&height=200"
+                      item.avartar ||
+                      "https://graph.facebook.com/555897032021233/picture?width=200&height=200"
                     }
                   />
                 </Link>
