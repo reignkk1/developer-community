@@ -13,6 +13,7 @@ import PageNumberBar from "../components/pageNumBar";
 import { IArticleCommentData } from "../type";
 import { useSetRecoilState } from "recoil";
 import { logined } from "../atom";
+import Avartar from "./../components/Avartar";
 
 // =============================================================================
 
@@ -26,12 +27,6 @@ const SearchKeyword = css`
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 50px;
-`;
-
-const Avartar = css`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
 `;
 
 const Info = css`
@@ -109,11 +104,7 @@ export default function Search() {
               <li key={item.id} css={ItemList(theme)}>
                 <div css={Info}>
                   <Link to={`/user/${item.writerID}/posts`}>
-                    <img
-                      css={Avartar}
-                      src="https://graph.facebook.com/555897032021233/picture?width=100&height=100"
-                      alt="아바타"
-                    />
+                    <Avartar width="30px" heigth="30px" src={item.avartar} />
                   </Link>
                   <Link to={`/user/${item.writerID}/posts`}>
                     <span css={Nickname(theme)}>{item.nickname}</span>

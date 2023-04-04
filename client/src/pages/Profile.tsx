@@ -15,6 +15,7 @@ import { FieldErrors } from "react-hook-form";
 
 import InputContainer from "../components/InputContainer";
 import Button from "../components/button/button";
+import Avartar from "../components/Avartar";
 
 // =============================================================================
 
@@ -42,16 +43,11 @@ const Title = styled.div`
   margin-bottom: 40px;
 `;
 
-const UserAvartar = styled.img`
-  width: 155px;
-  height: 155px;
-  border-radius: 50%;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  margin-top: 50px;
-`;
-
 const UserAvartarContainer = styled.div`
   position: relative;
+  img {
+    margin-top: 50px;
+  }
 `;
 
 const UserAvartarModal = styled.label`
@@ -175,7 +171,7 @@ export default function Profile() {
             </Form>
           </UserInfo>
           <UserAvartarContainer>
-            <UserAvartar src={avartarURL} alt="프로필" />
+            <Avartar width="155px" heigth="155px" src={avartarURL} />
             <FormAvartar>
               <UserAvartarModal htmlFor="image">변경</UserAvartarModal>
               <InputAvartar

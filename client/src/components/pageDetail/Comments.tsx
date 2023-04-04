@@ -66,7 +66,13 @@ const Btn = styled.button`
 const DeleteBtn = styled(Btn)`
   margin-right: 5px;
 `;
-const ModifyBtn = styled(Btn)``;
+const ModifyBtn = styled(Btn)`
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+    pointer-events: none;
+  }
+`;
 
 const Input = styled.input`
   width: 100%;
@@ -81,6 +87,10 @@ const Input = styled.input`
 
 const Count = styled.div`
   margin-bottom: 50px;
+`;
+
+const CancleBtn = styled(Btn)`
+  margin-right: 5px;
 `;
 
 // =============================================================================
@@ -147,13 +157,16 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
   // 수정완료 버튼 클릭 시
   const onModifyComplete = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const id = e.currentTarget.parentElement?.id; //댓글 ID값
-    console.log(value);
+    console.log(e.currentTarget.parentElement);
+
     await axios.patch(`/comment/${id}`, {
       commentText: value,
     });
     setModify(false);
     return refetch();
   };
+
+  const onCancle = () => setModify(false);
   return (
     <>
       {isLoading ? (
@@ -188,13 +201,23 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
                   )}
                   {loginState && userID === data.writerID ? (
                     <BtnBox id={`${data.id}`}>
-                      <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
                       {modify && Number(id) === data.id ? (
-                        <ModifyBtn onClick={onModifyComplete}>
-                          수정완료
-                        </ModifyBtn>
+                        <>
+                          <CancleBtn onClick={onCancle}>취소</CancleBtn>
+                          <ModifyBtn
+                            onClick={onModifyComplete}
+                            disabled={
+                              value === data.text || value === "" ? true : false
+                            }
+                          >
+                            수정완료
+                          </ModifyBtn>
+                        </>
                       ) : (
-                        <ModifyBtn onClick={onModify}>수정</ModifyBtn>
+                        <>
+                          <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
+                          <ModifyBtn onClick={onModify}>수정</ModifyBtn>
+                        </>
                       )}
                     </BtnBox>
                   ) : null}
