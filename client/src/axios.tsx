@@ -1,10 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { SetterOrUpdater } from "recoil";
 
-//https://port-0-board-server-6g2llexw0nts.sel3.cloudtype.app
-
 // Axios defaults option 설정
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = process.env.REACT_APP_API;
 axios.defaults.withCredentials = true;
 
 // 로그인 상태체크
