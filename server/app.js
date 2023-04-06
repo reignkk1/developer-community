@@ -23,9 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const options = {
-  host: "web-db.czezlldmbgmn.ap-northeast-2.rds.amazonaws.com",
+  host: process.env.DB_HOST,
   user: "admin",
-  password: "alsrua17931!",
+  password: process.env.DB_PASSWORD,
   database: "board_DB",
 };
 

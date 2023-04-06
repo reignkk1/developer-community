@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import ArticleBox from "../components/home/ArticleBox";
-import Category from "../components/home/Category";
+import ArticleBox from "../components/home/articleBox/ArticleBox";
+import Category from "../components/home/categoryTitle/Category";
 import { Main } from "../styles/PageShareStyle";
 
 // =============================================================================
@@ -17,35 +17,19 @@ export default function Home() {
   return (
     <Container>
       <div>
-        <Category
-          imgeSrc="https://okky.kr/notice.svg"
-          name="공지사항"
-          page="notice"
-        />
+        <Category to="/notice">공지사항</Category>
         <ArticleBox page="notice" />
       </div>
       <div>
-        <Category
-          imgeSrc="https://okky.kr/questions.svg"
-          name="Q & A"
-          page="question"
-        />
+        <Category to="/question">Q & A</Category>
         <ArticleBox page="question" />
       </div>
       <div>
-        <Category
-          imgeSrc="https://okky.kr/community.svg"
-          name="사는 얘기"
-          page="life"
-        />
+        <Category to="/life">사는 얘기</Category>
         <ArticleBox page="life" />
       </div>
       <div>
-        <Category
-          imgeSrc="https://okky.kr/knowledge.svg"
-          name="오늘의 명언"
-          page="quote"
-        />
+        <Category to="/quote">오늘의 명언</Category>
         <ArticleBox page="quote" />
       </div>
     </Container>
