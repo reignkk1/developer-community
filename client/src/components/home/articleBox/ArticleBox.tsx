@@ -4,8 +4,8 @@ import { useSetRecoilState } from "recoil";
 
 // File
 import { IArticleCommentData, IPage } from "../../../type";
-import Avartar from "../../Avartar";
-import { ErrorBox, LoadingBox } from "../../LoadingError";
+import Avartar from "../../common/Avartar";
+import { ErrorBox, LoadingBox } from "../../common/LoadingError";
 import { logined } from "../../../atom";
 import { articleAllGet } from "../../../axios";
 import {

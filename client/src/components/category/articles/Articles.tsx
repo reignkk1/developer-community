@@ -1,54 +1,22 @@
-import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import { Link, useSearchParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 // File
-import { IArticleCommentData, IPage } from "../../type";
-import { ErrorBox, LoadingBox } from "../LoadingError";
-import PageNumberBar from "../pageNumBar";
-import Avartar from "../Avartar";
-import { articleAllGet } from "../../axios";
-import { logined } from "../../atom";
-
-// =============================================================================
-
-const ListBox = styled.ul``;
-const ListItem = styled.li`
-  padding: 20px 0px;
-  border-top: 1px solid ${(props) => props.theme.borderColor};
-`;
-const ListTitle = styled.div`
-  font-weight: bold;
-  opacity: 0.9;
-  margin-bottom: 10px;
-  color: ${(props) => props.theme.textColor};
-  &:hover {
-    color: #0092fa;
-  }
-`;
-const ListDate = styled.div`
-  opacity: 0.9;
-`;
-
-const NicknameBox = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  a {
-    display: block;
-    color: ${(props) => props.theme.textColor};
-    &:hover {
-      color: #0092fa;
-    }
-    margin-right: 5px;
-  }
-`;
-
-const Nickname = styled.div`
-  font-size: 14px;
-  margin-right: 7px;
-`;
+import { IArticleCommentData, IPage } from "../../../type";
+import { ErrorBox, LoadingBox } from "../../common/LoadingError";
+import PageNumberBar from "../../common/pageNumBar";
+import Avartar from "../../common/Avartar";
+import { articleAllGet } from "../../../axios";
+import { logined } from "../../../atom";
+import {
+  ListBox,
+  ListDate,
+  ListItem,
+  ListTitle,
+  Nickname,
+  NicknameBox,
+} from "./styles";
 
 // =============================================================================
 

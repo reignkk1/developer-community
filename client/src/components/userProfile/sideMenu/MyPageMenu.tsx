@@ -1,63 +1,7 @@
-import styled from "@emotion/styled";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Menu, MenuItem1, MenuItem2, MenuList, MenuTitle } from "./styles";
 
-// =============================================================================
-
-const Menu = styled.div`
-  width: 25%;
-  height: 100%;
-  border-right: 1px solid ${(props) => props.theme.borderColor};
-`;
-const MenuTitle = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 50px;
-`;
-const MenuList = styled.ul`
-  width: 270px;
-`;
-const MenuItem = styled.li<IActive>`
-  display: flex;
-  align-items: center;
-  padding: 10px 15px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  color: ${(props) => props.theme.textColor};
-  &:hover {
-    color: ${(props) => props.theme.textColor};
-    background-color: ${(props) => props.theme.bgTitleColor};
-  }
-  svg {
-    width: 25px;
-    height: 25px;
-    margin-right: 8px;
-  }
-`;
-
-const MenuItem1 = styled(MenuItem)<IActive>`
-  background-color: ${(props) =>
-    props.active === true ? props.theme.bgTitleColor : null};
-  color: ${(props) =>
-    props.active === true
-      ? props.theme.textColor
-      : props.theme.borderHoverColor};
-`;
-
-const MenuItem2 = styled(MenuItem)<IActive>`
-  background-color: ${(props) =>
-    props.active === true ? props.theme.bgTitleColor : null};
-  color: ${(props) =>
-    props.active === true
-      ? props.theme.textColor
-      : props.theme.borderHoverColor};
-`;
-
-// =============================================================================
-
-interface IActive {
-  active: boolean;
-}
 // =============================================================================
 
 export default function MyPageMenu() {

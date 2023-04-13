@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Parser from "html-react-parser";
@@ -6,64 +5,25 @@ import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 
 // File
-import Button from "../button/button";
-import CommentWrite from "./CommentWrite";
-import Comments from "./Comments";
+import Button from "../common/button";
+import CommentWrite from "./commentWrite/CommentWrite";
+import Comments from "./comments/Comments";
 import { logined } from "../../atom";
 import { IArticleInfo, IPage } from "../../type";
-import { ErrorBox, LoadingBox } from "../LoadingError";
+import { ErrorBox, LoadingBox } from "../common/LoadingError";
 import { articleDetail } from "../../axios";
-import Avartar from "../Avartar";
+import Avartar from "../common/Avartar";
 import { Main } from "../../styles/PageShareStyle";
-
-// =============================================================================
-
-const ArticleContainer = styled.div`
-  padding: 40px 0px;
-  border-top: 1px solid ${(props) => props.theme.borderColor};
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  margin-bottom: 30px;
-`;
-
-const ArticleTitle = styled.div`
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 80px;
-`;
-const ArticleText = styled.div`
-  font-size: 16px;
-  line-height: 1.7;
-`;
-
-const ButtonBox = styled.div`
-  button {
-    margin-right: 10px;
-  }
-`;
-const UserBox = styled.div`
-  display: flex;
-  margin-bottom: 30px;
-  align-items: center;
-  a {
-    margin-right: 10px;
-  }
-`;
-
-const NicknameBox = styled.div`
-  a {
-    display: block;
-    color: ${(props) => props.theme.textColor};
-    &:hover {
-      color: #0092fa;
-    }
-  }
-`;
-const Nickname = styled.div`
-  margin-bottom: 5px;
-`;
-const Date = styled.div`
-  font-size: 14px;
-`;
+import {
+  ArticleContainer,
+  ArticleText,
+  ArticleTitle,
+  ButtonBox,
+  Date,
+  Nickname,
+  NicknameBox,
+  UserBox,
+} from "./styles";
 
 // =============================================================================
 

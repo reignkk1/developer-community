@@ -6,8 +6,8 @@ import styled from "@emotion/styled";
 import { useNavigate, useParams } from "react-router-dom";
 
 // File
-import { IArticleCommentData, IPage } from "../type";
-import Button from "./button/button";
+import { IArticleCommentData, IPage } from "../../type";
+import Button from "./button";
 import { useQuery } from "react-query";
 
 // =============================================================================

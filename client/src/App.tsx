@@ -15,10 +15,10 @@ import Notice from "./pages/Notice";
 import Question from "./pages/Question";
 import Life from "./pages/Life";
 import Quote from "./pages/Quote";
-import ArticleInfo from "./components/pageDetail/ArticleInfo";
+import ArticleInfo from "./components/article/ArticleInfo";
 
-import Edit from "./components/Edit";
-import Write from "./components/Write";
+import Edit from "./components/common/Edit";
+import Write from "./components/common/Write";
 
 import QuoteEdit from "./pages/QuoteEdit";
 import SignUp from "./pages/SignUp";
@@ -33,7 +33,7 @@ import Search from "./pages/Search";
 // =============================================================================
 
 import ScrollToTop from "./utils/ScrollToTop";
-import Footer from "./components/Footer";
+import Footer from "./components/common/Footer";
 import { darkMode, lightMode } from "./styles/theme";
 import GlobalStyle from "./styles/GlobalStyle";
 

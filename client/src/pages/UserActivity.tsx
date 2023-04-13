@@ -5,7 +5,7 @@ import { useSetRecoilState } from "recoil";
 
 // File
 
-import PageNumberBar from "../components/pageNumBar";
+import PageNumberBar from "../components/common/pageNumBar";
 import UserInfoContainer from "../components/userActivity/UserInfoContainer";
 import { logined } from "../atom";
 import { userActivityGet } from "../axios";

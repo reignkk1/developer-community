@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { avartarUrl, isOpendAvartarMenu, logined } from "../../../atom";
-import Avartar from "../../Avartar";
+import Avartar from "../../common/Avartar";
 import MenuItem from "./menuItem/MenuItem";
 import { Styles } from "./styles";
 

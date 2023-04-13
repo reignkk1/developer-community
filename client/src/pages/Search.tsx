@@ -7,13 +7,13 @@ import { useTheme } from "@emotion/react";
 
 import Parser from "html-react-parser";
 import { useQuery } from "react-query";
-import { ErrorBox, LoadingBox } from "../components/LoadingError";
+import { ErrorBox, LoadingBox } from "../components/common/LoadingError";
 import { articleSearchGet } from "../axios";
-import PageNumberBar from "../components/pageNumBar";
+import PageNumberBar from "../components/common/pageNumBar";
 import { IArticleCommentData } from "../type";
 import { useSetRecoilState } from "recoil";
 import { logined } from "../atom";
-import Avartar from "./../components/Avartar";
+import Avartar from "../components/common/Avartar";
 
 // =============================================================================
 

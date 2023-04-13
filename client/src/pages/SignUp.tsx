@@ -8,7 +8,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { IUserData } from "../type";
 import { useRecoilValue } from "recoil";
 import { logined } from "../atom";
-import InputContainer from "../components/InputContainer";
+import InputContainer from "../components/common/InputContainer";
 
 // =============================================================================
 

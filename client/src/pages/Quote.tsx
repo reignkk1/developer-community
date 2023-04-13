@@ -4,11 +4,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // File
-import PagesTitle from "../components/page/PagesTitle";
+import PagesTitle from "../components/category/title/Title";
 import QuoteInput from "../components/QuoteInput";
 import { logined } from "../atom";
 import { Main } from "../styles/PageShareStyle";
-import PagesArticle from "../components/page/PagesArticle";
+import PagesArticle from "../components/category/articles/Articles";
 
 // =============================================================================
 
@@ -41,7 +41,6 @@ export default function Quote() {
     <Main>
       <PagesTitle
         name="오늘의 명언"
-        ImgeSrc="https://okky.kr/knowledge.svg"
         explain="명언 한 줄로 내 마음가짐을 단단하게 세워볼까요?"
       />
       <QuoteInput
