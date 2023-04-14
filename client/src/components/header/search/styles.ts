@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-const Form = styled.form`
+export const Form = styled.form`
   display: flex;
   align-items: center;
   button {
@@ -14,8 +14,11 @@ const Form = styled.form`
       background-color: #0580d7;
     }
   }
+  @media (max-width: 1065px) {
+    display: none;
+  }
 `;
-const SearchBar = styled.input`
+export const SearchInput = styled.input`
   background-color: ${(props) => props.theme.inputColor};
   border: 1px solid ${(props) => props.theme.borderColor};
   outline: none;
@@ -24,8 +27,3 @@ const SearchBar = styled.input`
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
 `;
-
-export const Styles = {
-  Form,
-  SearchBar,
-};

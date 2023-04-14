@@ -1,16 +1,14 @@
 import styled from "@emotion/styled";
 
-const Container = styled.ul`
+export const Container = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 1065px) {
+    display: none;
+  }
 `;
-const MenuItem = styled.li`
+export const MenuItem = styled.li`
   margin-right: 35px;
   font-weight: bold;
 `;
-
-export const Styles = {
-  Container,
-  MenuItem,
-};

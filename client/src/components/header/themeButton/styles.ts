@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-const ThemeBtn = styled.button`
+export const ThemeBtn = styled.button`
   width: 130px;
   text-align: center;
   color: ${(props) => props.theme.textColor};
@@ -12,8 +12,7 @@ const ThemeBtn = styled.button`
   &:hover {
     color: ${(props) => props.theme.textColor};
   }
+  @media (max-width: 1065px) {
+    display: none;
+  }
 `;
-
-export const Styles = {
-  ThemeBtn,
-};

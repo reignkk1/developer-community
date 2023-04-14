@@ -1,6 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
-import { Styles } from "./styles";
+import { Container, MenuItem } from "./styles";
 
 interface IMenu {
   menu: { name: string; path: string }[];
@@ -10,9 +10,9 @@ export default function Menu({ menu }: IMenu) {
   const theme = useTheme();
   const location = useLocation();
   return (
-    <Styles.Container>
+    <Container>
       {menu.map((item, index) => (
-        <Styles.MenuItem key={index}>
+        <MenuItem key={index}>
           <Link
             to={item.path}
             style={{
@@ -23,8 +23,8 @@ export default function Menu({ menu }: IMenu) {
           >
             {item.name}
           </Link>
-        </Styles.MenuItem>
+        </MenuItem>
       ))}
-    </Styles.Container>
+    </Container>
   );
 }

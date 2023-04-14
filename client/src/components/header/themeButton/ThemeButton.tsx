@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Styles } from "./styles";
+import { ThemeBtn } from "./styles";
 
 interface IThemeToggle {
   children: ReactNode;
@@ -7,5 +7,5 @@ interface IThemeToggle {
 }
 
 export default function ThemeToggle({ children, toggleTheme }: IThemeToggle) {
-  return <Styles.ThemeBtn onClick={toggleTheme}>{children}</Styles.ThemeBtn>;
+  return <ThemeBtn onClick={toggleTheme}>{children}</ThemeBtn>;
 }

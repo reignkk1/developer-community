@@ -3,15 +3,15 @@ import { useRecoilValue } from "recoil";
 
 // File
 import { logined } from "../../atom";
-
 import AvartarClickMenu from "./avartarClickMenu/AvartarMenu";
 import LoginSignUpBtn from "./loginSignUpButton/Buttons";
-
 import Logo from "./logo/Logo";
 import Menu from "./menu/Menu";
 import SearchBar from "./search/Search";
-import { Styles } from "./styles";
+import { HeaderBox, HeaderContainer } from "./styles";
 import ThemeToggle from "./themeButton/ThemeButton";
+import HambugerButton from "./hambugerButton/HambugerButton";
+import DrawerMenu from "./drawerMenu/Menu";
 
 // =============================================================================
 
@@ -34,8 +34,8 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
   ];
 
   return (
-    <Styles.HeaderContainer pathname={location.pathname}>
-      <Styles.HeaderBox>
+    <HeaderContainer pathname={location.pathname}>
+      <HeaderBox>
         <Logo>Developer</Logo>
         <Menu menu={menuData} />
         <SearchBar />
@@ -43,7 +43,9 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
           {isDarkMode ? "☀️ 라이트모드" : "🌙 다크모드"}
         </ThemeToggle>
         {loginState ? <AvartarClickMenu /> : <LoginSignUpBtn />}
-      </Styles.HeaderBox>
-    </Styles.HeaderContainer>
+        <HambugerButton />
+        <DrawerMenu />
+      </HeaderBox>
+    </HeaderContainer>
   );
 }

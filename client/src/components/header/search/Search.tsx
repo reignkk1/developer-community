@@ -1,6 +1,6 @@
 import { FieldErrors, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Styles } from "./styles";
+import { Form, SearchInput } from "./styles";
 
 interface ISearchKeyword {
   searchKeyword: string;
@@ -19,14 +19,14 @@ export default function SearchBar() {
     alert(`${error.searchKeyword?.message}`);
 
   return (
-    <Styles.Form onSubmit={handleSubmit(onValid, oninvalid)}>
-      <Styles.SearchBar
+    <Form onSubmit={handleSubmit(onValid, oninvalid)}>
+      <SearchInput
         type="text"
         {...register("searchKeyword", {
           required: "검색어를 입력해주세요.",
         })}
       />
       <button>검색</button>
-    </Styles.Form>
+    </Form>
   );
 }

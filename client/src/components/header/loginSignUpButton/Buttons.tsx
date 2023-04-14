@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import { Styles } from "./styles";
+import { ButtonBox, JoinBtn, LoginBtn } from "./styles";
 
 export default function LoginSignUpBtn() {
   return (
-    <Styles.ButtonBox>
+    <ButtonBox>
       <Link to="/login">
-        <Styles.LoginBtn>로그인</Styles.LoginBtn>
+        <LoginBtn>로그인</LoginBtn>
       </Link>
       <Link to="/signup">
-        <Styles.JoinBtn>회원가입</Styles.JoinBtn>
+        <JoinBtn>회원가입</JoinBtn>
       </Link>
-    </Styles.ButtonBox>
+    </ButtonBox>
   );
 }

@@ -18,15 +18,21 @@ export const logined = atom({
   effects_UNSTABLE: [loginPersist],
 });
 
+// 로그인 한 유저의 AvartarUrl
+export const avartarUrl = atom({
+  key: "avartarUrl",
+  default: "",
+  effects_UNSTABLE: [avartarPersist],
+});
+
 // Header Avartar 클릭시 메뉴 상태
 export const isOpendAvartarMenu = atom({
   key: "avartarMenu",
   default: false,
 });
 
-// 로그인 한 유저의 AvartarUrl
-export const avartarUrl = atom({
-  key: "avartarUrl",
-  default: "",
-  effects_UNSTABLE: [avartarPersist],
+// drawerMenuOpen 상태
+export const isOpendDrawerMenu = atom({
+  key: "drawerMenu",
+  default: false,
 });
