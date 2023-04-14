@@ -5,7 +5,13 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { avartarUrl, isOpendAvartarMenu, logined } from "../../../atom";
 import Avartar from "../../common/Avartar";
 import MenuItem from "./menuItem/MenuItem";
-import { Styles } from "./styles";
+import {
+  AvartarMenu,
+  AvartarMenuBox,
+  Container,
+  LogoutBtn,
+  UserActivity,
+} from "./styles";
 
 export default function AvartarClickMenu() {
   const setLoginState = useSetRecoilState(logined);
@@ -49,7 +55,7 @@ export default function AvartarClickMenu() {
   };
 
   return (
-    <>
+    <Container>
       <Avartar
         width="35px"
         heigth="35px"
@@ -58,8 +64,8 @@ export default function AvartarClickMenu() {
         refAvartar={avartar}
       />
       {isOpend ? (
-        <Styles.AvartarMenuBox ref={avartarMenu}>
-          <Styles.AvartarMenu>
+        <AvartarMenuBox ref={avartarMenu}>
+          <AvartarMenu>
             <MenuItem>
               <Link to="/profile">내 프로필</Link>
             </MenuItem>
@@ -67,14 +73,12 @@ export default function AvartarClickMenu() {
               <Link to="/account">내 계정</Link>
             </MenuItem>
             <MenuItem>
-              <Styles.UserActivity onClick={userMe}>
-                활동내역
-              </Styles.UserActivity>
+              <UserActivity onClick={userMe}>활동내역</UserActivity>
             </MenuItem>
-          </Styles.AvartarMenu>
-          <Styles.LogoutBtn onClick={onClick}>로그아웃</Styles.LogoutBtn>
-        </Styles.AvartarMenuBox>
+          </AvartarMenu>
+          <LogoutBtn onClick={onClick}>로그아웃</LogoutBtn>
+        </AvartarMenuBox>
       ) : null}
-    </>
+    </Container>
   );
 }

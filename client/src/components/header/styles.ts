@@ -32,3 +32,13 @@ export const HeaderBox = styled.div`
     padding: 0px 25px;
   }
 `;
+
+export const Wrapper = styled.div<{ isOpend: boolean }>`
+  display: ${(props) => (props.isOpend ? "block" : "none")};
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: grey;
+  opacity: 0.4;
+`;

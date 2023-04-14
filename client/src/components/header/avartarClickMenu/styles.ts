@@ -1,6 +1,14 @@
 import styled from "@emotion/styled";
 
-const AvartarMenuBox = styled.div`
+export const Container = styled.div`
+  @media (max-width: 1065px) {
+    img {
+      display: none;
+    }
+  }
+`;
+
+export const AvartarMenuBox = styled.div`
   width: 220px;
   height: 180px;
   border: 1px solid ${(props) => props.theme.borderColor};
@@ -11,7 +19,7 @@ const AvartarMenuBox = styled.div`
   background-color: ${(props) => props.theme.bgColor};
 `;
 
-const AvartarMenu = styled.ul`
+export const AvartarMenu = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -20,7 +28,7 @@ const AvartarMenu = styled.ul`
   padding: 10px 40px;
 `;
 
-const UserActivity = styled.div`
+export const UserActivity = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -31,7 +39,7 @@ const UserActivity = styled.div`
   }
 `;
 
-const LogoutBtn = styled.div`
+export const LogoutBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,10 +52,3 @@ const LogoutBtn = styled.div`
     color: #0092fa;
   }
 `;
-
-export const Styles = {
-  AvartarMenuBox,
-  AvartarMenu,
-  UserActivity,
-  LogoutBtn,
-};
