@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect } from "react";
 
 // File
-import { logined, isOpendDrawerMenu } from "../../atom";
+import { logined, isOpendDrawerMenu, DarkMode } from "../../atom";
 import AvartarClickMenu from "./avartarClickMenu/AvartarMenu";
 import LoginSignUpBtn from "./loginSignUpButton/Buttons";
 import Logo from "./logo/Logo";
@@ -16,18 +16,12 @@ import DrawerMenu from "./drawerMenu/Menu";
 
 // =============================================================================
 
-interface ItoggleTheme {
-  toggleTheme: () => void;
-  isDarkMode: boolean;
-}
-
-// =============================================================================
-
-export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
+export default function Header() {
   const loginState = useRecoilValue(logined);
   const location = useLocation();
 
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
+  const [isDarkMode, setIsDarkMode] = useRecoilState(DarkMode);
 
   useEffect(() => {
     window.addEventListener(
@@ -49,9 +43,7 @@ export default function Header({ toggleTheme, isDarkMode }: ItoggleTheme) {
         <Logo>Developer</Logo>
         <Menu menu={menuData} />
         <SearchBar />
-        <ThemeToggle toggleTheme={toggleTheme}>
-          {isDarkMode ? "☀️ 라이트모드" : "🌙 다크모드"}
-        </ThemeToggle>
+        <ThemeToggle />
         {loginState ? <AvartarClickMenu /> : <LoginSignUpBtn />}
         <HambugerButton />
         <DrawerMenu />
