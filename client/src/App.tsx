@@ -1,10 +1,9 @@
+import "./styles/signatureColor.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ThemeProvider } from "@emotion/react";
 import styled from "@emotion/styled";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { useState } from "react";
 
 // =============================================================================
 
@@ -34,8 +33,8 @@ import Search from "./pages/Search";
 
 import ScrollToTop from "./utils/ScrollToTop";
 import Footer from "./components/common/Footer";
-import { darkMode, lightMode } from "./styles/theme";
 import GlobalStyle from "./styles/GlobalStyle";
+import ThemeProvider from "./ThemeProvider";
 
 // =============================================================================
 
@@ -49,21 +48,15 @@ const Main = styled.main`
 function App() {
   const client = new QueryClient();
 
-  const [isDarkMode, SetDarkMode] = useState(false);
-
-  const toggleTheme = () => {
-    SetDarkMode((current) => !current);
-  };
-
   return (
     <>
-      <ThemeProvider theme={isDarkMode ? darkMode : lightMode}>
-        <Main>
-          <RecoilRoot>
+      <RecoilRoot>
+        <ThemeProvider>
+          <Main>
             <QueryClientProvider client={client}>
               <Router>
                 <GlobalStyle />
-                <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+                <Header />
                 <ScrollToTop />
                 <Routes>
                   {/*==================== global page =================== */}
@@ -143,9 +136,9 @@ function App() {
               </Router>
               <ReactQueryDevtools />
             </QueryClientProvider>
-          </RecoilRoot>
-        </Main>
-      </ThemeProvider>
+          </Main>
+        </ThemeProvider>
+      </RecoilRoot>
     </>
   );
 }

@@ -11,6 +11,18 @@ const { persistAtom: avartarPersist } = recoilPersist({
   storage: sessionStorage,
 });
 
+const { persistAtom: darkPersist } = recoilPersist({
+  key: "isDark",
+  storage: localStorage,
+});
+
+// 다크모드 상태
+export const DarkMode = atom({
+  key: "isDark",
+  default: false,
+  effects_UNSTABLE: [darkPersist],
+});
+
 // 로그인 상태
 export const logined = atom({
   key: "logined",

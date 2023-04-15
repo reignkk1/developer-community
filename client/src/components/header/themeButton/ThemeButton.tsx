@@ -1,11 +1,13 @@
-import { ReactNode } from "react";
 import { ThemeBtn } from "./styles";
+import { useRecoilState } from "recoil";
+import { DarkMode } from "../../../atom";
 
-interface IThemeToggle {
-  children: ReactNode;
-  toggleTheme(): void;
-}
+export default function ThemeToggle() {
+  const [isDarkMode, setIsDarkMode] = useRecoilState(DarkMode);
 
-export default function ThemeToggle({ children, toggleTheme }: IThemeToggle) {
-  return <ThemeBtn onClick={toggleTheme}>{children}</ThemeBtn>;
+  return (
+    <ThemeBtn onClick={() => setIsDarkMode(!isDarkMode)}>
+      {isDarkMode ? "☀️ 라이트모드" : "🌙 다크모드"}
+    </ThemeBtn>
+  );
 }
