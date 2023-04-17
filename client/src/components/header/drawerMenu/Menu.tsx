@@ -27,7 +27,6 @@ export default function DrawerMenu() {
       <ButtonContainer>
         <CloseButton onClick={closeDrawerMenu}>✖</CloseButton>
       </ButtonContainer>
-      <ThemeToggle />
       <Menu>
         {menuData.map((item) => (
           <Link to={item.path} onClick={closeDrawerMenu}>
@@ -35,6 +34,7 @@ export default function DrawerMenu() {
           </Link>
         ))}
       </Menu>
+      <ThemeToggle />
     </Container>
   );
 }

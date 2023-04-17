@@ -9,6 +9,14 @@ const Container = styled(Main)`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 50px;
+  @media (max-width: 920px) {
+    grid-template-columns: repeat(1, 1fr);
+    width: 600px;
+    margin: 0 auto;
+  }
+  @media (max-width: 630px) {
+    width: 450px;
+  }
 `;
 
 // =============================================================================

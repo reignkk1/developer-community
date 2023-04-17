@@ -10,8 +10,8 @@ const footer = (pathname: string) => css`
 `;
 
 const snowCat = css`
-  text-align: center;
-  margin-left: 900px;
+  position: relative;
+  left: 75%;
 `;
 
 interface ITheme {
@@ -24,7 +24,6 @@ interface ITheme {
 
 const Container = (theme: ITheme) => css`
   height: 200px;
-  width: 100%;
   border-top: 1px solid ${theme.borderColor};
 `;
 
@@ -34,6 +33,9 @@ const Content = css`
   width: 1200px;
   margin: 0 auto;
   margin-top: 30px;
+  @media (max-width: 1090px) {
+    width: 80%;
+  }
 `;
 
 const LogoBox = css`
@@ -44,7 +46,6 @@ const LogoBox = css`
     font-weight: bold;
     color: #0092fa;
   }
-
   span {
     font-size: 14px;
     opacity: 0.5;
@@ -55,10 +56,19 @@ const LogoBox = css`
 
 const menuBox = css`
   margin-right: 100px;
+  @media (max-width: 1090px) {
+    font-size: 14px;
+    width: 60%;
+    margin-right: 0px;
+  }
 `;
 const Menu = css`
   display: flex;
   margin-bottom: 30px;
+  @media (max-width: 1090px) {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 `;
 const MenuItem = css`
   margin-right: 30px;
@@ -67,11 +77,17 @@ const MenuItem = css`
   }
   cursor: pointer;
   opacity: 0.8;
+  @media (max-width: 1090px) {
+    margin-right: 10px;
+  }
 `;
 const Info = css`
   line-height: 1.7;
   font-size: 13px;
   opacity: 0.8;
+  @media (max-width: 1090px) {
+    font-size: 12px;
+  }
 `;
 
 export default function Footer() {
