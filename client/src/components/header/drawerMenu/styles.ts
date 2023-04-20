@@ -4,7 +4,7 @@ export const Container = styled.div<{ open: boolean }>`
   display: ${(props) => (props.open ? "block" : "none")};
   width: 250px;
   height: 100%;
-  background-color: white;
+  background-color: ${(props) => props.theme.bgColor};
   position: fixed;
   top: 0;
   right: 0;
@@ -24,7 +24,7 @@ export const ButtonContainer = styled.div`
 
 export const CloseButton = styled.button`
   margin: 10px 10px 0px 0px;
-  background-color: white;
+  background-color: ${(props) => props.theme.bgColor};
   border: none;
   color: grey;
   font-size: 20px;
@@ -47,9 +47,46 @@ export const MenuList = styled.li`
   padding: 15px 10px;
   font-size: 18px;
   font-weight: bold;
-
+  color: ${(props) => props.theme.textColor};
   &:hover {
     color: var(--blue);
-    background-color: #f3f4f6;
+    background-color: ${(props) => props.theme.bgUserInfoMenuColor};
+  }
+`;
+
+export const Theme = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const SignBox = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  font-size: 14px;
+  a {
+    color: ${(props) => props.theme.textColor};
+  }
+  a:hover {
+    color: var(--blue);
+  }
+`;
+
+export const LogOut = styled.div`
+  color: ${(props) => props.theme.textColor};
+  cursor: pointer;
+  &:hover {
+    color: var(--blue);
+  }
+`;
+
+export const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  img {
+    cursor: default;
+    margin-right: 10px;
   }
 `;
