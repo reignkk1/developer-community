@@ -11,10 +11,17 @@ export const ArticleTitle = styled.div`
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 80px;
+  @media (max-width: 940px) {
+    font-size: 19px;
+    line-height: 1.4;
+  }
 `;
 export const ArticleText = styled.div`
   font-size: 16px;
   line-height: 1.7;
+  @media (max-width: 940px) {
+    font-size: 15px;
+  }
 `;
 
 export const ButtonBox = styled.div`

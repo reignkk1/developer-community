@@ -9,6 +9,7 @@ export const ThemeBtn = styled.button`
   padding: 8px 15px 8px 5px;
   border-radius: 10px;
   cursor: pointer;
+
   &:hover {
     color: ${(props) => props.theme.textColor};
   }

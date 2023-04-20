@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect } from "react";
 
 // File
-import { logined, isOpendDrawerMenu, DarkMode } from "../../atom";
+import { logined, isOpendDrawerMenu } from "../../atom";
 import AvartarClickMenu from "./avartarClickMenu/AvartarMenu";
 import LoginSignUpBtn from "./loginSignUpButton/Buttons";
 import Logo from "./logo/Logo";
@@ -21,7 +21,6 @@ export default function Header() {
   const location = useLocation();
 
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
-  const [isDarkMode, setIsDarkMode] = useRecoilState(DarkMode);
 
   useEffect(() => {
     window.addEventListener(

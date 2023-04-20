@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";

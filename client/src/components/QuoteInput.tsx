@@ -26,6 +26,10 @@ const Btn = styled.button`
   border: none;
   cursor: pointer;
   font-size: 16px;
+  @media (max-width: 940px) {
+    font-size: 14px;
+    width: 10%;
+  }
 `;
 
 // =============================================================================

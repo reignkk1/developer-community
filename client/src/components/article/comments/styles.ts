@@ -33,6 +33,9 @@ export const Date = styled.div`
 `;
 export const Text = styled.div`
   line-height: 2;
+  @media (max-width: 940px) {
+    font-size: 14px;
+  }
 `;
 
 export const BtnBox = styled.div`

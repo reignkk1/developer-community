@@ -36,6 +36,9 @@ export const P = styled.p`
   position: absolute;
   left: 65px;
   top: 15px;
+  @media (max-width: 940px) {
+    font-size: 14px;
+  }
   a {
     color: #0092fa;
     text-decoration: underline;

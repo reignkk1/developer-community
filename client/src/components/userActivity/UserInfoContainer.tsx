@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 
@@ -14,8 +13,6 @@ import {
   UserMenuBox,
   UserNickname,
 } from "./styles";
-
-// =============================================================================
 
 // =============================================================================
 

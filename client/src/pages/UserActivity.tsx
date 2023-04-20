@@ -41,6 +41,7 @@ const Page = styled.div`
     display: block;
     padding: 9px 10px;
     color: #0092fa;
+    font-size: 13px;
   }
   &:hover {
     border-color: ${(props) => props.theme.borderHoverColor};
@@ -56,11 +57,16 @@ const ItemTitle = styled.div`
     color: #0092fa;
   }
   a {
-    color: ${(props) => props.theme.textColor};
+    @media (max-width: 940px) {
+      font-size: 14px;
+    }
   }
 `;
 const ItemDate = styled.div`
   font-weight: 500;
+  @media (max-width: 940px) {
+    font-size: 13px;
+  }
 `;
 
 const Loading = styled.div`

@@ -20,6 +20,7 @@ export default function AvartarClickMenu() {
 
   useEffect(() => {
     axios.get("/user/avartar").then((response) => setAvartarURL(response.data));
+    window.addEventListener("resize", () => setIsOpend(false));
   }, []);
 
   const avartarMenu = useRef<HTMLDivElement>(null);

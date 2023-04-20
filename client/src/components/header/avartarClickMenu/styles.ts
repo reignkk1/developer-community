@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
+  img {
+    position: relative;
+  }
   @media (max-width: 1065px) {
     img {
       display: none;
@@ -13,8 +16,8 @@ export const AvartarMenuBox = styled.div`
   height: 180px;
   border: 1px solid ${(props) => props.theme.borderColor};
   position: absolute;
-  right: 120px;
-  top: 60px;
+  right: 50px;
+  top: 70px;
   border-radius: 5px;
   background-color: ${(props) => props.theme.bgColor};
 `;
