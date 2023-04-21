@@ -15,15 +15,33 @@ const Main = styled.main`
   height: 100vh;
   margin: 0 auto;
   display: flex;
+
+  @media (max-width: 1300px) {
+    width: 80%;
+  }
+  @media (max-width: 1065px) {
+    flex-direction: column;
+  }
 `;
 const UserInfoBox = styled.div`
   display: flex;
   width: 75%;
   justify-content: space-between;
   padding: 0px 0px 20px 70px;
+  @media (max-width: 1065px) {
+    flex-direction: column-reverse;
+    width: 100%;
+    padding: 0px;
+    img {
+      margin-bottom: 30px;
+    }
+  }
 `;
 const UserInfo = styled.div`
   width: 60%;
+  @media (max-width: 1065px) {
+    width: 100%;
+  }
 `;
 const Title = styled.div`
   font-weight: bold;

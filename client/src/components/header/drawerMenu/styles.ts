@@ -31,7 +31,7 @@ export const CloseButton = styled.button`
   cursor: pointer;
   padding: 5px 10px;
   border-radius: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   &:hover {
     color: var(--blue);
     background-color: #e7e7e9;
@@ -45,7 +45,7 @@ export const MenuList = styled.li`
   border-radius: 5px;
   margin-bottom: 15px;
   padding: 15px 10px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   color: ${(props) => props.theme.textColor};
   &:hover {
@@ -85,8 +85,9 @@ export const UserInfo = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   img {
-    cursor: default;
     margin-right: 10px;
   }
 `;

@@ -16,7 +16,6 @@ import ThemeToggle from "../themeButton/ThemeButton";
 import axios from "axios";
 import { avartarUrl } from "./../../../atom";
 import Avartar from "../../common/Avartar";
-import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { profileUserInfoGet } from "../../../axios";
 
@@ -30,10 +29,8 @@ export default function DrawerMenu() {
   const [isLogin, setIsLogin] = useRecoilState(logined);
   const avartar = useRecoilValue(avartarUrl);
 
-  const { data } = useQuery<IProfileData>(
-    "user-profile",
-    () => profileUserInfoGet(),
-    { refetchOnMount: false, refetchOnWindowFocus: false }
+  const { data } = useQuery<IProfileData>("user-profile", () =>
+    profileUserInfoGet()
   );
 
   const menuData = [
@@ -57,10 +54,14 @@ export default function DrawerMenu() {
       <ButtonContainer>
         <CloseButton onClick={closeDrawerMenu}>✖</CloseButton>
       </ButtonContainer>
-      <UserInfo>
-        <Avartar src={avartar} width="40px" heigth="40px" />
-        <span>{data?.nickname}</span>
-      </UserInfo>
+      {isLogin ? (
+        <UserInfo>
+          <Link to="/profile" onClick={closeDrawerMenu}>
+            <Avartar src={avartar} width="40px" heigth="40px" />
+          </Link>
+          <span>{data?.nickname}</span>
+        </UserInfo>
+      ) : null}
       <Menu>
         {menuData.map((item) => (
           <Link to={item.path} onClick={closeDrawerMenu}>

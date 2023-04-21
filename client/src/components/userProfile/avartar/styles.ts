@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 
 export const UserAvartarContainer = styled.div`
-  position: relative;
   img {
     margin-top: 50px;
+  }
+  @media (max-width: 1065px) {
+    text-align: center;
   }
 `;
 
@@ -16,13 +18,18 @@ export const UserAvartarModal = styled.label`
   height: 155px;
   border-radius: 50%;
   position: absolute;
-  top: 50px;
+  top: 150px;
   color: white;
   opacity: 0;
   &:hover {
     opacity: 1;
   }
   cursor: pointer;
+  @media (max-width: 1065px) {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 406px;
+  }
 `;
 
 export const InputAvartar = styled.input`

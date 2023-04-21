@@ -14,9 +14,19 @@ const Main = styled.main`
   height: 100vh;
   margin: 0 auto;
   display: flex;
+  @media (max-width: 1065px) {
+    flex-direction: column;
+  }
+  @media (max-width: 1300px) {
+    width: 80%;
+  }
 `;
 const AccountInfoBox = styled.div`
-  width: 75%;
+  width: 100%;
+
+  @media (max-width: 1300px) {
+    margin-top: 25px;
+  }
 `;
 const AccountControlBox = styled.div`
   width: 100%;
@@ -24,6 +34,9 @@ const AccountControlBox = styled.div`
   &:nth-of-type(2) {
     padding-top: 30px;
     border-top: 1px solid ${(props) => props.theme.borderColor};
+  }
+  @media (max-width: 1065px) {
+    padding: 0px 0px 20px 0px;
   }
 `;
 const Title = styled.div`
@@ -40,10 +53,13 @@ const FirstControlBox = styled(ControlBox)`
 `;
 const SecondControlBox = styled(ControlBox)`
   justify-content: space-between;
+  @media (max-width: 670px) {
+    flex-direction: column;
+  }
 `;
 const SignDelete = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
-  height: 100px;
+
   border-radius: 8px;
   margin-bottom: 30px;
   padding: 15px 15px;
@@ -80,6 +96,10 @@ const UnRegisterBtn = styled(Btn)`
     height: 100%;
     padding: 10px 54px 10px 23px;
     color: white;
+    @media (max-width: 670px) {
+      justify-content: center;
+      margin-right: 10px;
+    }
   }
   &:disabled {
     opacity: 0.5;
@@ -96,6 +116,9 @@ const Svg = styled.svg`
 const AgreeBox = styled.div`
   display: flex;
   align-items: center;
+  @media (max-width: 1300px) {
+    margin-bottom: 10px;
+  }
 `;
 const CheckBox = styled.input`
   width: 15px;

@@ -26,15 +26,13 @@ export default function UserAvartar() {
   return (
     <UserAvartarContainer>
       <Avartar width="155px" heigth="155px" src={avartarURL} />
-      <FormAvartar>
-        <UserAvartarModal htmlFor="image">변경</UserAvartarModal>
-        <InputAvartar
-          id="image"
-          type="file"
-          accept="image/*"
-          onChange={onChange}
-        />
-      </FormAvartar>
+      <UserAvartarModal htmlFor="image">변경</UserAvartarModal>
+      <InputAvartar
+        id="image"
+        type="file"
+        accept="image/*"
+        onChange={onChange}
+      />
     </UserAvartarContainer>
   );
 }
