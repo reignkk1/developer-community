@@ -19,8 +19,10 @@ import Avartar from "../components/common/Avartar";
 
 const Main = css`
   width: 1000px;
-
   margin: 0 auto;
+  @media (max-width: 1040px) {
+    width: 80%;
+  }
 `;
 
 const SearchKeyword = css`
@@ -47,6 +49,10 @@ const Title = (theme: ITheme) => css`
     &:hover {
       color: #0092fa;
     }
+    line-height: 1.4;
+  }
+  @media (max-width: 1040px) {
+    font-size: 15px;
   }
 `;
 
