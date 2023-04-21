@@ -14,10 +14,13 @@ import { useQuery } from "react-query";
 
 const Container = styled.div`
   width: 60%;
-  height: 100vh;
+  height: 120vh;
   margin: 0 auto;
   text-align: center;
   margin-top: 100px;
+  @media (max-width: 850px) {
+    width: 80%;
+  }
 `;
 
 const Input = styled.input`
