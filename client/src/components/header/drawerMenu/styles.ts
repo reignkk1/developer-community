@@ -9,6 +9,8 @@ export const Container = styled.div<{ open: boolean }>`
   top: 0;
   right: 0;
   z-index: 99;
+  border-top-left-radius: 35px;
+  border-bottom-left-radius: 35px;
   @media (min-width: 1065px) {
     display: none;
   }

@@ -35,6 +35,7 @@ import ScrollToTop from "./utils/ScrollToTop";
 import Footer from "./components/common/Footer";
 import GlobalStyle from "./styles/GlobalStyle";
 import ThemeProvider from "./ThemeProvider";
+import Kauth from "./pages/Kauth";
 
 // =============================================================================
 
@@ -79,6 +80,7 @@ function App() {
                     element={<WithdrawConfirm />}
                   />
                   <Route path="/search" element={<Search />} />
+                  <Route path="/kauth" element={<Kauth />} />
 
                   {/*==================== write page =================== */}
 

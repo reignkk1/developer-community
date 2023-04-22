@@ -37,7 +37,7 @@ export const Wrapper = styled.div<{ isOpend: boolean }>`
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: grey;
   opacity: 0.4;
 `;

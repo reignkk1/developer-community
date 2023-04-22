@@ -139,6 +139,9 @@ export default function GlobalStyles() {
     body {
       background-color: ${theme.bgColor};
       color: ${theme.textColor};
+      @media (max-width: 850px) {
+        zoom: 0.9;
+      }
     }
 
     .articleWrite,

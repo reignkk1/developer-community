@@ -9,6 +9,7 @@ import { logined } from "../atom";
 import InputContainer from "../components/common/InputContainer";
 import { IUserData } from "../type";
 import { avartarUrl } from "./../atom";
+import KakaoAuthButton from "../components/KakaoAuthButton";
 
 // =============================================================================
 
@@ -45,21 +46,6 @@ const InputForm = styled.form`
   }
 `;
 
-const Btn = styled.button`
-  width: 100%;
-  background-color: #0092fa;
-  cursor: pointer;
-  border: none;
-  color: white;
-  padding: 10px 10px 10px 10px;
-  border-radius: 5px;
-  margin-top: 50px;
-  font-weight: bold;
-  font-size: 14px;
-  &:hover {
-    background-color: #0580d7;
-  }
-`;
 const BottomSignUp = styled.div`
   width: 100%;
   font-size: 14px;
@@ -71,6 +57,22 @@ const BottomSignUp = styled.div`
     color: #0580d7;
     text-decoration: underline;
     margin-left: 5px;
+  }
+`;
+
+const Btn = styled.button`
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  background-color: #0092fa;
+  color: white;
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  margin-top: 50px;
+  font-weight: bold;
+  font-size: 14px;
+  &:hover {
+    background-color: #0580d7;
   }
 `;
 
@@ -127,6 +129,7 @@ export default function Login() {
         />
         <Btn>로그인</Btn>
       </InputForm>
+      <KakaoAuthButton />
       <BottomSignUp>
         <span>아직 회원이 아니신가요?</span>
         <Link to="/signup">회원가입</Link>

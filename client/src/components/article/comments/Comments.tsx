@@ -52,9 +52,7 @@ interface IData {
 
 export default function Comments({ page, postID, loginState }: ICommentsProps) {
   const [modify, setModify] = useState(false); // 수정모드 True or False
-
   const [id, setID] = useState(""); // 수정버튼 클릭 시 해당 댓글의 ID값
-
   const [value, setValue] = useState(""); // 수정모드 시 input의 Value값
 
   // 해당 게시물의 댓글들 Fetch
