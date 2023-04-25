@@ -45,7 +45,7 @@ export default function Header() {
         <ThemeToggle />
         {loginState ? <AvartarClickMenu /> : <LoginSignUpBtn />}
         <HambugerButton />
-        <DrawerMenu />
+        {drawerMenuOpen ? <DrawerMenu /> : null}
       </HeaderBox>
       <Wrapper
         isOpend={drawerMenuOpen}

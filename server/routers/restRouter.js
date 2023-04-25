@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  kakaoAuth,
   managerConfirm,
   passWordChange,
   searchArticleGet,
@@ -12,5 +13,6 @@ const restRouter = express.Router();
 restRouter.get("/manager-confirm", managerConfirm);
 restRouter.get("/search", searchArticleGet);
 restRouter.patch("/password", passWordChange);
+restRouter.get("/kauth", kakaoAuth);
 
 export default restRouter;

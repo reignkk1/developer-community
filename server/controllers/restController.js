@@ -45,3 +45,36 @@ export function searchArticleGet(req, res) {
     return res.send({ result, logined: req.session.logined });
   });
 }
+
+// 카카오 소셜 로그인
+
+export async function kakaoAuth(req, res) {
+  const grant_type = "authorization_code";
+  const client_id = process.env.CLIENT_ID;
+  const redirect_uri = process.env.REDIRECT_URI;
+  const code = req.query.code;
+
+  const KAKAO_TOKEN_URI = `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&code=${code}`;
+
+  const data = await (
+    await fetch(KAKAO_TOKEN_URI, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+      },
+    })
+  ).json();
+
+  const kakao_token = data.access_token;
+
+  const userData = await (
+    await fetch("https://kapi.kakao.com/v2/user/me", {
+      headers: { Authorization: `Bearer ${kakao_token}` },
+    })
+  ).json();
+  console.log(userData);
+
+  const userInfo = userData.properties;
+
+  return res.redirect("http://localhost:3000");
+}
