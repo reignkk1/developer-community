@@ -1,11 +1,8 @@
 <div align="center">
   <h1 color:green>DEVELOPER Community</h1>
   
-  <a href="https://web-board-web-6g2llexw0nts.sel3.cloudtype.app/">[바로가기]</a>
-  
-  
+  <a href="https://web-board-web-6g2llexw0nts.sel3.cloudtype.app/">[🌍 배포 링크]</a>
 </div>
-
 
 <hr/>
 
