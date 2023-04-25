@@ -3,11 +3,13 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
 import styled from "@emotion/styled";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 // File
 import { IPage } from "../../type";
 import Button from "./button";
+import { useRecoilValue } from "recoil";
+import { logined } from "../../atom";
 
 // =============================================================================
 
@@ -46,6 +48,7 @@ const Title = styled.div`
 // =============================================================================
 
 export default function Write({ page }: IPage) {
+  const isLogin = useRecoilValue(logined);
   const [editorData, setEditorData] = useState({
     title: "",
     content: "",
@@ -74,7 +77,7 @@ export default function Write({ page }: IPage) {
     setEditorData({ ...editorData, title });
   };
 
-  return (
+  return isLogin ? (
     <Container className="articleWrite">
       <Title>제목</Title>
       <Input
@@ -93,5 +96,7 @@ export default function Write({ page }: IPage) {
 
       <Button onClick={postSubmit}>작성하기</Button>
     </Container>
+  ) : (
+    <Navigate to="/login" />
   );
 }
