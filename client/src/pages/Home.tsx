@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import ArticleBox from "../components/home/articleBox/ArticleBox";
 import Category from "../components/home/categoryTitle/Category";
 import { Main } from "../styles/PageShareStyle";
+import { useEffect } from "react";
+import axios from "axios";
 
 // =============================================================================
 

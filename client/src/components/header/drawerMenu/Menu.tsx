@@ -29,10 +29,6 @@ export default function DrawerMenu() {
   const [isLogin, setIsLogin] = useRecoilState(logined);
   const avartar = useRecoilValue(avartarUrl);
 
-  const { data } = useQuery<IProfileData>("user-profile", () =>
-    profileUserInfoGet()
-  );
-
   const menuData = [
     { name: "공지사항", path: "/notice" },
     { name: "사는얘기", path: "/life" },
@@ -59,7 +55,6 @@ export default function DrawerMenu() {
           <Link to="/profile" onClick={closeDrawerMenu}>
             <Avartar src={avartar} width="40px" heigth="40px" />
           </Link>
-          <span>{data?.nickname}</span>
         </UserInfo>
       ) : null}
       <Menu>

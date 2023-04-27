@@ -47,16 +47,15 @@ export function searchArticleGet(req, res) {
 }
 
 // 카카오 소셜 로그인
-
 export async function kakaoAuth(req, res) {
   const grant_type = "authorization_code";
   const client_id = process.env.CLIENT_ID;
   const redirect_uri = process.env.REDIRECT_URI;
-  const code = req.query.code;
+  const authCode = req.query.code;
 
-  const KAKAO_TOKEN_URI = `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&code=${code}`;
+  const KAKAO_TOKEN_URI = `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&code=${authCode}`;
 
-  const data = await (
+  const kakaoToken = await (
     await fetch(KAKAO_TOKEN_URI, {
       method: "POST",
       headers: {
@@ -65,16 +64,53 @@ export async function kakaoAuth(req, res) {
     })
   ).json();
 
-  const kakao_token = data.access_token;
+  const { access_token } = kakaoToken;
 
   const userData = await (
     await fetch("https://kapi.kakao.com/v2/user/me", {
-      headers: { Authorization: `Bearer ${kakao_token}` },
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+        "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+      },
     })
   ).json();
-  console.log(userData);
 
-  const userInfo = userData.properties;
+  const {
+    properties: { nickname, profile_image },
+    id,
+  } = userData;
 
-  return res.redirect("http://localhost:3000");
+  const sqlQuery2 = `SELECT * FROM user WHERE userID = ${id}`;
+  const sqlQuery =
+    "INSERT INTO user (userID,password,email,name,nickname,create_time,avartar) VALUES (?,?,?,?,?,?,?)";
+
+  db.query(sqlQuery2, (error, result) => {
+    if (result[0]) {
+      req.session.user = result[0];
+      req.session.logined = true;
+      return res.redirect("http://localhost:3000");
+    }
+
+    db.query(
+      sqlQuery,
+      [
+        id,
+        id,
+        "kakao@kakao.com",
+        nickname,
+        nickname,
+        new Date().toLocaleDateString("ko-kr"),
+        profile_image,
+      ],
+      (error, result) => {
+        const sqlQuery = `SELECT * FROM user WHERE userID = ${id}`;
+        db.query(sqlQuery, (error, result) => {
+          req.session.user = result[0];
+          req.session.logined = true;
+          return res.redirect("http://localhost:3000");
+        });
+      }
+    );
+  });
 }
