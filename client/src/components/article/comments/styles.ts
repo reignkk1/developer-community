@@ -6,9 +6,16 @@ export const Container = styled.div`
 export const CommentsBox = styled.ul``;
 export const CommentsItem = styled.li`
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  padding-bottom: 40px;
+  padding-bottom: 20px;
   margin-bottom: 40px;
 `;
+export const CommentWriteBtn = styled.button`
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: grey;
+`;
+
 export const User = styled.div`
   display: flex;
   align-items: center;
@@ -41,7 +48,7 @@ export const Text = styled.div`
 export const BtnBox = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 40px;
+  margin-top: 10px;
 `;
 
 export const Btn = styled.button`
@@ -49,7 +56,7 @@ export const Btn = styled.button`
   cursor: pointer;
   border: none;
   color: white;
-  padding: 7px 10px;
+  padding: 6px 10px;
   border-radius: 5px;
   font-size: 13px;
   &:hover {

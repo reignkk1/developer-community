@@ -81,11 +81,11 @@ export async function kakaoAuth(req, res) {
     id,
   } = userData;
 
-  const sqlQuery2 = `SELECT * FROM user WHERE userID = ${id}`;
-  const sqlQuery =
+  const selectQuery = `SELECT * FROM user WHERE userID = ${id}`;
+  const signUpQuery =
     "INSERT INTO user (userID,password,email,name,nickname,create_time,avartar) VALUES (?,?,?,?,?,?,?)";
 
-  db.query(sqlQuery2, (error, result) => {
+  db.query(selectQuery, (error, result) => {
     if (result[0]) {
       req.session.user = result[0];
       req.session.logined = true;
@@ -93,7 +93,7 @@ export async function kakaoAuth(req, res) {
     }
 
     db.query(
-      sqlQuery,
+      signUpQuery,
       [
         id,
         id,
@@ -104,8 +104,7 @@ export async function kakaoAuth(req, res) {
         profile_image,
       ],
       (error, result) => {
-        const sqlQuery = `SELECT * FROM user WHERE userID = ${id}`;
-        db.query(sqlQuery, (error, result) => {
+        db.query(selectQuery, (error, result) => {
           req.session.user = result[0];
           req.session.logined = true;
           return res.redirect("http://localhost:3000");
