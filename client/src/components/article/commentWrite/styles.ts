@@ -4,7 +4,7 @@ export const Container = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 10px;
   padding: 30px;
-  margin-top: 100px;
+  margin-top: 50px;
 `;
 
 export const WriteBox = styled.div`
