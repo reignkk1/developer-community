@@ -26,6 +26,8 @@ import {
   UserInfo,
 } from "./styles";
 import CommentWrite from "../commentWrite/CommentWrite";
+import ReplyCommentWrite from "../commentWrite/ReplyCommentWrite";
+import ReplyComment from "./ReplyComment";
 
 // =============================================================================
 
@@ -47,6 +49,7 @@ interface IData {
       page: string;
       nickname: string;
       avartar: string;
+      parentID: number;
     }
   ];
   userID: number;
@@ -116,75 +119,89 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
           <Count>{data ? data?.result.length : 0}개의 댓글</Count>
           {data ? (
             <CommentsBox>
-              {data?.result.map((data) => (
-                <CommentsItem key={data.id}>
-                  <User>
-                    <Link to={`/user/${data.writerID}/posts`}>
-                      <Avartar width="40px" heigth="40px" src={data.avartar} />
-                    </Link>
-                    <UserInfo>
+              {data?.result.map((data) =>
+                !data.parentID ? (
+                  <CommentsItem key={data.id}>
+                    <User>
                       <Link to={`/user/${data.writerID}/posts`}>
-                        <Nickname>{data.nickname}</Nickname>
+                        <Avartar
+                          width="40px"
+                          heigth="40px"
+                          src={data.avartar}
+                        />
                       </Link>
-                      <Date>{data.date}</Date>
-                    </UserInfo>
-                  </User>
-                  {modify && id === data.id ? (
-                    <Input
-                      onChange={onChange}
-                      defaultValue={data.text.replace(/<\/?[^>]+(>|$)/g, "")}
-                    />
-                  ) : (
-                    <Text>{Parser(data.text)}</Text>
-                  )}
-                  {loginState && userID === data.writerID ? (
-                    <BtnBox id={`${data.id}`}>
-                      {modify && id === data.id ? (
-                        <>
-                          <CancleBtn onClick={onCancle}>취소</CancleBtn>
-                          <ModifyBtn
-                            onClick={() => onModifyComplete(data.id)}
-                            disabled={
-                              value === data.text || value === "" ? true : false
-                            }
-                          >
-                            수정완료
-                          </ModifyBtn>
-                        </>
-                      ) : (
-                        <>
-                          <DeleteBtn onClick={() => onDelete(data.id)}>
-                            삭제
-                          </DeleteBtn>
-                          <ModifyBtn onClick={() => onModify(data.id)}>
-                            수정
-                          </ModifyBtn>
-                        </>
-                      )}
-                    </BtnBox>
-                  ) : null}
+                      <UserInfo>
+                        <Link to={`/user/${data.writerID}/posts`}>
+                          <Nickname>{data.nickname}</Nickname>
+                        </Link>
+                        <Date>{data.date}</Date>
+                      </UserInfo>
+                    </User>
+                    {modify && id === data.id ? (
+                      <Input
+                        onChange={onChange}
+                        defaultValue={data.text.replace(/<\/?[^>]+(>|$)/g, "")}
+                      />
+                    ) : (
+                      <Text>{Parser(data.text)}</Text>
+                    )}
+                    {loginState && userID === data.writerID ? (
+                      <BtnBox id={`${data.id}`}>
+                        {modify && id === data.id ? (
+                          <>
+                            <CancleBtn onClick={onCancle}>취소</CancleBtn>
+                            <ModifyBtn
+                              onClick={() => onModifyComplete(data.id)}
+                              disabled={
+                                value === data.text || value === ""
+                                  ? true
+                                  : false
+                              }
+                            >
+                              수정완료
+                            </ModifyBtn>
+                          </>
+                        ) : (
+                          <>
+                            <DeleteBtn onClick={() => onDelete(data.id)}>
+                              삭제
+                            </DeleteBtn>
+                            <ModifyBtn onClick={() => onModify(data.id)}>
+                              수정
+                            </ModifyBtn>
+                          </>
+                        )}
+                      </BtnBox>
+                    ) : null}
 
-                  {commentWrite && id === data.id ? (
-                    <CommentWriteBtn onClick={() => onCommentWrite(data.id)}>
-                      댓글 취소
-                    </CommentWriteBtn>
-                  ) : (
-                    <CommentWriteBtn
-                      onClick={() => onCommentWriteCancle(data.id)}
-                    >
-                      댓글 쓰기
-                    </CommentWriteBtn>
-                  )}
+                    {commentWrite && id === data.id ? (
+                      <CommentWriteBtn onClick={() => onCommentWrite(data.id)}>
+                        댓글 취소
+                      </CommentWriteBtn>
+                    ) : (
+                      <CommentWriteBtn
+                        onClick={() => onCommentWriteCancle(data.id)}
+                      >
+                        댓글 쓰기
+                      </CommentWriteBtn>
+                    )}
 
-                  {commentWrite && id === data.id ? (
-                    <CommentWrite
+                    {commentWrite && id === data.id ? (
+                      <ReplyCommentWrite
+                        loginState={loginState}
+                        postID={postID}
+                        page={page}
+                        parentCommentID={data.id}
+                      />
+                    ) : null}
+                    <ReplyComment
+                      parentID={data.id}
+                      loginUserID={userID}
                       loginState={loginState}
-                      postID={postID}
-                      page={page}
                     />
-                  ) : null}
-                </CommentsItem>
-              ))}
+                  </CommentsItem>
+                ) : null
+              )}
             </CommentsBox>
           ) : null}
         </Container>
