@@ -1,139 +1,118 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import {
-  BtnBox,
-  CancleBtn,
-  CommentWriteBtn,
-  CommentsItem,
-  Date,
-  DeleteBtn,
-  Input,
-  ModifyBtn,
-  Nickname,
-  Text,
-  User,
-  UserInfo,
-} from "./styles";
+import { Comment } from "./styles";
 import { Link } from "react-router-dom";
 import Avartar from "../../common/Avartar";
 import Parser from "html-react-parser";
-import ReplyCommentWrite from "../commentWrite/ReplyCommentWrite";
+import useComment from "./useComment";
+import { replyCommentsGet } from "../../../axios";
 import styled from "@emotion/styled";
 
-const Container = styled.div`
+const Container = styled(Comment.Container)`
   margin-left: 50px;
+
+  li {
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+    border-bottom: none;
+    padding-left: 15px;
+  }
 `;
 
-interface IData {
-  id: number;
-  date: string;
-  text: string;
-  postID: number;
-  writerID: number;
-  page: string;
-  nickname: string;
-  avartar: string;
-  parentID: number;
+interface IComment {
+  result: [
+    {
+      id: number;
+      date: string;
+      text: string;
+      postID: number;
+      writerID: number;
+      page: string;
+      nickname: string;
+      avartar: string;
+      parentID: number;
+    }
+  ];
+  loginUserID: number;
 }
 
 interface IReplyComment {
   parentID: number;
   loginState: boolean;
-  loginUserID?: number;
 }
 
-export default function ReplyComment({
-  parentID,
-  loginState,
-  loginUserID,
-}: IReplyComment) {
-  const [value, setValue] = useState("");
-  const [modify, setModify] = useState(false); // 수정모드 True or False
-  const [id, setID] = useState<number>(); // 수정버튼 클릭 시 해당 댓글의 ID값
-
-  const { data, error, refetch, isLoading } = useQuery<IData[]>(
+export default function ReplyComment({ parentID, loginState }: IReplyComment) {
+  const { data, error, refetch, isLoading } = useQuery<IComment>(
     [`childrenComment,${parentID}`],
-    () =>
-      axios.get(`/comment/children/${parentID}`).then((response) => {
-        console.log(data);
-        return response.data;
-      })
+    () => replyCommentsGet(parentID)
   );
 
-  const onDelete = (id: number) => {
-    if (window.confirm("정말로 삭제하겠습니까?")) {
-      axios.delete(`/comment/${id}`).then(() => alert("삭제완료!"));
-    }
-    return;
-  };
+  // response data
+  const loginUserID = data?.loginUserID;
+  const comments = data?.result;
 
-  // 수정버튼 클릭 시
-  const onModify = (id: number) => {
-    setID(id); //댓글 ID값
-    return setModify(true); //수정모드 ON
-  };
+  const {
+    clickCommentID,
+    modifyInputValue,
+    modify,
+    onDelete,
+    onModify,
+    onModifyComplete,
+    onCancle,
+    onChange,
+  } = useComment();
 
-  // 수정완료 버튼 클릭 시
-  const onModifyComplete = async (id: number) => {
-    await axios.patch(`/comment/${id}`, {
-      commentText: value,
-    });
-    setModify(false);
-  };
-  // 수정 취소
-  const onCancle = () => setModify(false);
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.currentTarget.value);
-  };
-  console.log(data);
-
-  return data?.length ? (
+  return comments?.length ? (
     <Container>
-      {data?.map((data) => (
-        <CommentsItem key={data.id}>
-          <User>
-            <Link to={`/user/${data.writerID}/posts`}>
-              <Avartar width="40px" heigth="40px" src={data.avartar} />
+      {comments?.map((comment) => (
+        <Comment.Item key={comment.id}>
+          <Comment.User>
+            <Link to={`/user/${comment.writerID}/posts`}>
+              <Avartar width="40px" heigth="40px" src={comment.avartar} />
             </Link>
-            <UserInfo>
-              <Link to={`/user/${data.writerID}/posts`}>
-                <Nickname>{data.nickname}</Nickname>
+            <Comment.UserInfo>
+              <Link to={`/user/${comment.writerID}/posts`}>
+                <Comment.Nickname>{comment.nickname}</Comment.Nickname>
               </Link>
-              <Date>{data.date}</Date>
-            </UserInfo>
-          </User>
-          {modify && id === data.id ? (
-            <Input
+              <Comment.Date>{comment.date}</Comment.Date>
+            </Comment.UserInfo>
+          </Comment.User>
+          {modify && clickCommentID === comment.id ? (
+            <Comment.Input
               onChange={onChange}
-              defaultValue={data.text.replace(/<\/?[^>]+(>|$)/g, "")}
+              defaultValue={comment.text.replace(/<\/?[^>]+(>|$)/g, "")}
             />
           ) : (
-            <Text>{Parser(data.text)}</Text>
+            <Comment.Text>{Parser(comment.text)}</Comment.Text>
           )}
-          {loginState && loginUserID === data.writerID ? (
-            <BtnBox id={`${data.id}`}>
-              {modify && id === data.id ? (
+          {loginState && loginUserID === comment.writerID ? (
+            <Comment.BtnBox id={`${comment.id}`}>
+              {modify && clickCommentID === comment.id ? (
                 <>
-                  <CancleBtn onClick={onCancle}>취소</CancleBtn>
-                  <ModifyBtn
-                    onClick={() => onModifyComplete(data.id)}
+                  <Comment.CancleBtn onClick={onCancle}>취소</Comment.CancleBtn>
+                  <Comment.ModifyBtn
+                    onClick={() => onModifyComplete(comment.id, refetch)}
                     disabled={
-                      value === data.text || value === "" ? true : false
+                      modifyInputValue === comment.text ||
+                      modifyInputValue === ""
+                        ? true
+                        : false
                     }
                   >
                     수정완료
-                  </ModifyBtn>
+                  </Comment.ModifyBtn>
                 </>
               ) : (
                 <>
-                  <DeleteBtn onClick={() => onDelete(data.id)}>삭제</DeleteBtn>
-                  <ModifyBtn onClick={() => onModify(data.id)}>수정</ModifyBtn>
+                  <Comment.DeleteBtn onClick={() => onDelete(comment.id)}>
+                    삭제
+                  </Comment.DeleteBtn>
+                  <Comment.ModifyBtn onClick={() => onModify(comment.id)}>
+                    수정
+                  </Comment.ModifyBtn>
                 </>
               )}
-            </BtnBox>
+            </Comment.BtnBox>
           ) : null}
-        </CommentsItem>
+        </Comment.Item>
       ))}
     </Container>
   ) : null;

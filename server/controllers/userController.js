@@ -54,7 +54,7 @@ export function userInfoGet(req, res) {
   const { id } = req.params;
   const sqlQuery = `SELECT * FROM user WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    return res.send(result[0]);
   });
 }
 
@@ -79,7 +79,7 @@ export function userProfileGet(req, res) {
 
   const sqlQuery = `SELECT name,nickname FROM user WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
-    return res.send(result);
+    return res.send(result[0]);
   });
 }
 

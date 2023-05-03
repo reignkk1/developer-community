@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import axios from "axios";
 import { useState } from "react";
 
 // File
@@ -8,26 +7,10 @@ import { ErrorBox, LoadingBox } from "../../common/LoadingError";
 import { commentsGet } from "../../../axios";
 import Parser from "html-react-parser";
 import Avartar from "../../common/Avartar";
-import {
-  BtnBox,
-  CancleBtn,
-  CommentWriteBtn,
-  CommentsBox,
-  CommentsItem,
-  Container,
-  Count,
-  Date,
-  DeleteBtn,
-  Input,
-  ModifyBtn,
-  Nickname,
-  Text,
-  User,
-  UserInfo,
-} from "./styles";
+import { Comment } from "./styles";
 import CommentWrite from "../commentWrite/CommentWrite";
-import ReplyCommentWrite from "../commentWrite/ReplyCommentWrite";
 import ReplyComment from "./ReplyComment";
+import useComment from "./useComment";
 
 // =============================================================================
 
@@ -38,7 +21,7 @@ interface ICommentsProps {
 }
 // =============================================================================
 
-interface IData {
+interface IComment {
   result: [
     {
       id: number;
@@ -52,60 +35,39 @@ interface IData {
       parentID: number;
     }
   ];
-  userID: number;
+  loginUserID: number;
 }
 
 export default function Comments({ page, postID, loginState }: ICommentsProps) {
-  const [modify, setModify] = useState(false); // 수정모드 True or False
-  const [id, setID] = useState<number>(); // 수정버튼 클릭 시 해당 댓글의 ID값
-  const [value, setValue] = useState(""); // 수정모드 시 input의 Value값
   const [commentWrite, setCommentWrite] = useState(false);
 
   // 해당 게시물의 댓글들 Fetch
-  const { isLoading, data, error, refetch } = useQuery<IData>(
+  const { isLoading, data, error, refetch } = useQuery<IComment>(
     [`${page}Comments`, postID],
     () => commentsGet(page, postID)
   );
+  // response data
+  const loginUserID = data?.loginUserID;
+  const comments = data?.result;
 
-  // input value 값 변할때마다 value state 변경
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.currentTarget.value);
-  };
-
-  // 현재 로그인 하고있는 유저ID
-  const userID = data?.userID;
-
-  // 삭제버튼 클릭 시
-  const onDelete = (id: number) => {
-    if (window.confirm("정말로 삭제하겠습니까?")) {
-      axios.delete(`/comment/${id}`).then(() => alert("삭제완료!"));
-    }
-    return;
-  };
-
-  // 수정버튼 클릭 시
-  const onModify = (id: number) => {
-    setID(id); //댓글 ID값
-    return setModify(true); //수정모드 ON
-  };
-
-  // 수정완료 버튼 클릭 시
-  const onModifyComplete = async (id: number) => {
-    await axios.patch(`/comment/${id}`, {
-      commentText: value,
-    });
-    setModify(false);
-    return refetch();
-  };
-  // 수정 취소
-  const onCancle = () => setModify(false);
+  const {
+    setClickCommentID,
+    clickCommentID,
+    modifyInputValue,
+    modify,
+    onDelete,
+    onModify,
+    onModifyComplete,
+    onCancle,
+    onChange,
+  } = useComment();
 
   const onCommentWrite = (id: number) => {
-    setID(id);
+    setClickCommentID(id);
     setCommentWrite(false);
   };
   const onCommentWriteCancle = (id: number) => {
-    setID(id);
+    setClickCommentID(id);
     setCommentWrite(true);
   };
   return (
@@ -115,96 +77,114 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
       ) : error ? (
         <ErrorBox />
       ) : (
-        <Container>
-          <Count>{data ? data?.result.length : 0}개의 댓글</Count>
+        <Comment.Container>
+          <Comment.Count>
+            {comments ? comments?.length : 0}개의 댓글
+          </Comment.Count>
           {data ? (
-            <CommentsBox>
-              {data?.result.map((data) =>
-                !data.parentID ? (
-                  <CommentsItem key={data.id}>
-                    <User>
-                      <Link to={`/user/${data.writerID}/posts`}>
+            <Comment.Box>
+              {comments?.map((comment) =>
+                !comment.parentID ? (
+                  <Comment.Item key={comment.id}>
+                    <Comment.User>
+                      <Link to={`/user/${comment.writerID}/posts`}>
                         <Avartar
                           width="40px"
                           heigth="40px"
-                          src={data.avartar}
+                          src={comment.avartar}
                         />
                       </Link>
-                      <UserInfo>
-                        <Link to={`/user/${data.writerID}/posts`}>
-                          <Nickname>{data.nickname}</Nickname>
+                      <Comment.UserInfo>
+                        <Link to={`/user/${comment.writerID}/posts`}>
+                          <Comment.Nickname>
+                            {comment.nickname}
+                          </Comment.Nickname>
                         </Link>
-                        <Date>{data.date}</Date>
-                      </UserInfo>
-                    </User>
-                    {modify && id === data.id ? (
-                      <Input
+                        <Comment.Date>{comment.date}</Comment.Date>
+                      </Comment.UserInfo>
+                    </Comment.User>
+                    {modify && clickCommentID === comment.id ? (
+                      <Comment.Input
                         onChange={onChange}
-                        defaultValue={data.text.replace(/<\/?[^>]+(>|$)/g, "")}
+                        defaultValue={comment.text.replace(
+                          /<\/?[^>]+(>|$)/g,
+                          ""
+                        )}
                       />
                     ) : (
-                      <Text>{Parser(data.text)}</Text>
+                      <Comment.Text>{Parser(comment.text)}</Comment.Text>
                     )}
-                    {loginState && userID === data.writerID ? (
-                      <BtnBox id={`${data.id}`}>
-                        {modify && id === data.id ? (
+                    {loginState && loginUserID === comment.writerID ? (
+                      <Comment.BtnBox id={`${comment.id}`}>
+                        {modify && clickCommentID === comment.id ? (
                           <>
-                            <CancleBtn onClick={onCancle}>취소</CancleBtn>
-                            <ModifyBtn
-                              onClick={() => onModifyComplete(data.id)}
+                            <Comment.CancleBtn onClick={onCancle}>
+                              취소
+                            </Comment.CancleBtn>
+                            <Comment.ModifyBtn
+                              onClick={() =>
+                                onModifyComplete(comment.id, refetch)
+                              }
                               disabled={
-                                value === data.text || value === ""
+                                modifyInputValue === comment.text ||
+                                modifyInputValue === ""
                                   ? true
                                   : false
                               }
                             >
                               수정완료
-                            </ModifyBtn>
+                            </Comment.ModifyBtn>
                           </>
                         ) : (
                           <>
-                            <DeleteBtn onClick={() => onDelete(data.id)}>
+                            <Comment.DeleteBtn
+                              onClick={() => onDelete(comment.id)}
+                            >
                               삭제
-                            </DeleteBtn>
-                            <ModifyBtn onClick={() => onModify(data.id)}>
+                            </Comment.DeleteBtn>
+                            <Comment.ModifyBtn
+                              onClick={() => onModify(comment.id)}
+                            >
                               수정
-                            </ModifyBtn>
+                            </Comment.ModifyBtn>
                           </>
                         )}
-                      </BtnBox>
+                      </Comment.BtnBox>
                     ) : null}
 
-                    {commentWrite && id === data.id ? (
-                      <CommentWriteBtn onClick={() => onCommentWrite(data.id)}>
+                    {commentWrite && clickCommentID === comment.id ? (
+                      <Comment.WriteBtn
+                        onClick={() => onCommentWrite(comment.id)}
+                      >
                         댓글 취소
-                      </CommentWriteBtn>
+                      </Comment.WriteBtn>
                     ) : (
-                      <CommentWriteBtn
-                        onClick={() => onCommentWriteCancle(data.id)}
+                      <Comment.WriteBtn
+                        onClick={() => onCommentWriteCancle(comment.id)}
                       >
                         댓글 쓰기
-                      </CommentWriteBtn>
+                      </Comment.WriteBtn>
                     )}
 
-                    {commentWrite && id === data.id ? (
-                      <ReplyCommentWrite
+                    {commentWrite && clickCommentID === comment.id ? (
+                      <CommentWrite
                         loginState={loginState}
                         postID={postID}
                         page={page}
-                        parentCommentID={data.id}
+                        parentCommentID={comment.id}
+                        setCommentWrite={setCommentWrite}
                       />
                     ) : null}
                     <ReplyComment
-                      parentID={data.id}
-                      loginUserID={userID}
+                      parentID={comment.id}
                       loginState={loginState}
                     />
-                  </CommentsItem>
+                  </Comment.Item>
                 ) : null
               )}
-            </CommentsBox>
+            </Comment.Box>
           ) : null}
-        </Container>
+        </Comment.Container>
       )}
     </>
   );

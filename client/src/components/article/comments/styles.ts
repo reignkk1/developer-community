@@ -1,22 +1,22 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
+const Container = styled.div`
   margin-top: 20px;
 `;
-export const CommentsBox = styled.ul``;
-export const CommentsItem = styled.li`
+const Box = styled.ul``;
+const Item = styled.li`
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   padding-bottom: 20px;
   margin-bottom: 40px;
 `;
-export const CommentWriteBtn = styled.button`
+const WriteBtn = styled.button`
   cursor: pointer;
   border: none;
   background: none;
   color: grey;
 `;
 
-export const User = styled.div`
+const User = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -30,28 +30,28 @@ export const User = styled.div`
   }
 `;
 
-export const UserInfo = styled.div``;
-export const Nickname = styled.div`
+const UserInfo = styled.div``;
+const Nickname = styled.div`
   font-size: 15px;
   margin-bottom: 5px;
 `;
-export const Date = styled.div`
+const Date = styled.div`
   font-size: 14px;
 `;
-export const Text = styled.div`
+const Text = styled.div`
   line-height: 2;
   @media (max-width: 940px) {
     font-size: 14px;
   }
 `;
 
-export const BtnBox = styled.div`
+const BtnBox = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
 `;
 
-export const Btn = styled.button`
+const Btn = styled.button`
   background-color: #0092fa;
   cursor: pointer;
   border: none;
@@ -63,10 +63,10 @@ export const Btn = styled.button`
     background-color: #0580d7;
   }
 `;
-export const DeleteBtn = styled(Btn)`
+const DeleteBtn = styled(Btn)`
   margin-right: 5px;
 `;
-export const ModifyBtn = styled(Btn)`
+const ModifyBtn = styled(Btn)`
   &:disabled {
     opacity: 0.6;
     cursor: default;
@@ -74,7 +74,7 @@ export const ModifyBtn = styled(Btn)`
   }
 `;
 
-export const Input = styled.input`
+const Input = styled.input`
   width: 100%;
   height: 30px;
   padding: 5px 10px;
@@ -85,10 +85,29 @@ export const Input = styled.input`
   }
 `;
 
-export const Count = styled.div`
+const Count = styled.div`
   margin-bottom: 50px;
 `;
 
-export const CancleBtn = styled(Btn)`
+const CancleBtn = styled(Btn)`
   margin-right: 5px;
 `;
+
+export const Comment = {
+  Container,
+  Box,
+  Item,
+  WriteBtn,
+  User,
+  UserInfo,
+  Nickname,
+  Date,
+  Text,
+  BtnBox,
+  Btn,
+  DeleteBtn,
+  ModifyBtn,
+  Input,
+  Count,
+  CancleBtn,
+};

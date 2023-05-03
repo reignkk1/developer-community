@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 
 // File
 import Avartar from "../../common/Avartar";
@@ -26,6 +26,8 @@ interface ICommentInfo {
   postID: string | undefined;
   page: string;
   avartarURL?: string;
+  parentCommentID?: number;
+  setCommentWrite?: Dispatch<SetStateAction<boolean>>;
 }
 
 // =============================================================================
@@ -34,6 +36,8 @@ export default function CommentWrite({
   loginState,
   postID,
   page,
+  parentCommentID,
+  setCommentWrite,
 }: ICommentInfo) {
   const [text, setText] = useState(""); // 댓글 Text
   const avartarURL = useRecoilValue(avartarUrl);
@@ -45,8 +49,10 @@ export default function CommentWrite({
       date: new Date().toLocaleDateString("ko-kr"),
       postID: Number(postID),
       page: page,
+      parentID: parentCommentID,
     });
     setText("");
+    setCommentWrite && setCommentWrite(false);
     return alert("댓글 생성완료!");
   };
 

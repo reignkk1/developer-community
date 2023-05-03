@@ -58,16 +58,24 @@ export async function userActivityGet(
 
 // 특정 유저 정보 불러오기
 export function userInfoGet(userId: string | undefined) {
-  return axios.get(`/user/${userId}`).then((response) => response.data[0]);
+  return axios.get(`/user/${userId}`).then((response) => response.data);
 }
 // 프로필 회원정보 불러오기
-export async function profileUserInfoGet() {
-  const response = await axios.get("/user/profile");
-  return response.data[0];
+export function profileUserInfoGet() {
+  return axios.get("/user/profile").then((response) => response.data);
 }
 
 // 특정 게시물 댓글들 불러오기
-export async function commentsGet(page: string, postID?: string) {
-  const response = await axios.get(`/article/${page}/${postID}/comments`);
-  return response.data;
+export function commentsGet(page: string, postID?: string) {
+  return axios
+    .get(`/article/${page}/${postID}/comments`)
+    .then((response) => response.data);
+}
+
+// 대댓글 불러오기
+
+export function replyCommentsGet(parentID: number) {
+  return axios
+    .get(`/comment/children/${parentID}`)
+    .then((response) => response.data);
 }
