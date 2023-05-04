@@ -39,14 +39,13 @@ export default function ArticleInfo({ page }: IPage) {
   // 파라미터 ID값 게시물 가져오기
   const { isLoading, error, data } = useQuery<IArticleInfo>(
     `Detail${page}`,
-    () => articleDetail(page, id, setLoginState)
+    () => articleDetail(page, id, setLoginState),
+    { refetchOnWindowFocus: false }
   );
 
   const deleteClick = () => {
     if (window.confirm("정말로 삭제 하시겠습니까?")) {
-      axios.delete(`/article/${page}/${id}`).then(() => {
-        return navigate(`/${page}`);
-      });
+      axios.delete(`/article/${page}/${id}`).then(() => navigate(`/${page}`));
     } else {
       return;
     }
