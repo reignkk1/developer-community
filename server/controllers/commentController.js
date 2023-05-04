@@ -42,6 +42,6 @@ export function childrenCommentGet(req, res) {
   const { parentID } = req.params;
   const sqlQuery = `SELECT * FROM comments WHERE parentID = ${parentID}`;
   db.query(sqlQuery, (error, result) => {
-    return res.send({ result, loginUserID: req.session.user.id });
+    return res.send({ result, loginUserID: req.session?.user?.id });
   });
 }

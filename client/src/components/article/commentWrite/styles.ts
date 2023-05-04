@@ -1,26 +1,26 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
+const Container = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 10px;
   padding: 30px;
   margin-top: 50px;
 `;
 
-export const WriteBox = styled.div`
+const Box = styled.div`
   display: flex;
   justify-content: flex-end;
   height: 50%;
   position: relative;
   margin-bottom: 30px;
 `;
-export const AvartarCat = styled.img`
+const AvartarCat = styled.img`
   width: 50px;
   height: 50px;
   padding: 5px;
   margin-bottom: 5px;
 `;
-export const TextArea = styled.textarea`
+const TextArea = styled.textarea`
   border: 1px solid ${(props) => props.theme.borderColor}s;
   width: 100%;
   height: 70px;
@@ -32,7 +32,7 @@ export const TextArea = styled.textarea`
   background-color: ${(props) => props.theme.bgCommentWriteColor};
   font-size: 15px;
 `;
-export const P = styled.p`
+const P = styled.p`
   position: absolute;
   left: 65px;
   top: 15px;
@@ -45,7 +45,7 @@ export const P = styled.p`
     font-weight: bold;
   }
 `;
-export const WriteBtn = styled.div`
+const ButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -56,14 +56,13 @@ export const WriteBtn = styled.div`
     margin-bottom: 20px;
   }
 `;
-export const Btn = styled.button`
+const Button = styled.button`
   background-color: #0092fa;
   cursor: pointer;
   border: none;
   color: white;
   padding: 10px 40px;
   border-radius: 5px;
-
   font-weight: bold;
   font-size: 14px;
   &:hover {
@@ -74,7 +73,18 @@ export const Btn = styled.button`
     opacity: 0.6;
   }
 `;
-export const WriteBox2 = styled.div`
+const Box2 = styled.div`
   display: flex;
   margin-bottom: 10px;
 `;
+
+export const Write = {
+  Container,
+  Box,
+  AvartarCat,
+  TextArea,
+  P,
+  Button,
+  ButtonBox,
+  Box2,
+};
