@@ -9,7 +9,7 @@ import Button from "../common/button";
 import CommentWrite from "./commentWrite/CommentWrite";
 import Comments from "./comments/Comments";
 import { logined } from "../../atom";
-import { IArticleInfo, IPage } from "../../type";
+import { IArticleInfo, IPage } from "../../types";
 import { ErrorBox, LoadingBox } from "../common/LoadingError";
 import { articleDetail } from "../../axios";
 import Avartar from "../common/Avartar";

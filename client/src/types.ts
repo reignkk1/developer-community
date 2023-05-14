@@ -52,3 +52,15 @@ export interface IUserData {
   manager: number;
   avartar: string;
 }
+
+export interface IComment {
+  id: number;
+  date: string;
+  text: string;
+  postID: number;
+  writerID: number;
+  page: string;
+  nickname: string;
+  avartar: string;
+  parentID: number;
+}

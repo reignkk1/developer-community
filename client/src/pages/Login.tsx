@@ -7,7 +7,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 // File
 import { logined } from "../atom";
 import InputContainer from "../components/common/InputContainer";
-import { IUserData } from "../type";
+import { IUserData } from "../types";
 import { avartarUrl } from "./../atom";
 import KakaoAuthButton from "../components/KakaoAuthButton";
 

@@ -16,13 +16,6 @@ import ThemeToggle from "../themeButton/ThemeButton";
 import axios from "axios";
 import { avartarUrl } from "./../../../atom";
 import Avartar from "../../common/Avartar";
-import { useQuery } from "react-query";
-import { profileUserInfoGet } from "../../../axios";
-
-interface IProfileData {
-  name: string;
-  nickname: string;
-}
 
 export default function DrawerMenu() {
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);

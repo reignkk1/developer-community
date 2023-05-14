@@ -3,9 +3,10 @@ import { Comment } from "./styles";
 import { Link } from "react-router-dom";
 import Avartar from "../../common/Avartar";
 import Parser from "html-react-parser";
-import useComment from "./useComment";
+import useComment from "./hook/useComment";
 import { replyCommentsGet } from "../../../axios";
 import styled from "@emotion/styled";
+import { IComment } from "../../../types";
 
 const Container = styled(Comment.Container)`
   margin-left: 50px;
@@ -17,20 +18,8 @@ const Container = styled(Comment.Container)`
   }
 `;
 
-interface IComment {
-  result: [
-    {
-      id: number;
-      date: string;
-      text: string;
-      postID: number;
-      writerID: number;
-      page: string;
-      nickname: string;
-      avartar: string;
-      parentID: number;
-    }
-  ];
+interface IData {
+  result: [IComment];
   loginUserID: number;
 }
 
@@ -40,7 +29,7 @@ interface IReplyComment {
 }
 
 export default function ReplyComment({ parentID, loginState }: IReplyComment) {
-  const { data, error, refetch, isLoading } = useQuery<IComment>(
+  const { data, error, refetch, isLoading } = useQuery<IData>(
     [`childrenComment,${parentID}`],
     () => replyCommentsGet(parentID)
   );

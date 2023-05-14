@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-const AvartarMenuItem = styled.li`
+export const AvartarMenuItem = styled.li`
   width: 100%;
   height: 100%;
   display: flex;
@@ -21,7 +21,3 @@ const AvartarMenuItem = styled.li`
     }
   }
 `;
-
-export const Styles = {
-  AvartarMenuItem,
-};

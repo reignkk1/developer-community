@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 
 // File
-import { IUserData } from "../../type";
+import { IUserData } from "../../types";
 import { ErrorBox, LoadingBox } from "../common/LoadingError";
 import Avartar from "../common/Avartar";
 import { userInfoGet } from "../../axios";

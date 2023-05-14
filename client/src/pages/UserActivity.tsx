@@ -10,7 +10,7 @@ import UserInfoContainer from "../components/userActivity/UserInfoContainer";
 import { logined } from "../atom";
 import { userActivityGet } from "../axios";
 import { Main } from "../styles/PageShareStyle";
-import { IArticleCommentData, IPage } from "../type";
+import { IArticleCommentData, IPage } from "../types";
 
 // =============================================================================
 

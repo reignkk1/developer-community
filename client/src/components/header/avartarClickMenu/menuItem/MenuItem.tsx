@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useSetRecoilState } from "recoil";
 import { isOpendAvartarMenu } from "../../../../atom";
-import { Styles } from "./styles";
+import { AvartarMenuItem } from "./styles";
 
 interface IMenuItem {
   children: ReactNode;
@@ -10,9 +10,5 @@ interface IMenuItem {
 export default function MenuItem({ children }: IMenuItem) {
   const setIsOpend = useSetRecoilState(isOpendAvartarMenu);
   const closeMenu = () => setIsOpend(false);
-  return (
-    <Styles.AvartarMenuItem onClick={closeMenu}>
-      {children}
-    </Styles.AvartarMenuItem>
-  );
+  return <AvartarMenuItem onClick={closeMenu}>{children}</AvartarMenuItem>;
 }

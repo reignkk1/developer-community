@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 // File
-import { IArticleCommentData, IPage } from "../../../type";
+import { IArticleCommentData, IPage } from "../../../types";
 import { ErrorBox, LoadingBox } from "../../common/LoadingError";
 import PageNumberBar from "../../common/pageNumBar";
 import Avartar from "../../common/Avartar";
@@ -29,7 +29,7 @@ export default function PagesArticle({ page }: IPage) {
     `${page}`,
     () => articleAllGet(page, setLoginState)
   );
-  console.log(data);
+
   // URL 쿼리에 담긴 Page 데이터 가져옴
   const [query] = useSearchParams();
   const pageCount = query.get("page");

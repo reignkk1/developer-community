@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 // File
-import { IArticleCommentData, IPage } from "../../../type";
+import { IArticleCommentData, IPage } from "../../../types";
 import Avartar from "../../common/Avartar";
 import { ErrorBox, LoadingBox } from "../../common/LoadingError";
 import { logined } from "../../../atom";

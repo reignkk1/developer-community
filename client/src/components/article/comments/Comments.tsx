@@ -10,7 +10,8 @@ import Avartar from "../../common/Avartar";
 import { Comment } from "./styles";
 import CommentWrite from "../commentWrite/CommentWrite";
 import ReplyComment from "./ReplyComment";
-import useComment from "./useComment";
+import useComment from "./hook/useComment";
+import { IComment } from "../../../types";
 
 // =============================================================================
 
@@ -21,20 +22,8 @@ interface ICommentsProps {
 }
 // =============================================================================
 
-interface IComment {
-  result: [
-    {
-      id: number;
-      date: string;
-      text: string;
-      postID: number;
-      writerID: number;
-      page: string;
-      nickname: string;
-      avartar: string;
-      parentID: number;
-    }
-  ];
+interface IData {
+  result: [IComment];
   loginUserID: number;
 }
 
@@ -42,7 +31,7 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
   const [commentWrite, setCommentWrite] = useState(false);
 
   // 해당 게시물의 댓글들 Fetch
-  const { isLoading, data, error, refetch } = useQuery<IComment>(
+  const { isLoading, data, error, refetch } = useQuery<IData>(
     [`${page}Comments`, postID],
     () => commentsGet(page, postID)
   );

@@ -10,7 +10,7 @@ import { useQuery } from "react-query";
 import { ErrorBox, LoadingBox } from "../components/common/LoadingError";
 import { articleSearchGet } from "../axios";
 import PageNumberBar from "../components/common/pageNumBar";
-import { IArticleCommentData } from "../type";
+import { IArticleCommentData } from "../types";
 import { useSetRecoilState } from "recoil";
 import { logined } from "../atom";
 import Avartar from "../components/common/Avartar";
