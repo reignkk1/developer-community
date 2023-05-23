@@ -30,6 +30,8 @@ export default function PagesArticle({ page }: IPage) {
     () => articleAllGet(page, setLoginState)
   );
 
+  const pagePosts = data?.result;
+
   // URL 쿼리에 담긴 Page 데이터 가져옴
   const [query] = useSearchParams();
   const pageCount = query.get("page");
@@ -41,28 +43,29 @@ export default function PagesArticle({ page }: IPage) {
   ) : (
     <>
       <ListBox>
-        {data?.result
-          .slice(
-            // 한 페이지당 10개의 게시물을 보여줌
-            pageCount === null ? 0 : Number(pageCount) * 10 - 10,
-            pageCount === null ? 10 : Number(pageCount) * 10
-          )
-          .map((item) => (
-            <ListItem key={item.id}>
-              <NicknameBox>
-                <Link to={`/user/${item.writerID}/posts`}>
-                  <Avartar width="20px" heigth="20px" src={item.avartar} />
+        {pagePosts &&
+          pagePosts
+            .slice(
+              // 한 페이지당 10개의 게시물을 보여줌
+              pageCount === null ? 0 : Number(pageCount) * 10 - 10,
+              pageCount === null ? 10 : Number(pageCount) * 10
+            )
+            .map((post) => (
+              <ListItem key={post.id}>
+                <NicknameBox>
+                  <Link to={`/user/${post.writerID}/posts`}>
+                    <Avartar width="20px" heigth="20px" src={post.avartar} />
+                  </Link>
+                  <Link to={`/user/${post.writerID}/posts`}>
+                    <Nickname>{post.nickname}</Nickname>
+                  </Link>
+                </NicknameBox>
+                <Link to={`/${page}/${post.id}`}>
+                  <ListTitle>{post.title}</ListTitle>
                 </Link>
-                <Link to={`/user/${item.writerID}/posts`}>
-                  <Nickname>{item.nickname}</Nickname>
-                </Link>
-              </NicknameBox>
-              <Link to={`/${page}/${item.id}`}>
-                <ListTitle>{item.title}</ListTitle>
-              </Link>
-              <ListDate>{item.date}</ListDate>
-            </ListItem>
-          ))}
+                <ListDate>{post.date}</ListDate>
+              </ListItem>
+            ))}
       </ListBox>
 
       <PageNumberBar

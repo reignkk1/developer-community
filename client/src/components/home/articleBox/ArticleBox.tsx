@@ -29,6 +29,9 @@ export default function ArticleBox({ page }: IPage) {
     `${page}`,
     () => articleAllGet(page, setLoginState)
   );
+
+  const posts = data?.result;
+
   return isLoading ? (
     <LoadingBox />
   ) : error ? (
@@ -36,26 +39,26 @@ export default function ArticleBox({ page }: IPage) {
   ) : (
     <Container>
       <ListBox>
-        {data?.result.slice(0, 4).map((item) => (
-          <ListItem key={item.id}>
+        {posts?.slice(0, 4).map((post) => (
+          <ListItem key={post.id}>
             <NicknameBox>
-              <Link to={`/user/${item.writerID}/posts`}>
+              <Link to={`/user/${post.writerID}/posts`}>
                 <Avartar
                   width="20px"
                   heigth="20px"
                   src={
-                    item.avartar ||
+                    post.avartar ||
                     "https://graph.facebook.com/555897032021233/picture?width=200&height=200"
                   }
                 />
               </Link>
-              <Link to={`/user/${item.writerID}/posts`}>
-                <Nickname>{item.nickname}</Nickname>
+              <Link to={`/user/${post.writerID}/posts`}>
+                <Nickname>{post.nickname}</Nickname>
               </Link>
-              <ListDate>- {item.date}</ListDate>
+              <ListDate>- {post.date}</ListDate>
             </NicknameBox>
             <ListTitle>
-              <Link to={`/${item.page}/${item.id}`}>{item.title}</Link>
+              <Link to={`/${post.page}/${post.id}`}>{post.title}</Link>
             </ListTitle>
           </ListItem>
         ))}

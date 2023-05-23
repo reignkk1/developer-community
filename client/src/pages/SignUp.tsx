@@ -86,18 +86,17 @@ export default function SignUp() {
   } = useForm<IUserData>();
   const loginState = useRecoilValue(logined);
   const navigate = useNavigate();
-  const onValid = (data: IUserData) => {
-    axios
-      .post("/user", {
-        userID: data.userID,
-        password: data.password,
-        email: data.email,
-        name: data.name,
-        nickname: data.nickname,
-        create_time: new Date().toLocaleDateString("ko-kr"),
-      })
-      .then(() => navigate("/login"))
-      .then(() => alert("가입이 완료되었습니다!"));
+  const onValid = async (data: IUserData) => {
+    await axios.post("/user", {
+      userID: data.userID,
+      password: data.password,
+      email: data.email,
+      name: data.name,
+      nickname: data.nickname,
+      create_time: new Date().toLocaleDateString("ko-kr"),
+    });
+    navigate("/login");
+    alert("가입이 완료되었습니다!");
   };
   const oninvalid = (error: FieldErrors) => console.log(error);
 
