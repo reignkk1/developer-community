@@ -1,25 +1,24 @@
 import axios from "axios";
 import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { avartarUrl, isOpendAvartarMenu, logined } from "../../../atom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { isOpendAvartarMenu, loginUserInfoGet, logined } from "../../../atom";
 import Avartar from "../../common/Avartar";
-import MenuItem from "./menuItem/MenuItem";
 import {
   AvartarMenu,
   AvartarMenuBox,
   Container,
   LogoutBtn,
   UserActivity,
+  AvartarMenuItem,
 } from "./styles";
 
 export default function AvartarClickMenu() {
   const setLoginState = useSetRecoilState(logined);
   const [isOpend, setIsOpend] = useRecoilState(isOpendAvartarMenu);
-  const [avartarURL, setAvartarURL] = useRecoilState(avartarUrl);
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
   useEffect(() => {
-    axios.get("/user/avartar").then((response) => setAvartarURL(response.data));
     window.addEventListener("resize", () => setIsOpend(false));
   }, []);
 
@@ -52,7 +51,7 @@ export default function AvartarClickMenu() {
 
   const navigate = useNavigate();
   const userMe = () => {
-    axios.get("/user/me").then((response) => navigate(`${response.data}`));
+    axios.get("/user/login-info").then((response) => console.log(response));
   };
 
   return (
@@ -61,21 +60,21 @@ export default function AvartarClickMenu() {
         width="35px"
         heigth="35px"
         onClick={onClickAvartar}
-        src={avartarURL}
+        src={loginUser?.avartar}
         refAvartar={avartar}
       />
       {isOpend ? (
         <AvartarMenuBox ref={avartarMenu}>
           <AvartarMenu>
-            <MenuItem>
+            <AvartarMenuItem onClick={() => setIsOpend(false)}>
               <Link to="/profile">내 프로필</Link>
-            </MenuItem>
-            <MenuItem>
+            </AvartarMenuItem>
+            <AvartarMenuItem onClick={() => setIsOpend(false)}>
               <Link to="/account">내 계정</Link>
-            </MenuItem>
-            <MenuItem>
+            </AvartarMenuItem>
+            <AvartarMenuItem onClick={() => setIsOpend(false)}>
               <UserActivity onClick={userMe}>활동내역</UserActivity>
-            </MenuItem>
+            </AvartarMenuItem>
           </AvartarMenu>
           <LogoutBtn onClick={onClick}>로그아웃</LogoutBtn>
         </AvartarMenuBox>

@@ -94,7 +94,6 @@ export default function Login() {
     if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
     setLogin(response.data.isLogined);
     setAvartarURL(response.data.avartarUrl);
-    return navigate("/");
   };
 
   const oninvalid = (error: FieldErrors) => console.log(error);

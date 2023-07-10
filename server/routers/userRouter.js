@@ -3,12 +3,11 @@ import express from "express";
 import {
   uploadFile,
   userActivity,
-  userAvartarUrl,
   userDelete,
   userInfoGet,
   userLogin,
   userLogout,
-  userMeActivity,
+  loginUserInfo,
   userProfileGet,
   userProfileModify,
   userSignUp,
@@ -23,8 +22,7 @@ userRouter.route("/").post(userSignUp).delete(userDelete);
 userRouter.post("/login", userLogin);
 userRouter.post("/logout", userLogout);
 userRouter.route("/profile").get(userProfileGet).patch(userProfileModify);
-userRouter.get("/me", userMeActivity);
-userRouter.get("/avartar", userAvartarUrl);
+userRouter.get("/login-info", loginUserInfo);
 userRouter.get("/:id", userInfoGet);
 userRouter.get("/:page/:id", userActivity);
 

@@ -1,9 +1,9 @@
 import { useLocation } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { useEffect } from "react";
 
 // File
-import { logined, isOpendDrawerMenu } from "../../atom";
+import { logined, isOpendDrawerMenu, loginUserInfoGet } from "../../atom";
 import AvartarClickMenu from "./avartarClickMenu/AvartarMenu";
 import LoginSignUpBtn from "./loginSignUpButton/Buttons";
 import Logo from "./logo/Logo";
@@ -17,10 +17,9 @@ import DrawerMenu from "./drawerMenu/Menu";
 // =============================================================================
 
 export default function Header() {
-  const loginState = useRecoilValue(logined);
   const location = useLocation();
-
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
   useEffect(() => {
     window.addEventListener(
@@ -43,7 +42,7 @@ export default function Header() {
         <Menu menu={menuData} />
         <SearchBar />
         <ThemeToggle />
-        {loginState ? <AvartarClickMenu /> : <LoginSignUpBtn />}
+        {loginUser ? <AvartarClickMenu /> : <LoginSignUpBtn />}
         <HambugerButton />
         {drawerMenuOpen ? <DrawerMenu /> : null}
       </HeaderBox>

@@ -27,6 +27,7 @@ const options = {
   user: "admin",
   password: process.env.DB_PASSWORD,
   database: "board_DB",
+  checkExpirationInterval: 3600000,
 };
 
 var sessionStore = new MySQLStore(options);
@@ -34,12 +35,13 @@ var sessionStore = new MySQLStore(options);
 // 세션 설정
 app.use(
   session({
+    name: "session",
     secret: "mingyeom",
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 3600000 * 8,
+      maxAge: 3600000,
     },
   })
 );

@@ -1,4 +1,5 @@
-import { atom } from "recoil";
+import axios from "axios";
+import { atom, selector } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom: loginPersist } = recoilPersist({
@@ -47,4 +48,22 @@ export const isOpendAvartarMenu = atom({
 export const isOpendDrawerMenu = atom({
   key: "drawerMenu",
   default: false,
+});
+
+interface ILoginUserInfoGet {
+  avartar: string;
+  create_time: string;
+  email: string;
+  id: number;
+  manager: number;
+  name: string;
+  nickname: string;
+  password: string;
+  userID: string;
+}
+
+// 로그인 한 유저의 정보 fetch
+export const loginUserInfoGet = selector<ILoginUserInfoGet | undefined>({
+  key: "loginUserInfo",
+  get: async () => await (await axios.get("/user/login-info")).data,
 });

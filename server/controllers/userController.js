@@ -116,10 +116,9 @@ export function uploadFile(req, res) {
   });
 }
 
-// 로그인 한 유저 활동내역 클릭 시
-export function userMeActivity(req, res) {
-  const { id } = req.session.user;
-  return res.send(`/user/${id}/posts`);
+// 로그인 한 유저의 정보 불러오기
+export function loginUserInfo(req, res) {
+  return res.send(req.session.user);
 }
 
 // 유저 활동내역 불러오기
@@ -130,10 +129,4 @@ export function userActivity(req, res) {
   db.query(sqlQuery, (error, result) => {
     return res.send({ result, logined: req.session.logined });
   });
-}
-
-// 유저 아바타 URL 불러오기
-export function userAvartarUrl(req, res) {
-  const { avartar } = req.session.user;
-  return res.send(avartar);
 }
