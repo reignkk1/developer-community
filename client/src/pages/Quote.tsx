@@ -6,20 +6,21 @@ import { useNavigate } from "react-router-dom";
 // File
 import PagesTitle from "../components/category/title/Title";
 import QuoteInput from "../components/QuoteInput";
-import { logined } from "../atom";
+
 import { Main } from "../styles/PageShareStyle";
 import PagesArticle from "../components/category/articles/Articles";
+import { loginUserInfoGet } from "../atom";
 
 // =============================================================================
 
 export default function Quote() {
-  const loginState = useRecoilValue(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
   const [inputData, setInputData] = useState("");
   const navigate = useNavigate();
 
   const onClick = () => {
-    if (!loginState) return navigate("/login");
+    if (!loginUser) return navigate("/login");
     if (!inputData) {
       return alert("내용을 입력해주세요!");
     }

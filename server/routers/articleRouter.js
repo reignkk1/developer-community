@@ -11,11 +11,11 @@ import {
 const articleRouter = express.Router();
 
 articleRouter.get("/:page/:id/comments", articleCommentsGet);
+articleRouter.route("/:page/all").get(articleAllGet).post(articleCreate);
 articleRouter
-  .route("/:page/:id")
+  .route("/:id")
   .get(articleGet)
   .delete(articleDelete)
   .patch(articleModify);
-articleRouter.route("/:page").get(articleAllGet).post(articleCreate);
 
 export default articleRouter;

@@ -2,14 +2,13 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Parser from "html-react-parser";
 import { useQuery } from "react-query";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 // File
 import Button from "../common/button";
 import CommentWrite from "./commentWrite/CommentWrite";
 import Comments from "./comments/Comments";
-import { logined } from "../../atom";
-import { IArticleInfo, IPage } from "../../types";
+import { IArticleCommentData, IPage } from "../../types";
 import { ErrorBox, LoadingBox } from "../common/LoadingError";
 import { articleDetail } from "../../axios";
 import Avartar from "../common/Avartar";
@@ -24,22 +23,21 @@ import {
   NicknameBox,
   UserBox,
 } from "./styles";
+import { loginUserInfoGet } from "../../atom";
 
 // =============================================================================
 
 export default function ArticleInfo({ page }: IPage) {
   const navigate = useNavigate();
-
-  // 로그인 상태값과 Controller
-  const [loginState, setLoginState] = useRecoilState(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
   // URL 파라미터 ID값
   const { id } = useParams();
 
   // 파라미터 ID값 게시물 가져오기
-  const { isLoading, error, data } = useQuery<IArticleInfo>(
-    `Detail${page}`,
-    () => articleDetail(page, id, setLoginState),
+  const { isLoading, error, data } = useQuery<IArticleCommentData>(
+    `[Detail${id}]`,
+    () => articleDetail(id),
     { refetchOnWindowFocus: false }
   );
 
@@ -61,36 +59,32 @@ export default function ArticleInfo({ page }: IPage) {
         ) : (
           <>
             <UserBox>
-              <Link to={`/user/${data?.result[0].writerID}/posts`}>
-                <Avartar
-                  width="50px"
-                  heigth="50px"
-                  src={data?.result[0].avartar}
-                />
+              <Link to={`/user/${data?.writerID}/posts`}>
+                <Avartar width="50px" heigth="50px" src={data?.avartar} />
               </Link>
               <NicknameBox>
-                <Link to={`/user/${data?.result[0].writerID}/posts`}>
-                  <Nickname>{data?.result[0].nickname}</Nickname>
+                <Link to={`/user/${data?.writerID}/posts`}>
+                  <Nickname>{data?.nickname}</Nickname>
                 </Link>
-                <Date>{data?.result[0].date}</Date>
+                <Date>{data?.date}</Date>
               </NicknameBox>
             </UserBox>
-            <ArticleTitle>{data?.result[0].title}</ArticleTitle>
+            <ArticleTitle>{data?.title}</ArticleTitle>
             <ArticleText>
-              {page === "quote" ? null : Parser(data?.result[0].content || "")}
+              {page === "quote" ? null : Parser(data?.content || "")}
             </ArticleText>
           </>
         )}
       </ArticleContainer>
 
-      {loginState && data?.writerMatch ? (
+      {loginUser?.id === data?.writerID ? (
         <ButtonBox>
           <Button onClick={deleteClick}>삭제</Button>
           <Button onClick={editClick}>수정</Button>
         </ButtonBox>
       ) : null}
-      <CommentWrite loginState={loginState} postID={id} page={page} />
-      <Comments loginState={loginState} page={page} postID={id} />
+      <CommentWrite postID={id} page={page} />
+      <Comments page={page} postID={id} />
     </Main>
   );
 }

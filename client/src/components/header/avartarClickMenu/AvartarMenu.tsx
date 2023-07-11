@@ -1,59 +1,62 @@
 import axios from "axios";
 import { useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { isOpendAvartarMenu, loginUserInfoGet, logined } from "../../../atom";
+import { Link } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { isOpendAvartarMenu, loginUserInfoGet } from "../../../atom";
 import Avartar from "../../common/Avartar";
 import {
   AvartarMenu,
   AvartarMenuBox,
   Container,
   LogoutBtn,
-  UserActivity,
   AvartarMenuItem,
 } from "./styles";
 
 export default function AvartarClickMenu() {
-  const setLoginState = useSetRecoilState(logined);
   const [isOpend, setIsOpend] = useRecoilState(isOpendAvartarMenu);
   const loginUser = useRecoilValue(loginUserInfoGet);
 
+  const menuItem = [
+    {
+      to: "/profile",
+      name: "내 프로필",
+    },
+    {
+      to: "/account",
+      name: "내 계정",
+    },
+    {
+      to: `/user/${loginUser?.id}/posts`,
+      name: "활동 내역",
+    },
+  ];
+
   useEffect(() => {
     window.addEventListener("resize", () => setIsOpend(false));
-  }, []);
+  }, [setIsOpend]);
 
   const avartarMenu = useRef<HTMLDivElement>(null);
   const avartar = useRef<HTMLImageElement>(null);
 
-  const onClickOutside = (e: any) => {
-    if (
-      !avartarMenu.current?.contains(e.target) &&
-      !avartar.current?.contains(e.target)
-    )
-      setIsOpend(false);
-  };
   const onClickAvartar = () => setIsOpend((current) => !current);
+
   useEffect(() => {
+    const onClickOutside = (e: any) => {
+      if (
+        !avartarMenu.current?.contains(e.target) &&
+        !avartar.current?.contains(e.target)
+      )
+        setIsOpend(false);
+    };
     if (isOpend) document.addEventListener("mousedown", onClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", onClickOutside);
     };
-  }, [isOpend]);
+  }, [setIsOpend, isOpend]);
 
-  const onClick = () => {
-    axios.post("/user/logout").then(() => {
-      window.location.reload();
-      setLoginState(false);
-      setIsOpend(false);
-    });
-  };
-
-  const navigate = useNavigate();
-  const userMe = () => {
-    axios.get("/user/login-info").then((response) => console.log(response));
-  };
-
+  const handleLogout = () =>
+    axios.post("/user/logout").then(() => window.location.reload());
   return (
     <Container>
       <Avartar
@@ -66,17 +69,13 @@ export default function AvartarClickMenu() {
       {isOpend ? (
         <AvartarMenuBox ref={avartarMenu}>
           <AvartarMenu>
-            <AvartarMenuItem onClick={() => setIsOpend(false)}>
-              <Link to="/profile">내 프로필</Link>
-            </AvartarMenuItem>
-            <AvartarMenuItem onClick={() => setIsOpend(false)}>
-              <Link to="/account">내 계정</Link>
-            </AvartarMenuItem>
-            <AvartarMenuItem onClick={() => setIsOpend(false)}>
-              <UserActivity onClick={userMe}>활동내역</UserActivity>
-            </AvartarMenuItem>
+            {menuItem.map((item) => (
+              <AvartarMenuItem onClick={() => setIsOpend(false)}>
+                <Link to={item.to}>{item.name}</Link>
+              </AvartarMenuItem>
+            ))}
           </AvartarMenu>
-          <LogoutBtn onClick={onClick}>로그아웃</LogoutBtn>
+          <LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn>
         </AvartarMenuBox>
       ) : null}
     </Container>

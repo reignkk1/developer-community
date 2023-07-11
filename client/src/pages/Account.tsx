@@ -5,7 +5,7 @@ import { Link, Navigate } from "react-router-dom";
 // File
 import MyPageMenu from "../components/userProfile/sideMenu/MyPageMenu";
 import { useRecoilValue } from "recoil";
-import { logined } from "../atom";
+import { loginUserInfoGet } from "../atom";
 
 // =============================================================================
 
@@ -134,13 +134,13 @@ const Label = styled.label`
 
 export default function Account() {
   const [checked, setChecked] = useState(false);
-  const loginState = useRecoilValue(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
   };
 
-  return loginState ? (
+  return loginUser ? (
     <Main>
       <MyPageMenu />
 

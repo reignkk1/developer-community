@@ -10,17 +10,15 @@ import {
   Theme,
   UserInfo,
 } from "./styles";
-import { isOpendDrawerMenu, logined } from "../../../atom";
+import { isOpendDrawerMenu, loginUserInfoGet } from "../../../atom";
 import { Link } from "react-router-dom";
 import ThemeToggle from "../themeButton/ThemeButton";
 import axios from "axios";
-import { avartarUrl } from "./../../../atom";
 import Avartar from "../../common/Avartar";
 
 export default function DrawerMenu() {
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
-  const [isLogin, setIsLogin] = useRecoilState(logined);
-  const avartar = useRecoilValue(avartarUrl);
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
   const menuData = [
     { name: "공지사항", path: "/notice" },
@@ -34,7 +32,6 @@ export default function DrawerMenu() {
   const onClick = () => {
     axios.post("/user/logout").then(() => {
       window.location.reload();
-      setIsLogin(false);
     });
   };
 
@@ -43,10 +40,10 @@ export default function DrawerMenu() {
       <ButtonContainer>
         <CloseButton onClick={closeDrawerMenu}>✖</CloseButton>
       </ButtonContainer>
-      {isLogin ? (
+      {loginUser ? (
         <UserInfo>
           <Link to="/profile" onClick={closeDrawerMenu}>
-            <Avartar src={avartar} width="40px" heigth="40px" />
+            <Avartar src={loginUser.avartar} width="40px" heigth="40px" />
           </Link>
         </UserInfo>
       ) : null}
@@ -61,7 +58,7 @@ export default function DrawerMenu() {
         <ThemeToggle />
       </Theme>
       <SignBox>
-        {isLogin ? (
+        {loginUser ? (
           <LogOut onClick={onClick}>로그아웃</LogOut>
         ) : (
           <>

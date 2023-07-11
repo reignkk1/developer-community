@@ -7,13 +7,12 @@ import { useState, Dispatch, SetStateAction } from "react";
 // File
 import Avartar from "../../common/Avartar";
 import { useRecoilValue } from "recoil";
-import { avartarUrl } from "../../../atom";
+import { loginUserInfoGet } from "../../../atom";
 import { Write } from "./styles";
 
 // =============================================================================
 
 interface ICommentInfo {
-  loginState: Boolean;
   postID: string | undefined;
   page: string;
   avartarURL?: string;
@@ -24,14 +23,13 @@ interface ICommentInfo {
 // =============================================================================
 
 export default function CommentWrite({
-  loginState,
   postID,
   page,
   parentCommentID,
   setCommentWrite,
 }: ICommentInfo) {
   const [text, setText] = useState(""); // 댓글 Text
-  const avartarURL = useRecoilValue(avartarUrl);
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
   // 댓글쓰기 클릭 시
   const onClick = async () => {
@@ -49,10 +47,10 @@ export default function CommentWrite({
 
   return (
     <Write.Container>
-      {loginState ? (
+      {loginUser ? (
         <>
           <Write.Box2 className="commentWrite">
-            <Avartar width="50px" heigth="50px" src={avartarURL} />
+            <Avartar width="50px" heigth="50px" src={loginUser?.avartar} />
             <CKEditor
               editor={ClassicEditor}
               data={text}

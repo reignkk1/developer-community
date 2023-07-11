@@ -9,7 +9,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { IPage } from "../../types";
 import Button from "./button";
 import { useRecoilValue } from "recoil";
-import { logined } from "../../atom";
+import { loginUserInfoGet } from "../../atom";
 
 // =============================================================================
 
@@ -48,7 +48,7 @@ const Title = styled.div`
 // =============================================================================
 
 export default function Write({ page }: IPage) {
-  const isLogin = useRecoilValue(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
   const [editorData, setEditorData] = useState({
     title: "",
     content: "",
@@ -77,7 +77,7 @@ export default function Write({ page }: IPage) {
     setEditorData({ ...editorData, title });
   };
 
-  return isLogin ? (
+  return loginUser ? (
     <Container className="articleWrite">
       <Title>제목</Title>
       <Input

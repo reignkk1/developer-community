@@ -3,7 +3,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { logined } from "../atom";
+import { loginUserInfoGet } from "../atom";
 
 // =============================================================================
 
@@ -79,7 +79,7 @@ interface IData {
 export default function PasswordChange() {
   const { register, handleSubmit } = useForm<IData>();
 
-  const loginState = useRecoilValue(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
   const navigate = useNavigate();
 
   const onValid = (data: IData) => {
@@ -95,7 +95,7 @@ export default function PasswordChange() {
       .catch((error) => console.log(error));
   };
   const oninvalid = () => {};
-  return loginState ? (
+  return loginUser ? (
     <Main>
       <LogoBox>
         <Link to="/">

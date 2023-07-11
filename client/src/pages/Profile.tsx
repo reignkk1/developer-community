@@ -4,9 +4,9 @@ import { Navigate } from "react-router-dom";
 
 // File
 import MyPageMenu from "../components/userProfile/sideMenu/MyPageMenu";
-import { logined } from "../atom";
 import UserForm from "../components/userProfile/userForm/UserForm";
 import UserAvartar from "../components/userProfile/avartar/UserAvartar";
+import { loginUserInfoGet } from "../atom";
 
 // =============================================================================
 
@@ -53,9 +53,9 @@ const Title = styled.div`
 
 export default function Profile() {
   // 로그인 상태
-  const loginState = useRecoilValue(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
-  return loginState ? (
+  return loginUser ? (
     <Main>
       <MyPageMenu />
       <UserInfoBox>

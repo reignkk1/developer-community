@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 // File
-import { logined } from "../atom";
+import { loginUserInfoGet } from "../atom";
 
 // =============================================================================
 
@@ -75,7 +75,7 @@ const DeleteBtn = styled(Btn)`
 // =============================================================================
 
 export default function WithdrawConfirm() {
-  const [loginState, setLogined] = useRecoilState(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
   const navigate = useNavigate();
 
   const onCancelClick = () => {
@@ -84,12 +84,11 @@ export default function WithdrawConfirm() {
 
   const onDeleteClick = () => {
     axios.delete("/user").then(() => {
-      setLogined(false);
       window.location.assign("/");
     });
   };
 
-  return loginState ? (
+  return loginUser ? (
     <Main>
       <LogoBox>
         <Link to="/">

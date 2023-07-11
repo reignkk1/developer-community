@@ -36,10 +36,7 @@ export async function userLogin(req, res) {
     req.session.logined = true;
     req.session.user = result[0];
 
-    const isLogined = req.session.logined;
-    const avartarUrl = req.session.user.avartar;
-
-    return res.send({ isLogined, avartarUrl });
+    return res.send();
   });
 }
 
@@ -112,7 +109,7 @@ export function uploadFile(req, res) {
   db.query(sqlQuery, (error, result) => {
     req.session.user.avartar = userAvartarImg;
 
-    return res.send(req.session.user.avartar);
+    return res.send();
   });
 }
 
@@ -127,6 +124,6 @@ export function userActivity(req, res) {
   const sqlQuery = `SELECT * From ${page} WHERE writerID = '${id}' ORDER BY date DESC`;
 
   db.query(sqlQuery, (error, result) => {
-    return res.send({ result, logined: req.session.logined });
+    return res.send(result);
   });
 }

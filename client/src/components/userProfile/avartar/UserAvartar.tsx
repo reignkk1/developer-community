@@ -1,31 +1,24 @@
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import Avartar from "../../common/Avartar";
-import { avartarUrl } from "../../../atom";
-import {
-  FormAvartar,
-  InputAvartar,
-  UserAvartarContainer,
-  UserAvartarModal,
-} from "./styles";
+import { InputAvartar, UserAvartarContainer, UserAvartarModal } from "./styles";
 import axios from "axios";
+import { loginUserInfoGet } from "../../../atom";
 
 export default function UserAvartar() {
-  const [avartarURL, setAvartarURL] = useRecoilState(avartarUrl);
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
   // 프로필 사진 변경 시
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadImage = e.target.files![0];
     const formData = new FormData();
     formData.append("image", uploadImage);
-    const response = await axios.post("/user/upload", formData, {
+    await axios.post("/user/upload", formData, {
       headers: { "Content-type": "multipart/form-data" },
     });
-
-    setAvartarURL(response.data);
   };
   return (
     <UserAvartarContainer>
-      <Avartar width="155px" heigth="155px" src={avartarURL} />
+      <Avartar width="155px" heigth="155px" src={loginUser?.avartar} />
       <UserAvartarModal htmlFor="image">변경</UserAvartarModal>
       <InputAvartar
         id="image"

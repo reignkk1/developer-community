@@ -1,6 +1,6 @@
 import db from "../mysql.js";
 
-// 모든 게시물 불러오기
+// 페이지 모든 게시물 불러오기
 export function articleAllGet(req, res) {
   const { page } = req.params;
 
@@ -11,14 +11,14 @@ export function articleAllGet(req, res) {
       return res.send().status(404);
     }
 
-    return res.send({ result, logined: req.session.logined });
+    return res.send(result);
   });
 }
 
-// 특정 게시물 불러오기
+// id 특정 게시물 불러오기
 export function articleGet(req, res) {
   const { id } = req.params;
-  const sqlQuery = `SELECT * FROM posts WHERE id = ${id}`;
+  const sqlQuery = `SELECT * FROM posts WHERE id = '${id}'`;
 
   db.query(sqlQuery, (error, result) => {
     if (error) {
@@ -26,11 +26,7 @@ export function articleGet(req, res) {
       return res.send().status(404);
     }
 
-    return res.send({
-      result,
-      writerMatch: req.session?.user?.id === result[0].writerID,
-      logined: req.session.logined,
-    });
+    return res.send(result[0]);
   });
 }
 

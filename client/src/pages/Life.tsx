@@ -5,16 +5,16 @@ import { useRecoilValue } from "recoil";
 import Button from "../components/common/button";
 import PagesArticle from "../components/category/articles/Articles";
 import PagesTitle from "../components/category/title/Title";
-import { logined } from "../atom";
 import { Main } from "../styles/PageShareStyle";
+import { loginUserInfoGet } from "../atom";
 
 // =============================================================================
 
 export default function Life() {
-  const loginState = useRecoilValue(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
   const navigate = useNavigate();
   const onClick = () => {
-    loginState ? navigate("write") : navigate("/login");
+    loginUser ? navigate("write") : navigate("/login");
   };
   return (
     <Main>

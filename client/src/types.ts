@@ -1,35 +1,14 @@
-export interface IArticleInfo {
-  result: [
-    {
-      id: number;
-      title: string;
-      content: string;
-      writerID: number;
-      date: string;
-      hits: number;
-      nickname: string;
-      avartar: string;
-    }
-  ];
-  writerMatch: boolean;
-}
-
 export interface IArticleCommentData {
-  result: [
-    {
-      id: number;
-      title: string;
-      content: string;
-      writerID: string;
-      date: string;
-      nickname: string;
-      page: string;
-      postID?: string;
-      text?: string;
-      avartar: string;
-    }
-  ];
-  logined: boolean;
+  id: number;
+  title: string;
+  content: string;
+  writerID: string;
+  date: string;
+  nickname: string;
+  page: string;
+  postID?: string;
+  text?: string;
+  avartar: string;
 }
 
 export interface IArticle {

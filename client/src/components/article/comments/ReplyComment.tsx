@@ -7,6 +7,8 @@ import useComment from "./hook/useComment";
 import { replyCommentsGet } from "../../../axios";
 import styled from "@emotion/styled";
 import { IComment } from "../../../types";
+import { useRecoilValue } from "recoil";
+import { loginUserInfoGet } from "../../../atom";
 
 const Container = styled(Comment.Container)`
   margin-left: 50px;
@@ -25,14 +27,14 @@ interface IData {
 
 interface IReplyComment {
   parentID: number;
-  loginState: boolean;
 }
 
-export default function ReplyComment({ parentID, loginState }: IReplyComment) {
+export default function ReplyComment({ parentID }: IReplyComment) {
   const { data, error, refetch, isLoading } = useQuery<IData>(
     [`childrenComment,${parentID}`],
     () => replyCommentsGet(parentID)
   );
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
   // response data
   const loginUserID = data?.loginUserID;
@@ -72,7 +74,7 @@ export default function ReplyComment({ parentID, loginState }: IReplyComment) {
           ) : (
             <Comment.Text>{Parser(comment.text)}</Comment.Text>
           )}
-          {loginState && loginUserID === comment.writerID ? (
+          {loginUser && loginUserID === comment.writerID ? (
             <Comment.BtnBox id={`${comment.id}`}>
               {modify && clickCommentID === comment.id ? (
                 <>

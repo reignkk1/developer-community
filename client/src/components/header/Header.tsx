@@ -1,9 +1,9 @@
 import { useLocation } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect } from "react";
 
 // File
-import { logined, isOpendDrawerMenu, loginUserInfoGet } from "../../atom";
+import { isOpendDrawerMenu, loginUserInfoGet } from "../../atom";
 import AvartarClickMenu from "./avartarClickMenu/AvartarMenu";
 import LoginSignUpBtn from "./loginSignUpButton/Buttons";
 import Logo from "./logo/Logo";

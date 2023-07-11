@@ -7,8 +7,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 // File
 import { IUserData } from "../types";
 import { useRecoilValue } from "recoil";
-import { logined } from "../atom";
 import InputContainer from "../components/common/InputContainer";
+import { loginUserInfoGet } from "../atom";
 
 // =============================================================================
 
@@ -84,7 +84,7 @@ export default function SignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm<IUserData>();
-  const loginState = useRecoilValue(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
   const navigate = useNavigate();
   const onValid = async (data: IUserData) => {
     await axios.post("/user", {
@@ -100,7 +100,7 @@ export default function SignUp() {
   };
   const oninvalid = (error: FieldErrors) => console.log(error);
 
-  return loginState ? (
+  return loginUser ? (
     <Navigate to="/" />
   ) : (
     <Main>

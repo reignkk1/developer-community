@@ -7,16 +7,16 @@ import { useNavigate } from "react-router-dom";
 import PagesTitle from "../components/category/title/Title";
 import PagesArticle from "../components/category/articles/Articles";
 import Button from "../components/common/button";
-import { logined } from "../atom";
 import { Main } from "../styles/PageShareStyle";
+import { loginUserInfoGet } from "../atom";
 
 // =============================================================================
 
 export default function Notice() {
   const navigate = useNavigate();
-  const loginState = useRecoilValue(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
   const onClick = () => {
-    loginState ? navigate("write") : navigate("/login");
+    loginUser ? navigate("write") : navigate("/login");
   };
   const [managerState, setManagerState] = useState();
 

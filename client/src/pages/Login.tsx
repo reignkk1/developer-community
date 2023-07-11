@@ -1,15 +1,15 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { FieldErrors, useForm } from "react-hook-form";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { Link, Navigate } from "react-router-dom";
 
 // File
-import { logined } from "../atom";
+
 import InputContainer from "../components/common/InputContainer";
 import { IUserData } from "../types";
-import { avartarUrl } from "./../atom";
 import KakaoAuthButton from "../components/KakaoAuthButton";
+import { useRecoilValue } from "recoil";
+import { loginUserInfoGet } from "../atom";
 
 // =============================================================================
 
@@ -79,11 +79,8 @@ const Btn = styled.button`
 // =============================================================================
 
 export default function Login() {
-  const [loginState, setLogin] = useRecoilState(logined);
-  const setAvartarURL = useSetRecoilState(avartarUrl);
+  const loginUser = useRecoilValue(loginUserInfoGet);
   const { register, handleSubmit } = useForm<IUserData>();
-
-  const navigate = useNavigate();
 
   const onValid = async (data: IUserData) => {
     const response = await axios.post("/user/login", {
@@ -92,13 +89,13 @@ export default function Login() {
     });
 
     if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
-    setLogin(response.data.isLogined);
-    setAvartarURL(response.data.avartarUrl);
+
+    return window.location.replace("/");
   };
 
   const oninvalid = (error: FieldErrors) => console.log(error);
 
-  return loginState ? (
+  return loginUser ? (
     <Navigate to="/" />
   ) : (
     <Main>

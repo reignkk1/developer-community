@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
 
 // File
 
 import PageNumberBar from "../components/common/pageNumBar";
 import UserInfoContainer from "../components/userActivity/UserInfoContainer";
-import { logined } from "../atom";
+
 import { userActivityGet } from "../axios";
 import { Main } from "../styles/PageShareStyle";
 import { IArticleCommentData, IPage } from "../types";
@@ -93,11 +92,10 @@ const Error = styled.div`
 // =============================================================================
 
 export default function UserActivity({ page }: IPage) {
-  const setLoginState = useSetRecoilState(logined);
   const { id } = useParams();
-  const { isLoading, data, error } = useQuery<IArticleCommentData>(
+  const { isLoading, data, error } = useQuery<IArticleCommentData[]>(
     `[user${page},${id}]`,
-    () => userActivityGet(id, page, setLoginState)
+    () => userActivityGet(id, page)
   );
 
   const [query] = useSearchParams();
@@ -114,8 +112,8 @@ export default function UserActivity({ page }: IPage) {
         <Error>404 Not Found</Error>
       ) : page === "posts" ? (
         <ItemBox>
-          {data?.result
-            .slice(
+          {data
+            ?.slice(
               pageCount === null ? 0 : Number(pageCount) * 10 - 10,
               pageCount === null ? 10 : Number(pageCount) * 10
             )
@@ -144,8 +142,8 @@ export default function UserActivity({ page }: IPage) {
         </ItemBox>
       ) : (
         <ItemBox>
-          {data?.result
-            .slice(
+          {data
+            ?.slice(
               pageCount === null ? 0 : Number(pageCount) * 10 - 10,
               pageCount === null ? 10 : Number(pageCount) * 10
             )
@@ -176,7 +174,7 @@ export default function UserActivity({ page }: IPage) {
         </ItemBox>
       )}
       <PageNumberBar
-        dataLength={data?.result.length}
+        dataLength={data?.length}
         page={page}
         pageCount={pageCount}
         userID={id}

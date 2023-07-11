@@ -11,8 +11,7 @@ import { ErrorBox, LoadingBox } from "../components/common/LoadingError";
 import { articleSearchGet } from "../axios";
 import PageNumberBar from "../components/common/pageNumBar";
 import { IArticleCommentData } from "../types";
-import { useSetRecoilState } from "recoil";
-import { logined } from "../atom";
+
 import Avartar from "../components/common/Avartar";
 
 // =============================================================================
@@ -79,14 +78,14 @@ interface ITheme {
 
 export default function Search() {
   // 로그인 상태 Controller
-  const setLoginState = useSetRecoilState(logined);
+
   const theme = useTheme();
   const [search] = useSearchParams();
   const keyword = search.get("keyword");
 
-  const { isLoading, data, error } = useQuery<IArticleCommentData>(
+  const { isLoading, data, error } = useQuery<IArticleCommentData[]>(
     `[searchKeyword,${keyword}]`,
-    () => articleSearchGet(keyword, setLoginState)
+    () => articleSearchGet(keyword)
   );
 
   const [query] = useSearchParams();
@@ -101,7 +100,7 @@ export default function Search() {
         <ErrorBox />
       ) : (
         <ul>
-          {data?.result
+          {data
             ?.slice(
               pageCount === null ? 0 : Number(pageCount) * 10 - 10,
               pageCount === null ? 10 : Number(pageCount) * 10
@@ -133,7 +132,7 @@ export default function Search() {
         </ul>
       )}
       <PageNumberBar
-        dataLength={data?.result.length}
+        dataLength={data?.length}
         page="search"
         pageCount={pageCount}
         keyword={keyword}

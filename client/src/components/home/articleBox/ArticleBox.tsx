@@ -1,12 +1,10 @@
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
 
 // File
 import { IArticleCommentData, IPage } from "../../../types";
 import Avartar from "../../common/Avartar";
 import { ErrorBox, LoadingBox } from "../../common/LoadingError";
-import { logined } from "../../../atom";
 import { articleAllGet } from "../../../axios";
 import {
   Container,
@@ -21,16 +19,12 @@ import {
 // =============================================================================
 
 export default function ArticleBox({ page }: IPage) {
-  // 로그인 상태 Controller
-  const setLoginState = useSetRecoilState(logined);
-
   // 모든 게시물 가져옴
-  const { data, isLoading, error } = useQuery<IArticleCommentData>(
-    `${page}`,
-    () => articleAllGet(page, setLoginState)
-  );
-
-  const posts = data?.result;
+  const {
+    data: posts,
+    isLoading,
+    error,
+  } = useQuery<IArticleCommentData[]>(`${page}`, () => articleAllGet(page));
 
   return isLoading ? (
     <LoadingBox />

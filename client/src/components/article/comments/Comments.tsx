@@ -12,13 +12,14 @@ import CommentWrite from "../commentWrite/CommentWrite";
 import ReplyComment from "./ReplyComment";
 import useComment from "./hook/useComment";
 import { IComment } from "../../../types";
+import { loginUserInfoGet } from "../../../atom";
+import { useRecoilValue } from "recoil";
 
 // =============================================================================
 
 interface ICommentsProps {
   page: string;
   postID: string | undefined;
-  loginState: boolean;
 }
 // =============================================================================
 
@@ -27,8 +28,9 @@ interface IData {
   loginUserID: number;
 }
 
-export default function Comments({ page, postID, loginState }: ICommentsProps) {
+export default function Comments({ page, postID }: ICommentsProps) {
   const [commentWrite, setCommentWrite] = useState(false);
+  const loginUser = useRecoilValue(loginUserInfoGet);
 
   // 해당 게시물의 댓글들 Fetch
   const { isLoading, data, error, refetch } = useQuery<IData>(
@@ -103,7 +105,7 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
                     ) : (
                       <Comment.Text>{Parser(comment.text)}</Comment.Text>
                     )}
-                    {loginState && loginUserID === comment.writerID ? (
+                    {loginUser && loginUserID === comment.writerID ? (
                       <Comment.BtnBox id={`${comment.id}`}>
                         {modify && clickCommentID === comment.id ? (
                           <>
@@ -157,17 +159,13 @@ export default function Comments({ page, postID, loginState }: ICommentsProps) {
 
                     {commentWrite && clickCommentID === comment.id ? (
                       <CommentWrite
-                        loginState={loginState}
                         postID={postID}
                         page={page}
                         parentCommentID={comment.id}
                         setCommentWrite={setCommentWrite}
                       />
                     ) : null}
-                    <ReplyComment
-                      parentID={comment.id}
-                      loginState={loginState}
-                    />
+                    <ReplyComment parentID={comment.id} />
                   </Comment.Item>
                 ) : null
               )}

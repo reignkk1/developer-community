@@ -2,19 +2,21 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 // File
-import { logined } from "../atom";
+
 import Button from "../components/common/button";
 import PagesArticle from "../components/category/articles/Articles";
 import PagesTitle from "../components/category/title/Title";
 import { Main } from "../styles/PageShareStyle";
+import { loginUserInfoGet } from "../atom";
 
 // =============================================================================
 
 export default function Questions() {
-  const loginState = useRecoilValue(logined);
+  const loginUser = useRecoilValue(loginUserInfoGet);
+
   const navigate = useNavigate();
   const onClick = () => {
-    loginState ? navigate("write") : navigate("/login");
+    loginUser ? navigate("write") : navigate("/login");
   };
   return (
     <Main>
