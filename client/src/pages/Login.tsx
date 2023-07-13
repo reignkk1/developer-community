@@ -8,8 +8,7 @@ import { Link, Navigate } from "react-router-dom";
 import InputContainer from "../components/common/InputContainer";
 import { IUserData } from "../types";
 import KakaoAuthButton from "../components/KakaoAuthButton";
-import { useRecoilValue } from "recoil";
-import { loginUserInfoGet } from "../atom";
+import { useGetAxios } from "../hooks/api/Article";
 
 // =============================================================================
 
@@ -79,12 +78,12 @@ const Btn = styled.button`
 // =============================================================================
 
 export default function Login() {
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios("/user/login-info");
   const { register, handleSubmit } = useForm<IUserData>();
 
   const onValid = async (data: IUserData) => {
     const response = await axios.post("/user/login", {
-      loginUserID: data.userID,
+      loginUserID: data.id,
       loginPassword: data.password,
     });
 
@@ -110,7 +109,7 @@ export default function Login() {
         <InputContainer
           register={register}
           label="아이디"
-          name="userID"
+          name="id"
           type="text"
           placeholder="4~15자 이내로 입력해주세요."
           required={true}

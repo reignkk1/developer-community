@@ -1,11 +1,11 @@
-import { useRecoilValue } from "recoil";
 import Avartar from "../../common/Avartar";
 import { InputAvartar, UserAvartarContainer, UserAvartarModal } from "./styles";
 import axios from "axios";
-import { loginUserInfoGet } from "../../../atom";
+import { useGetAxios } from "../../../hooks/api/Article";
+import { IUserData } from "../../../types";
 
 export default function UserAvartar() {
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios<IUserData>("/user/login-info");
 
   // 프로필 사진 변경 시
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

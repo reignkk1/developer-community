@@ -18,11 +18,15 @@ export interface IArticle {
 }
 
 export interface IPage {
-  page: string;
+  page: "notice" | "question" | "life" | "quote" | "search";
+}
+
+export interface IActivityPage {
+  page: "posts" | "comments";
 }
 
 export interface IUserData {
-  userID: string;
+  id: string;
   password: string;
   email: string;
   name: string;

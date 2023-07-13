@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { category } from "../../atom";
 
 // =============================================================================
 
@@ -42,7 +44,6 @@ const PageBtn = (index: number, pageCount: string | null, theme: ITheme) => css`
 
 interface IDataLength {
   dataLength?: number;
-  page: string;
   pageCount: string | null;
   userID?: string;
   keyword?: string | null;
@@ -52,13 +53,13 @@ interface IDataLength {
 
 export default function PageNumberBar({
   dataLength,
-  page,
   pageCount,
   userID,
   keyword,
 }: IDataLength) {
   const theme = useTheme();
   const navigate = useNavigate();
+  const page = useRecoilValue(category);
 
   // 게시글 수에 따른 버튼 갯수
 

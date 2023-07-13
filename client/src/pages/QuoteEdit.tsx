@@ -5,8 +5,7 @@ import styled from "@emotion/styled";
 
 // File
 import QuoteInput from "../components/QuoteInput";
-import { useRecoilValue } from "recoil";
-import { loginUserInfoGet } from "../atom";
+import { useGetAxios } from "../hooks/api/Article";
 
 // =============================================================================
 
@@ -21,7 +20,7 @@ const Main = styled.main`
 // =============================================================================
 
 export default function QuoteEdit() {
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios("/user/login-info");
   const [inputData, setInputData] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();

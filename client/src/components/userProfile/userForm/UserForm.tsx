@@ -1,4 +1,3 @@
-import { useQuery } from "react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { FieldErrors } from "react-hook-form/dist/types";
@@ -6,9 +5,10 @@ import { useState } from "react";
 
 // File
 import Button from "../../common/button";
-import { profileUserInfoGet } from "../../../axios";
 import { Form } from "./styles";
 import InputContainer from "../../common/InputContainer";
+import { useGetAxios } from "../../../hooks/api/Article";
+import { IUserData } from "../../../types";
 
 // =============================================================================
 
@@ -20,11 +20,7 @@ interface IProfileData {
 // =============================================================================
 export default function UserForm() {
   // 유저 프로필 정보 가져오기
-  const { data, refetch } = useQuery<IProfileData>(
-    "user-profile",
-    () => profileUserInfoGet(),
-    { refetchOnMount: false, refetchOnWindowFocus: false }
-  );
+  const { data } = useGetAxios<IUserData>("/user/login-info");
 
   // name input 상태
   const [name, setName] = useState(data?.name);
@@ -43,7 +39,6 @@ export default function UserForm() {
   // Form Submit
   const onValid = () => {
     axios.patch("/user/profile", { name, nickname: nickName }).then(() => {
-      refetch();
       return alert("변경이 완료되었습니다!");
     });
   };

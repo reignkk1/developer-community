@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useRecoilValue } from "recoil";
 
 // File
-import { loginUserInfoGet } from "../atom";
+import { useGetAxios } from "../hooks/api/Article";
 
 // =============================================================================
 
@@ -75,7 +74,7 @@ const DeleteBtn = styled(Btn)`
 // =============================================================================
 
 export default function WithdrawConfirm() {
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios("/user/login-info");
   const navigate = useNavigate();
 
   const onCancelClick = () => {

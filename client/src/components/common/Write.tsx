@@ -2,14 +2,12 @@ import { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
 import styled from "@emotion/styled";
-import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 
 // File
-import { IPage } from "../../types";
+import { IPage, IUserData } from "../../types";
 import Button from "./button";
-import { useRecoilValue } from "recoil";
-import { loginUserInfoGet } from "../../atom";
+import { useGetAxios, usePostAxios } from "../../hooks/api/Article";
 
 // =============================================================================
 
@@ -47,29 +45,38 @@ const Title = styled.div`
 
 // =============================================================================
 
+interface IData {
+  title: string;
+  content: string;
+  date: string;
+}
+
 export default function Write({ page }: IPage) {
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const navigate = useNavigate();
+
   const [editorData, setEditorData] = useState({
     title: "",
     content: "",
   });
+  const data = {
+    title: editorData.title,
+    content: editorData.content,
+    date: new Date().toLocaleDateString("ko-kr"),
+  };
+  const onSuccess = () => navigate(`/${page}`);
 
-  const navigate = useNavigate();
+  const { data: loginUser } = useGetAxios<IUserData>("/user/login-info");
+
+  const { mutate: createPost } = usePostAxios<IData>(
+    `/article/${page}`,
+    data,
+    onSuccess
+  );
 
   const postSubmit = () => {
     if (editorData.title === "") return alert("제목을 입력해주세요!");
     if (editorData.content === "") return alert("내용을 입력해주세요!");
-
-    axios
-      .post(`/article/${page}`, {
-        title: editorData.title,
-        content: editorData.content,
-        date: new Date().toLocaleDateString("ko-kr"),
-      })
-      .then(() => {
-        navigate(`/${page}`);
-        alert("등록 완료!");
-      });
+    createPost();
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

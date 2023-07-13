@@ -11,7 +11,8 @@ import {
 const articleRouter = express.Router();
 
 articleRouter.get("/:page/:id/comments", articleCommentsGet);
-articleRouter.route("/:page/all").get(articleAllGet).post(articleCreate);
+articleRouter.get("/:page/all", articleAllGet);
+articleRouter.post("/:page", articleCreate);
 articleRouter
   .route("/:id")
   .get(articleGet)

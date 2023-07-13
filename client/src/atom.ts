@@ -7,6 +7,13 @@ const { persistAtom: darkPersist } = recoilPersist({
   storage: localStorage,
 });
 
+export const category = atom<
+  "notice" | "question" | "life" | "quote" | "search" | null
+>({
+  key: "category",
+  default: null,
+});
+
 // 다크모드 상태
 export const DarkMode = atom({
   key: "isDark",
@@ -24,22 +31,4 @@ export const isOpendAvartarMenu = atom({
 export const isOpendDrawerMenu = atom({
   key: "drawerMenu",
   default: false,
-});
-
-interface ILoginUserInfoGet {
-  avartar: string;
-  create_time: string;
-  email: string;
-  id: number;
-  manager: number;
-  name: string;
-  nickname: string;
-  password: string;
-  userID: string;
-}
-
-// 로그인 한 유저의 정보 fetch
-export const loginUserInfoGet = selector<ILoginUserInfoGet | undefined>({
-  key: "loginUserInfo",
-  get: async () => await (await axios.get("/user/login-info")).data,
 });

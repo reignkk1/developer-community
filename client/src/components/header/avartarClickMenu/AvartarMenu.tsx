@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { isOpendAvartarMenu, loginUserInfoGet } from "../../../atom";
+import { useRecoilState } from "recoil";
+import { isOpendAvartarMenu } from "../../../atom";
 import Avartar from "../../common/Avartar";
 import {
   AvartarMenu,
@@ -11,10 +11,12 @@ import {
   LogoutBtn,
   AvartarMenuItem,
 } from "./styles";
+import { useGetAxios } from "../../../hooks/api/Article";
+import { IUserData } from "../../../types";
 
 export default function AvartarClickMenu() {
   const [isOpend, setIsOpend] = useRecoilState(isOpendAvartarMenu);
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios<IUserData>("/user/login-info");
 
   const menuItem = [
     {

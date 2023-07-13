@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import {
   ButtonContainer,
   CloseButton,
@@ -10,15 +10,17 @@ import {
   Theme,
   UserInfo,
 } from "./styles";
-import { isOpendDrawerMenu, loginUserInfoGet } from "../../../atom";
+import { isOpendDrawerMenu } from "../../../atom";
 import { Link } from "react-router-dom";
 import ThemeToggle from "../themeButton/ThemeButton";
 import axios from "axios";
 import Avartar from "../../common/Avartar";
+import { useGetAxios } from "../../../hooks/api/Article";
+import { IUserData } from "../../../types";
 
 export default function DrawerMenu() {
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios<IUserData>("/user/login-info");
 
   const menuData = [
     { name: "공지사항", path: "/notice" },

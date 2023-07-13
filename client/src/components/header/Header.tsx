@@ -1,9 +1,9 @@
 import { useLocation } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { useEffect } from "react";
 
 // File
-import { isOpendDrawerMenu, loginUserInfoGet } from "../../atom";
+import { isOpendDrawerMenu } from "../../atom";
 import AvartarClickMenu from "./avartarClickMenu/AvartarMenu";
 import LoginSignUpBtn from "./loginSignUpButton/Buttons";
 import Logo from "./logo/Logo";
@@ -13,13 +13,14 @@ import { HeaderBox, HeaderContainer, Wrapper } from "./styles";
 import ThemeToggle from "./themeButton/ThemeButton";
 import HambugerButton from "./hambugerButton/HambugerButton";
 import DrawerMenu from "./drawerMenu/Menu";
+import { useGetAxios } from "../../hooks/api/Article";
 
 // =============================================================================
 
 export default function Header() {
   const location = useLocation();
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios("/user/login-info");
 
   useEffect(() => {
     window.addEventListener(

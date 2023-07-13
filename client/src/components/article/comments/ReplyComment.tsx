@@ -1,14 +1,11 @@
-import { useQuery } from "react-query";
 import { Comment } from "./styles";
 import { Link } from "react-router-dom";
 import Avartar from "../../common/Avartar";
 import Parser from "html-react-parser";
 import useComment from "./hook/useComment";
-import { replyCommentsGet } from "../../../axios";
 import styled from "@emotion/styled";
 import { IComment } from "../../../types";
-import { useRecoilValue } from "recoil";
-import { loginUserInfoGet } from "../../../atom";
+import { useGetAxios } from "../../../hooks/api/Article";
 
 const Container = styled(Comment.Container)`
   margin-left: 50px;
@@ -30,11 +27,8 @@ interface IReplyComment {
 }
 
 export default function ReplyComment({ parentID }: IReplyComment) {
-  const { data, error, refetch, isLoading } = useQuery<IData>(
-    [`childrenComment,${parentID}`],
-    () => replyCommentsGet(parentID)
-  );
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data } = useGetAxios<IData>(`/comment/children/${parentID}`);
+  const { data: loginUser } = useGetAxios("/user/login-info");
 
   // response data
   const loginUserID = data?.loginUserID;
@@ -80,7 +74,7 @@ export default function ReplyComment({ parentID }: IReplyComment) {
                 <>
                   <Comment.CancleBtn onClick={onCancle}>취소</Comment.CancleBtn>
                   <Comment.ModifyBtn
-                    onClick={() => onModifyComplete(comment.id, refetch)}
+                    onClick={() => onModifyComplete(comment.id)}
                     disabled={
                       modifyInputValue === comment.text ||
                       modifyInputValue === ""

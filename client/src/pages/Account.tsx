@@ -4,8 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 
 // File
 import MyPageMenu from "../components/userProfile/sideMenu/MyPageMenu";
-import { useRecoilValue } from "recoil";
-import { loginUserInfoGet } from "../atom";
+import { useGetAxios } from "../hooks/api/Article";
 
 // =============================================================================
 
@@ -134,7 +133,7 @@ const Label = styled.label`
 
 export default function Account() {
   const [checked, setChecked] = useState(false);
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios("/user/login-info");
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);

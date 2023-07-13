@@ -1,11 +1,9 @@
-import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 
 // File
 import { IArticleCommentData, IPage } from "../../../types";
 import Avartar from "../../common/Avartar";
 import { ErrorBox, LoadingBox } from "../../common/LoadingError";
-import { articleAllGet } from "../../../axios";
 import {
   Container,
   ListBox,
@@ -15,6 +13,7 @@ import {
   Nickname,
   NicknameBox,
 } from "./styles";
+import { useGetAxios } from "../../../hooks/api/Article";
 
 // =============================================================================
 
@@ -24,7 +23,7 @@ export default function ArticleBox({ page }: IPage) {
     data: posts,
     isLoading,
     error,
-  } = useQuery<IArticleCommentData[]>(`${page}`, () => articleAllGet(page));
+  } = useGetAxios<IArticleCommentData[]>(`/article/${page}/all`);
 
   return isLoading ? (
     <LoadingBox />

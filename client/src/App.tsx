@@ -10,11 +10,10 @@ import { ReactQueryDevtools } from "react-query/devtools";
 // Page
 import Header from "./components/header/Header";
 import Home from "./pages/Home";
-import Notice from "./pages/Notice";
-import Question from "./pages/Question";
-import Life from "./pages/Life";
-import Quote from "./pages/Quote";
-import ArticleInfo from "./components/article/ArticleInfo";
+import Notice from "./pages/notice/Notice";
+import Question from "./pages/question/Question";
+import Life from "./pages/life/Life";
+import Quote from "./pages/quote/Quote";
 
 import Edit from "./components/common/Edit";
 import Write from "./components/common/Write";
@@ -35,6 +34,10 @@ import ScrollToTop from "./utils/ScrollToTop";
 import Footer from "./components/common/Footer";
 import GlobalStyle from "./styles/GlobalStyle";
 import ThemeProvider from "./ThemeProvider";
+import NoticeDetail from "./pages/notice/NoticeDetail";
+import QuestionDetail from "./pages/question/QuestionDetail";
+import LifeDetail from "./pages/life/LifeDetail";
+import QuoteDetail from "./pages/quote/QuoteDetail";
 
 // =============================================================================
 
@@ -94,22 +97,10 @@ function App() {
 
                   {/*==================== detail page =================== */}
 
-                  <Route
-                    path="/notice/:id"
-                    element={<ArticleInfo page="notice" />}
-                  />
-                  <Route
-                    path="/question/:id"
-                    element={<ArticleInfo page="question" />}
-                  />
-                  <Route
-                    path="/life/:id"
-                    element={<ArticleInfo page="life" />}
-                  />
-                  <Route
-                    path="/quote/:id"
-                    element={<ArticleInfo page="quote" />}
-                  />
+                  <Route path="/notice/:id" element={<NoticeDetail />} />
+                  <Route path="/question/:id" element={<QuestionDetail />} />
+                  <Route path="/life/:id" element={<LifeDetail />} />
+                  <Route path="/quote/:id" element={<QuoteDetail />} />
                   <Route
                     path="/user/:id/posts"
                     element={<UserInfo page="posts" />}

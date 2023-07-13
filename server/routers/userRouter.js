@@ -8,7 +8,6 @@ import {
   userLogin,
   userLogout,
   loginUserInfo,
-  userProfileGet,
   userProfileModify,
   userSignUp,
 } from "../controllers/userController.js";
@@ -21,7 +20,7 @@ userRouter.post("/upload", upload.single("image"), uploadFile);
 userRouter.route("/").post(userSignUp).delete(userDelete);
 userRouter.post("/login", userLogin);
 userRouter.post("/logout", userLogout);
-userRouter.route("/profile").get(userProfileGet).patch(userProfileModify);
+userRouter.route("/profile").patch(userProfileModify);
 userRouter.get("/login-info", loginUserInfo);
 userRouter.get("/:id", userInfoGet);
 userRouter.get("/:page/:id", userActivity);

@@ -1,11 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
-import { useQuery } from "react-query";
 
 // File
 import { IUserData } from "../../types";
 import { ErrorBox, LoadingBox } from "../common/LoadingError";
 import Avartar from "../common/Avartar";
-import { userInfoGet } from "../../axios";
 import {
   UserInfo,
   UserInfoBox,
@@ -13,6 +11,7 @@ import {
   UserMenuBox,
   UserNickname,
 } from "./styles";
+import { useGetAxios } from "../../hooks/api/Article";
 
 // =============================================================================
 
@@ -27,10 +26,7 @@ export default function UserInfoContainer({
   const urlCommentMatch = location.pathname === `/user/${userId}/comments`;
 
   // 유저정보 Fetch
-  const { isLoading, data, error } = useQuery<IUserData>(
-    `[nickname,${userId}]`,
-    () => userInfoGet(userId)
-  );
+  const { data, isLoading, error } = useGetAxios<IUserData>(`/user/${userId}`);
 
   return (
     <UserInfoBox>

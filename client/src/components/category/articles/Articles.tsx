@@ -1,12 +1,10 @@
-import { useQuery } from "react-query";
 import { Link, useSearchParams } from "react-router-dom";
 
 // File
-import { IArticleCommentData, IPage } from "../../../types";
+import { IArticleCommentData } from "../../../types";
 import { ErrorBox, LoadingBox } from "../../common/LoadingError";
 import PageNumberBar from "../../common/pageNumBar";
 import Avartar from "../../common/Avartar";
-import { articleAllGet } from "../../../axios";
 
 import {
   ListBox,
@@ -16,16 +14,17 @@ import {
   Nickname,
   NicknameBox,
 } from "./styles";
+import { useGetAxios } from "../../../hooks/api/Article";
+import { useRecoilValue } from "recoil";
+import { category } from "../../../atom";
 
 // =============================================================================
 
-export default function PagesArticle({ page }: IPage) {
-  // 로그인 상태 Controller
-
-  // 모든 게시물 Fetch
-  const { isLoading, error, data } = useQuery<IArticleCommentData[]>(
-    `${page}`,
-    () => articleAllGet(page)
+export default function PagesArticle() {
+  const page = useRecoilValue(category);
+  // 모든 게시물 가져오기
+  const { data, isLoading, error } = useGetAxios<IArticleCommentData[]>(
+    `/article/${page}/all`
   );
 
   // URL 쿼리에 담긴 Page 데이터 가져옴
@@ -63,11 +62,7 @@ export default function PagesArticle({ page }: IPage) {
           ))}
       </ListBox>
 
-      <PageNumberBar
-        dataLength={data?.length}
-        page={page}
-        pageCount={pageCount}
-      />
+      <PageNumberBar dataLength={data?.length} pageCount={pageCount} />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -6,15 +6,16 @@ import { useState, Dispatch, SetStateAction } from "react";
 
 // File
 import Avartar from "../../common/Avartar";
-import { useRecoilValue } from "recoil";
-import { loginUserInfoGet } from "../../../atom";
 import { Write } from "./styles";
+import { useGetAxios, usePostAxios } from "../../../hooks/api/Article";
+import { IUserData } from "../../../types";
+import { useRecoilValue } from "recoil";
+import { category } from "../../../atom";
+import { useQueryClient } from "react-query";
 
 // =============================================================================
 
 interface ICommentInfo {
-  postID: string | undefined;
-  page: string;
   avartarURL?: string;
   parentCommentID?: number;
   setCommentWrite?: Dispatch<SetStateAction<boolean>>;
@@ -23,27 +24,32 @@ interface ICommentInfo {
 // =============================================================================
 
 export default function CommentWrite({
-  postID,
-  page,
   parentCommentID,
   setCommentWrite,
 }: ICommentInfo) {
+  const { data: loginUser } = useGetAxios<IUserData>("/user/login-info");
   const [text, setText] = useState(""); // 댓글 Text
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { id } = useParams();
+  const page = useRecoilValue(category);
+  const queryClient = useQueryClient();
 
-  // 댓글쓰기 클릭 시
-  const onClick = async () => {
-    await axios.post("/comment", {
-      commentText: text,
-      date: new Date().toLocaleDateString("ko-kr"),
-      postID: Number(postID),
-      page: page,
-      parentID: parentCommentID,
-    });
+  const data = {
+    commentText: text,
+    date: new Date().toLocaleDateString("ko-kr"),
+    postID: Number(id),
+    page,
+    parentID: parentCommentID,
+  };
+
+  const onSuccess = () => {
     setText("");
     setCommentWrite && setCommentWrite(false);
-    return alert("댓글 생성완료!");
+    queryClient.invalidateQueries(["GET", `/article/question/${id}/comments`]);
   };
+
+  // 댓글쓰기 클릭 시
+  const { mutate: createComment } = usePostAxios("/comment", data, onSuccess);
+  const onClick = () => createComment();
 
   return (
     <Write.Container>

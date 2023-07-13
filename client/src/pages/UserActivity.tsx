@@ -1,15 +1,13 @@
 import styled from "@emotion/styled";
-import { useQuery } from "react-query";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 
 // File
 
 import PageNumberBar from "../components/common/pageNumBar";
 import UserInfoContainer from "../components/userActivity/UserInfoContainer";
-
-import { userActivityGet } from "../axios";
 import { Main } from "../styles/PageShareStyle";
-import { IArticleCommentData, IPage } from "../types";
+import { IActivityPage, IArticleCommentData, IPage } from "../types";
+import { useGetAxios } from "../hooks/api/Article";
 
 // =============================================================================
 
@@ -91,11 +89,11 @@ const Error = styled.div`
 
 // =============================================================================
 
-export default function UserActivity({ page }: IPage) {
+export default function UserActivity({ page }: IActivityPage) {
   const { id } = useParams();
-  const { isLoading, data, error } = useQuery<IArticleCommentData[]>(
-    `[user${page},${id}]`,
-    () => userActivityGet(id, page)
+
+  const { data, isLoading, error } = useGetAxios<IArticleCommentData[]>(
+    `/user/${page}/${id}`
   );
 
   const [query] = useSearchParams();
@@ -175,7 +173,6 @@ export default function UserActivity({ page }: IPage) {
       )}
       <PageNumberBar
         dataLength={data?.length}
-        page={page}
         pageCount={pageCount}
         userID={id}
       />

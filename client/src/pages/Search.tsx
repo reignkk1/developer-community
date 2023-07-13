@@ -6,13 +6,12 @@ import { useTheme } from "@emotion/react";
 //File
 
 import Parser from "html-react-parser";
-import { useQuery } from "react-query";
 import { ErrorBox, LoadingBox } from "../components/common/LoadingError";
-import { articleSearchGet } from "../axios";
 import PageNumberBar from "../components/common/pageNumBar";
 import { IArticleCommentData } from "../types";
 
 import Avartar from "../components/common/Avartar";
+import { useGetAxios } from "../hooks/api/Article";
 
 // =============================================================================
 
@@ -77,15 +76,12 @@ interface ITheme {
 // =============================================================================
 
 export default function Search() {
-  // 로그인 상태 Controller
-
   const theme = useTheme();
   const [search] = useSearchParams();
   const keyword = search.get("keyword");
 
-  const { isLoading, data, error } = useQuery<IArticleCommentData[]>(
-    `[searchKeyword,${keyword}]`,
-    () => articleSearchGet(keyword)
+  const { data, isLoading, error } = useGetAxios<IArticleCommentData[]>(
+    `/search?keyword=${keyword}`
   );
 
   const [query] = useSearchParams();
@@ -133,7 +129,6 @@ export default function Search() {
       )}
       <PageNumberBar
         dataLength={data?.length}
-        page="search"
         pageCount={pageCount}
         keyword={keyword}
       />

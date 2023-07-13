@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
-import { useRecoilValue } from "recoil";
 import { Navigate } from "react-router-dom";
 
 // File
 import MyPageMenu from "../components/userProfile/sideMenu/MyPageMenu";
 import UserForm from "../components/userProfile/userForm/UserForm";
 import UserAvartar from "../components/userProfile/avartar/UserAvartar";
-import { loginUserInfoGet } from "../atom";
+import { useGetAxios } from "../hooks/api/Article";
 
 // =============================================================================
 
@@ -53,7 +52,7 @@ const Title = styled.div`
 
 export default function Profile() {
   // 로그인 상태
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios("/user/login-info");
 
   return loginUser ? (
     <Main>

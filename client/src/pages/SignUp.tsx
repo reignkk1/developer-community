@@ -6,9 +6,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 
 // File
 import { IUserData } from "../types";
-import { useRecoilValue } from "recoil";
 import InputContainer from "../components/common/InputContainer";
-import { loginUserInfoGet } from "../atom";
+import { useGetAxios } from "../hooks/api/Article";
 
 // =============================================================================
 
@@ -84,11 +83,11 @@ export default function SignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm<IUserData>();
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios("/user/login-info");
   const navigate = useNavigate();
   const onValid = async (data: IUserData) => {
     await axios.post("/user", {
-      userID: data.userID,
+      userID: data.id,
       password: data.password,
       email: data.email,
       name: data.name,
@@ -122,7 +121,7 @@ export default function SignUp() {
           minLength={4}
           maxlength={15}
         />
-        <ErrorMsg>{errors.userID?.message}</ErrorMsg>
+        <ErrorMsg>{errors.id?.message}</ErrorMsg>
         <InputContainer
           register={register}
           label="비밀번호"

@@ -1,10 +1,8 @@
-import { useQuery } from "react-query";
 import { useState } from "react";
 
 // File
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ErrorBox, LoadingBox } from "../../common/LoadingError";
-import { commentsGet } from "../../../axios";
 import Parser from "html-react-parser";
 import Avartar from "../../common/Avartar";
 import { Comment } from "./styles";
@@ -12,15 +10,10 @@ import CommentWrite from "../commentWrite/CommentWrite";
 import ReplyComment from "./ReplyComment";
 import useComment from "./hook/useComment";
 import { IComment } from "../../../types";
-import { loginUserInfoGet } from "../../../atom";
+import { category } from "../../../atom";
 import { useRecoilValue } from "recoil";
+import { useGetAxios } from "../../../hooks/api/Article";
 
-// =============================================================================
-
-interface ICommentsProps {
-  page: string;
-  postID: string | undefined;
-}
 // =============================================================================
 
 interface IData {
@@ -28,14 +21,15 @@ interface IData {
   loginUserID: number;
 }
 
-export default function Comments({ page, postID }: ICommentsProps) {
+export default function Comments() {
   const [commentWrite, setCommentWrite] = useState(false);
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios("/user/login-info");
+  const { id } = useParams();
+  const page = useRecoilValue(category);
 
   // 해당 게시물의 댓글들 Fetch
-  const { isLoading, data, error, refetch } = useQuery<IData>(
-    [`${page}Comments`, postID],
-    () => commentsGet(page, postID)
+  const { data, isLoading, error } = useGetAxios<IData>(
+    `/article/${page}/${id}/comments`
   );
   // response data
   const loginUserID = data?.loginUserID;
@@ -113,9 +107,7 @@ export default function Comments({ page, postID }: ICommentsProps) {
                               취소
                             </Comment.CancleBtn>
                             <Comment.ModifyBtn
-                              onClick={() =>
-                                onModifyComplete(comment.id, refetch)
-                              }
+                              onClick={() => onModifyComplete(comment.id)}
                               disabled={
                                 modifyInputValue === comment.text ||
                                 modifyInputValue === ""
@@ -159,8 +151,6 @@ export default function Comments({ page, postID }: ICommentsProps) {
 
                     {commentWrite && clickCommentID === comment.id ? (
                       <CommentWrite
-                        postID={postID}
-                        page={page}
                         parentCommentID={comment.id}
                         setCommentWrite={setCommentWrite}
                       />

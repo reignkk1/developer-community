@@ -1,20 +1,19 @@
 import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // File
-import PagesTitle from "../components/category/title/Title";
-import QuoteInput from "../components/QuoteInput";
+import PagesTitle from "../../components/category/title/Title";
+import QuoteInput from "../../components/QuoteInput";
 
-import { Main } from "../styles/PageShareStyle";
-import PagesArticle from "../components/category/articles/Articles";
-import { loginUserInfoGet } from "../atom";
+import { Main } from "../../styles/PageShareStyle";
+import PagesArticle from "../../components/category/articles/Articles";
+import { useGetAxios } from "../../hooks/api/Article";
 
 // =============================================================================
 
 export default function Quote() {
-  const loginUser = useRecoilValue(loginUserInfoGet);
+  const { data: loginUser } = useGetAxios("/user/login-info");
 
   const [inputData, setInputData] = useState("");
   const navigate = useNavigate();
@@ -50,7 +49,7 @@ export default function Quote() {
         inputData={inputData}
         btnText="작성"
       />
-      <PagesArticle page="quote" />
+      <PagesArticle />
     </Main>
   );
 }

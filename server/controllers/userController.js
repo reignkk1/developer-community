@@ -68,18 +68,6 @@ export function userDelete(req, res) {
   });
 }
 
-// 유저 프로필 정보 불러오기
-export function userProfileGet(req, res) {
-  const {
-    user: { id },
-  } = req.session;
-
-  const sqlQuery = `SELECT name,nickname FROM user WHERE id = ${id}`;
-  db.query(sqlQuery, (error, result) => {
-    return res.send(result[0]);
-  });
-}
-
 // 유저 프로필 정보 수정
 export function userProfileModify(req, res) {
   const { name, nickname } = req.body;

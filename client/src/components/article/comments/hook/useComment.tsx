@@ -18,12 +18,11 @@ export default function useComment() {
     return setModify(true);
   };
 
-  const onModifyComplete = async (id: number, refetch: () => void) => {
+  const onModifyComplete = async (id: number) => {
     await axios.patch(`/comment/${id}`, {
       commentText: modifyInputValue,
     });
     setModify(false);
-    return refetch();
   };
 
   const onCancle = () => setModify(false);
