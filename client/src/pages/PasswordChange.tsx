@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useGetAxios } from "../hooks/api/Article";
+import { useGetAxios } from "../hooks/api/http";
 
 // =============================================================================
 
@@ -79,6 +79,7 @@ export default function PasswordChange() {
   const { register, handleSubmit } = useForm<IData>();
 
   const { data: loginUser } = useGetAxios("/user/login-info");
+
   const navigate = useNavigate();
 
   const onValid = (data: IData) => {

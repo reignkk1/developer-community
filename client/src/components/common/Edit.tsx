@@ -1,6 +1,5 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
-import axios from "axios";
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 // File
 import { IArticleCommentData, IPage } from "../../types";
 import Button from "./button";
-import { useQuery } from "react-query";
+import { useGetAxios, usePatchAxios } from "../../hooks/api/http";
 
 // =============================================================================
 
@@ -52,27 +51,32 @@ export default function Edit({ page }: IPage) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { isLoading, error } = useQuery<IArticleCommentData>(
-    `[edit,${id}]`,
-    () =>
-      axios.get(`/article/${page}/${id}`).then((response) => {
-        setInputData(response.data.result[0].title || "");
-        setEditorData(response.data.result[0].content || "");
-        return response.data.result[0];
-      })
+  const onGetSuccess = () => {
+    setInputData(data?.title || "");
+    setEditorData(data?.content || "");
+  };
+
+  const onPatchSuccess = () => navigate(`/${page}`);
+
+  const { data, isLoading, error } = useGetAxios<IArticleCommentData>(
+    `/article/${id}`,
+    onGetSuccess
+  );
+
+  const patchData = {
+    title: inputData,
+    content: editorData,
+  };
+  const { mutate: editPost } = usePatchAxios(
+    `/article/${id}`,
+    patchData,
+    onPatchSuccess
   );
 
   const postSubmit = () => {
     if (inputData === "") return alert("제목을 입력해주세요!");
     if (editorData === "") return alert("내용을 입력해주세요!");
-
-    axios
-      .patch(`/article/${page}/${id}`, {
-        title: inputData,
-        content: editorData,
-      })
-      .then(() => navigate(`/${page}`))
-      .then(() => alert("수정 완료!"));
+    if (window.confirm("수정 하시겠습니까?")) return editPost();
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

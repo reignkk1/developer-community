@@ -1,7 +1,7 @@
 import Avartar from "../../common/Avartar";
 import { InputAvartar, UserAvartarContainer, UserAvartarModal } from "./styles";
 import axios from "axios";
-import { useGetAxios } from "../../../hooks/api/Article";
+import { useGetAxios } from "../../../hooks/api/http";
 import { IUserData } from "../../../types";
 
 export default function UserAvartar() {

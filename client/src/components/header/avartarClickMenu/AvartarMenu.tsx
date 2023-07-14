@@ -11,7 +11,7 @@ import {
   LogoutBtn,
   AvartarMenuItem,
 } from "./styles";
-import { useGetAxios } from "../../../hooks/api/Article";
+import { useGetAxios } from "../../../hooks/api/http";
 import { IUserData } from "../../../types";
 
 export default function AvartarClickMenu() {

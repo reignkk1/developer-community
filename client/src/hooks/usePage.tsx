@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useGetAxios } from "./api/Article";
+import { useGetAxios } from "./api/http";
 import { IUserData } from "../types";
 import { category } from "../atom";
 import { useSetRecoilState } from "recoil";
@@ -18,7 +18,7 @@ export default function usePage(
 
   useEffect(() => {
     setPage(page);
-  }, [setPage]);
+  }, [setPage, page]);
 
   return { loginUser, onClick };
 }

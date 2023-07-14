@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useState, Dispatch, SetStateAction } from "react";
@@ -7,7 +6,7 @@ import { useState, Dispatch, SetStateAction } from "react";
 // File
 import Avartar from "../../common/Avartar";
 import { Write } from "./styles";
-import { useGetAxios, usePostAxios } from "../../../hooks/api/Article";
+import { useGetAxios, usePostAxios } from "../../../hooks/api/http";
 import { IUserData } from "../../../types";
 import { useRecoilValue } from "recoil";
 import { category } from "../../../atom";
@@ -44,7 +43,7 @@ export default function CommentWrite({
   const onSuccess = () => {
     setText("");
     setCommentWrite && setCommentWrite(false);
-    queryClient.invalidateQueries(["GET", `/article/question/${id}/comments`]);
+    queryClient.invalidateQueries(["GET", `/article/${page}/${id}/comments`]);
   };
 
   // 댓글쓰기 클릭 시

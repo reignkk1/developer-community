@@ -11,7 +11,7 @@ import PageNumberBar from "../components/common/pageNumBar";
 import { IArticleCommentData } from "../types";
 
 import Avartar from "../components/common/Avartar";
-import { useGetAxios } from "../hooks/api/Article";
+import { useGetAxios } from "../hooks/api/http";
 
 // =============================================================================
 

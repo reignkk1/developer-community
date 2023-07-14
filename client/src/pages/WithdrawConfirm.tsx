@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // File
-import { useGetAxios } from "../hooks/api/Article";
+import { useGetAxios } from "../hooks/api/http";
 
 // =============================================================================
 

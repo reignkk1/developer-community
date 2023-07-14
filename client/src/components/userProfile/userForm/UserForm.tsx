@@ -7,7 +7,7 @@ import { useState } from "react";
 import Button from "../../common/button";
 import { Form } from "./styles";
 import InputContainer from "../../common/InputContainer";
-import { useGetAxios } from "../../../hooks/api/Article";
+import { useGetAxios } from "../../../hooks/api/http";
 import { IUserData } from "../../../types";
 
 // =============================================================================

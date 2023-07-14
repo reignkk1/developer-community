@@ -8,7 +8,7 @@ import { Link, Navigate } from "react-router-dom";
 import InputContainer from "../components/common/InputContainer";
 import { IUserData } from "../types";
 import KakaoAuthButton from "../components/KakaoAuthButton";
-import { useGetAxios } from "../hooks/api/Article";
+import { useGetAxios } from "../hooks/api/http";
 
 // =============================================================================
 

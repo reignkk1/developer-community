@@ -6,8 +6,8 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import PageNumberBar from "../components/common/pageNumBar";
 import UserInfoContainer from "../components/userActivity/UserInfoContainer";
 import { Main } from "../styles/PageShareStyle";
-import { IActivityPage, IArticleCommentData, IPage } from "../types";
-import { useGetAxios } from "../hooks/api/Article";
+import { IActivityPage, IArticleCommentData } from "../types";
+import { useGetAxios } from "../hooks/api/http";
 
 // =============================================================================
 

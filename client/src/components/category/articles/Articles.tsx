@@ -14,7 +14,7 @@ import {
   Nickname,
   NicknameBox,
 } from "./styles";
-import { useGetAxios } from "../../../hooks/api/Article";
+import { useGetAxios } from "../../../hooks/api/http";
 import { useRecoilValue } from "recoil";
 import { category } from "../../../atom";
 

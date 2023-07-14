@@ -7,7 +7,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 // File
 import { IPage, IUserData } from "../../types";
 import Button from "./button";
-import { useGetAxios, usePostAxios } from "../../hooks/api/Article";
+import { useGetAxios, usePostAxios } from "../../hooks/api/http";
 
 // =============================================================================
 

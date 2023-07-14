@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // File
@@ -8,35 +7,50 @@ import QuoteInput from "../../components/QuoteInput";
 
 import { Main } from "../../styles/PageShareStyle";
 import PagesArticle from "../../components/category/articles/Articles";
-import { useGetAxios } from "../../hooks/api/Article";
+import { useGetAxios, usePostAxios } from "../../hooks/api/http";
+import { useSetRecoilState } from "recoil";
+import { category } from "../../atom";
+import { useQueryClient } from "react-query";
 
 // =============================================================================
 
 export default function Quote() {
   const { data: loginUser } = useGetAxios("/user/login-info");
+  const setPage = useSetRecoilState(category);
+  const queryClient = useQueryClient();
 
   const [inputData, setInputData] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setPage("quote");
+  }, [setPage]);
+
+  const data = {
+    title: inputData,
+    content: inputData,
+    date: new Date().toLocaleDateString("ko-kr"),
+  };
+
+  const onSuccess = () =>
+    queryClient.invalidateQueries(["GET", "/article/quote/all"]);
+
+  const { mutate: createQuote } = usePostAxios(
+    "/article/quote",
+    data,
+    onSuccess
+  );
+
   const onClick = () => {
     if (!loginUser) return navigate("/login");
-    if (!inputData) {
-      return alert("내용을 입력해주세요!");
-    }
-    axios
-      .post("/article/quote", {
-        title: inputData,
-        content: inputData,
-        date: new Date().toLocaleDateString("ko-kr"),
-      })
-      .then(() => alert("작성이 완료되었습니다!"));
+    if (!inputData) return alert("내용을 입력해주세요!");
+
+    createQuote();
     setInputData("");
   };
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputData(e.target.value);
-  };
-
   return (
     <Main>
       <PagesTitle

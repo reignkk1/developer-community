@@ -13,7 +13,7 @@ import { HeaderBox, HeaderContainer, Wrapper } from "./styles";
 import ThemeToggle from "./themeButton/ThemeButton";
 import HambugerButton from "./hambugerButton/HambugerButton";
 import DrawerMenu from "./drawerMenu/Menu";
-import { useGetAxios } from "../../hooks/api/Article";
+import { useGetAxios } from "../../hooks/api/http";
 
 // =============================================================================
 
@@ -27,7 +27,7 @@ export default function Header() {
       "resize",
       () => window.innerWidth > 1065 && setDrawerMenuOpen(false)
     );
-  }, []);
+  }, [setDrawerMenuOpen]);
 
   const menuData = [
     { name: "공지사항", path: "/notice" },

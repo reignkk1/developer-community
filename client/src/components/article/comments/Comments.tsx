@@ -12,7 +12,7 @@ import useComment from "./hook/useComment";
 import { IComment } from "../../../types";
 import { category } from "../../../atom";
 import { useRecoilValue } from "recoil";
-import { useGetAxios } from "../../../hooks/api/Article";
+import { useGetAxios } from "../../../hooks/api/http";
 
 // =============================================================================
 

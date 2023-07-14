@@ -5,7 +5,7 @@ import Parser from "html-react-parser";
 import useComment from "./hook/useComment";
 import styled from "@emotion/styled";
 import { IComment } from "../../../types";
-import { useGetAxios } from "../../../hooks/api/Article";
+import { useGetAxios } from "../../../hooks/api/http";
 
 const Container = styled(Comment.Container)`
   margin-left: 50px;

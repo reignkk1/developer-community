@@ -6,9 +6,10 @@ export default function useComment() {
   const [clickCommentID, setClickCommentID] = useState<number>();
   const [modifyInputValue, setModifyInputValue] = useState("");
 
-  const onDelete = (id: number) => {
+  const onDelete = async (id: number) => {
     if (window.confirm("정말로 삭제하겠습니까?")) {
-      axios.delete(`/comment/${id}`).then(() => alert("삭제완료!"));
+      await axios.delete(`/comment/${id}`);
+      alert("삭제완료!");
     }
     return;
   };
@@ -22,14 +23,14 @@ export default function useComment() {
     await axios.patch(`/comment/${id}`, {
       commentText: modifyInputValue,
     });
+    alert("수정완료!");
     setModify(false);
   };
 
   const onCancle = () => setModify(false);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setModifyInputValue(e.currentTarget.value);
-  };
 
   return {
     setClickCommentID,

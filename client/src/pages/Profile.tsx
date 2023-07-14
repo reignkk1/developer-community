@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import MyPageMenu from "../components/userProfile/sideMenu/MyPageMenu";
 import UserForm from "../components/userProfile/userForm/UserForm";
 import UserAvartar from "../components/userProfile/avartar/UserAvartar";
-import { useGetAxios } from "../hooks/api/Article";
+import { useGetAxios } from "../hooks/api/http";
 
 // =============================================================================
 

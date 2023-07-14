@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Parser from "html-react-parser";
 import { useRecoilValue } from "recoil";
@@ -19,7 +18,7 @@ import {
   UserBox,
 } from "./styles";
 import { category } from "../../atom";
-import { useGetAxios } from "../../hooks/api/Article";
+import { useDeleteAxios, useGetAxios } from "../../hooks/api/http";
 
 // =============================================================================
 
@@ -33,18 +32,18 @@ export default function ArticleInfo() {
   // 로그인 한 유저 정보
   const { data: loginUser } = useGetAxios<IUserData>("/user/login-info");
 
-  console.log(loginUser);
-
   // 게시물
   const { data, isLoading, error } = useGetAxios<IArticleCommentData>(
     `/article/${id}`
   );
 
+  const onSuccess = () => navigate(`/${currentCategory}`);
+
+  const { mutate: deletePost } = useDeleteAxios(`/article/${id}`, onSuccess);
+
   const deleteClick = () => {
     if (window.confirm("정말로 삭제 하시겠습니까?")) {
-      axios
-        .delete(`/article/${id}`)
-        .then(() => navigate(`/${currentCategory}`));
+      deletePost();
     } else {
       return;
     }

@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 
 // File
 import QuoteInput from "../components/QuoteInput";
-import { useGetAxios } from "../hooks/api/Article";
+import { useGetAxios } from "../hooks/api/http";
 
 // =============================================================================
 

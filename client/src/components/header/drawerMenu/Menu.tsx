@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import ThemeToggle from "../themeButton/ThemeButton";
 import axios from "axios";
 import Avartar from "../../common/Avartar";
-import { useGetAxios } from "../../../hooks/api/Article";
+import { useGetAxios } from "../../../hooks/api/http";
 import { IUserData } from "../../../types";
 
 export default function DrawerMenu() {
