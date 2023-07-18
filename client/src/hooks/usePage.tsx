@@ -6,7 +6,7 @@ import { useSetRecoilState } from "recoil";
 import { useEffect } from "react";
 
 export default function usePage(
-  page: "notice" | "question" | "life" | "quote" | "search"
+  page: "notice" | "tech" | "life" | "guest-book" | "search"
 ) {
   const navigate = useNavigate();
   const { data: loginUser } = useGetAxios<IUserData>("/user/login-info");

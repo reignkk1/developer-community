@@ -6,11 +6,11 @@ import CommentWrite from "../../components/article/commentWrite/CommentWrite";
 import Comments from "../../components/article/comments/Comments";
 import { Main } from "../../styles/PageShareStyle";
 
-export default function QuestionDetail() {
+export default function TechDetail() {
   const setPage = useSetRecoilState(category);
 
   useEffect(() => {
-    setPage("question");
+    setPage("tech");
   }, [setPage]);
 
   return (

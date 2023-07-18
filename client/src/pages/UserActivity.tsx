@@ -122,12 +122,12 @@ export default function UserActivity({ page }: IActivityPage) {
                     <Page>
                       {item.page === "notice" ? (
                         <Link to="/notice">공지사항</Link>
-                      ) : item.page === "question" ? (
-                        <Link to="/question">QnA</Link>
+                      ) : item.page === "tech" ? (
+                        <Link to="/tech">Tech</Link>
                       ) : item.page === "life" ? (
                         <Link to="/life">사는얘기</Link>
                       ) : (
-                        <Link to="/quote">명언</Link>
+                        <Link to="/guest-book">방명록</Link>
                       )}
                     </Page>
                     <Span>에 게시물을 작성하였습니다.</Span>
@@ -152,12 +152,12 @@ export default function UserActivity({ page }: IActivityPage) {
                     <Page>
                       {item.page === "notice" ? (
                         <Link to={`/notice/${item.postID}`}>공지사항</Link>
-                      ) : item.page === "question" ? (
-                        <Link to={`/question/${item.postID}`}>QnA</Link>
+                      ) : item.page === "tech" ? (
+                        <Link to={`/tech/${item.postID}`}>Tech</Link>
                       ) : item.page === "life" ? (
                         <Link to={`/life/${item.postID}`}>사는얘기</Link>
                       ) : (
-                        <Link to={`/quote/${item.postID}`}>명언</Link>
+                        <Link to={`/guest-book/${item.postID}`}>방명록</Link>
                       )}
                     </Page>
                     <Span>에 댓글을 달았습니다.</Span>

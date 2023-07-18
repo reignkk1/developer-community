@@ -18,7 +18,7 @@ export interface IArticle {
 }
 
 export interface IPage {
-  page: "notice" | "question" | "life" | "quote" | "search";
+  page: "notice" | "tech" | "life" | "guest-book" | "search";
 }
 
 export interface IActivityPage {

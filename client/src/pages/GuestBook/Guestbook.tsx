@@ -14,7 +14,7 @@ import { useQueryClient } from "react-query";
 
 // =============================================================================
 
-export default function Quote() {
+export default function GuestBooks() {
   const { data: loginUser } = useGetAxios("/user/login-info");
   const setPage = useSetRecoilState(category);
   const queryClient = useQueryClient();
@@ -23,7 +23,7 @@ export default function Quote() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setPage("quote");
+    setPage("guest-book");
   }, [setPage]);
 
   const data = {
@@ -33,10 +33,10 @@ export default function Quote() {
   };
 
   const onSuccess = () =>
-    queryClient.invalidateQueries(["GET", "/article/quote/all"]);
+    queryClient.invalidateQueries(["GET", "/article/guest-book/all"]);
 
   const { mutate: createQuote } = usePostAxios(
-    "/article/quote",
+    "/article/guest-book",
     data,
     onSuccess
   );
@@ -53,10 +53,7 @@ export default function Quote() {
     setInputData(e.target.value);
   return (
     <Main>
-      <PagesTitle
-        name="오늘의 명언"
-        explain="명언 한 줄로 내 마음가짐을 단단하게 세워볼까요?"
-      />
+      <PagesTitle name="방명록" explain="쓰셔도 되고 굳이 안 쓰셔도 됩니다" />
       <QuoteInput
         onChange={onChange}
         onClick={onClick}

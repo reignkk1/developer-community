@@ -18,7 +18,7 @@ export const ArticleTitle = styled.div`
 `;
 export const ArticleText = styled.div`
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 2;
   @media (max-width: 940px) {
     font-size: 15px;
   }

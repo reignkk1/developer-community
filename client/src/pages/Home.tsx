@@ -33,16 +33,16 @@ export default function Home() {
       page: "notice",
     },
     {
-      name: "Q & A",
-      page: "question",
+      name: "Tech",
+      page: "tech",
     },
     {
       name: "사는 얘기",
       page: "life",
     },
     {
-      name: "오늘의 명언",
-      page: "quote",
+      name: "방명록",
+      page: "guest-book",
     },
   ];
 

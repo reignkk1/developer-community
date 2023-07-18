@@ -10,7 +10,7 @@ export default function QuoteDetail() {
   const setPage = useSetRecoilState(category);
 
   useEffect(() => {
-    setPage("quote");
+    setPage("guest-book");
   }, [setPage]);
 
   return (

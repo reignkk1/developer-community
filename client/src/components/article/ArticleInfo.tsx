@@ -72,7 +72,9 @@ export default function ArticleInfo() {
             </UserBox>
             <ArticleTitle>{data?.title}</ArticleTitle>
             <ArticleText>
-              {currentCategory === "quote" ? null : Parser(data?.content || "")}
+              {currentCategory === "guest-book"
+                ? null
+                : Parser(data?.content || "")}
             </ArticleText>
           </>
         )}

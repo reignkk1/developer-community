@@ -130,6 +130,10 @@ export default function GlobalStyles() {
     }
     * {
       box-sizing: border-box;
+      font-family: Pretendard, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+        sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+        Noto Color Emoji;
     }
     a {
       text-decoration: none;
@@ -151,7 +155,7 @@ export default function GlobalStyles() {
       }
       .ck-editor__editable_inline {
         height: 600px;
-        line-height: 1.5;
+        line-height: 2;
         margin-bottom: 20px;
         color: ${theme.textColor};
       }

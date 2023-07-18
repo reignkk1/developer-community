@@ -8,7 +8,7 @@ const { persistAtom: darkPersist } = recoilPersist({
 });
 
 export const category = atom<
-  "notice" | "question" | "life" | "quote" | "search" | null
+  "notice" | "tech" | "life" | "guest-book" | "search" | null
 >({
   key: "category",
   default: null,

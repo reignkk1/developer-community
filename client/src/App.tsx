@@ -11,9 +11,9 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Header from "./components/header/Header";
 import Home from "./pages/Home";
 import Notice from "./pages/notice/Notice";
-import Question from "./pages/question/Question";
+import Tech from "./pages/tech/Tech";
 import Life from "./pages/life/Life";
-import Quote from "./pages/quote/Quote";
+import GuestBook from "./pages/GuestBook/Guestbook";
 
 import Edit from "./components/common/Edit";
 import Write from "./components/common/Write";
@@ -35,9 +35,9 @@ import Footer from "./components/common/Footer";
 import GlobalStyle from "./styles/GlobalStyle";
 import ThemeProvider from "./ThemeProvider";
 import NoticeDetail from "./pages/notice/NoticeDetail";
-import QuestionDetail from "./pages/question/QuestionDetail";
+import QuestionDetail from "./pages/tech/TechDetail";
 import LifeDetail from "./pages/life/LifeDetail";
-import QuoteDetail from "./pages/quote/QuoteDetail";
+import QuoteDetail from "./pages/GuestBook/GuestBookDetail";
 
 // =============================================================================
 
@@ -66,9 +66,9 @@ function App() {
 
                   <Route path="/" element={<Home />} />
                   <Route path="/notice" element={<Notice />} />
-                  <Route path="/question" element={<Question />} />
+                  <Route path="/tech" element={<Tech />} />
                   <Route path="/life" element={<Life />} />
-                  <Route path="/quote" element={<Quote />} />
+                  <Route path="/guest-book" element={<GuestBook />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/profile" element={<Profile />} />
@@ -89,18 +89,15 @@ function App() {
                     path="/notice/write"
                     element={<Write page="notice" />}
                   />
-                  <Route
-                    path="/question/write"
-                    element={<Write page="question" />}
-                  />
+                  <Route path="/tech/write" element={<Write page="tech" />} />
                   <Route path="/life/write" element={<Write page="life" />} />
 
                   {/*==================== detail page =================== */}
 
                   <Route path="/notice/:id" element={<NoticeDetail />} />
-                  <Route path="/question/:id" element={<QuestionDetail />} />
+                  <Route path="/tech/:id" element={<QuestionDetail />} />
                   <Route path="/life/:id" element={<LifeDetail />} />
-                  <Route path="/quote/:id" element={<QuoteDetail />} />
+                  <Route path="/guest-book/:id" element={<QuoteDetail />} />
                   <Route
                     path="/user/:id/posts"
                     element={<UserInfo page="posts" />}
@@ -116,12 +113,9 @@ function App() {
                     path="/notice/:id/edit"
                     element={<Edit page="notice" />}
                   />
-                  <Route
-                    path="/question/:id/edit"
-                    element={<Edit page="question" />}
-                  />
+                  <Route path="/tech/:id/edit" element={<Edit page="tech" />} />
                   <Route path="/life/:id/edit" element={<Edit page="life" />} />
-                  <Route path="/quote/:id/edit" element={<QuoteEdit />} />
+                  <Route path="/guest-book/:id/edit" element={<QuoteEdit />} />
                 </Routes>
                 <Footer />
               </Router>

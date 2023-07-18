@@ -27,7 +27,7 @@ export default function QuoteEdit() {
 
   useEffect(() => {
     axios
-      .get(`/article/quote/${id}`)
+      .get(`/article/guest-book/${id}`)
       .then((response) => setInputData(response.data.result[0].title));
   }, [id]);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,11 +35,11 @@ export default function QuoteEdit() {
   };
   const onClick = () => {
     axios
-      .patch(`/article/quote/${id}`, {
+      .patch(`/article/guest-book/${id}`, {
         title: inputData,
       })
       .then(() => {
-        navigate(`/quote/${id}`);
+        navigate(`/guest-book/${id}`);
         alert("수정이 완료되었습니다!");
       });
   };
