@@ -1,4 +1,4 @@
-import db from "../mysql.js";
+import db from '../mysql.js';
 
 // 페이지 모든 게시물 불러오기
 export function articleAllGet(req, res) {
@@ -43,8 +43,8 @@ export function articleCommentsGet(req, res) {
       console.log(error);
       return res.send().status(404);
     }
-    if (result[0] === undefined) return res.send("false");
-    return res.send({ result, loginUserID: req.session.user?.id });
+    if (result[0] === undefined) return res.send('false');
+    return res.send(result);
   });
 }
 
@@ -55,7 +55,7 @@ export function articleCreate(req, res) {
   const { id, nickname, avartar } = req.session.user;
 
   const sqlQuery =
-    "INSERT INTO posts (title,content,date,writerID,nickname,page,avartar) VALUES (?,?,?,?,?,?,?)";
+    'INSERT INTO posts (title,content,date,writerID,nickname,page,avartar) VALUES (?,?,?,?,?,?,?)';
   db.query(
     sqlQuery,
     [title, content, date, id, nickname, page, avartar],

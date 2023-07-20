@@ -1,13 +1,16 @@
-import styled from "@emotion/styled";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import styled from '@emotion/styled';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 
 // File
 
-import PageNumberBar from "../components/common/pageNumBar";
-import UserInfoContainer from "../components/userActivity/UserInfoContainer";
-import { Main } from "../styles/PageShareStyle";
-import { IActivityPage, IArticleCommentData } from "../types";
-import { useGetAxios } from "../hooks/api/http";
+import PageNumberBar from '../components/common/pageNumBar';
+import UserInfoContainer from '../components/userActivity/UserInfoContainer';
+import { Main } from '../styles/PageShareStyle';
+import { IActivityPage, IArticleCommentData } from '../types';
+import { useGetAxios } from '../hooks/api/http';
+import { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { category } from '../atom';
 
 // =============================================================================
 
@@ -19,7 +22,7 @@ const Item = styled.li`
   align-items: center;
   justify-content: space-between;
   padding: 30px 0px;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  border-bottom: 1px solid ${props => props.theme.borderColor};
   font-weight: bold;
 `;
 const ItemPage = styled.div`
@@ -29,7 +32,7 @@ const ItemPage = styled.div`
   font-size: 14px;
 `;
 const Page = styled.div`
-  border: 1px solid ${(props) => props.theme.borderColor};
+  border: 1px solid ${props => props.theme.borderColor};
   border-radius: 15px;
   font-size: 12px;
   margin-right: 5px;
@@ -41,7 +44,7 @@ const Page = styled.div`
     font-size: 13px;
   }
   &:hover {
-    border-color: ${(props) => props.theme.borderHoverColor};
+    border-color: ${props => props.theme.borderHoverColor};
     cursor: pointer;
   }
 `;
@@ -91,13 +94,18 @@ const Error = styled.div`
 
 export default function UserActivity({ page }: IActivityPage) {
   const { id } = useParams();
+  const setCategory = useSetRecoilState(category);
 
   const { data, isLoading, error } = useGetAxios<IArticleCommentData[]>(
     `/user/${page}/${id}`
   );
 
   const [query] = useSearchParams();
-  const pageCount = query.get("page");
+  const pageCount = query.get('page');
+
+  useEffect(() => {
+    setCategory(page);
+  }, []);
 
   return (
     <Main>
@@ -108,23 +116,23 @@ export default function UserActivity({ page }: IActivityPage) {
         </Loading>
       ) : error ? (
         <Error>404 Not Found</Error>
-      ) : page === "posts" ? (
+      ) : page === 'posts' ? (
         <ItemBox>
           {data
             ?.slice(
               pageCount === null ? 0 : Number(pageCount) * 10 - 10,
               pageCount === null ? 10 : Number(pageCount) * 10
             )
-            .map((item) => (
+            .map(item => (
               <Item key={item.id}>
                 <ItemTitle>
                   <ItemPage>
                     <Page>
-                      {item.page === "notice" ? (
+                      {item.page === 'notice' ? (
                         <Link to="/notice">공지사항</Link>
-                      ) : item.page === "tech" ? (
+                      ) : item.page === 'tech' ? (
                         <Link to="/tech">Tech</Link>
-                      ) : item.page === "life" ? (
+                      ) : item.page === 'life' ? (
                         <Link to="/life">사는얘기</Link>
                       ) : (
                         <Link to="/guest-book">방명록</Link>
@@ -145,16 +153,16 @@ export default function UserActivity({ page }: IActivityPage) {
               pageCount === null ? 0 : Number(pageCount) * 10 - 10,
               pageCount === null ? 10 : Number(pageCount) * 10
             )
-            .map((item) => (
+            .map(item => (
               <Item key={item.id}>
                 <ItemTitle>
                   <ItemPage>
                     <Page>
-                      {item.page === "notice" ? (
+                      {item.page === 'notice' ? (
                         <Link to={`/notice/${item.postID}`}>공지사항</Link>
-                      ) : item.page === "tech" ? (
+                      ) : item.page === 'tech' ? (
                         <Link to={`/tech/${item.postID}`}>Tech</Link>
-                      ) : item.page === "life" ? (
+                      ) : item.page === 'life' ? (
                         <Link to={`/life/${item.postID}`}>사는얘기</Link>
                       ) : (
                         <Link to={`/guest-book/${item.postID}`}>방명록</Link>
@@ -163,7 +171,7 @@ export default function UserActivity({ page }: IActivityPage) {
                     <Span>에 댓글을 달았습니다.</Span>
                   </ItemPage>
                   <Link to={`/${item.page}/${item.postID}`}>
-                    {item.text?.replace(/<\/?[^>]+(>|$)/g, "")}
+                    {item.text?.replace(/<\/?[^>]+(>|$)/g, '')}
                   </Link>
                 </ItemTitle>
                 <ItemDate>{item.date}</ItemDate>

@@ -1,4 +1,4 @@
-import db from "../mysql.js";
+import db from '../mysql.js';
 
 // 댓글 생성
 export function commentCreate(req, res) {
@@ -14,7 +14,7 @@ export function commentCreate(req, res) {
       return res.send();
     }
   );
-  return res.send("");
+  return res.send('');
 }
 
 // 댓글 삭제
@@ -42,6 +42,6 @@ export function childrenCommentGet(req, res) {
   const { parentID } = req.params;
   const sqlQuery = `SELECT * FROM comments WHERE parentID = ${parentID}`;
   db.query(sqlQuery, (error, result) => {
-    return res.send({ result, loginUserID: req.session?.user?.id });
+    return res.send(result);
   });
 }

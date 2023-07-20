@@ -1,43 +1,40 @@
-import "./styles/signatureColor.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import styled from "@emotion/styled";
-import { RecoilRoot } from "recoil";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import './styles/signatureColor.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import styled from '@emotion/styled';
+import { RecoilRoot } from 'recoil';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 // =============================================================================
 
 // Page
-import Header from "./components/header/Header";
-import Home from "./pages/Home";
-import Notice from "./pages/notice/Notice";
-import Tech from "./pages/tech/Tech";
-import Life from "./pages/life/Life";
-import GuestBook from "./pages/GuestBook/Guestbook";
+import Header from './components/header/Header';
+import Home from './pages/Home';
+import Notice from './pages/notice/Notice';
+import Tech from './pages/tech/Tech';
+import Life from './pages/life/Life';
+import GuestBook from './pages/GuestBook/Guestbook';
 
-import Edit from "./components/common/Edit";
-import Write from "./components/common/Write";
-
-import QuoteEdit from "./pages/QuoteEdit";
-import SignUp from "./pages/SignUp";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import Account from "./pages/Account";
-import PasswordChange from "./pages/PasswordChange";
-import WithdrawConfirm from "./pages/WithdrawConfirm";
-import UserInfo from "./pages/UserActivity";
-import Search from "./pages/Search";
+import Edit from './components/common/Edit';
+import Write from './components/common/Write';
+import SignUp from './pages/SignUp';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+import Account from './pages/Account';
+import PasswordChange from './pages/PasswordChange';
+import WithdrawConfirm from './pages/WithdrawConfirm';
+import UserActivity from './pages/UserActivity';
+import Search from './pages/Search';
 
 // =============================================================================
 
-import ScrollToTop from "./utils/ScrollToTop";
-import Footer from "./components/common/Footer";
-import GlobalStyle from "./styles/GlobalStyle";
-import ThemeProvider from "./ThemeProvider";
-import NoticeDetail from "./pages/notice/NoticeDetail";
-import QuestionDetail from "./pages/tech/TechDetail";
-import LifeDetail from "./pages/life/LifeDetail";
-import QuoteDetail from "./pages/GuestBook/GuestBookDetail";
+import ScrollToTop from './utils/ScrollToTop';
+import Footer from './components/layout/Footer';
+import GlobalStyle from './styles/GlobalStyle';
+import ThemeProvider from './ThemeProvider';
+import NoticeDetail from './pages/notice/NoticeDetail';
+import QuestionDetail from './pages/tech/TechDetail';
+import LifeDetail from './pages/life/LifeDetail';
 
 // =============================================================================
 
@@ -97,14 +94,14 @@ function App() {
                   <Route path="/notice/:id" element={<NoticeDetail />} />
                   <Route path="/tech/:id" element={<QuestionDetail />} />
                   <Route path="/life/:id" element={<LifeDetail />} />
-                  <Route path="/guest-book/:id" element={<QuoteDetail />} />
+
                   <Route
                     path="/user/:id/posts"
-                    element={<UserInfo page="posts" />}
+                    element={<UserActivity page="posts" />}
                   />
                   <Route
                     path="/user/:id/comments"
-                    element={<UserInfo page="comments" />}
+                    element={<UserActivity page="comments" />}
                   />
 
                   {/*==================== edit page =================== */}
@@ -115,7 +112,6 @@ function App() {
                   />
                   <Route path="/tech/:id/edit" element={<Edit page="tech" />} />
                   <Route path="/life/:id/edit" element={<Edit page="life" />} />
-                  <Route path="/guest-book/:id/edit" element={<QuoteEdit />} />
                 </Routes>
                 <Footer />
               </Router>

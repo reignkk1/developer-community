@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { css, useTheme } from "@emotion/react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { category } from "../../atom";
+import { css, useTheme } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { category } from '../../atom';
 
 // =============================================================================
 
@@ -33,7 +33,7 @@ const PageBtn = (index: number, pageCount: string | null, theme: ITheme) => css`
   border: none;
   border-top: ${index + 1 === Number(pageCount) ||
   (pageCount === null && index === 0)
-    ? "3px solid #0092fa"
+    ? '3px solid #0092fa'
     : null};
   &:hover {
     color: #0092fa;
@@ -68,7 +68,7 @@ export default function PageNumberBar({
   const onClick = (pageNumber: string) =>
     userID
       ? navigate(`/user/${userID}/${page}?page=${pageNumber}`)
-      : page === "search"
+      : page === 'search'
       ? navigate(`/${page}?keyword=${keyword}&page=${pageNumber}`)
       : navigate(`/${page}?page=${pageNumber}`);
   window.scrollTo(0, 0);
@@ -77,12 +77,12 @@ export default function PageNumberBar({
     <div css={Container(theme)}>
       <div css={PageBar}>
         {Array(buttonCount)
-          .fill("")
+          .fill('')
           .map((item, index) => (
             <button
               key={index}
               css={PageBtn(index, pageCount, theme)}
-              onClick={() => onClick(index + 1 + "")}
+              onClick={() => onClick(index + 1 + '')}
             >
               {index + 1}
             </button>

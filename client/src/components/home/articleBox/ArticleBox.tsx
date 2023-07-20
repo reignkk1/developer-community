@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 // File
-import { IArticleCommentData, IPage } from "../../../types";
-import Avartar from "../../common/Avartar";
-import { ErrorBox, LoadingBox } from "../../common/LoadingError";
+import { IArticleCommentData, IPage } from '../../../types';
+import Avartar from '../../common/Avartar';
+import { ErrorBox, LoadingBox } from '../../common/LoadingError';
 import {
   Container,
   ListBox,
@@ -12,8 +12,8 @@ import {
   ListTitle,
   Nickname,
   NicknameBox,
-} from "./styles";
-import { useGetAxios } from "../../../hooks/api/http";
+} from './styles';
+import { useGetAxios } from '../../../hooks/api/http';
 
 // =============================================================================
 
@@ -32,7 +32,7 @@ export default function ArticleBox({ page }: IPage) {
   ) : (
     <Container>
       <ListBox>
-        {posts?.slice(0, 4).map((post) => (
+        {posts?.slice(0, 4).map(post => (
           <ListItem key={post.id}>
             <NicknameBox>
               <Link to={`/user/${post.writerID}/posts`}>
@@ -41,7 +41,7 @@ export default function ArticleBox({ page }: IPage) {
                   heigth="20px"
                   src={
                     post.avartar ||
-                    "https://graph.facebook.com/555897032021233/picture?width=200&height=200"
+                    'https://graph.facebook.com/555897032021233/picture?width=200&height=200'
                   }
                 />
               </Link>
@@ -51,7 +51,15 @@ export default function ArticleBox({ page }: IPage) {
               <ListDate>- {post.date}</ListDate>
             </NicknameBox>
             <ListTitle>
-              <Link to={`/${post.page}/${post.id}`}>{post.title}</Link>
+              <Link
+                to={
+                  page === 'guest-book'
+                    ? `/${post.page}`
+                    : `/${post.page}/${post.id}`
+                }
+              >
+                {post.title}
+              </Link>
             </ListTitle>
           </ListItem>
         ))}

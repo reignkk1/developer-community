@@ -18,15 +18,15 @@ export interface IArticle {
 }
 
 export interface IPage {
-  page: "notice" | "tech" | "life" | "guest-book" | "search";
+  page: 'notice' | 'tech' | 'life' | 'guest-book' | 'search';
 }
 
 export interface IActivityPage {
-  page: "posts" | "comments";
+  page: 'posts' | 'comments';
 }
 
 export interface IUserData {
-  id: string;
+  id: number;
   password: string;
   email: string;
   name: string;

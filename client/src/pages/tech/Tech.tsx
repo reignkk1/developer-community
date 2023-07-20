@@ -1,16 +1,16 @@
-import Button from "../../components/common/button";
-import PagesArticle from "../../components/category/articles/Articles";
-import PagesTitle from "../../components/category/title/Title";
-import usePage from "../../hooks/usePage";
-import { Main } from "../../styles/PageShareStyle";
+import Button from '../../components/common/button';
+import PagesArticle from '../../components/categoryPosts/PostList';
+import Title from '../../components/categoryPosts/Title';
+import usePage from '../../hooks/usePage';
+import { Main } from '../../styles/PageShareStyle';
 
 // =============================================================================
 
 export default function Techs() {
-  const { onClick } = usePage("tech");
+  const { onClick } = usePage('tech');
   return (
     <Main>
-      <PagesTitle
+      <Title
         name="Tech"
         explain="기술 관련이나 CS지식을 적어주세요 (제 개인 공부용이기도 합니다)"
       />

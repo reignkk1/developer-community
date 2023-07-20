@@ -1,6 +1,6 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from 'react-query';
 
-import axios from "axios";
+import axios from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_API;
 axios.defaults.withCredentials = true;
@@ -8,11 +8,11 @@ axios.defaults.withCredentials = true;
 // GET
 export function useGetAxios<T>(url: string, onSuccess?: () => void) {
   const { data, isLoading, error } = useQuery<T>(
-    ["GET", `${url}`],
+    ['GET', `${url}`],
     async () => (await axios.get(url)).data,
     {
       onSuccess: () => onSuccess && onSuccess(),
-      onError: (error) => console.log(error),
+      onError: error => console.log(error),
     }
   );
 
@@ -25,7 +25,7 @@ export function usePostAxios<T>(url: string, data: T, onSuccess?: () => void) {
     async () => (await axios.post(url, data)).data,
     {
       onSuccess: () => onSuccess && onSuccess(),
-      onError: (error) => console.log(error),
+      onError: error => console.log(error),
     }
   );
   return { mutate, isLoading, error };
@@ -37,7 +37,7 @@ export function useDeleteAxios(url: string, onSuccess?: () => void) {
     async () => (await axios.delete(url)).data,
     {
       onSuccess: () => onSuccess && onSuccess(),
-      onError: (error) => console.log(error),
+      onError: error => console.log(error),
     }
   );
   return { mutate, isLoading, error };
@@ -49,7 +49,7 @@ export function usePatchAxios<T>(url: string, data: T, onSuccess?: () => void) {
     async () => (await axios.patch(url, data)).data,
     {
       onSuccess: () => onSuccess && onSuccess(),
-      onError: (error) => console.log(error),
+      onError: error => console.log(error),
     }
   );
   return { mutate, isLoading, error };

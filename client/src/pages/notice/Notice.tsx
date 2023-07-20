@@ -1,17 +1,17 @@
-import PagesTitle from "../../components/category/title/Title";
-import PagesArticle from "../../components/category/articles/Articles";
-import Button from "../../components/common/button";
-import usePage from "../../hooks/usePage";
-import { Main } from "../../styles/PageShareStyle";
+import Title from '../../components/categoryPosts/Title';
+import PagesArticle from '../../components/categoryPosts/PostList';
+import Button from '../../components/common/button';
+import usePage from '../../hooks/usePage';
+import { Main } from '../../styles/PageShareStyle';
 
 // =============================================================================
 
 export default function Notice() {
-  const { loginUser, onClick } = usePage("notice");
+  const { loginUser, onClick } = usePage('notice');
 
   return (
     <Main>
-      <PagesTitle
+      <Title
         name="공지사항"
         explain="Developer의 새소식, 이벤트, 행사 정보를 공유하는 공간입니다."
       />

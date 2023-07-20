@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import {
   articleCreate,
   articleAllGet,
@@ -6,15 +6,15 @@ import {
   articleDelete,
   articleGet,
   articleCommentsGet,
-} from "../controllers/articleController.js";
+} from '../controllers/articleController.js';
 
 const articleRouter = express.Router();
 
-articleRouter.get("/:page/:id/comments", articleCommentsGet);
-articleRouter.get("/:page/all", articleAllGet);
-articleRouter.post("/:page", articleCreate);
+articleRouter.get('/:page/:id/comments', articleCommentsGet);
+articleRouter.get('/:page/all', articleAllGet);
+articleRouter.post('/:page', articleCreate);
 articleRouter
-  .route("/:id")
+  .route('/:id')
   .get(articleGet)
   .delete(articleDelete)
   .patch(articleModify);

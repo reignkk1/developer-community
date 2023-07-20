@@ -1,15 +1,21 @@
-import axios from "axios";
-import { useState } from "react";
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function useComment() {
   const [modify, setModify] = useState(false);
   const [clickCommentID, setClickCommentID] = useState<number>();
-  const [modifyInputValue, setModifyInputValue] = useState("");
+  const [modifyInputValue, setModifyInputValue] = useState('');
+  const [commentWrite, setCommentWrite] = useState(false);
+
+  const handleToggleWrite = (id: number) => {
+    setClickCommentID(id);
+    setCommentWrite(prev => !prev);
+  };
 
   const onDelete = async (id: number) => {
-    if (window.confirm("정말로 삭제하겠습니까?")) {
+    if (window.confirm('정말로 삭제하겠습니까?')) {
       await axios.delete(`/comment/${id}`);
-      alert("삭제완료!");
+      alert('삭제완료!');
     }
     return;
   };
@@ -23,7 +29,7 @@ export default function useComment() {
     await axios.patch(`/comment/${id}`, {
       commentText: modifyInputValue,
     });
-    alert("수정완료!");
+    alert('수정완료!');
     setModify(false);
   };
 
@@ -42,5 +48,8 @@ export default function useComment() {
     onModifyComplete,
     onCancle,
     onChange,
+    handleToggleWrite,
+    commentWrite,
+    setCommentWrite,
   };
 }

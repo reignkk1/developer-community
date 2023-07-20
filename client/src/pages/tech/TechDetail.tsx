@@ -1,23 +1,23 @@
-import { useSetRecoilState } from "recoil";
-import ArticleInfo from "../../components/article/ArticleInfo";
-import { category } from "../../atom";
-import { useEffect } from "react";
-import CommentWrite from "../../components/article/commentWrite/CommentWrite";
-import Comments from "../../components/article/comments/Comments";
-import { Main } from "../../styles/PageShareStyle";
+import { useSetRecoilState } from 'recoil';
+import PostDetail from '../../components/post/PostDetail';
+import { category } from '../../atom';
+import { useEffect } from 'react';
+import PostCommentWrite from '../../components/post/PostCommentWrite';
+import PostCommentList from '../../components/post/PostCommentList';
+import { Main } from '../../styles/PageShareStyle';
 
 export default function TechDetail() {
   const setPage = useSetRecoilState(category);
 
   useEffect(() => {
-    setPage("tech");
+    setPage('tech');
   }, [setPage]);
 
   return (
     <Main>
-      <ArticleInfo />
-      <CommentWrite />
-      <Comments />
+      <PostDetail />
+      <PostCommentWrite />
+      <PostCommentList />
     </Main>
   );
 }
