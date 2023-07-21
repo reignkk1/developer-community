@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // File
-import { IPost, IPage } from '../../../types/types';
+import { IPost, IPage } from '../../types/types';
 import Button from './button';
 import { useGetAxios, usePatchAxios } from '../../hooks/api/http';
 

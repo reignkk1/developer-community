@@ -6,7 +6,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import PageNumberBar from '../components/common/pageNumBar';
 import UserInfoContainer from '../components/user/UserInfoContainer';
 import { Main } from '../styles/PageShareStyle';
-import { IPost } from '../../types/types';
+import { IPost } from '../types/types';
 import { useGetAxios } from '../hooks/api/http';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';

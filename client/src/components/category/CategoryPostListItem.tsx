@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { IPost } from '../../../types/types';
+import { IPost } from '../../types/types';
 import Avartar from '../common/Avartar';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';

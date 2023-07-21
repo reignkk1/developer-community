@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { useGetAxios } from '../../hooks/api/http';
-import { IPost, IUser } from '../../../types/types';
+import { IPost, IUser } from '../../types/types';
 import { category } from '../../store/atom';
 import Avartar from '../common/Avartar';
 import styled from '@emotion/styled';

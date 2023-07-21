@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import HomePostList from '../components/home/HomePostList';
 import HomePostTitle from '../components/home/HomePostTitle';
 import { Main } from '../styles/PageShareStyle';
-import { IPage } from '../../types/types';
+import { IPage } from '../types/types';
 
 // =============================================================================
 

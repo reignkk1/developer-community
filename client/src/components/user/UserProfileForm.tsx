@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Button from '../common/button';
 import InputContainer from '../common/InputContainer';
 import { useGetAxios } from '../../hooks/api/http';
-import { IUser } from '../../../types/types';
+import { IUser } from '../../types/types';
 import styled from '@emotion/styled';
 
 const Form = styled.form`

@@ -1,7 +1,7 @@
 // File
 import { useParams } from 'react-router-dom';
 import { ErrorBox, LoadingBox } from '../common/LoadingError';
-import { IComment } from '../../../types/types';
+import { IComment } from '../../types/types';
 import { category } from '../../store/atom';
 import { useRecoilValue } from 'recoil';
 import { useGetAxios } from '../../hooks/api/http';

@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 
 // File
 import Button from '../common/button';
-import { IPost, IUser } from '../../../types/types';
+import { IPost, IUser } from '../../types/types';
 import { ErrorBox, LoadingBox } from '../common/LoadingError';
 import Avartar from '../common/Avartar';
 import { category } from '../../store/atom';

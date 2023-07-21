@@ -1,7 +1,7 @@
 import Avartar from '../common/Avartar';
 import axios from 'axios';
 import { useGetAxios } from '../../hooks/api/http';
-import { IUser } from '../../../types/types';
+import { IUser } from '../../types/types';
 import styled from '@emotion/styled';
 
 const UserAvartarContainer = styled.div`

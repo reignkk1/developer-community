@@ -6,7 +6,7 @@ import { useState, Dispatch, SetStateAction } from 'react';
 // File
 import Avartar from '../common/Avartar';
 import { useGetAxios, usePostAxios } from '../../hooks/api/http';
-import { IUser } from '../../../types/types';
+import { IUser } from '../../types/types';
 import { useRecoilValue } from 'recoil';
 import { category } from '../../store/atom';
 import { useQueryClient } from 'react-query';

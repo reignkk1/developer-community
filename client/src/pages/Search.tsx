@@ -8,7 +8,7 @@ import { useTheme } from '@emotion/react';
 import Parser from 'html-react-parser';
 import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
 import PageNumberBar from '../components/common/pageNumBar';
-import { IPost } from '../../types/types';
+import { IPost } from '../types/types';
 
 import Avartar from '../components/common/Avartar';
 import { useGetAxios } from '../hooks/api/http';

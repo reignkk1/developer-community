@@ -5,7 +5,7 @@ import { FieldErrors } from 'react-hook-form/dist/types';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 // File
-import { IUser } from '../../types/types';
+import { IUser } from '../types/types';
 import InputContainer from '../components/common/InputContainer';
 import { useGetAxios } from '../hooks/api/http';
 

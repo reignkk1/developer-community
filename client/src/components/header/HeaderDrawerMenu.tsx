@@ -5,7 +5,7 @@ import ThemeToggle from './HeaderThemeButton';
 import axios from 'axios';
 import Avartar from '../common/Avartar';
 import { useGetAxios } from '../../hooks/api/http';
-import { IUser } from '../../../types/types';
+import { IUser } from '../../types/types';
 import styled from '@emotion/styled';
 
 const Container = styled.div<{ open: boolean }>`

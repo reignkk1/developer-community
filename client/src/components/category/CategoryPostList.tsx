@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 
 // File
-import { IPost } from '../../../types/types';
+import { IPost } from '../../types/types';
 import { ErrorBox, LoadingBox } from '../common/LoadingError';
 import PageNumberBar from '../common/pageNumBar';
 import { useGetAxios } from '../../hooks/api/http';

@@ -6,7 +6,7 @@ import { Link, Navigate } from 'react-router-dom';
 // File
 
 import InputContainer from '../components/common/InputContainer';
-import { IUser } from '../../types/types';
+import { IUser } from '../types/types';
 import KakaoAuthButton from '../components/auth/AuthKakaoButton';
 import { useGetAxios } from '../hooks/api/http';
 

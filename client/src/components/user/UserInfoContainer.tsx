@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 
 // File
-import { IUser } from '../../../types/types';
+import { IUser } from '../../types/types';
 import { ErrorBox, LoadingBox } from '../common/LoadingError';
 import Avartar from '../common/Avartar';
 import { useGetAxios } from '../../hooks/api/http';

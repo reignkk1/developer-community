@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useGetAxios } from './api/http';
-import { IUser } from '../../types/types';
+import { IUser } from '../types/types';
 import { category } from '../store/atom';
 import { useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
