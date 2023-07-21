@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { Link, useSearchParams } from "react-router-dom";
-import { css } from "@emotion/react";
-import { useTheme } from "@emotion/react";
+import { Link, useSearchParams } from 'react-router-dom';
+import { css } from '@emotion/react';
+import { useTheme } from '@emotion/react';
 
 //File
 
-import Parser from "html-react-parser";
-import { ErrorBox, LoadingBox } from "../components/common/LoadingError";
-import PageNumberBar from "../components/common/pageNumBar";
-import { IArticleCommentData } from "../types";
+import Parser from 'html-react-parser';
+import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
+import PageNumberBar from '../components/common/pageNumBar';
+import { IPost } from '../../types/types';
 
-import Avartar from "../components/common/Avartar";
-import { useGetAxios } from "../hooks/api/http";
+import Avartar from '../components/common/Avartar';
+import { useGetAxios } from '../hooks/api/http';
 
 // =============================================================================
 
@@ -78,14 +78,14 @@ interface ITheme {
 export default function Search() {
   const theme = useTheme();
   const [search] = useSearchParams();
-  const keyword = search.get("keyword");
+  const keyword = search.get('keyword');
 
-  const { data, isLoading, error } = useGetAxios<IArticleCommentData[]>(
+  const { data, isLoading, error } = useGetAxios<IPost[]>(
     `/search?keyword=${keyword}`
   );
 
   const [query] = useSearchParams();
-  const pageCount = query.get("page");
+  const pageCount = query.get('page');
 
   return (
     <main css={Main}>
@@ -101,7 +101,7 @@ export default function Search() {
               pageCount === null ? 0 : Number(pageCount) * 10 - 10,
               pageCount === null ? 10 : Number(pageCount) * 10
             )
-            .map((item) => (
+            .map(item => (
               <li key={item.id} css={ItemList(theme)}>
                 <div css={Info}>
                   <Link to={`/user/${item.writerID}/posts`}>

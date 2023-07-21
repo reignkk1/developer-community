@@ -6,9 +6,9 @@ import { useState, Dispatch, SetStateAction } from 'react';
 // File
 import Avartar from '../common/Avartar';
 import { useGetAxios, usePostAxios } from '../../hooks/api/http';
-import { IUserData } from '../../types';
+import { IUser } from '../../../types/types';
 import { useRecoilValue } from 'recoil';
-import { category } from '../../atom';
+import { category } from '../../store/atom';
 import { useQueryClient } from 'react-query';
 import styled from '@emotion/styled';
 
@@ -104,7 +104,7 @@ export default function PostCommentWrite({
   parentCommentID,
   setCommentWrite,
 }: ICommentInfo) {
-  const { data: loginUser } = useGetAxios<IUserData>('/user/login-info');
+  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
   const [text, setText] = useState(''); // 댓글 Text
   const { id } = useParams();
   const page = useRecoilValue(category);

@@ -1,13 +1,13 @@
-import styled from "@emotion/styled";
-import axios from "axios";
-import { useForm } from "react-hook-form";
-import { FieldErrors } from "react-hook-form/dist/types";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import styled from '@emotion/styled';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import { FieldErrors } from 'react-hook-form/dist/types';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 // File
-import { IUserData } from "../types";
-import InputContainer from "../components/common/InputContainer";
-import { useGetAxios } from "../hooks/api/http";
+import { IUser } from '../../types/types';
+import InputContainer from '../components/common/InputContainer';
+import { useGetAxios } from '../hooks/api/http';
 
 // =============================================================================
 
@@ -28,12 +28,12 @@ const P1 = styled.p`
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 12px;
-  color: ${(props) => props.theme.textColor};
+  color: ${props => props.theme.textColor};
 `;
 const P2 = styled.p`
   font-size: 14px;
   font-weight: bold;
-  color: ${(props) => props.theme.textColor};
+  color: ${props => props.theme.textColor};
 `;
 const InputForm = styled.form`
   display: flex;
@@ -82,20 +82,20 @@ export default function SignUp() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IUserData>();
-  const { data: loginUser } = useGetAxios("/user/login-info");
+  } = useForm<IUser>();
+  const { data: loginUser } = useGetAxios('/user/login-info');
   const navigate = useNavigate();
-  const onValid = async (data: IUserData) => {
-    await axios.post("/user", {
+  const onValid = async (data: IUser) => {
+    await axios.post('/user', {
       userID: data.id,
       password: data.password,
       email: data.email,
       name: data.name,
       nickname: data.nickname,
-      create_time: new Date().toLocaleDateString("ko-kr"),
+      create_time: new Date().toLocaleDateString('ko-kr'),
     });
-    navigate("/login");
-    alert("가입이 완료되었습니다!");
+    navigate('/login');
+    alert('가입이 완료되었습니다!');
   };
   const oninvalid = (error: FieldErrors) => console.log(error);
 

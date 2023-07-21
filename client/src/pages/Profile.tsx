@@ -1,11 +1,11 @@
-import styled from "@emotion/styled";
-import { Navigate } from "react-router-dom";
+import styled from '@emotion/styled';
+import { Navigate } from 'react-router-dom';
 
 // File
-import MyPageMenu from "../components/userProfile/sideMenu/MyPageMenu";
-import UserForm from "../components/userProfile/userForm/UserForm";
-import UserAvartar from "../components/userProfile/avartar/UserAvartar";
-import { useGetAxios } from "../hooks/api/http";
+import UserProfileMenu from '../components/user/UserProfileMenu';
+import UserProfileForm from '../components/user/UserProfileForm';
+import UserProfileAvartar from '../components/user/UserProfileAvartar';
+import { useGetAxios } from '../hooks/api/http';
 
 // =============================================================================
 
@@ -52,17 +52,17 @@ const Title = styled.div`
 
 export default function Profile() {
   // 로그인 상태
-  const { data: loginUser } = useGetAxios("/user/login-info");
+  const { data: loginUser } = useGetAxios('/user/login-info');
 
   return loginUser ? (
     <Main>
-      <MyPageMenu />
+      <UserProfileMenu />
       <UserInfoBox>
         <UserInfo>
           <Title>회원정보</Title>
-          <UserForm />
+          <UserProfileForm />
         </UserInfo>
-        <UserAvartar />
+        <UserProfileAvartar />
       </UserInfoBox>
     </Main>
   ) : (

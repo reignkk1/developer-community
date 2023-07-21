@@ -1,5 +1,5 @@
-import bcryptjs from "bcryptjs";
-import db from "../mysql.js";
+import bcryptjs from 'bcryptjs';
+import db from './../models/mysql.js';
 
 // 비밀번호 변경 수정
 export async function passWordChange(req, res) {
@@ -14,13 +14,13 @@ export async function passWordChange(req, res) {
     );
 
     if (!matchPassword) {
-      return res.send("현재 비밀번호가 일치하지 않습니다.");
+      return res.send('현재 비밀번호가 일치하지 않습니다.');
     } else {
       const hashPassword = await bcryptjs.hash(newPassWord, 10);
       const sqlQuery = `UPDATE user SET password='${hashPassword}' WHERE id =${req.session.user.id}`;
 
       db.query(sqlQuery, (error2, result2) => {
-        return res.send("변경이 완료되었습니다!");
+        return res.send('변경이 완료되었습니다!');
       });
     }
   });
@@ -33,7 +33,7 @@ export function managerConfirm(req, res) {
     return res.send(`${manager}`);
   }
 
-  return res.send("0");
+  return res.send('0');
 }
 
 // 검색한 게시물 불러오기
@@ -48,7 +48,7 @@ export function searchArticleGet(req, res) {
 
 // 카카오 소셜 로그인
 export async function kakaoAuth(req, res) {
-  const grant_type = "authorization_code";
+  const grant_type = 'authorization_code';
   const client_id = process.env.CLIENT_ID;
   const redirect_uri = process.env.REDIRECT_URI;
   const authCode = req.query.code;
@@ -57,9 +57,9 @@ export async function kakaoAuth(req, res) {
 
   const kakaoToken = await (
     await fetch(KAKAO_TOKEN_URI, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     })
   ).json();
@@ -67,11 +67,11 @@ export async function kakaoAuth(req, res) {
   const { access_token } = kakaoToken;
 
   const userData = await (
-    await fetch("https://kapi.kakao.com/v2/user/me", {
-      method: "GET",
+    await fetch('https://kapi.kakao.com/v2/user/me', {
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${access_token}`,
-        "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     })
   ).json();
@@ -83,13 +83,13 @@ export async function kakaoAuth(req, res) {
 
   const selectQuery = `SELECT * FROM user WHERE userID = ${id}`;
   const signUpQuery =
-    "INSERT INTO user (userID,password,email,name,nickname,create_time,avartar) VALUES (?,?,?,?,?,?,?)";
+    'INSERT INTO user (userID,password,email,name,nickname,create_time,avartar) VALUES (?,?,?,?,?,?,?)';
 
   db.query(selectQuery, (error, result) => {
     if (result[0]) {
       req.session.user = result[0];
       req.session.logined = true;
-      return res.redirect("http://localhost:3000");
+      return res.redirect('http://localhost:3000');
     }
 
     db.query(
@@ -97,17 +97,17 @@ export async function kakaoAuth(req, res) {
       [
         id,
         id,
-        "kakao@kakao.com",
+        'kakao@kakao.com',
         nickname,
         nickname,
-        new Date().toLocaleDateString("ko-kr"),
+        new Date().toLocaleDateString('ko-kr'),
         profile_image,
       ],
       (error, result) => {
         db.query(selectQuery, (error, result) => {
           req.session.user = result[0];
           req.session.logined = true;
-          return res.redirect("http://localhost:3000");
+          return res.redirect('http://localhost:3000');
         });
       }
     );

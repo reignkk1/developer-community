@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import Avartar from '../common/Avartar';
 import { useGetAxios } from '../../hooks/api/http';
-import { IComment, IUserData } from '../../types';
+import { IComment, IUser } from '../../../types/types';
 import useComment from './hook/useComment';
 import Parser from 'html-react-parser';
 import CommentWrite from './PostCommentWrite';
@@ -98,7 +98,7 @@ interface IPostCommentItem {
 }
 
 export default function PostCommentItem({ comment }: IPostCommentItem) {
-  const { data: loginUser } = useGetAxios<IUserData>('/user/login-info');
+  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
 
   const {
     clickCommentID,

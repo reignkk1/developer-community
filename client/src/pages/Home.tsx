@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
-import ArticleBox from "../components/home/articleBox/ArticleBox";
-import Category from "../components/home/categoryTitle/Category";
-import { Main } from "../styles/PageShareStyle";
-import { IPage } from "../types";
+import styled from '@emotion/styled';
+import HomePostList from '../components/home/HomePostList';
+import HomePostTitle from '../components/home/HomePostTitle';
+import { Main } from '../styles/PageShareStyle';
+import { IPage } from '../../types/types';
 
 // =============================================================================
 
@@ -29,29 +29,29 @@ interface ICateogry extends IPage {
 export default function Home() {
   const category: ICateogry[] = [
     {
-      name: "공지사항",
-      page: "notice",
+      name: '공지사항',
+      page: 'notice',
     },
     {
-      name: "Tech",
-      page: "tech",
+      name: 'Tech',
+      page: 'tech',
     },
     {
-      name: "사는 얘기",
-      page: "life",
+      name: '사는 얘기',
+      page: 'life',
     },
     {
-      name: "방명록",
-      page: "guest-book",
+      name: '방명록',
+      page: 'guest-book',
     },
   ];
 
   return (
     <Container>
-      {category.map((item) => (
-        <div>
-          <Category to={`/${item.page}`}>{item.name}</Category>
-          <ArticleBox page={item.page} />
+      {category.map(item => (
+        <div key={item.name}>
+          <HomePostTitle to={`/${item.page}`}>{item.name}</HomePostTitle>
+          <HomePostList page={item.page} />
         </div>
       ))}
     </Container>

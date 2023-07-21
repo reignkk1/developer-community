@@ -1,10 +1,10 @@
-import { useState } from "react";
-import styled from "@emotion/styled";
-import { Link, Navigate } from "react-router-dom";
+import { useState } from 'react';
+import styled from '@emotion/styled';
+import { Link, Navigate } from 'react-router-dom';
 
 // File
-import MyPageMenu from "../components/userProfile/sideMenu/MyPageMenu";
-import { useGetAxios } from "../hooks/api/http";
+import MyPageMenu from '../components/user/UserProfileMenu';
+import { useGetAxios } from '../hooks/api/http';
 
 // =============================================================================
 
@@ -32,7 +32,7 @@ const AccountControlBox = styled.div`
   padding: 0px 0px 20px 70px;
   &:nth-of-type(2) {
     padding-top: 30px;
-    border-top: 1px solid ${(props) => props.theme.borderColor};
+    border-top: 1px solid ${props => props.theme.borderColor};
   }
   @media (max-width: 1065px) {
     padding: 0px 0px 20px 0px;
@@ -57,7 +57,7 @@ const SecondControlBox = styled(ControlBox)`
   }
 `;
 const SignDelete = styled.div`
-  border: 1px solid ${(props) => props.theme.borderColor};
+  border: 1px solid ${props => props.theme.borderColor};
 
   border-radius: 8px;
   margin-bottom: 30px;
@@ -133,7 +133,7 @@ const Label = styled.label`
 
 export default function Account() {
   const [checked, setChecked] = useState(false);
-  const { data: loginUser } = useGetAxios("/user/login-info");
+  const { data: loginUser } = useGetAxios('/user/login-info');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setChecked(e.target.checked);
@@ -152,7 +152,6 @@ export default function Account() {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
                   aria-hidden="true"
                 >
                   <path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path>
@@ -192,7 +191,6 @@ export default function Account() {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
                   aria-hidden="true"
                 >
                   <path d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"></path>

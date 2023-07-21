@@ -1,5 +1,5 @@
-import db from "../mysql.js";
-import bcryptjs from "bcryptjs";
+import bcryptjs from 'bcryptjs';
+import db from './../models/mysql.js';
 
 // 유저 회원가입
 export async function userSignUp(req, res) {
@@ -7,12 +7,12 @@ export async function userSignUp(req, res) {
   const hashPassword = await bcryptjs.hash(password, 10);
 
   const sqlQuery =
-    "INSERT INTO user (userID,password,email,name,nickname,create_time) VALUES (?,?,?,?,?,?)";
+    'INSERT INTO user (userID,password,email,name,nickname,create_time) VALUES (?,?,?,?,?,?)';
   db.query(
     sqlQuery,
     [userID, hashPassword, email, name, nickname, create_time],
     (error, result) => {
-      res.send("성공");
+      res.send('성공');
     }
   );
 }
@@ -24,14 +24,14 @@ export async function userLogin(req, res) {
 
   db.query(sqlQueryUserID, async (error, result) => {
     if (!result.length)
-      return res.send({ errorMsg: "아이디가 존재하지 않습니다!" });
+      return res.send({ errorMsg: '아이디가 존재하지 않습니다!' });
 
     const matchPassword = await bcryptjs.compare(
       loginPassword,
       result[0].password
     );
     if (!matchPassword)
-      return res.send({ errorMsg: "비밀번호가 존재하지 않습니다!" });
+      return res.send({ errorMsg: '비밀번호가 존재하지 않습니다!' });
 
     req.session.logined = true;
     req.session.user = result[0];
@@ -82,7 +82,8 @@ export function userProfileModify(req, res) {
 
   db.query(sqlQuery, (error, result) => {
     req.session.user.nickname = nickname;
-    return res.send("성공");
+    req.session.user.name = name;
+    return res.send('성공');
   });
 }
 

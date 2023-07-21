@@ -1,13 +1,13 @@
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
-import { useState } from "react";
-import styled from "@emotion/styled";
-import { useNavigate, useParams } from "react-router-dom";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditer from '@ckeditor/ckeditor5-build-classic';
+import { useState } from 'react';
+import styled from '@emotion/styled';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // File
-import { IArticleCommentData, IPage } from "../../types";
-import Button from "./button";
-import { useGetAxios, usePatchAxios } from "../../hooks/api/http";
+import { IPost, IPage } from '../../../types/types';
+import Button from './button';
+import { useGetAxios, usePatchAxios } from '../../hooks/api/http';
 
 // =============================================================================
 
@@ -28,9 +28,9 @@ const Input = styled.input`
   margin-bottom: 50px;
   padding: 5px 15px;
   outline: none;
-  background-color: ${(props) => props.theme.inputColor};
-  border: 2px solid ${(props) => props.theme.borderColor};
-  color: ${(props) => props.theme.textColor};
+  background-color: ${props => props.theme.inputColor};
+  border: 2px solid ${props => props.theme.borderColor};
+  color: ${props => props.theme.textColor};
   &:focus {
     border: 2px solid #0092fa;
   }
@@ -45,20 +45,20 @@ const Title = styled.div`
 // =============================================================================
 
 export default function Edit({ page }: IPage) {
-  const [inputData, setInputData] = useState("");
-  const [editorData, setEditorData] = useState("");
+  const [inputData, setInputData] = useState('');
+  const [editorData, setEditorData] = useState('');
 
   const { id } = useParams();
   const navigate = useNavigate();
 
   const onGetSuccess = () => {
-    setInputData(data?.title || "");
-    setEditorData(data?.content || "");
+    setInputData(data?.title || '');
+    setEditorData(data?.content || '');
   };
 
   const onPatchSuccess = () => navigate(`/${page}`);
 
-  const { data, isLoading, error } = useGetAxios<IArticleCommentData>(
+  const { data, isLoading, error } = useGetAxios<IPost>(
     `/article/${id}`,
     onGetSuccess
   );
@@ -74,9 +74,9 @@ export default function Edit({ page }: IPage) {
   );
 
   const postSubmit = () => {
-    if (inputData === "") return alert("제목을 입력해주세요!");
-    if (editorData === "") return alert("내용을 입력해주세요!");
-    if (window.confirm("수정 하시겠습니까?")) return editPost();
+    if (inputData === '') return alert('제목을 입력해주세요!');
+    if (editorData === '') return alert('내용을 입력해주세요!');
+    if (window.confirm('수정 하시겠습니까?')) return editPost();
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +92,7 @@ export default function Edit({ page }: IPage) {
         placeholder="제목을 입력해주세요!"
         onChange={onChangeInput}
         required
-        value={isLoading ? "로딩중.." : error ? "404 Not Found" : inputData}
+        value={isLoading ? '로딩중..' : error ? '404 Not Found' : inputData}
       />
       <Title>본문</Title>
       <CKEditor
@@ -102,7 +102,7 @@ export default function Edit({ page }: IPage) {
 
           setEditorData(editorData);
         }}
-        data={isLoading ? "로딩중.." : error ? "404 Not Found" : editorData}
+        data={isLoading ? '로딩중..' : error ? '404 Not Found' : editorData}
       />
 
       <Button onClick={postSubmit}>수정하기</Button>

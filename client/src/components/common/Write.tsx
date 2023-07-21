@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditer from "@ckeditor/ckeditor5-build-classic";
-import styled from "@emotion/styled";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditer from '@ckeditor/ckeditor5-build-classic';
+import styled from '@emotion/styled';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 // File
-import { IPage, IUserData } from "../../types";
-import Button from "./button";
-import { useGetAxios, usePostAxios } from "../../hooks/api/http";
+import { IPage, IUser } from '../../../types/types';
+import Button from './button';
+import { useGetAxios, usePostAxios } from '../../hooks/api/http';
 
 // =============================================================================
 
@@ -29,8 +29,8 @@ const Input = styled.input`
   padding: 10px 15px;
   outline: none;
   border: 2px solid rgba(0, 0, 0, 0.3);
-  background-color: ${(props) => props.theme.inputColor};
-  color: ${(props) => props.theme.textColor};
+  background-color: ${props => props.theme.inputColor};
+  color: ${props => props.theme.textColor};
   &:focus {
     border: 2px solid #0092fa;
   }
@@ -55,17 +55,17 @@ export default function Write({ page }: IPage) {
   const navigate = useNavigate();
 
   const [editorData, setEditorData] = useState({
-    title: "",
-    content: "",
+    title: '',
+    content: '',
   });
   const data = {
     title: editorData.title,
     content: editorData.content,
-    date: new Date().toLocaleDateString("ko-kr"),
+    date: new Date().toLocaleDateString('ko-kr'),
   };
   const onSuccess = () => navigate(`/${page}`);
 
-  const { data: loginUser } = useGetAxios<IUserData>("/user/login-info");
+  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
 
   const { mutate: createPost } = usePostAxios<IData>(
     `/article/${page}`,
@@ -74,8 +74,8 @@ export default function Write({ page }: IPage) {
   );
 
   const postSubmit = () => {
-    if (editorData.title === "") return alert("제목을 입력해주세요!");
-    if (editorData.content === "") return alert("내용을 입력해주세요!");
+    if (editorData.title === '') return alert('제목을 입력해주세요!');
+    if (editorData.content === '') return alert('내용을 입력해주세요!');
     createPost();
   };
 

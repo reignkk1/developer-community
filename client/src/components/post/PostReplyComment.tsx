@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { IComment } from '../../types';
+import { IComment } from '../../../types/types';
 import { useGetAxios } from '../../hooks/api/http';
 import PostCommentItem from './PostCommentItem';
 

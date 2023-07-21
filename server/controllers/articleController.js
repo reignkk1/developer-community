@@ -1,4 +1,4 @@
-import db from '../mysql.js';
+import db from './../models/mysql.js';
 
 // 페이지 모든 게시물 불러오기
 export function articleAllGet(req, res) {

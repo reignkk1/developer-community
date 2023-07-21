@@ -8,12 +8,12 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 // =============================================================================
 
 // Page
-import Header from './components/header/Header';
+import Header from './components/layout/Header';
 import Home from './pages/Home';
 import Notice from './pages/notice/Notice';
 import Tech from './pages/tech/Tech';
 import Life from './pages/life/Life';
-import GuestBook from './pages/GuestBook/Guestbook';
+import GuestBook from './pages/guestBook/Guestbook';
 
 import Edit from './components/common/Edit';
 import Write from './components/common/Write';
@@ -31,7 +31,7 @@ import Search from './pages/Search';
 import ScrollToTop from './utils/ScrollToTop';
 import Footer from './components/layout/Footer';
 import GlobalStyle from './styles/GlobalStyle';
-import ThemeProvider from './ThemeProvider';
+import ThemeProvider from './styles/ThemeProvider';
 import NoticeDetail from './pages/notice/NoticeDetail';
 import QuestionDetail from './pages/tech/TechDetail';
 import LifeDetail from './pages/life/LifeDetail';

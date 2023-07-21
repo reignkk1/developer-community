@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 
 // File
-import Title from '../../components/categoryPosts/Title';
+import Title from '../../components/category/CategoryTitle';
 import GuestBookInput from '../../components/guestBook/GuestBookInput';
 import { Main } from '../../styles/PageShareStyle';
 import { useSetRecoilState } from 'recoil';
-import { category } from '../../atom';
+import { category } from '../../store/atom';
 import GuestBookList from '../../components/guestBook/GuestBookList';
 
 // =============================================================================

@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { useGetAxios } from '../../hooks/api/http';
-import { IArticleCommentData, IUserData } from '../../types';
-import { category } from '../../atom';
+import { IPost, IUser } from '../../../types/types';
+import { category } from '../../store/atom';
 import Avartar from '../common/Avartar';
 import styled from '@emotion/styled';
 import axios from 'axios';
@@ -40,12 +40,10 @@ const DeleteBtn = styled.button`
 export default function GuestBookList() {
   const page = useRecoilValue(category);
   // 로그인 한 유저 정보
-  const { data: loginUser } = useGetAxios<IUserData>('/user/login-info');
+  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
 
   // 게시물
-  const { data, isLoading, error } = useGetAxios<IArticleCommentData[]>(
-    `/article/${page}/all`
-  );
+  const { data } = useGetAxios<IPost[]>(`/article/${page}/all`);
 
   const handleClick = async (id: number) => {
     if (window.confirm('정말로 삭제하겠습니까?')) {
@@ -57,7 +55,7 @@ export default function GuestBookList() {
   return (
     <div>
       {data?.map(item => (
-        <GuestContainer>
+        <GuestContainer key={item.id}>
           <Box>
             <User>
               <Avartar width="30px" heigth="30px" src={item.avartar} />
@@ -65,9 +63,11 @@ export default function GuestBookList() {
             </User>
             <span>{item.content}</span>
           </Box>
-          <div>
-            <DeleteBtn onClick={() => handleClick(item.id)}>삭제</DeleteBtn>
-          </div>
+          {loginUser?.id && item.writerID ? (
+            <div>
+              <DeleteBtn onClick={() => handleClick(item.id)}>삭제</DeleteBtn>
+            </div>
+          ) : null}
         </GuestContainer>
       ))}
     </div>

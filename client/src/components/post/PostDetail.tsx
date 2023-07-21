@@ -4,10 +4,10 @@ import { useRecoilValue } from 'recoil';
 
 // File
 import Button from '../common/button';
-import { IArticleCommentData, IUserData } from '../../types';
+import { IPost, IUser } from '../../../types/types';
 import { ErrorBox, LoadingBox } from '../common/LoadingError';
 import Avartar from '../common/Avartar';
-import { category } from '../../atom';
+import { category } from '../../store/atom';
 import { useDeleteAxios, useGetAxios } from '../../hooks/api/http';
 import styled from '@emotion/styled';
 
@@ -75,12 +75,10 @@ export default function PostDetail() {
   const { id } = useParams();
 
   // 로그인 한 유저 정보
-  const { data: loginUser } = useGetAxios<IUserData>('/user/login-info');
+  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
 
   // 게시물
-  const { data, isLoading, error } = useGetAxios<IArticleCommentData>(
-    `/article/${id}`
-  );
+  const { data, isLoading, error } = useGetAxios<IPost>(`/article/${id}`);
 
   const onSuccess = () => navigate(`/${currentCategory}`);
 

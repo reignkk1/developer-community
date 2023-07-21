@@ -1,6 +1,6 @@
 import Button from '../../components/common/button';
-import PagesArticle from '../../components/categoryPosts/PostList';
-import Title from '../../components/categoryPosts/Title';
+import PagesArticle from '../../components/category/CategoryPostList';
+import Title from '../../components/category/CategoryTitle';
 import usePage from '../../hooks/usePage';
 import { Main } from '../../styles/PageShareStyle';
 

@@ -1,4 +1,4 @@
-import db from '../mysql.js';
+import db from './../models/mysql.js';
 
 // 댓글 생성
 export function commentCreate(req, res) {

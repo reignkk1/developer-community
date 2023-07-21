@@ -4,13 +4,13 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 // File
 
 import PageNumberBar from '../components/common/pageNumBar';
-import UserInfoContainer from '../components/userActivity/UserInfoContainer';
+import UserInfoContainer from '../components/user/UserInfoContainer';
 import { Main } from '../styles/PageShareStyle';
-import { IActivityPage, IArticleCommentData } from '../types';
+import { IPost } from '../../types/types';
 import { useGetAxios } from '../hooks/api/http';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { category } from '../atom';
+import { category } from '../store/atom';
 
 // =============================================================================
 
@@ -89,6 +89,9 @@ const Error = styled.div`
   justify-content: center;
   align-items: center;
 `;
+interface IActivityPage {
+  page: 'posts' | 'comments';
+}
 
 // =============================================================================
 
@@ -96,7 +99,7 @@ export default function UserActivity({ page }: IActivityPage) {
   const { id } = useParams();
   const setCategory = useSetRecoilState(category);
 
-  const { data, isLoading, error } = useGetAxios<IArticleCommentData[]>(
+  const { data, isLoading, error } = useGetAxios<IPost[]>(
     `/user/${page}/${id}`
   );
 
@@ -105,7 +108,7 @@ export default function UserActivity({ page }: IActivityPage) {
 
   useEffect(() => {
     setCategory(page);
-  }, []);
+  }, [page, setCategory]);
 
   return (
     <Main>

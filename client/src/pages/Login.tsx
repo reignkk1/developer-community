@@ -1,14 +1,14 @@
-import styled from "@emotion/styled";
-import axios from "axios";
-import { FieldErrors, useForm } from "react-hook-form";
-import { Link, Navigate } from "react-router-dom";
+import styled from '@emotion/styled';
+import axios from 'axios';
+import { FieldErrors, useForm } from 'react-hook-form';
+import { Link, Navigate } from 'react-router-dom';
 
 // File
 
-import InputContainer from "../components/common/InputContainer";
-import { IUserData } from "../types";
-import KakaoAuthButton from "../components/KakaoAuthButton";
-import { useGetAxios } from "../hooks/api/http";
+import InputContainer from '../components/common/InputContainer';
+import { IUser } from '../../types/types';
+import KakaoAuthButton from '../components/auth/AuthKakaoButton';
+import { useGetAxios } from '../hooks/api/http';
 
 // =============================================================================
 
@@ -29,12 +29,12 @@ const P1 = styled.p`
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 12px;
-  color: ${(props) => props.theme.textColor};
+  color: ${props => props.theme.textColor};
 `;
 const P2 = styled.p`
   font-size: 14px;
   font-weight: bold;
-  color: ${(props) => props.theme.textColor};
+  color: ${props => props.theme.textColor};
 `;
 const InputForm = styled.form`
   display: flex;
@@ -78,18 +78,18 @@ const Btn = styled.button`
 // =============================================================================
 
 export default function Login() {
-  const { data: loginUser } = useGetAxios("/user/login-info");
-  const { register, handleSubmit } = useForm<IUserData>();
+  const { data: loginUser } = useGetAxios('/user/login-info');
+  const { register, handleSubmit } = useForm<IUser>();
 
-  const onValid = async (data: IUserData) => {
-    const response = await axios.post("/user/login", {
+  const onValid = async (data: IUser) => {
+    const response = await axios.post('/user/login', {
       loginUserID: data.id,
       loginPassword: data.password,
     });
 
     if (response.data.errorMsg) return alert(`${response.data.errorMsg}`);
 
-    return window.location.replace("/");
+    return window.location.replace('/');
   };
 
   const oninvalid = (error: FieldErrors) => console.log(error);

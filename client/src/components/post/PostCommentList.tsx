@@ -1,8 +1,8 @@
 // File
 import { useParams } from 'react-router-dom';
 import { ErrorBox, LoadingBox } from '../common/LoadingError';
-import { IComment } from '../../types';
-import { category } from '../../atom';
+import { IComment } from '../../../types/types';
+import { category } from '../../store/atom';
 import { useRecoilValue } from 'recoil';
 import { useGetAxios } from '../../hooks/api/http';
 import PostCommentItem from './PostCommentItem';
@@ -29,7 +29,6 @@ export default function PostCommentList() {
     error,
   } = useGetAxios<IComment[]>(`/article/${page}/${id}/comments`);
 
-  console.log(comments);
   return (
     <>
       {isLoading ? (
@@ -42,7 +41,9 @@ export default function PostCommentList() {
           {comments ? (
             <ul>
               {comments?.map(comment =>
-                !comment.parentID ? <PostCommentItem comment={comment} /> : null
+                !comment.parentID ? (
+                  <PostCommentItem key={comment.id} comment={comment} />
+                ) : null
               )}
             </ul>
           ) : null}

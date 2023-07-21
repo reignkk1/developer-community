@@ -2,7 +2,7 @@
 import { css, useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { category } from '../../atom';
+import { category } from '../../store/atom';
 
 // =============================================================================
 

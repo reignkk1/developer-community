@@ -17,5 +17,10 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "types/types.ts",
+    "types/ckeditor.d.ts",
+    "types/emotion.d.ts"
+  ]
 }
