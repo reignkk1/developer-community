@@ -25,7 +25,10 @@ export default function ThemeToggle() {
   const [isDarkMode, setIsDarkMode] = useRecoilState(DarkMode);
 
   return (
-    <ThemeBtn onClick={() => setIsDarkMode(!isDarkMode)}>
+    <ThemeBtn
+      data-testid="theme_button"
+      onClick={() => setIsDarkMode(!isDarkMode)}
+    >
       {isDarkMode ? '☀️ 라이트모드' : '🌙 다크모드'}
     </ThemeBtn>
   );
