@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
-import { RefObject } from "react";
+import styled from '@emotion/styled';
+import { RefObject } from 'react';
 
 const Img = styled.img`
   border-radius: 50%;
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
+  width: ${props => props.width};
+  height: ${props => props.height};
 `;
 
 interface IAvartar {
@@ -26,7 +26,7 @@ export default function Avartar({
     <Img
       src={
         src ||
-        "https://graph.facebook.com/555897032021233/picture?width=100&height=100"
+        'https://graph.facebook.com/555897032021233/picture?width=100&height=100'
       }
       alt="프로필"
       width={width}
