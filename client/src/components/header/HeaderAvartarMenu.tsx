@@ -130,7 +130,7 @@ export default function AvartarClickMenu() {
         refAvartar={avartar}
       />
       {isOpend ? (
-        <AvartarMenuBox ref={avartarMenu}>
+        <AvartarMenuBox data-testid="avartar_menu" ref={avartarMenu}>
           <AvartarMenu>
             {menuItem.map(item => (
               <AvartarMenuItem

@@ -21,10 +21,14 @@ const Container = styled.div`
   }
 `;
 
-export default function HambugerButton() {
+export default function HambugerButton({ ...props }) {
   const setDrawerMenuOpen = useSetRecoilState(isOpendDrawerMenu);
   return (
-    <Container onClick={() => setDrawerMenuOpen(current => !current)}>
+    <Container
+      {...props}
+      role="button"
+      onClick={() => setDrawerMenuOpen(current => !current)}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

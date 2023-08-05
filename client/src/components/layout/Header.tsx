@@ -46,15 +46,6 @@ const HeaderBox = styled.div`
   }
 `;
 
-const Wrapper = styled.div<{ isOpend: boolean }>`
-  display: ${props => (props.isOpend ? 'block' : 'none')};
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100%;
-  background-color: grey;
-  opacity: 0.4;
-`;
 const Logo = styled.h1`
   color: #0092fa;
   font-size: 25px;
@@ -94,10 +85,6 @@ export default function Header() {
         <HambugerButton />
         {drawerMenuOpen ? <DrawerMenu /> : null}
       </HeaderBox>
-      <Wrapper
-        isOpend={drawerMenuOpen}
-        onClick={() => setDrawerMenuOpen(current => !current)}
-      />
     </HeaderContainer>
   );
 }

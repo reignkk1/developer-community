@@ -102,6 +102,17 @@ const UserInfo = styled.div`
   }
 `;
 
+const Wrapper = styled.div<{ isOpend: boolean }>`
+  display: ${props => (props.isOpend ? 'block' : 'none')};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: grey;
+  opacity: 0.4;
+`;
+
 export default function DrawerMenu() {
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
   const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
@@ -122,38 +133,45 @@ export default function DrawerMenu() {
   };
 
   return (
-    <Container open={drawerMenuOpen}>
-      <ButtonContainer>
-        <CloseButton onClick={closeDrawerMenu}>✖</CloseButton>
-      </ButtonContainer>
-      {loginUser ? (
-        <UserInfo>
-          <Link to="/profile" onClick={closeDrawerMenu}>
-            <Avartar src={loginUser.avartar} width="40px" heigth="40px" />
-          </Link>
-        </UserInfo>
-      ) : null}
-      <Menu>
-        {menuData.map(item => (
-          <Link key={item.name} to={item.path} onClick={closeDrawerMenu}>
-            <MenuList>{item.name}</MenuList>
-          </Link>
-        ))}
-      </Menu>
-      <Theme>
-        <ThemeToggle />
-      </Theme>
-      <SignBox>
+    <>
+      <Container data-testid="drawer_menu" open={drawerMenuOpen}>
+        <ButtonContainer>
+          <CloseButton onClick={closeDrawerMenu}>✖</CloseButton>
+        </ButtonContainer>
         {loginUser ? (
-          <LogOut onClick={onClick}>로그아웃</LogOut>
-        ) : (
-          <>
-            <Link to="/login">로그인 </Link>
-            <span style={{ cursor: 'default', margin: '0px 10px' }}> / </span>
-            <Link to="/signup"> 회원가입</Link>
-          </>
-        )}
-      </SignBox>
-    </Container>
+          <UserInfo>
+            <Link to="/profile" onClick={closeDrawerMenu}>
+              <Avartar src={loginUser.avartar} width="40px" heigth="40px" />
+            </Link>
+          </UserInfo>
+        ) : null}
+        <Menu>
+          {menuData.map(item => (
+            <Link key={item.name} to={item.path} onClick={closeDrawerMenu}>
+              <MenuList>{item.name}</MenuList>
+            </Link>
+          ))}
+        </Menu>
+        <Theme>
+          <ThemeToggle />
+        </Theme>
+        <SignBox>
+          {loginUser ? (
+            <LogOut onClick={onClick}>로그아웃</LogOut>
+          ) : (
+            <>
+              <Link to="/login">로그인 </Link>
+              <span style={{ cursor: 'default', margin: '0px 10px' }}> / </span>
+              <Link to="/signup"> 회원가입</Link>
+            </>
+          )}
+        </SignBox>
+      </Container>
+      <Wrapper
+        data-testid="drawerMenu_wrapper"
+        isOpend={drawerMenuOpen}
+        onClick={() => setDrawerMenuOpen(current => !current)}
+      />
+    </>
   );
 }

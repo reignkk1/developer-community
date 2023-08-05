@@ -1,25 +1,25 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import ThemeToggle from '../HeaderThemeButton';
-import { RecoilRoot } from 'recoil';
 import { DarkMode } from '../../../store/atom';
 import userEvent from '@testing-library/user-event';
-import { RecoilObserver } from '../../../utils/RecoilObserver';
+import { RecoilObserver } from '../../tests/RecoilObserver';
+import TestWrapper from '../../tests/TestWrapper';
 
 describe('ThemeButton test', () => {
-  test('버튼을 클릭 했을 때 DarkMode 상태 값이 Toggle 된다', async () => {
+  test('버튼을 클릭 했을 때 DarkMode 상태 값이 Toggle 된다', () => {
     const onClick = jest.fn();
 
     render(
-      <RecoilRoot>
+      <TestWrapper>
         <RecoilObserver node={DarkMode} onClick={onClick} />
         <ThemeToggle />
-      </RecoilRoot>
+      </TestWrapper>
     );
 
     const themeButton = screen.getByText(/다크모드/);
     expect(onClick).toHaveBeenCalledWith(false);
-    await userEvent.click(themeButton);
+    userEvent.click(themeButton);
     expect(onClick).toHaveBeenLastCalledWith(true);
     expect(themeButton).toHaveTextContent(/라이트모드/);
   });

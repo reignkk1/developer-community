@@ -1,39 +1,15 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { RecoilRoot } from 'recoil';
 import { isOpendAvartarMenu } from '../../../store/atom';
 import AvartarClickMenu from '../HeaderAvartarMenu';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { MemoryRouter } from 'react-router-dom';
-import { RecoilObserver } from '../../../utils/RecoilObserver';
-import { LocationDisplay } from '../../../utils/LocationDisplay';
-import axios from 'axios';
+import { RecoilObserver } from '../../tests/RecoilObserver';
+import { LocationDisplay } from '../../tests/LocationDisplay';
+import TestWrapper from '../../tests/TestWrapper';
 
 describe('AvartarMenu test', () => {
   const setup = () => {
-    const client = new QueryClient();
-    const onClick = jest.fn();
-    const utils = render(
-      <RecoilRoot>
-        <QueryClientProvider client={client}>
-          <MemoryRouter>
-            <LocationDisplay />
-            <RecoilObserver node={isOpendAvartarMenu} onClick={onClick} />
-            <AvartarClickMenu />
-          </MemoryRouter>
-        </QueryClientProvider>
-      </RecoilRoot>
-    );
-
-    return { ...utils, onClick };
-  };
-
-  test('아바타 프로필 클릭 시 AvartarMenu Toggle 된다.', () => {
-    const { getByRole, getByText, getByTestId, onClick } = setup();
-
     const loginUserID = undefined;
-
     const avartarMenu = [
       {
         path: '/profile',
@@ -49,16 +25,54 @@ describe('AvartarMenu test', () => {
       },
     ];
 
-    expect(onClick).toHaveBeenCalledWith(false);
-    userEvent.click(getByRole('img'));
-    expect(onClick).toHaveBeenLastCalledWith(true);
+    const openAvartarMenu = () => {
+      expect(screen.queryByTestId('avartar_menu')).not.toBeInTheDocument();
+      userEvent.click(screen.getByRole('img'));
+      expect(screen.queryByTestId('avartar_menu')).toBeInTheDocument();
+    };
 
-    avartarMenu.forEach(menu =>
-      expect(getByText(menu.name)).toBeInTheDocument()
+    const onClick = jest.fn();
+    const utils = render(
+      <TestWrapper>
+        <LocationDisplay />
+        <RecoilObserver node={isOpendAvartarMenu} onClick={onClick} />
+        <AvartarClickMenu />
+      </TestWrapper>
     );
+
+    return { ...utils, onClick, avartarMenu, openAvartarMenu };
+  };
+
+  test('아바타 프로필 클릭하면 메뉴가 열린다.', () => {
+    const { openAvartarMenu, queryByText, avartarMenu } = setup();
+
+    openAvartarMenu();
+    avartarMenu.forEach(menu =>
+      expect(queryByText(menu.name)).toBeInTheDocument()
+    );
+  });
+
+  test('바깥을 클릭하면 메뉴가 닫힌다', () => {
+    const { openAvartarMenu, queryByTestId } = setup();
+
+    openAvartarMenu();
+    userEvent.click(document.body);
+    expect(queryByTestId('avartar_menu')).not.toBeInTheDocument();
+  });
+
+  test('메뉴 클릭 시 해당 주소로 이동한다', () => {
+    const {
+      getByRole,
+      avartarMenu,
+      getByText,
+      queryByTestId,
+      openAvartarMenu,
+    } = setup();
+
+    openAvartarMenu();
     avartarMenu.forEach(menu => {
       userEvent.click(getByText(menu.name));
-      expect(getByTestId('pathName')).toHaveTextContent(menu.path);
+      expect(queryByTestId('pathName')).toHaveTextContent(menu.path);
       userEvent.click(getByRole('img'));
     });
   });
