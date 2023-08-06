@@ -1,6 +1,5 @@
 import { useRecoilState } from 'recoil';
 import { DarkMode } from '../../store/atom';
-
 import styled from '@emotion/styled';
 
 const ThemeBtn = styled.button`

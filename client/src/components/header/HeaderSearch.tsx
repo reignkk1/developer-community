@@ -44,7 +44,7 @@ export default function SearchBar() {
     navigate(`/search?keyword=${data.searchKeyword}`);
   };
   const oninvalid = (error: FieldErrors) =>
-    alert(`${error.searchKeyword?.message}`);
+    window.alert(`${error.searchKeyword?.message}`);
 
   return (
     <Form onSubmit={handleSubmit(onValid, oninvalid)}>
