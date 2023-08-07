@@ -55,6 +55,7 @@
     "@types/ckeditor__ckeditor5-build-classic": "^29.0.1",
     "@types/node": "^18.15.11",
     "@types/react-router-dom": "^5.3.3",
+    "axios-mock-adapter": "^1.21.5",
     "html-react-parser": "^3.0.4",
     "react-router-dom": "6.4"
   }

@@ -1,0 +1,51 @@
+import '@testing-library/jest-dom';
+import PostList from '../HomePostList';
+import { render, waitFor } from '@testing-library/react';
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
+import TestWrapper from '../../tests/TestWrapper';
+
+describe('PostList test', () => {
+  const posts = [
+    {
+      id: 25,
+      title: 'testTitle',
+      content: 'testContent',
+      date: '2023. 3. 11.',
+      writerID: 1,
+      nickname: '운영진',
+      page: 'notice',
+      avartar: 'https://test.com',
+    },
+  ];
+
+  const mock = new MockAdapter(axios);
+
+  mock
+    .onGet(`${process.env.REACT_APP_API}/article/notice/all`)
+    .reply(200, posts);
+
+  const setup = () => {
+    const utils = render(
+      <TestWrapper>
+        <PostList page="notice" />
+      </TestWrapper>
+    );
+    return { ...utils };
+  };
+
+  test('Post Fetch 후 List에 잘 나타난다', async () => {
+    const { getByText, getByRole } = setup();
+
+    const testKeyWord = ['testTitle', /2023. 3. 11./, '운영진'];
+
+    for (const word of testKeyWord) {
+      await waitFor(() => {
+        expect(getByText(word)).toBeInTheDocument();
+      });
+    }
+    await waitFor(() => {
+      expect(getByRole('img')).toHaveAttribute('src', 'https://test.com');
+    });
+  });
+});

@@ -60,7 +60,7 @@ const Nickname = styled.div`
 
 // =============================================================================
 
-export default function ArticleBox({ page }: IPage) {
+export default function PostList({ page }: IPage) {
   // 모든 게시물 가져옴
   const {
     data: posts,
