@@ -1,11 +1,11 @@
 import '@testing-library/jest-dom';
-import PostList from '../HomePostList';
 import { render, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import TestWrapper from '../../tests/TestWrapper';
+import CategoryPostList from '../CategoryPostList';
 
-describe('PostList test', () => {
+describe('Category Post List test', () => {
   const posts = [
     {
       id: 25,
@@ -18,28 +18,24 @@ describe('PostList test', () => {
 
   const mock = new MockAdapter(axios);
 
-  mock
-    .onGet(`${process.env.REACT_APP_API}/article/notice/all`)
-    .reply(200, posts);
+  mock.onGet(`${process.env.REACT_APP_API}/article/tech/all`).reply(200, posts);
+  global.scrollTo = jest.fn();
 
   const setup = () => {
     const utils = render(
       <TestWrapper>
-        <PostList page="notice" />
+        <CategoryPostList page="tech" />
       </TestWrapper>
     );
     return { ...utils };
   };
 
-  test('Post Fetch 후 List에 잘 나타난다', async () => {
+  test('Cateogry Post Fetch 후 List에 잘 나타난다', async () => {
     const { getByText, getByRole } = setup();
-
     const testKeyWord = ['testTitle', /2023. 3. 11./, '운영진'];
 
     for (const word of testKeyWord) {
-      await waitFor(() => {
-        expect(getByText(word)).toBeInTheDocument();
-      });
+      await waitFor(() => expect(getByText(word)).toBeInTheDocument());
     }
     await waitFor(() => {
       expect(getByRole('img')).toHaveAttribute('src', 'https://test.com');

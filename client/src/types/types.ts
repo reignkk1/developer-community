@@ -12,7 +12,7 @@ export interface IPost {
 }
 
 export interface IPage {
-  page: 'notice' | 'tech' | 'life' | 'guest-book' | 'search';
+  page?: 'notice' | 'tech' | 'life' | 'guest-book' | 'search';
 }
 
 export interface IUser {

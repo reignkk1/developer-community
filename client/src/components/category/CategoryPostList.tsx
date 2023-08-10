@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 
 // File
-import { IPost } from '../../types/types';
+import { IPage, IPost } from '../../types/types';
 import { ErrorBox, LoadingBox } from '../common/LoadingError';
 import PageNumberBar from '../common/pageNumBar';
 import { useGetAxios } from '../../hooks/api/http';
@@ -11,15 +11,19 @@ import PostListItem from './CategoryPostListItem';
 
 // =============================================================================
 
-export default function PostList() {
+export default function CategoryPostList({ page: testPage }: IPage) {
   const page = useRecoilValue(category);
+
   // 모든 게시물 가져오기
-  const { data, isLoading, error } = useGetAxios<IPost[]>(
-    `/article/${page}/all`
-  );
+  const {
+    data: posts,
+    isLoading,
+    error,
+  } = useGetAxios<IPost[]>(`/article/${testPage ? testPage : page}/all`);
 
   // URL 쿼리에 담긴 Page 데이터 가져옴
   const [query] = useSearchParams();
+
   const pageCount = query.get('page');
 
   return isLoading ? (
@@ -29,18 +33,18 @@ export default function PostList() {
   ) : (
     <>
       <ul>
-        {data
+        {posts
           ?.slice(
             // 한 페이지당 10개의 게시물을 보여줌
             pageCount === null ? 0 : Number(pageCount) * 10 - 10,
             pageCount === null ? 10 : Number(pageCount) * 10
           )
           .map(post => (
-            <PostListItem post={post} />
+            <PostListItem key={post.id} post={post} />
           ))}
       </ul>
 
-      <PageNumberBar dataLength={data?.length} pageCount={pageCount} />
+      <PageNumberBar dataLength={posts?.length} pageCount={pageCount} />
     </>
   );
 }

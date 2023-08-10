@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 const Loading = styled.div`
   width: 100%;
@@ -22,7 +22,7 @@ const Error = styled.div`
 export function LoadingBox() {
   return (
     <Loading>
-      <img src="/img/loading.gif" />
+      <img src="/img/loading.gif" alt="로딩중" />
     </Loading>
   );
 }
