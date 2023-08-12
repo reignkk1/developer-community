@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import { useGetAxios, usePostAxios } from '../../hooks/api/http';
+import { usePostAxios } from '../../hooks/api/http';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { useState } from 'react';
+import { IUser } from '../../types/types';
 
 // =============================================================================
 
@@ -36,10 +37,13 @@ const Btn = styled.button`
   }
 `;
 
+interface ITestLoginUser {
+  loginUser: IUser | unknown;
+}
+
 // =============================================================================
 
-export default function GuestBookInput() {
-  const { data: loginUser } = useGetAxios('/user/login-info');
+export default function GuestBookInput({ loginUser }: ITestLoginUser) {
   const navigate = useNavigate();
 
   const [inputData, setInputData] = useState('');
@@ -62,8 +66,8 @@ export default function GuestBookInput() {
     if (!loginUser) return navigate('/login');
     if (!inputData) return alert('내용을 입력해주세요!');
 
-    createGuestBook();
     setInputData('');
+    createGuestBook();
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>

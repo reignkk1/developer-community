@@ -17,6 +17,7 @@ export interface IPage {
 
 export interface IUser {
   id: number;
+  userID: string;
   password: string;
   email: string;
   name: string;

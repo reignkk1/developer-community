@@ -7,10 +7,12 @@ import { Main } from '../../styles/PageShareStyle';
 import { useSetRecoilState } from 'recoil';
 import { category } from '../../store/atom';
 import GuestBookList from '../../components/guestBook/GuestBookList';
+import { useGetAxios } from '../../hooks/api/http';
 
 // =============================================================================
 
 export default function GuestBooks() {
+  const { data: loginUser } = useGetAxios('/user/login-info');
   const setPage = useSetRecoilState(category);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export default function GuestBooks() {
   return (
     <Main>
       <Title name="방명록" explain="쓰셔도 되고 굳이 안 쓰셔도 됩니다" />
-      <GuestBookInput />
+      <GuestBookInput loginUser={loginUser} />
       <GuestBookList />
     </Main>
   );
