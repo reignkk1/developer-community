@@ -2,8 +2,8 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import LoginSignUpBtn from '../HeaderLoginButtons';
 import userEvent from '@testing-library/user-event';
-import { LocationDisplay } from '../../tests/LocationDisplay';
-import TestWrapper from '../../tests/TestWrapper';
+import { LocationDisplay } from '../../../utils/test/LocationDisplay';
+import TestWrapper from '../../../utils/test/TestWrapper';
 
 describe('LoginSignUp Buttons test', () => {
   const setup = () => {

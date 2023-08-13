@@ -1,15 +1,13 @@
 import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/react';
-
-import TestWrapper from '../../tests/TestWrapper';
+import TestWrapper from '../../../utils/test/TestWrapper';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { IUser } from '../../../types/types';
+import { IPost, IUser } from '../../../types/types';
 import GuestBookList from '../GuestBookList';
-import { PAGE_GUSET_BOOK } from '../../../types/constant';
 import { DateToday } from '../../../utils/DateToday';
-import { useSetRecoilState } from 'recoil';
 import { category } from '../../../store/atom';
+import { useTestRecoilState } from '../../../utils/test/useTestRecoilState';
 
 const loginUser: IUser = {
   id: 12,
@@ -24,24 +22,26 @@ const loginUser: IUser = {
     'https://developer-community.s3.ap-northeast-2.amazonaws.com/ef05ca08eb642e7435be63aaa68e6bba',
 };
 
+const posts: IPost[] = [
+  {
+    id: 128,
+    title: 'test',
+    content: 'test',
+    date: DateToday(),
+    writerID: 12,
+    nickname: '김민겸',
+    page: 'guest-book',
+    avartar: 'https://test.com',
+  },
+];
 describe('GuestBook test', () => {
-  const posts = [
-    {
-      id: 128,
-      title: 'test',
-      content: 'test',
-      date: DateToday(),
-      writerID: 12,
-      nickname: '김민겸',
-      page: 'guest-book',
-      avartar: 'https://test.com',
-    },
-  ];
   const mock = new MockAdapter(axios);
-  window.alert = jest.fn();
+
+  const [page, setPage] = useTestRecoilState(category);
+  setPage('guest-book');
 
   mock
-    .onGet(`${process.env.REACT_APP_API}/article/${PAGE_GUSET_BOOK}/all`)
+    .onGet(`${process.env.REACT_APP_API}/article/${page}/all`)
     .reply(200, posts);
 
   const setup = () => {
@@ -57,7 +57,7 @@ describe('GuestBook test', () => {
   test('방명록 리스트가 잘 보여진다', async () => {
     const { getByText, getByRole } = setup();
 
-    const testKeyWord = ['test', '김민겸'];
+    const testKeyWord = ['test', '김민겸', '삭제'];
 
     for (const word of testKeyWord) {
       await waitFor(() => expect(getByText(word)).toBeInTheDocument());
@@ -67,5 +67,3 @@ describe('GuestBook test', () => {
     );
   });
 });
-
-// react jest setRecoil Value

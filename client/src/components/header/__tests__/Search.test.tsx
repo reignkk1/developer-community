@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
 import { waitFor, render } from '@testing-library/react';
 import SearchBar from '../HeaderSearch';
-import TestWrapper from '../../tests/TestWrapper';
+import TestWrapper from '../../../utils/test/TestWrapper';
 import userEvent from '@testing-library/user-event';
-import { LocationDisplay } from '../../tests/LocationDisplay';
+import { LocationDisplay } from '../../../utils/test/LocationDisplay';
 
 describe('Search test', () => {
   const setup = () => {

@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 
 // File
-import { IPage, IPost } from '../../types/types';
+import { IPost } from '../../types/types';
 import { ErrorBox, LoadingBox } from '../common/LoadingError';
 import PageNumberBar from '../common/pageNumBar';
 import { useGetAxios } from '../../hooks/api/http';
@@ -11,7 +11,7 @@ import PostListItem from './CategoryPostListItem';
 
 // =============================================================================
 
-export default function CategoryPostList({ page: testPage }: IPage) {
+export default function CategoryPostList() {
   const page = useRecoilValue(category);
 
   // 모든 게시물 가져오기
@@ -19,7 +19,7 @@ export default function CategoryPostList({ page: testPage }: IPage) {
     data: posts,
     isLoading,
     error,
-  } = useGetAxios<IPost[]>(`/article/${testPage ? testPage : page}/all`);
+  } = useGetAxios<IPost[]>(`/article/${page}/all`);
 
   // URL 쿼리에 담긴 Page 데이터 가져옴
   const [query] = useSearchParams();

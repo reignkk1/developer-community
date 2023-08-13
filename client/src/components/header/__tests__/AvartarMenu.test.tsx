@@ -3,9 +3,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { isOpendAvartarMenu } from '../../../store/atom';
 import AvartarClickMenu from '../HeaderAvartarMenu';
-import { RecoilObserver } from '../../tests/RecoilObserver';
-import { LocationDisplay } from '../../tests/LocationDisplay';
-import TestWrapper from '../../tests/TestWrapper';
+import { RecoilObserver } from '../../../utils/test/RecoilObserver';
+import { LocationDisplay } from '../../../utils/test/LocationDisplay';
+import TestWrapper from '../../../utils/test/TestWrapper';
 
 describe('AvartarMenu test', () => {
   const setup = () => {

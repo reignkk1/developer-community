@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/react';
 import GuestBookInput from '../GuestBookInput';
 import userEvent from '@testing-library/user-event';
-import TestWrapper from '../../tests/TestWrapper';
+import TestWrapper from '../../../utils/test/TestWrapper';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { IUser } from '../../../types/types';

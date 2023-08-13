@@ -2,8 +2,8 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import Category from '../HomePostTitle';
 import userEvent from '@testing-library/user-event';
-import TestWrapper from '../../tests/TestWrapper';
-import { LocationDisplay } from '../../tests/LocationDisplay';
+import TestWrapper from '../../../utils/test/TestWrapper';
+import { LocationDisplay } from '../../../utils/test/LocationDisplay';
 
 describe('PostTitle test', () => {
   const props = {

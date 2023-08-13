@@ -3,7 +3,7 @@ import PostList from '../HomePostList';
 import { render, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import TestWrapper from '../../tests/TestWrapper';
+import TestWrapper from '../../../utils/test/TestWrapper';
 
 describe('PostList test', () => {
   const posts = [

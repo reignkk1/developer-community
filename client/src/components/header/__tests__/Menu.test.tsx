@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { LocationDisplay } from '../../tests/LocationDisplay';
-import TestWrapper from '../../tests/TestWrapper';
+import { LocationDisplay } from '../../../utils/test/LocationDisplay';
+import TestWrapper from '../../../utils/test/TestWrapper';
 import Menu from '../HeaderMenu';
 
 describe('Menu test', () => {

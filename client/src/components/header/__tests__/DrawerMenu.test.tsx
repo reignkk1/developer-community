@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import DrawerMenu from '../HeaderDrawerMenu';
 import HambugerButton from '../HeaderHambugerButton';
 import userEvent from '@testing-library/user-event';
-import TestWrapper from '../../tests/TestWrapper';
+import TestWrapper from '../../../utils/test/TestWrapper';
 
 describe('DrawerMenu test', () => {
   const setup = () => {
