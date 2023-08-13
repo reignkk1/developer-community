@@ -1,10 +1,11 @@
 import { useRecoilValue } from 'recoil';
 import { useGetAxios } from '../../hooks/api/http';
-import { IPost, IUser } from '../../types/types';
+import { ILoginUserProp, IPost } from '../../types/types';
 import { category } from '../../store/atom';
 import Avartar from '../common/Avartar';
 import styled from '@emotion/styled';
 import axios from 'axios';
+import { PAGE_GUSET_BOOK } from '../../types/constant';
 
 const GuestContainer = styled.div`
   display: flex;
@@ -33,19 +34,17 @@ const Box = styled.div`
 const DeleteBtn = styled.button`
   background-color: none;
   outline: none;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(95, 30, 30, 0.2);
   cursor: pointer;
 `;
 
-export default function GuestBookList() {
-  const page = useRecoilValue(category);
-  // 로그인 한 유저 정보
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
-
+export default function GuestBookList({ ...props }) {
   // 게시물
-  const { data } = useGetAxios<IPost[]>(`/article/${page}/all`);
+  const { data: posts } = useGetAxios<IPost[]>(
+    `/article/${PAGE_GUSET_BOOK}/all`
+  );
 
-  const handleClick = async (id: number) => {
+  const handleDelete = async (id: number) => {
     if (window.confirm('정말로 삭제하겠습니까?')) {
       await axios.delete(`/article/${id}`);
     }
@@ -54,18 +53,18 @@ export default function GuestBookList() {
 
   return (
     <div>
-      {data?.map(item => (
-        <GuestContainer key={item.id}>
+      {posts?.map(post => (
+        <GuestContainer key={post.id}>
           <Box>
             <User>
-              <Avartar width="30px" heigth="30px" src={item.avartar} />
-              <span>{item.nickname}</span>
+              <Avartar width="30px" heigth="30px" src={post.avartar} />
+              <span>{post.nickname}</span>
             </User>
-            <span>{item.content}</span>
+            <span>{post.content}</span>
           </Box>
-          {loginUser?.id && item.writerID ? (
+          {props.loginUser?.id && post.writerID ? (
             <div>
-              <DeleteBtn onClick={() => handleClick(item.id)}>삭제</DeleteBtn>
+              <DeleteBtn onClick={() => handleDelete(post.id)}>삭제</DeleteBtn>
             </div>
           ) : null}
         </GuestContainer>

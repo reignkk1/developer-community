@@ -2,8 +2,13 @@ import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import { IPage } from '../../types/types';
 
-export default function TestWrapper({ children }: { children: ReactNode }) {
+interface ITestWrapper {
+  children: ReactNode;
+}
+
+export default function TestWrapper({ children }: ITestWrapper) {
   const client = new QueryClient();
 
   return (

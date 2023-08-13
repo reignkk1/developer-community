@@ -38,3 +38,7 @@ export interface IComment {
   avartar: string;
   parentID: number;
 }
+
+export interface ILoginUserProp {
+  loginUser: IUser | undefined;
+}

@@ -6,6 +6,7 @@ import TestWrapper from '../../tests/TestWrapper';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { IUser } from '../../../types/types';
+import { DateToday } from '../../../utils/DateToday';
 
 const loginUser: IUser = {
   id: 12,
@@ -22,7 +23,7 @@ const loginUser: IUser = {
 const data = {
   title: 'test',
   content: 'test',
-  date: '2023. 8. 12.',
+  date: DateToday(),
 };
 
 describe('GuestBook test', () => {
@@ -43,7 +44,7 @@ describe('GuestBook test', () => {
     return { ...utils };
   };
 
-  test('방명록이 잘 써진다.', async () => {
+  test('방명록 input 버튼 클릭하면 POST 요청이 잘 된다', async () => {
     const { getByRole } = setup();
 
     userEvent.type(getByRole('textbox'), 'test');
@@ -53,4 +54,3 @@ describe('GuestBook test', () => {
     await waitFor(() => expect(getByRole('textbox')).toHaveValue(''));
   });
 });
-// mock 문제 같음

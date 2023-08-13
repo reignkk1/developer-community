@@ -3,7 +3,7 @@ import { usePostAxios } from '../../hooks/api/http';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { useState } from 'react';
-import { IUser } from '../../types/types';
+import { ILoginUserProp } from '../../types/types';
 
 // =============================================================================
 
@@ -37,22 +37,19 @@ const Btn = styled.button`
   }
 `;
 
-interface ITestLoginUser {
-  loginUser: IUser | unknown;
-}
-
 // =============================================================================
 
-export default function GuestBookInput({ loginUser }: ITestLoginUser) {
+export default function GuestBookInput({ loginUser }: ILoginUserProp) {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const [inputData, setInputData] = useState('');
+
   const data = {
     title: inputData,
     content: inputData,
     date: new Date().toLocaleDateString('ko-kr'),
   };
-  const queryClient = useQueryClient();
   const onSuccess = () =>
     queryClient.invalidateQueries(['GET', '/article/guest-book/all']);
 
@@ -65,13 +62,13 @@ export default function GuestBookInput({ loginUser }: ITestLoginUser) {
   const onClick = () => {
     if (!loginUser) return navigate('/login');
     if (!inputData) return alert('내용을 입력해주세요!');
-
     setInputData('');
     createGuestBook();
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputData(e.target.value);
+
   return (
     <InputContainer>
       <Input onChange={onChange} value={inputData} />
