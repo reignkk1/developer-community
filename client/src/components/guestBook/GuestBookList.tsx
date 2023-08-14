@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { useGetAxios } from '../../hooks/api/http';
-import { IPost } from '../../types/types';
+import { IPost, IUser } from '../../types/types';
 import { category } from '../../store/atom';
 import Avartar from '../common/Avartar';
 import styled from '@emotion/styled';
@@ -37,11 +37,10 @@ const DeleteBtn = styled.button`
   cursor: pointer;
 `;
 
-export default function GuestBookList({ ...props }) {
-  // 게시물
-
+export default function GuestBookList() {
   const page = useRecoilValue(category);
 
+  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
   const { data: posts } = useGetAxios<IPost[]>(`/article/${page}/all`);
 
   const handleDelete = async (id: number) => {
@@ -62,7 +61,7 @@ export default function GuestBookList({ ...props }) {
             </User>
             <span>{post.content}</span>
           </Box>
-          {props.loginUser?.id && post.writerID ? (
+          {loginUser?.id && post.writerID ? (
             <div>
               <DeleteBtn onClick={() => handleDelete(post.id)}>삭제</DeleteBtn>
             </div>

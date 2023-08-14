@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { usePostAxios } from '../../hooks/api/http';
+import { useGetAxios, usePostAxios } from '../../hooks/api/http';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { useState } from 'react';
-import { ILoginUserProp } from '../../types/types';
+import { IUser } from '../../types/types';
 
 // =============================================================================
 
@@ -39,20 +39,21 @@ const Btn = styled.button`
 
 // =============================================================================
 
-export default function GuestBookInput({ loginUser }: ILoginUserProp) {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
+export default function GuestBookInput() {
+  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
   const [inputData, setInputData] = useState('');
+
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const data = {
     title: inputData,
     content: inputData,
     date: new Date().toLocaleDateString('ko-kr'),
   };
+
   const onSuccess = () =>
     queryClient.invalidateQueries(['GET', '/article/guest-book/all']);
-
   const { mutate: createGuestBook } = usePostAxios(
     '/article/guest-book',
     data,

@@ -41,13 +41,17 @@ describe('GuestBook test', () => {
   setPage('guest-book');
 
   mock
+    .onGet(`${process.env.REACT_APP_API}/user/login-info`)
+    .reply(200, loginUser);
+
+  mock
     .onGet(`${process.env.REACT_APP_API}/article/${page}/all`)
     .reply(200, posts);
 
   const setup = () => {
     const utils = render(
       <TestWrapper>
-        <GuestBookList loginUser={loginUser} />
+        <GuestBookList />
       </TestWrapper>
     );
 

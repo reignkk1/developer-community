@@ -14,7 +14,6 @@ import { PAGE_GUSET_BOOK } from '../../types/constant';
 // =============================================================================
 
 export default function GuestBooks() {
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
   const setPage = useSetRecoilState(category);
 
   useEffect(() => {
@@ -24,8 +23,8 @@ export default function GuestBooks() {
   return (
     <Main>
       <Title name="방명록" explain="쓰셔도 되고 굳이 안 쓰셔도 됩니다" />
-      <GuestBookInput loginUser={loginUser} />
-      <GuestBookList loginUser={loginUser} />
+      <GuestBookInput />
+      <GuestBookList />
     </Main>
   );
 }

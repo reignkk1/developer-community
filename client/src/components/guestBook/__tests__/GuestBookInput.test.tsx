@@ -31,13 +31,17 @@ describe('GuestBook test', () => {
   window.alert = jest.fn();
 
   mock
+    .onGet(`${process.env.REACT_APP_API}/user/login-info`)
+    .reply(200, loginUser);
+
+  mock
     .onPost(`${process.env.REACT_APP_API}/article/guest-book`, data)
     .reply(200);
 
   const setup = () => {
     const utils = render(
       <TestWrapper>
-        <GuestBookInput loginUser={loginUser} />
+        <GuestBookInput />
       </TestWrapper>
     );
 
@@ -50,7 +54,9 @@ describe('GuestBook test', () => {
     userEvent.type(getByRole('textbox'), 'test');
     expect(getByRole('textbox')).toHaveValue('test');
 
-    userEvent.click(getByRole('button'));
-    await waitFor(() => expect(getByRole('textbox')).toHaveValue(''));
+    await waitFor(() => {
+      userEvent.click(getByRole('button'));
+      expect(getByRole('textbox')).toHaveValue('');
+    });
   });
 });

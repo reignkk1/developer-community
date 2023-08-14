@@ -50,6 +50,7 @@ describe('Category Post List test', () => {
     }
     await waitFor(() => {
       expect(getByRole('img')).toHaveAttribute('src', 'https://test.com');
+      expect(getByText(1)).toBeInTheDocument();
     });
   });
 });
