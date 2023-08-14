@@ -2,13 +2,13 @@ import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import { IPage } from '../../types/types';
+import { render } from '@testing-library/react';
 
 interface ITestWrapper {
   children: ReactNode;
 }
 
-export default function TestWrapper({ children }: ITestWrapper) {
+function TestWrapper({ children }: ITestWrapper) {
   const client = new QueryClient();
 
   return (
@@ -18,4 +18,8 @@ export default function TestWrapper({ children }: ITestWrapper) {
       </RecoilRoot>
     </QueryClientProvider>
   );
+}
+
+export function renderWithTest(components: JSX.Element) {
+  return render(<TestWrapper>{components}</TestWrapper>);
 }

@@ -1,11 +1,11 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { isOpendAvartarMenu } from '../../../store/atom';
 import AvartarClickMenu from '../HeaderAvartarMenu';
 import { RecoilObserver } from '../../../utils/test/RecoilObserver';
 import { LocationDisplay } from '../../../utils/test/LocationDisplay';
-import TestWrapper from '../../../utils/test/TestWrapper';
+import { renderWithTest } from '../../../utils/test/renderWithTest';
 
 describe('AvartarMenu test', () => {
   const setup = () => {
@@ -32,12 +32,12 @@ describe('AvartarMenu test', () => {
     };
 
     const onClick = jest.fn();
-    const utils = render(
-      <TestWrapper>
+    const utils = renderWithTest(
+      <>
         <LocationDisplay />
         <RecoilObserver node={isOpendAvartarMenu} onClick={onClick} />
         <AvartarClickMenu />
-      </TestWrapper>
+      </>
     );
 
     return { ...utils, onClick, avartarMenu, openAvartarMenu };

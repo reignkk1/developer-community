@@ -1,9 +1,8 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
 import LoginSignUpBtn from '../HeaderLoginButtons';
 import userEvent from '@testing-library/user-event';
 import { LocationDisplay } from '../../../utils/test/LocationDisplay';
-import TestWrapper from '../../../utils/test/TestWrapper';
+import { renderWithTest } from '../../../utils/test/renderWithTest';
 
 describe('LoginSignUp Buttons test', () => {
   const setup = () => {
@@ -11,11 +10,11 @@ describe('LoginSignUp Buttons test', () => {
       { name: '로그인', path: '/login' },
       { name: '회원가입', path: '/signup' },
     ];
-    const utils = render(
-      <TestWrapper>
+    const utils = renderWithTest(
+      <>
         <LocationDisplay />
         <LoginSignUpBtn />
-      </TestWrapper>
+      </>
     );
 
     return { ...utils, buttons };

@@ -1,17 +1,17 @@
 import '@testing-library/jest-dom';
-import { waitFor, render } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import SearchBar from '../HeaderSearch';
-import TestWrapper from '../../../utils/test/TestWrapper';
+import { renderWithTest } from '../../../utils/test/renderWithTest';
 import userEvent from '@testing-library/user-event';
 import { LocationDisplay } from '../../../utils/test/LocationDisplay';
 
 describe('Search test', () => {
   const setup = () => {
-    const utils = render(
-      <TestWrapper>
+    const utils = renderWithTest(
+      <>
         <LocationDisplay />
         <SearchBar />
-      </TestWrapper>
+      </>
     );
 
     return { ...utils };

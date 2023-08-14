@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
 import Category from '../HomePostTitle';
 import userEvent from '@testing-library/user-event';
-import TestWrapper from '../../../utils/test/TestWrapper';
+import { renderWithTest } from '../../../utils/test/renderWithTest';
 import { LocationDisplay } from '../../../utils/test/LocationDisplay';
 
 describe('PostTitle test', () => {
@@ -11,11 +10,11 @@ describe('PostTitle test', () => {
     children: '공지사항',
   };
   const setup = () => {
-    const utils = render(
-      <TestWrapper>
+    const utils = renderWithTest(
+      <>
         <LocationDisplay />
         <Category {...props} />
-      </TestWrapper>
+      </>
     );
     return { ...utils };
   };

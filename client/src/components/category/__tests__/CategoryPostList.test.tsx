@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
-import { render, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import TestWrapper from '../../../utils/test/TestWrapper';
+import { renderWithTest } from '../../../utils/test/renderWithTest';
 import CategoryPostList from '../CategoryPostList';
 import { IPost } from '../../../types/types';
 import { useTestRecoilState } from '../../../utils/test/useTestRecoilState';
@@ -33,11 +33,7 @@ describe('Category Post List test', () => {
     .reply(200, posts);
 
   const setup = () => {
-    const utils = render(
-      <TestWrapper>
-        <CategoryPostList />
-      </TestWrapper>
-    );
+    const utils = renderWithTest(<CategoryPostList />);
     return { ...utils };
   };
 

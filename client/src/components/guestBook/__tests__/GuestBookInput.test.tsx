@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
-import { render, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import GuestBookInput from '../GuestBookInput';
 import userEvent from '@testing-library/user-event';
-import TestWrapper from '../../../utils/test/TestWrapper';
+import { renderWithTest } from '../../../utils/test/renderWithTest';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { IUser } from '../../../types/types';
@@ -39,11 +39,7 @@ describe('GuestBook test', () => {
     .reply(200);
 
   const setup = () => {
-    const utils = render(
-      <TestWrapper>
-        <GuestBookInput />
-      </TestWrapper>
-    );
+    const utils = renderWithTest(<GuestBookInput />);
 
     return { ...utils };
   };

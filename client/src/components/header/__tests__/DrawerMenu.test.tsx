@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import DrawerMenu from '../HeaderDrawerMenu';
 import HambugerButton from '../HeaderHambugerButton';
 import userEvent from '@testing-library/user-event';
-import TestWrapper from '../../../utils/test/TestWrapper';
+import { renderWithTest } from '../../../utils/test/renderWithTest';
 
 describe('DrawerMenu test', () => {
   const setup = () => {
@@ -16,11 +16,11 @@ describe('DrawerMenu test', () => {
       expect(screen.getByTestId('drawer_menu')).toHaveStyle('display:none');
     };
 
-    const utils = render(
-      <TestWrapper>
+    const utils = renderWithTest(
+      <>
         <HambugerButton style={{ display: 'block' }} />
         <DrawerMenu />
-      </TestWrapper>
+      </>
     );
     return { ...utils, clickOpenButton, closeDrawerMenu };
   };

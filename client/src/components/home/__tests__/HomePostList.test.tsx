@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
 import PostList from '../HomePostList';
-import { render, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import TestWrapper from '../../../utils/test/TestWrapper';
+import { renderWithTest } from '../../../utils/test/renderWithTest';
 
 describe('PostList test', () => {
   const posts = [
@@ -23,11 +23,7 @@ describe('PostList test', () => {
     .reply(200, posts);
 
   const setup = () => {
-    const utils = render(
-      <TestWrapper>
-        <PostList page="notice" />
-      </TestWrapper>
-    );
+    const utils = renderWithTest(<PostList page="notice" />);
     return { ...utils };
   };
 

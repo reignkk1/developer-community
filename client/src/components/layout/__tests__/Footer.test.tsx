@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
 import Footer from '../Footer';
-import TestWrapper from '../../../utils/test/TestWrapper';
+import { renderWithTest } from '../../../utils/test/renderWithTest';
 
 const imgs = ['눈사람', '고양이'];
 const logoWords = ['Developer', 'All That Developer'];
@@ -18,11 +17,7 @@ const list = [
 
 describe('Footer render test', () => {
   const setup = () => {
-    const utils = render(
-      <TestWrapper>
-        <Footer />
-      </TestWrapper>
-    );
+    const utils = renderWithTest(<Footer />);
 
     return { ...utils };
   };

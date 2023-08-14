@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { LocationDisplay } from '../../../utils/test/LocationDisplay';
-import TestWrapper from '../../../utils/test/TestWrapper';
+import { renderWithTest } from '../../../utils/test/renderWithTest';
 import Menu from '../HeaderMenu';
 
 describe('Menu test', () => {
@@ -13,11 +12,11 @@ describe('Menu test', () => {
       { name: 'Tech', path: '/tech' },
       { name: '방명록', path: '/guest-book' },
     ];
-    const utils = render(
-      <TestWrapper>
+    const utils = renderWithTest(
+      <>
         <LocationDisplay />
         <Menu menu={menuData} />
-      </TestWrapper>
+      </>
     );
 
     return { ...utils, menuData };
