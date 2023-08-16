@@ -20,7 +20,6 @@ const loginUser: IUser = {
   avartar:
     'https://developer-community.s3.ap-northeast-2.amazonaws.com/ef05ca08eb642e7435be63aaa68e6bba',
 };
-
 const avartarMenu = [
   {
     path: '/profile',
@@ -30,11 +29,14 @@ const avartarMenu = [
     path: '/account',
     name: '내 계정',
   },
+  {
+    path: `/user/${loginUser.id}/posts`,
+    name: '활동 내역',
+  },
 ];
 
 describe('AvartarMenu test', () => {
   const mock = new MockAdapter(axios);
-
   mock
     .onGet(`${process.env.REACT_APP_API}/user/login-info`)
     .reply(200, loginUser);
@@ -84,11 +86,16 @@ describe('AvartarMenu test', () => {
   test('메뉴 클릭 시 해당 주소로 이동한다', async () => {
     const { getByText, getByTestId, openAvartarMenu } = setup();
 
-    openAvartarMenu();
+    await (
+      await axios.get(`${process.env.REACT_APP_API}/user/login-info`)
+    ).data;
 
-    await waitFor(() => {
-      userEvent.click(getByText('내 프로필'));
-    });
-    expect(getByTestId('pathName')).toHaveTextContent(`/profile`);
+    for (const menu of avartarMenu) {
+      openAvartarMenu();
+      await waitFor(() => {
+        userEvent.click(getByText(menu.name));
+        expect(getByTestId('pathName')).toHaveTextContent(menu.path);
+      });
+    }
   });
 });
