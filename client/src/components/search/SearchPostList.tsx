@@ -4,7 +4,7 @@ import Parser from 'html-react-parser';
 import PageNumberBar from './../common/pageNumBar';
 import { useQuery } from 'react-query';
 import { IPost } from '../../types/types';
-import { getSearchResult } from '../../hooks/api/http';
+import { getSearchResult } from '../../api/http';
 import { Link, useSearchParams } from 'react-router-dom';
 import Avartar from '../common/Avartar';
 
@@ -101,6 +101,7 @@ export default function SearchPostList() {
         dataLength={posts?.length}
         pageCount={pageCount}
         keyword={keyword}
+        page="search"
       />
     </>
   );

@@ -1,17 +1,15 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Parser from 'html-react-parser';
-import { useRecoilValue } from 'recoil';
 
 // File
 import Button from '../common/button';
-import { ErrorBox, LoadingBox } from '../common/LoadingError';
+
 import Avartar from '../common/Avartar';
-import { category } from '../../store/atom';
-import { getPost } from '../../hooks/api/http';
+import { getPost } from '../../api/http';
 import styled from '@emotion/styled';
 import useLoginUser from '../../hooks/useLoginUser';
 import { useMutation, useQuery } from 'react-query';
-import { deletePost } from './../../hooks/api/http';
+import { deletePost } from '../../api/http';
 import { IPage } from '../../types/types';
 import PostCommentWrite from './PostCommentWrite';
 

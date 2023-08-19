@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 import { IActivityPage, IPost } from '../../types/types';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { getUserActivity } from '../../hooks/api/http';
+import { getUserActivity } from '../../api/http';
 import PageNumberBar from '../common/pageNumBar';
 
 const ItemBox = styled.ul`
@@ -143,6 +143,7 @@ export default function ActivityList({ page }: IActivityPage) {
         dataLength={posts?.length}
         pageCount={pageCount}
         userID={id}
+        page={page}
       />
     </>
   );

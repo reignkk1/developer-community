@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // File
 import { IPost, IPage } from '../../types/types';
 import Avartar from '../common/Avartar';
-import { getAllPost } from '../../hooks/api/http';
+import { getAllPost } from '../../api/http';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 

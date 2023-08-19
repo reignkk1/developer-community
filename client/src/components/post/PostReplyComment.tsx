@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { IComment } from '../../types/types';
 import PostCommentItem from './PostCommentItem';
 import { useQuery } from 'react-query';
-import { getChildrenComments } from '../../hooks/api/http';
+import { getChildrenComments } from '../../api/http';
 
 const Container = styled.div`
   margin-top: 20px;

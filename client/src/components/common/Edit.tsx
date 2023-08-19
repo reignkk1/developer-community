@@ -7,9 +7,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 // File
 import { IPost, IPage } from '../../types/types';
 import Button from './button';
-import { getPost } from '../../hooks/api/http';
+import { getPost } from '../../api/http';
 import { useMutation, useQuery } from 'react-query';
-import { editPost } from './../../hooks/api/http';
+import { editPost } from '../../api/http';
 
 // =============================================================================
 

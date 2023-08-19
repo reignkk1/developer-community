@@ -10,7 +10,7 @@ import Button from './button';
 import useLoginUser from '../../hooks/useLoginUser';
 import { DateToday } from '../../utils/DateToday';
 import { useMutation } from 'react-query';
-import { createPost } from '../../hooks/api/http';
+import { createPost } from '../../api/http';
 
 // =============================================================================
 

@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useState } from 'react';
 import useLoginUser from '../../hooks/useLoginUser';
 import { DateToday } from '../../utils/DateToday';
-import { createGuestBook } from './../../hooks/api/http';
+import { createGuestBook } from '../../api/http';
 
 // =============================================================================
 

@@ -5,7 +5,7 @@ import { IUser } from '../../types/types';
 import Avartar from '../common/Avartar';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
-import { getUserInfo } from '../../hooks/api/http';
+import { getUserInfo } from '../../api/http';
 
 const UserInfoBox = styled.div`
   border: 1px solid ${props => props.theme.borderColor};

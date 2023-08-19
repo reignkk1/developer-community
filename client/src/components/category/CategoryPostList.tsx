@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 // File
 import { IPage, IPost } from '../../types/types';
 import PageNumberBar from '../common/pageNumBar';
-import { getAllPost } from '../../hooks/api/http';
+import { getAllPost } from '../../api/http';
 import styled from '@emotion/styled';
 import Avartar from '../common/Avartar';
 import { useQuery } from 'react-query';
@@ -83,7 +83,11 @@ export default function CategoryPostList({ page }: IPage) {
             </ListItem>
           ))}
       </ul>
-      <PageNumberBar dataLength={posts?.length} pageCount={pageCount} />
+      <PageNumberBar
+        page={page}
+        dataLength={posts?.length}
+        pageCount={pageCount}
+      />
     </>
   );
 }

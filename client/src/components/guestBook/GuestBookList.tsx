@@ -1,4 +1,4 @@
-import { getAllPost } from '../../hooks/api/http';
+import { getAllPost } from '../../api/http';
 import { IPost } from '../../types/types';
 import Avartar from '../common/Avartar';
 import styled from '@emotion/styled';

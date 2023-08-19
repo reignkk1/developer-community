@@ -6,20 +6,6 @@ const { persistAtom: darkPersist } = recoilPersist({
   storage: localStorage,
 });
 
-export const category = atom<
-  | 'notice'
-  | 'tech'
-  | 'life'
-  | 'guest-book'
-  | 'search'
-  | 'posts'
-  | 'comments'
-  | null
->({
-  key: 'category',
-  default: null,
-});
-
 // 다크모드 상태
 export const DarkMode = atom({
   key: 'isDark',

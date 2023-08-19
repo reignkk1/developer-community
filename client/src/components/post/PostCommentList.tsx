@@ -4,7 +4,7 @@ import { IComment, IPage } from '../../types/types';
 import PostCommentItem from './PostCommentItem';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
-import { getComments } from '../../hooks/api/http';
+import { getComments } from '../../api/http';
 
 // =============================================================================
 

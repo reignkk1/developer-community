@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 import useLoginUser from '../../hooks/useLoginUser';
 import { IPage } from '../../types/types';
 import { DateToday } from '../../utils/DateToday';
-import { createComment } from '../../hooks/api/http';
+import { createComment } from '../../api/http';
 
 const Container = styled.div`
   border: 1px solid ${props => props.theme.borderColor};
