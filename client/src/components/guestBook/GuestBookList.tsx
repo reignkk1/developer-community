@@ -1,10 +1,10 @@
-import { useRecoilValue } from 'recoil';
-import { useGetAxios } from '../../hooks/api/http';
-import { IPost, IUser } from '../../types/types';
-import { category } from '../../store/atom';
+import { getAllPost } from '../../hooks/api/http';
+import { IPost } from '../../types/types';
 import Avartar from '../common/Avartar';
 import styled from '@emotion/styled';
 import axios from 'axios';
+import useLoginUser from '../../hooks/useLoginUser';
+import { useQuery } from 'react-query';
 
 const GuestContainer = styled.div`
   display: flex;
@@ -38,10 +38,12 @@ const DeleteBtn = styled.button`
 `;
 
 export default function GuestBookList() {
-  const page = useRecoilValue(category);
-
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
-  const { data: posts } = useGetAxios<IPost[]>(`/article/${page}/all`);
+  const loginUser = useLoginUser();
+  const { data: posts } = useQuery<IPost[]>(
+    ['guest-book'],
+    getAllPost('guest-book'),
+    { suspense: true }
+  );
 
   const handleDelete = async (id: number) => {
     if (window.confirm('정말로 삭제하겠습니까?')) {

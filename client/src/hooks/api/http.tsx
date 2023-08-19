@@ -1,56 +1,110 @@
-import { useMutation, useQuery } from 'react-query';
-
 import axios from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_API;
 axios.defaults.withCredentials = true;
 
-// GET
-export function useGetAxios<T>(url: string, onSuccess?: () => void) {
-  const { data, isLoading, error } = useQuery<T>(
-    ['GET', `${url}`],
-    async () => (await axios.get(url)).data,
-    {
-      onSuccess: () => onSuccess && onSuccess(),
-      onError: error => console.log(error),
-    }
-  );
-
-  return { data, isLoading, error };
+// Get Method
+export function getAllPost(
+  page:
+    | 'search'
+    | 'notice'
+    | 'tech'
+    | 'life'
+    | 'guest-book'
+    | 'posts'
+    | 'comments'
+) {
+  return () =>
+    axios.get(`/article/${page}/all`).then(response => response.data);
 }
 
-// POST
-export function usePostAxios<T>(url: string, data: T, onSuccess?: () => void) {
-  const { mutate, isLoading, error } = useMutation(
-    async () => (await axios.post(url, data)).data,
-    {
-      onSuccess: () => onSuccess && onSuccess(),
-      onError: error => console.log(error),
-    }
-  );
-  return { mutate, isLoading, error };
+export function getLoginUser() {
+  return () => axios.get(`/user/login-info`).then(response => response.data);
 }
 
-// DELETE
-export function useDeleteAxios(url: string, onSuccess?: () => void) {
-  const { mutate, isLoading, error } = useMutation(
-    async () => (await axios.delete(url)).data,
-    {
-      onSuccess: () => onSuccess && onSuccess(),
-      onError: error => console.log(error),
-    }
-  );
-  return { mutate, isLoading, error };
+export function getUserActivity(page: 'posts' | 'comments', id?: string) {
+  return () => axios.get(`/user/${page}/${id}`).then(response => response.data);
 }
 
-// PATCH
-export function usePatchAxios<T>(url: string, data: T, onSuccess?: () => void) {
-  const { mutate, isLoading, error } = useMutation(
-    async () => (await axios.patch(url, data)).data,
-    {
-      onSuccess: () => onSuccess && onSuccess(),
-      onError: error => console.log(error),
-    }
-  );
-  return { mutate, isLoading, error };
+export function getSearchResult(keyword: string | null) {
+  return () =>
+    axios.get(`/search?keyword=${keyword}`).then(response => response.data);
+}
+
+export function getPost(id?: string) {
+  return () => axios.get(`/article/${id}`).then(response => response.data);
+}
+
+export function getUserInfo(userId?: string) {
+  return () => axios.get(`/user/${userId}`).then(response => response.data);
+}
+
+export function getChildrenComments(parentID: number) {
+  return () =>
+    axios.get(`/comment/children/${parentID}`).then(response => response.data);
+}
+
+export function getComments(
+  page:
+    | 'search'
+    | 'notice'
+    | 'tech'
+    | 'life'
+    | 'guest-book'
+    | 'posts'
+    | 'comments'
+    | null,
+  id?: string
+) {
+  return () =>
+    axios
+      .get(`/article/${page}/${id}/comments`)
+      .then(response => response.data);
+}
+
+// Post Method
+
+export function createComment(data: {
+  commentText: string;
+  date: string;
+  postID: number;
+  page: string;
+  parentID?: number;
+}) {
+  return () => axios.post('/comment', data).then(response => response.data);
+}
+export function createGuestBook(data: {
+  title: string;
+  content: string;
+  date: string;
+}) {
+  return () =>
+    axios.post('/article/guest-book', data).then(response => response.data);
+}
+export function createPost(
+  page: string,
+  data: {
+    title: string;
+    content: string;
+    date: string;
+  }
+) {
+  return () =>
+    axios.post(`/article/${page}`, data).then(response => response.data);
+}
+
+// Patch Method
+
+export function editPost(
+  data: { title: string; content: string },
+  id?: string
+) {
+  return () =>
+    axios.patch(`/article/${id}`, data).then(response => response.data);
+}
+
+// Delete Method
+
+export function deletePost(id?: string) {
+  return () => axios.delete(`/article/${id}`).then(response => response.data);
 }

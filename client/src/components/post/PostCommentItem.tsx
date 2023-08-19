@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import Avartar from '../common/Avartar';
-import { useGetAxios } from '../../hooks/api/http';
-import { IComment, IUser } from '../../types/types';
+import { IComment } from '../../types/types';
 import useComment from './hook/useComment';
 import Parser from 'html-react-parser';
 import CommentWrite from './PostCommentWrite';
 import PostReplyComment from './PostReplyComment';
+import useLoginUser from '../../hooks/useLoginUser';
 
 const Item = styled.li`
   border-bottom: 1px solid ${props => props.theme.borderColor};
@@ -98,7 +98,7 @@ interface IPostCommentItem {
 }
 
 export default function PostCommentItem({ comment }: IPostCommentItem) {
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
+  const loginUser = useLoginUser();
 
   const {
     clickCommentID,
@@ -174,6 +174,7 @@ export default function PostCommentItem({ comment }: IPostCommentItem) {
         <CommentWrite
           parentCommentID={comment.id}
           setCommentWrite={setCommentWrite}
+          page={comment.page}
         />
       ) : null}
       <PostReplyComment parentID={comment.id} />

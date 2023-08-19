@@ -3,6 +3,9 @@ import HomePostList from '../components/home/HomePostList';
 import HomePostTitle from '../components/home/HomePostTitle';
 import { Main } from '../styles/PageShareStyle';
 import { IPage } from '../types/types';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
 
 // =============================================================================
 
@@ -51,7 +54,11 @@ export default function Home() {
       {category.map(item => (
         <div key={item.name}>
           <HomePostTitle to={`/${item.page}`}>{item.name}</HomePostTitle>
-          <HomePostList page={item.page} />
+          <Suspense fallback={<LoadingBox />}>
+            <ErrorBoundary fallback={<ErrorBox />}>
+              <HomePostList page={item.page} />
+            </ErrorBoundary>
+          </Suspense>
         </div>
       ))}
     </Container>

@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import UserProfileMenu from '../components/user/UserProfileMenu';
 import UserProfileForm from '../components/user/UserProfileForm';
 import UserProfileAvartar from '../components/user/UserProfileAvartar';
-import { useGetAxios } from '../hooks/api/http';
+import useLoginUser from '../hooks/useLoginUser';
 
 // =============================================================================
 
@@ -51,8 +51,8 @@ const Title = styled.div`
 // =============================================================================
 
 export default function Profile() {
-  // 로그인 상태
-  const { data: loginUser } = useGetAxios('/user/login-info');
+  // 로그인 유저
+  const loginUser = useLoginUser();
 
   return loginUser ? (
     <Main>

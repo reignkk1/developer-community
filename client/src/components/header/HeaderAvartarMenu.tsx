@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { isOpendAvartarMenu } from '../../store/atom';
 import Avartar from '../common/Avartar';
-import { useGetAxios } from '../../hooks/api/http';
-import { IUser } from '../../types/types';
 import styled from '@emotion/styled';
+import useLoginUser from '../../hooks/useLoginUser';
 
 const Container = styled.div`
   img {
@@ -77,7 +76,7 @@ const LogoutBtn = styled.div`
 
 export default function AvartarClickMenu() {
   const [isOpend, setIsOpend] = useRecoilState(isOpendAvartarMenu);
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
+  const loginUser = useLoginUser();
 
   const menuItem = [
     {

@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import axios from "axios";
+import styled from '@emotion/styled';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 // File
-import { useGetAxios } from "../hooks/api/http";
+import useLoginUser from '../hooks/useLoginUser';
 
 // =============================================================================
 
@@ -25,18 +25,18 @@ const P1 = styled.p`
   font-size: 26px;
   font-weight: bold;
   margin-bottom: 12px;
-  color: ${(props) => props.theme.textColor};
+  color: ${props => props.theme.textColor};
 `;
 
 const SignTextBox = styled.div`
   border: 0px solid rgba(0, 0, 0, 0.2);
   height: 180px;
   padding: 25px 10px;
-  background-color: ${(props) => props.theme.bgTitleColor};
+  background-color: ${props => props.theme.bgTitleColor};
   border-radius: 5px;
 `;
 const SignText = styled.p`
-  color: ${(props) => props.theme.textColor};
+  color: ${props => props.theme.textColor};
   font-size: 14px;
   line-height: 1.4;
   span {
@@ -74,16 +74,16 @@ const DeleteBtn = styled(Btn)`
 // =============================================================================
 
 export default function WithdrawConfirm() {
-  const { data: loginUser } = useGetAxios("/user/login-info");
+  const loginUser = useLoginUser();
   const navigate = useNavigate();
 
   const onCancelClick = () => {
-    navigate("/account");
+    navigate('/account');
   };
 
   const onDeleteClick = () => {
-    axios.delete("/user").then(() => {
-      window.location.assign("/");
+    axios.delete('/user').then(() => {
+      window.location.assign('/');
     });
   };
 

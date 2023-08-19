@@ -4,7 +4,7 @@ import { Link, Navigate } from 'react-router-dom';
 
 // File
 import MyPageMenu from '../components/user/UserProfileMenu';
-import { useGetAxios } from '../hooks/api/http';
+import useLoginUser from '../hooks/useLoginUser';
 
 // =============================================================================
 
@@ -133,7 +133,7 @@ const Label = styled.label`
 
 export default function Account() {
   const [checked, setChecked] = useState(false);
-  const { data: loginUser } = useGetAxios('/user/login-info');
+  const loginUser = useLoginUser();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setChecked(e.target.checked);

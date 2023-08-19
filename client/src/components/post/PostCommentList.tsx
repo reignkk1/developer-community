@@ -1,12 +1,10 @@
 // File
 import { useParams } from 'react-router-dom';
-import { ErrorBox, LoadingBox } from '../common/LoadingError';
-import { IComment } from '../../types/types';
-import { category } from '../../store/atom';
-import { useRecoilValue } from 'recoil';
-import { useGetAxios } from '../../hooks/api/http';
+import { IComment, IPage } from '../../types/types';
 import PostCommentItem from './PostCommentItem';
 import styled from '@emotion/styled';
+import { useQuery } from 'react-query';
+import { getComments } from '../../hooks/api/http';
 
 // =============================================================================
 
@@ -18,37 +16,28 @@ const Count = styled.div`
   margin-bottom: 20px;
 `;
 
-export default function PostCommentList() {
+export default function PostCommentList({ page }: IPage) {
   const { id } = useParams();
-  const page = useRecoilValue(category);
 
   // 해당 게시물의 댓글들 Fetch
-  const {
-    data: comments,
-    isLoading,
-    error,
-  } = useGetAxios<IComment[]>(`/article/${page}/${id}/comments`);
+  const { data: comments } = useQuery<IComment[]>(
+    ['comments', `PostId: ${id}`],
+    getComments(page, id),
+    { suspense: true }
+  );
 
   return (
-    <>
-      {isLoading ? (
-        <LoadingBox />
-      ) : error ? (
-        <ErrorBox />
-      ) : (
-        <Container>
-          <Count>{comments ? comments?.length : 0}개의 댓글</Count>
-          {comments ? (
-            <ul>
-              {comments?.map(comment =>
-                !comment.parentID ? (
-                  <PostCommentItem key={comment.id} comment={comment} />
-                ) : null
-              )}
-            </ul>
-          ) : null}
-        </Container>
-      )}
-    </>
+    <Container>
+      <Count>{comments ? comments?.length : 0}개의 댓글</Count>
+      {comments ? (
+        <ul>
+          {comments?.map(comment =>
+            !comment.parentID ? (
+              <PostCommentItem key={comment.id} comment={comment} />
+            ) : null
+          )}
+        </ul>
+      ) : null}
+    </Container>
   );
 }

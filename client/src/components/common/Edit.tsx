@@ -7,7 +7,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 // File
 import { IPost, IPage } from '../../types/types';
 import Button from './button';
-import { useGetAxios, usePatchAxios } from '../../hooks/api/http';
+import { getPost } from '../../hooks/api/http';
+import { useMutation, useQuery } from 'react-query';
+import { editPost } from './../../hooks/api/http';
 
 // =============================================================================
 
@@ -45,38 +47,32 @@ const Title = styled.div`
 // =============================================================================
 
 export default function Edit({ page }: IPage) {
-  const [inputData, setInputData] = useState('');
-  const [editorData, setEditorData] = useState('');
-
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const onGetSuccess = () => {
-    setInputData(data?.title || '');
-    setEditorData(data?.content || '');
-  };
+  const [inputData, setInputData] = useState('');
+  const [editorData, setEditorData] = useState('');
 
-  const onPatchSuccess = () => navigate(`/${page}`);
+  const { isLoading, error } = useQuery<IPost>(['post', id], getPost(id), {
+    onSuccess: post => {
+      setInputData(post?.title || '');
+      setEditorData(post?.content || '');
+    },
+  });
 
-  const { data, isLoading, error } = useGetAxios<IPost>(
-    `/article/${id}`,
-    onGetSuccess
-  );
-
-  const patchData = {
+  const data = {
     title: inputData,
     content: editorData,
   };
-  const { mutate: editPost } = usePatchAxios(
-    `/article/${id}`,
-    patchData,
-    onPatchSuccess
-  );
+
+  const { mutate: editMutate } = useMutation(editPost(data, id), {
+    onSuccess: () => navigate(`/${page}/${id}`),
+  });
 
   const postSubmit = () => {
     if (inputData === '') return alert('제목을 입력해주세요!');
     if (editorData === '') return alert('내용을 입력해주세요!');
-    if (window.confirm('수정 하시겠습니까?')) return editPost();
+    if (window.confirm('수정 하시겠습니까?')) return editMutate();
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

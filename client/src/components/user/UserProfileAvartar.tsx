@@ -1,8 +1,7 @@
 import Avartar from '../common/Avartar';
 import axios from 'axios';
-import { useGetAxios } from '../../hooks/api/http';
-import { IUser } from '../../types/types';
 import styled from '@emotion/styled';
+import useLoginUser from '../../hooks/useLoginUser';
 
 const UserAvartarContainer = styled.div`
   img {
@@ -41,7 +40,7 @@ const InputAvartar = styled.input`
 `;
 
 export default function UserProfileAvartar() {
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
+  const loginUser = useLoginUser();
 
   // 프로필 사진 변경 시
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

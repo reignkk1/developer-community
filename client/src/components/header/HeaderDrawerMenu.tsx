@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import ThemeToggle from './HeaderThemeButton';
 import axios from 'axios';
 import Avartar from '../common/Avartar';
-import { useGetAxios } from '../../hooks/api/http';
-import { IUser } from '../../types/types';
 import styled from '@emotion/styled';
+import useLoginUser from '../../hooks/useLoginUser';
 
 const Container = styled.div<{ open: boolean }>`
   display: ${props => (props.open ? 'block' : 'none')};
@@ -115,7 +114,7 @@ const Wrapper = styled.div<{ isOpend: boolean }>`
 
 export default function DrawerMenu() {
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
+  const loginUser = useLoginUser();
 
   const menuData = [
     { name: '공지사항', path: '/notice' },

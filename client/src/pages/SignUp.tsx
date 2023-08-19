@@ -7,7 +7,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 // File
 import { IUser } from '../types/types';
 import InputContainer from '../components/common/InputContainer';
-import { useGetAxios } from '../hooks/api/http';
+import useLoginUser from '../hooks/useLoginUser';
 
 // =============================================================================
 
@@ -78,12 +78,13 @@ const BottomLogin = styled.div`
 // =============================================================================
 
 export default function SignUp() {
+  const loginUser = useLoginUser();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IUser>();
-  const { data: loginUser } = useGetAxios('/user/login-info');
+
   const navigate = useNavigate();
   const onValid = async (data: IUser) => {
     await axios.post('/user', {

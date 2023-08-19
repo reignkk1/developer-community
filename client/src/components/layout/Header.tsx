@@ -11,8 +11,8 @@ import SearchBar from '../header/HeaderSearch';
 import ThemeToggle from '../header/HeaderThemeButton';
 import HambugerButton from '../header/HeaderHambugerButton';
 import DrawerMenu from '../header/HeaderDrawerMenu';
-import { useGetAxios } from '../../hooks/api/http';
 import styled from '@emotion/styled';
+import useLoginUser from '../../hooks/useLoginUser';
 
 const HeaderContainer = styled.header<{ pathname: String }>`
   display: ${props =>
@@ -56,7 +56,7 @@ const Logo = styled.h1`
 export default function Header() {
   const location = useLocation();
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
-  const { data: loginUser } = useGetAxios('/user/login-info');
+  const loginUser = useLoginUser();
 
   useEffect(() => {
     window.addEventListener(

@@ -4,12 +4,16 @@ import { useRecoilValue } from 'recoil';
 
 // File
 import Button from '../common/button';
-import { IPost, IUser } from '../../types/types';
 import { ErrorBox, LoadingBox } from '../common/LoadingError';
 import Avartar from '../common/Avartar';
 import { category } from '../../store/atom';
-import { useDeleteAxios, useGetAxios } from '../../hooks/api/http';
+import { getPost } from '../../hooks/api/http';
 import styled from '@emotion/styled';
+import useLoginUser from '../../hooks/useLoginUser';
+import { useMutation, useQuery } from 'react-query';
+import { deletePost } from './../../hooks/api/http';
+import { IPage } from '../../types/types';
+import PostCommentWrite from './PostCommentWrite';
 
 const ArticleContainer = styled.div`
   padding: 40px 0px;
@@ -67,26 +71,27 @@ const Date = styled.div`
 
 // =============================================================================
 
-export default function PostDetail() {
+export default function PostDetail({ page }: IPage) {
   const navigate = useNavigate();
-  const currentCategory = useRecoilValue(category);
 
   // URL 파라미터 ID값
   const { id } = useParams();
 
   // 로그인 한 유저 정보
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
+  const loginUser = useLoginUser();
 
   // 게시물
-  const { data, isLoading, error } = useGetAxios<IPost>(`/article/${id}`);
+  const { data: post } = useQuery(['postDetail', id], getPost(id), {
+    suspense: true,
+  });
 
-  const onSuccess = () => navigate(`/${currentCategory}`);
-
-  const { mutate: deletePost } = useDeleteAxios(`/article/${id}`, onSuccess);
+  const { mutate: deleteMutate } = useMutation(deletePost(id), {
+    onSuccess: () => navigate(`/${page}`),
+  });
 
   const deleteClick = () => {
     if (window.confirm('정말로 삭제 하시겠습니까?')) {
-      deletePost();
+      deleteMutate();
     } else {
       return;
     }
@@ -96,35 +101,29 @@ export default function PostDetail() {
   return (
     <>
       <ArticleContainer>
-        {isLoading ? (
-          <LoadingBox />
-        ) : error ? (
-          <ErrorBox />
-        ) : (
-          <>
-            <UserBox>
-              <Link to={`/user/${data?.writerID}/posts`}>
-                <Avartar width="50px" heigth="50px" src={data?.avartar} />
-              </Link>
-              <NicknameBox>
-                <Link to={`/user/${data?.writerID}/posts`}>
-                  <Nickname>{data?.nickname}</Nickname>
-                </Link>
-                <Date>{data?.date}</Date>
-              </NicknameBox>
-            </UserBox>
-            <ArticleTitle>{data?.title}</ArticleTitle>
-            <ArticleText>{Parser(data?.content || '')}</ArticleText>
-          </>
-        )}
+        <UserBox>
+          <Link to={`/user/${post?.writerID}/posts`}>
+            <Avartar width="50px" heigth="50px" src={post?.avartar} />
+          </Link>
+          <NicknameBox>
+            <Link to={`/user/${post?.writerID}/posts`}>
+              <Nickname>{post?.nickname}</Nickname>
+            </Link>
+            <Date>{post?.date}</Date>
+          </NicknameBox>
+        </UserBox>
+        <ArticleTitle>{post?.title}</ArticleTitle>
+        <ArticleText>{Parser(post?.content || '')}</ArticleText>
       </ArticleContainer>
 
-      {loginUser?.id === data?.writerID ? (
+      {loginUser?.id === post?.writerID ? (
         <ButtonBox>
           <Button onClick={deleteClick}>삭제</Button>
           <Button onClick={editClick}>수정</Button>
         </ButtonBox>
       ) : null}
+
+      <PostCommentWrite page={page} />
     </>
   );
 }

@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 // File
 import { IPost, IPage } from '../../types/types';
 import Avartar from '../common/Avartar';
-import { ErrorBox, LoadingBox } from '../common/LoadingError';
-import { useGetAxios } from '../../hooks/api/http';
+import { getAllPost } from '../../hooks/api/http';
 import styled from '@emotion/styled';
+import { useQuery } from 'react-query';
 
 const Container = styled.div`
   height: 500px;
@@ -62,17 +62,11 @@ const Nickname = styled.div`
 
 export default function PostList({ page }: IPage) {
   // 모든 게시물 가져옴
-  const {
-    data: posts,
-    isLoading,
-    error,
-  } = useGetAxios<IPost[]>(`/article/${page}/all`);
+  const { data: posts } = useQuery<IPost[]>([page], getAllPost(page), {
+    suspense: true,
+  });
 
-  return isLoading ? (
-    <LoadingBox />
-  ) : error ? (
-    <ErrorBox />
-  ) : (
+  return (
     <Container>
       <ListBox>
         {posts?.slice(0, 4).map(post => (

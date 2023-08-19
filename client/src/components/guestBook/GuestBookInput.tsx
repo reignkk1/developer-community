@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { useGetAxios, usePostAxios } from '../../hooks/api/http';
 import { useNavigate } from 'react-router-dom';
-import { useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useState } from 'react';
-import { IUser } from '../../types/types';
+import useLoginUser from '../../hooks/useLoginUser';
+import { DateToday } from '../../utils/DateToday';
+import { createGuestBook } from './../../hooks/api/http';
 
 // =============================================================================
 
@@ -40,7 +41,7 @@ const Btn = styled.button`
 // =============================================================================
 
 export default function GuestBookInput() {
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
+  const loginUser = useLoginUser();
   const [inputData, setInputData] = useState('');
 
   const queryClient = useQueryClient();
@@ -49,22 +50,21 @@ export default function GuestBookInput() {
   const data = {
     title: inputData,
     content: inputData,
-    date: new Date().toLocaleDateString('ko-kr'),
+    date: DateToday(),
   };
 
   const onSuccess = () =>
     queryClient.invalidateQueries(['GET', '/article/guest-book/all']);
-  const { mutate: createGuestBook } = usePostAxios(
-    '/article/guest-book',
-    data,
-    onSuccess
-  );
+
+  const { mutate: createMutate } = useMutation(createGuestBook(data), {
+    onSuccess,
+  });
 
   const onClick = () => {
     if (!loginUser) return navigate('/login');
     if (!inputData) return alert('내용을 입력해주세요!');
     setInputData('');
-    createGuestBook();
+    createMutate();
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>

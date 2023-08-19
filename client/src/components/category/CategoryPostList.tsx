@@ -1,36 +1,61 @@
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 // File
-import { IPost } from '../../types/types';
-import { ErrorBox, LoadingBox } from '../common/LoadingError';
+import { IPage, IPost } from '../../types/types';
 import PageNumberBar from '../common/pageNumBar';
-import { useGetAxios } from '../../hooks/api/http';
-import { useRecoilValue } from 'recoil';
-import { category } from '../../store/atom';
-import PostListItem from './CategoryPostListItem';
+import { getAllPost } from '../../hooks/api/http';
+import styled from '@emotion/styled';
+import Avartar from '../common/Avartar';
+import { useQuery } from 'react-query';
+
+const ListItem = styled.li`
+  padding: 20px 0px;
+  border-top: 1px solid ${props => props.theme.borderColor};
+`;
+const ListTitle = styled.div`
+  font-weight: bold;
+  opacity: 0.9;
+  margin-bottom: 10px;
+  color: ${props => props.theme.textColor};
+  &:hover {
+    color: #0092fa;
+  }
+`;
+const ListDate = styled.div`
+  opacity: 0.9;
+`;
+
+const NicknameBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  a {
+    display: block;
+    color: ${props => props.theme.textColor};
+    &:hover {
+      color: #0092fa;
+    }
+    margin-right: 5px;
+  }
+`;
+
+const Nickname = styled.div`
+  font-size: 14px;
+  margin-right: 7px;
+`;
 
 // =============================================================================
 
-export default function CategoryPostList() {
-  const page = useRecoilValue(category);
-
+export default function CategoryPostList({ page }: IPage) {
   // 모든 게시물 가져오기
-  const {
-    data: posts,
-    isLoading,
-    error,
-  } = useGetAxios<IPost[]>(`/article/${page}/all`);
-
+  const { data: posts } = useQuery<IPost[]>([page], getAllPost(page), {
+    suspense: true,
+  });
   // URL 쿼리에 담긴 Page 데이터 가져옴
   const [query] = useSearchParams();
-
   const pageCount = query.get('page');
 
-  return isLoading ? (
-    <LoadingBox />
-  ) : error ? (
-    <ErrorBox />
-  ) : (
+  return (
     <>
       <ul>
         {posts
@@ -40,10 +65,24 @@ export default function CategoryPostList() {
             pageCount === null ? 10 : Number(pageCount) * 10
           )
           .map(post => (
-            <PostListItem key={post.id} post={post} />
+            <ListItem key={post.id}>
+              <NicknameBox>
+                <Link to={`/user/${post.writerID}/posts`}>
+                  <Avartar width="20px" heigth="20px" src={post.avartar} />
+                </Link>
+                <Link to={`/user/${post.writerID}/posts`}>
+                  <Nickname>{post.nickname}</Nickname>
+                </Link>
+              </NicknameBox>
+
+              <Link to={`/${page}/${post.id}`}>
+                <ListTitle>{post.title}</ListTitle>
+              </Link>
+
+              <ListDate>{post.date}</ListDate>
+            </ListItem>
           ))}
       </ul>
-
       <PageNumberBar dataLength={posts?.length} pageCount={pageCount} />
     </>
   );

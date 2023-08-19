@@ -2,10 +2,10 @@ import { Link, useLocation } from 'react-router-dom';
 
 // File
 import { IUser } from '../../types/types';
-import { ErrorBox, LoadingBox } from '../common/LoadingError';
 import Avartar from '../common/Avartar';
-import { useGetAxios } from '../../hooks/api/http';
 import styled from '@emotion/styled';
+import { useQuery } from 'react-query';
+import { getUserInfo } from '../../hooks/api/http';
 
 const UserInfoBox = styled.div`
   border: 1px solid ${props => props.theme.borderColor};
@@ -66,19 +66,19 @@ export default function UserInfoContainer({ userId }: IUserInfoContainer) {
   const urlCommentMatch = location.pathname === `/user/${userId}/comments`;
 
   // 유저정보 Fetch
-  const { data, isLoading, error } = useGetAxios<IUser>(`/user/${userId}`);
+  const { data: user } = useQuery<IUser>(
+    ['user', userId],
+    getUserInfo(userId),
+    {
+      suspense: true,
+    }
+  );
 
   return (
     <UserInfoBox>
       <UserInfo>
-        <Avartar width="70px" heigth="70px" src={data?.avartar} />
-        {isLoading ? (
-          <LoadingBox />
-        ) : error ? (
-          <ErrorBox />
-        ) : (
-          <UserNickname>{data?.nickname}</UserNickname>
-        )}
+        <Avartar width="70px" heigth="70px" src={user?.avartar} />
+        <UserNickname>{user?.nickname}</UserNickname>
       </UserInfo>
       <UserMenuBox>
         <UserMenu urlMatch={urlArticleMatch}>

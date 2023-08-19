@@ -1,13 +1,22 @@
 import Title from '../../components/category/CategoryTitle';
-import PagesArticle from '../../components/category/CategoryPostList';
+import CategoryPostList from '../../components/category/CategoryPostList';
 import Button from '../../components/common/button';
-import usePage from '../../hooks/usePage';
 import { Main } from '../../styles/PageShareStyle';
+import { Suspense } from 'react';
+import { ErrorBox, LoadingBox } from '../../components/common/LoadingError';
+import { ErrorBoundary } from 'react-error-boundary';
+import { useNavigate } from 'react-router-dom';
+import useLoginUser from '../../hooks/useLoginUser';
 
 // =============================================================================
 
 export default function Notice() {
-  const { loginUser, onClick } = usePage('notice');
+  const loginUser = useLoginUser();
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    loginUser ? navigate('write') : navigate('/login');
+  };
 
   return (
     <Main>
@@ -19,7 +28,11 @@ export default function Notice() {
         <Button onClick={onClick}>✏️작성하기</Button>
       ) : null}
 
-      <PagesArticle />
+      <Suspense fallback={<LoadingBox />}>
+        <ErrorBoundary fallback={<ErrorBox />}>
+          <CategoryPostList page="notice" />
+        </ErrorBoundary>
+      </Suspense>
     </Main>
   );
 }

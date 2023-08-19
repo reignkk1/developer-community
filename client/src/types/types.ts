@@ -12,7 +12,14 @@ export interface IPost {
 }
 
 export interface IPage {
-  page?: 'notice' | 'tech' | 'life' | 'guest-book' | 'search';
+  page:
+    | 'notice'
+    | 'tech'
+    | 'life'
+    | 'guest-book'
+    | 'search'
+    | 'posts'
+    | 'comments';
 }
 
 export interface IUser {
@@ -33,7 +40,14 @@ export interface IComment {
   text: string;
   postID: number;
   writerID: number;
-  page: string;
+  page:
+    | 'notice'
+    | 'tech'
+    | 'life'
+    | 'guest-book'
+    | 'search'
+    | 'posts'
+    | 'comments';
   nickname: string;
   avartar: string;
   parentID: number;
@@ -41,4 +55,8 @@ export interface IComment {
 
 export interface ILoginUserProp {
   loginUser: IUser | undefined;
+}
+
+export interface IActivityPage {
+  page: 'posts' | 'comments';
 }

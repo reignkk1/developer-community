@@ -5,9 +5,12 @@ import styled from '@emotion/styled';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 // File
-import { IPage, IUser } from '../../types/types';
+import { IPage } from '../../types/types';
 import Button from './button';
-import { useGetAxios, usePostAxios } from '../../hooks/api/http';
+import useLoginUser from '../../hooks/useLoginUser';
+import { DateToday } from '../../utils/DateToday';
+import { useMutation } from 'react-query';
+import { createPost } from '../../hooks/api/http';
 
 // =============================================================================
 
@@ -45,12 +48,6 @@ const Title = styled.div`
 
 // =============================================================================
 
-interface IData {
-  title: string;
-  content: string;
-  date: string;
-}
-
 export default function Write({ page }: IPage) {
   const navigate = useNavigate();
 
@@ -61,22 +58,20 @@ export default function Write({ page }: IPage) {
   const data = {
     title: editorData.title,
     content: editorData.content,
-    date: new Date().toLocaleDateString('ko-kr'),
+    date: DateToday(),
   };
   const onSuccess = () => navigate(`/${page}`);
 
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
+  const loginUser = useLoginUser();
 
-  const { mutate: createPost } = usePostAxios<IData>(
-    `/article/${page}`,
-    data,
-    onSuccess
-  );
+  const { mutate: createMutate } = useMutation(createPost(page, data), {
+    onSuccess,
+  });
 
   const postSubmit = () => {
     if (editorData.title === '') return alert('제목을 입력해주세요!');
     if (editorData.content === '') return alert('내용을 입력해주세요!');
-    createPost();
+    createMutate();
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

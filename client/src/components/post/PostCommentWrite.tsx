@@ -5,12 +5,12 @@ import { useState, Dispatch, SetStateAction } from 'react';
 
 // File
 import Avartar from '../common/Avartar';
-import { useGetAxios, usePostAxios } from '../../hooks/api/http';
-import { IUser } from '../../types/types';
-import { useRecoilValue } from 'recoil';
-import { category } from '../../store/atom';
-import { useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import styled from '@emotion/styled';
+import useLoginUser from '../../hooks/useLoginUser';
+import { IPage } from '../../types/types';
+import { DateToday } from '../../utils/DateToday';
+import { createComment } from '../../hooks/api/http';
 
 const Container = styled.div`
   border: 1px solid ${props => props.theme.borderColor};
@@ -92,7 +92,7 @@ const Box2 = styled.div`
 
 // =============================================================================
 
-interface ICommentInfo {
+interface ICommentInfo extends IPage {
   avartarURL?: string;
   parentCommentID?: number;
   setCommentWrite?: Dispatch<SetStateAction<boolean>>;
@@ -103,16 +103,17 @@ interface ICommentInfo {
 export default function PostCommentWrite({
   parentCommentID,
   setCommentWrite,
+  page,
 }: ICommentInfo) {
-  const { data: loginUser } = useGetAxios<IUser>('/user/login-info');
+  const loginUser = useLoginUser();
   const [text, setText] = useState(''); // 댓글 Text
   const { id } = useParams();
-  const page = useRecoilValue(category);
+
   const queryClient = useQueryClient();
 
   const data = {
     commentText: text,
-    date: new Date().toLocaleDateString('ko-kr'),
+    date: DateToday(),
     postID: Number(id),
     page,
     parentID: parentCommentID,
@@ -121,16 +122,14 @@ export default function PostCommentWrite({
   const onSuccess = () => {
     setText('');
     setCommentWrite && setCommentWrite(false);
-    queryClient.invalidateQueries(['GET', `/article/${page}/${id}/comments`]);
-    queryClient.invalidateQueries([
-      'GET',
-      `/comment/children/${parentCommentID}`,
-    ]);
+    queryClient.invalidateQueries(['comments', `PostId: ${id}`]);
+    queryClient.invalidateQueries(['childrenComments', parentCommentID]);
   };
 
   // 댓글쓰기 클릭 시
-  const { mutate: createComment } = usePostAxios('/comment', data, onSuccess);
-  const onClick = () => createComment();
+  const { mutate: createMutate } = useMutation(createComment(data), {
+    onSuccess,
+  });
 
   return (
     <Container>
@@ -149,7 +148,16 @@ export default function PostCommentWrite({
           </Box2>
 
           <ButtonBox>
-            <Button onClick={onClick}>댓글쓰기</Button>
+            <Button
+              onClick={() => {
+                if (!text) {
+                  return alert('1자 이상 입력해주세요.');
+                }
+                createMutate();
+              }}
+            >
+              댓글쓰기
+            </Button>
           </ButtonBox>
         </>
       ) : (

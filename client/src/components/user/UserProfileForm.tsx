@@ -6,9 +6,8 @@ import { useState } from 'react';
 // File
 import Button from '../common/button';
 import InputContainer from '../common/InputContainer';
-import { useGetAxios } from '../../hooks/api/http';
-import { IUser } from '../../types/types';
 import styled from '@emotion/styled';
+import useLoginUser from '../../hooks/useLoginUser';
 
 const Form = styled.form`
   display: flex;
@@ -28,16 +27,16 @@ interface IProfileData {
 // =============================================================================
 export default function UserForm() {
   // 유저 프로필 정보 가져오기
-  const { data } = useGetAxios<IUser>('/user/login-info');
+  const loginUser = useLoginUser();
 
   // name input 상태
-  const [name, setName] = useState(data?.name);
+  const [name, setName] = useState(loginUser?.name);
 
   const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setName(e.target.value);
 
   // nickname input 상태
-  const [nickName, setNickName] = useState(data?.nickname);
+  const [nickName, setNickName] = useState(loginUser?.nickname);
 
   const onNickNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setNickName(e.target.value);
@@ -67,7 +66,7 @@ export default function UserForm() {
         name="name"
         required={true}
         onChange={onNameChange}
-        defaultValue={data?.name}
+        defaultValue={loginUser?.name}
       />
       <InputContainer
         register={register}
@@ -77,7 +76,7 @@ export default function UserForm() {
         name="nickName"
         required={true}
         onChange={onNickNameChange}
-        defaultValue={data?.nickname}
+        defaultValue={loginUser?.nickname}
       />
 
       <Button>저장</Button>

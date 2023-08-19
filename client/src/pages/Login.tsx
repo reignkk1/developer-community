@@ -8,7 +8,7 @@ import { Link, Navigate } from 'react-router-dom';
 import InputContainer from '../components/common/InputContainer';
 import { IUser } from '../types/types';
 import KakaoAuthButton from '../components/auth/AuthKakaoButton';
-import { useGetAxios } from '../hooks/api/http';
+import useLoginUser from '../hooks/useLoginUser';
 
 // =============================================================================
 
@@ -78,7 +78,7 @@ const Btn = styled.button`
 // =============================================================================
 
 export default function Login() {
-  const { data: loginUser } = useGetAxios('/user/login-info');
+  const loginUser = useLoginUser();
   const { register, handleSubmit } = useForm<IUser>();
 
   const onValid = async (data: IUser) => {
