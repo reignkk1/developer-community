@@ -5,8 +5,8 @@ import axios from 'axios';
 import { renderWithTest } from '../../../utils/test/renderWithTest';
 import CategoryPostList from '../CategoryPostList';
 import { IPost } from '../../../types/types';
-import { useTestRecoilState } from '../../../utils/test/useTestRecoilState';
-import { category } from '../../../store/atom';
+import { Suspense } from 'react';
+import { LoadingBox } from '../../common/LoadingError';
 
 const posts: IPost[] = [
   {
@@ -25,20 +25,20 @@ describe('Category Post List test', () => {
   const mock = new MockAdapter(axios);
   global.scrollTo = jest.fn();
 
-  const [page, setPage] = useTestRecoilState(category);
-  setPage('tech');
-
-  mock
-    .onGet(`${process.env.REACT_APP_API}/article/${page}/all`)
-    .reply(200, posts);
+  mock.onGet(`${process.env.REACT_APP_API}/article/tech/all`).reply(200, posts);
 
   const setup = () => {
-    const utils = renderWithTest(<CategoryPostList />);
+    const utils = renderWithTest(
+      <Suspense fallback={<LoadingBox />}>
+        <CategoryPostList page="tech" />
+      </Suspense>
+    );
     return { ...utils };
   };
 
   test('Cateogry Post Fetch 후 List에 잘 나타난다', async () => {
     const { getByText, getByRole } = setup();
+
     const testKeyWord = ['testTitle', /2023. 6. 1./, '운영진'];
 
     for (const word of testKeyWord) {

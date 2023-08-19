@@ -59,4 +59,5 @@ export interface ILoginUserProp {
 
 export interface IActivityPage {
   page: 'posts' | 'comments';
+  userId?: string;
 }

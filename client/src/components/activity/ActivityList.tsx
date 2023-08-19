@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 import { IActivityPage, IPost } from '../../types/types';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getUserActivity } from '../../api/http';
 import PageNumberBar from '../common/pageNumBar';
 
@@ -60,18 +60,15 @@ const ItemDate = styled.div`
   }
 `;
 
-export default function ActivityList({ page }: IActivityPage) {
-  const { id } = useParams();
-
+export default function ActivityList({ page, userId }: IActivityPage) {
   const { data: posts } = useQuery<IPost[]>(
-    [`userActivity_${page}`, id],
-    getUserActivity(page, id),
+    [`userActivity_${page}`, userId],
+    getUserActivity(page, userId),
     { suspense: true }
   );
 
   const [query] = useSearchParams();
   const pageCount = query.get('page');
-  console.log(posts);
 
   return (
     <>
@@ -142,7 +139,7 @@ export default function ActivityList({ page }: IActivityPage) {
       <PageNumberBar
         dataLength={posts?.length}
         pageCount={pageCount}
-        userID={id}
+        userID={userId}
         page={page}
       />
     </>

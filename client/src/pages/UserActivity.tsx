@@ -17,7 +17,7 @@ export default function UserActivity({ page }: IActivityPage) {
 
   const components = [
     <UserInfoContainer userId={id} />,
-    <ActivityList page={page} />,
+    <ActivityList page={page} userId={id} />,
   ];
 
   return (

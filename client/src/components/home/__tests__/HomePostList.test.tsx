@@ -4,14 +4,20 @@ import { waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { renderWithTest } from '../../../utils/test/renderWithTest';
+import { IPost } from '../../../types/types';
+import { Suspense } from 'react';
+import { LoadingBox } from '../../common/LoadingError';
 
 describe('PostList test', () => {
-  const posts = [
+  const posts: IPost[] = [
     {
-      id: 25,
-      title: 'testTitle',
-      date: '2023. 3. 11.',
+      id: 125,
+      title: 'testTitle ',
+      content: 'test',
+      date: '2023. 6. 1.',
+      writerID: 12,
       nickname: '운영진',
+      page: 'tech',
       avartar: 'https://test.com',
     },
   ];
@@ -23,14 +29,18 @@ describe('PostList test', () => {
     .reply(200, posts);
 
   const setup = () => {
-    const utils = renderWithTest(<PostList page="notice" />);
+    const utils = renderWithTest(
+      <Suspense fallback={<LoadingBox />}>
+        <PostList page="notice" />
+      </Suspense>
+    );
     return { ...utils };
   };
 
   test('Post Fetch 후 List에 잘 나타난다', async () => {
     const { getByText, getByRole } = setup();
 
-    const testKeyWord = ['testTitle', /2023. 3. 11./, '운영진'];
+    const testKeyWord = ['testTitle', /2023. 6. 1./, '운영진'];
 
     for (const word of testKeyWord) {
       await waitFor(() => {

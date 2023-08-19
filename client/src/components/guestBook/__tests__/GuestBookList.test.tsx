@@ -6,8 +6,9 @@ import axios from 'axios';
 import { IPost, IUser } from '../../../types/types';
 import GuestBookList from '../GuestBookList';
 import { DateToday } from '../../../utils/DateToday';
-import { category } from '../../../store/atom';
 import { useTestRecoilState } from '../../../utils/test/useTestRecoilState';
+import { Suspense } from 'react';
+import { LoadingBox } from '../../common/LoadingError';
 
 const loginUser: IUser = {
   id: 12,
@@ -37,19 +38,20 @@ const posts: IPost[] = [
 describe('GuestBook test', () => {
   const mock = new MockAdapter(axios);
 
-  const [page, setPage] = useTestRecoilState(category);
-  setPage('guest-book');
-
   mock
     .onGet(`${process.env.REACT_APP_API}/user/login-info`)
     .reply(200, loginUser);
 
   mock
-    .onGet(`${process.env.REACT_APP_API}/article/${page}/all`)
+    .onGet(`${process.env.REACT_APP_API}/article/guest-book/all`)
     .reply(200, posts);
 
   const setup = () => {
-    const utils = renderWithTest(<GuestBookList />);
+    const utils = renderWithTest(
+      <Suspense fallback={<LoadingBox />}>
+        <GuestBookList />
+      </Suspense>
+    );
 
     return { ...utils };
   };
