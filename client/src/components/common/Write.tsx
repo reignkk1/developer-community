@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import ReactQuill from 'react-quill';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditer from '@ckeditor/ckeditor5-build-classic';
 import styled from '@emotion/styled';
@@ -11,7 +12,7 @@ import useLoginUser from '../../hooks/useLoginUser';
 import { DateToday } from '../../utils/DateToday';
 import { useMutation } from 'react-query';
 import { createPost } from '../../api/http';
-
+import ReactEditor from './Editor';
 // =============================================================================
 
 const Container = styled.div`
@@ -44,6 +45,11 @@ const Title = styled.div`
   text-align: start;
   font-size: 15px;
   margin-bottom: 5px;
+`;
+
+const Editor = styled(ReactEditor)`
+  height: 500px;
+  margin-bottom: 100px;
 `;
 
 // =============================================================================
@@ -88,11 +94,9 @@ export default function Write({ page }: IPage) {
         required
       />
       <Title>본문</Title>
-      <CKEditor
-        editor={ClassicEditer}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          setEditorData({ ...editorData, content: data });
+      <Editor
+        onChange={(content: string) => {
+          setEditorData({ ...editorData, content });
         }}
       />
 

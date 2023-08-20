@@ -113,3 +113,13 @@ export async function kakaoAuth(req, res) {
     );
   });
 }
+
+// 게시물 / 댓글 사진 업로드
+
+export function uploadImage(req, res) {
+  const uploadImage = req.file.location;
+
+  console.log(uploadImage);
+
+  return res.send(uploadImage);
+}
