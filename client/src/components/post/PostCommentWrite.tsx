@@ -1,6 +1,4 @@
 import { Link, useParams } from 'react-router-dom';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useState, Dispatch, SetStateAction } from 'react';
 
 // File
@@ -11,6 +9,7 @@ import useLoginUser from '../../hooks/useLoginUser';
 import { IPage } from '../../types/types';
 import { DateToday } from '../../utils/DateToday';
 import { createComment } from '../../api/http';
+import ReactEditor from '../common/Editor';
 
 const Container = styled.div`
   border: 1px solid ${props => props.theme.borderColor};
@@ -87,8 +86,17 @@ const Button = styled.button`
 `;
 const Box2 = styled.div`
   display: flex;
-  margin-bottom: 10px;
+  flex-direction: column;
 `;
+
+const AvartarEditor = styled.div`
+  display: flex;
+  margin-bottom: 50px;
+  img {
+    margin-right: 10px;
+  }
+`;
+const Editor = styled(ReactEditor)``;
 
 // =============================================================================
 
@@ -136,29 +144,23 @@ export default function PostCommentWrite({
       {loginUser ? (
         <>
           <Box2 className="commentWrite">
-            <Avartar width="50px" heigth="50px" src={loginUser?.avartar} />
-            <CKEditor
-              editor={ClassicEditor}
-              data={text}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                setText(data);
-              }}
-            />
+            <AvartarEditor>
+              <Avartar width="50px" heigth="50px" src={loginUser?.avartar} />
+              <Editor onChange={(text: string) => setText(text)} />
+            </AvartarEditor>
+            <ButtonBox>
+              <Button
+                onClick={() => {
+                  if (!text) {
+                    return alert('1자 이상 입력해주세요.');
+                  }
+                  createMutate();
+                }}
+              >
+                댓글쓰기
+              </Button>
+            </ButtonBox>
           </Box2>
-
-          <ButtonBox>
-            <Button
-              onClick={() => {
-                if (!text) {
-                  return alert('1자 이상 입력해주세요.');
-                }
-                createMutate();
-              }}
-            >
-              댓글쓰기
-            </Button>
-          </ButtonBox>
         </>
       ) : (
         <>

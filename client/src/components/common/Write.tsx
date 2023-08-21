@@ -1,7 +1,4 @@
-import { useRef, useState } from 'react';
-import ReactQuill from 'react-quill';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditer from '@ckeditor/ckeditor5-build-classic';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -13,6 +10,7 @@ import { DateToday } from '../../utils/DateToday';
 import { useMutation } from 'react-query';
 import { createPost } from '../../api/http';
 import ReactEditor from './Editor';
+
 // =============================================================================
 
 const Container = styled.div`
@@ -48,8 +46,13 @@ const Title = styled.div`
 `;
 
 const Editor = styled(ReactEditor)`
-  height: 500px;
   margin-bottom: 100px;
+  overflow: hidden;
+  .ql-editor {
+    height: 500px;
+    font-size: 15.5px;
+    line-height: 1.8;
+  }
 `;
 
 // =============================================================================
@@ -77,6 +80,7 @@ export default function Write({ page }: IPage) {
   const postSubmit = () => {
     if (editorData.title === '') return alert('제목을 입력해주세요!');
     if (editorData.content === '') return alert('내용을 입력해주세요!');
+
     createMutate();
   };
 
@@ -96,7 +100,10 @@ export default function Write({ page }: IPage) {
       <Title>본문</Title>
       <Editor
         onChange={(content: string) => {
-          setEditorData({ ...editorData, content });
+          setEditorData({
+            ...editorData,
+            content: content.replace('nesw-resize', 'default'),
+          });
         }}
       />
 

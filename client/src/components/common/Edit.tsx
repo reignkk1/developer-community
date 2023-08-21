@@ -1,5 +1,3 @@
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditer from '@ckeditor/ckeditor5-build-classic';
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,6 +8,7 @@ import Button from './button';
 import { getPost } from '../../api/http';
 import { useMutation, useQuery } from 'react-query';
 import { editPost } from '../../api/http';
+import ReactEditor from './Editor';
 
 // =============================================================================
 
@@ -42,6 +41,16 @@ const Title = styled.div`
   text-align: start;
   font-size: 15px;
   margin-bottom: 5px;
+`;
+
+const Editor = styled(ReactEditor)`
+  margin-bottom: 100px;
+  overflow: hidden;
+  .ql-editor {
+    height: 500px;
+    font-size: 15.5px;
+    line-height: 1.8;
+  }
 `;
 
 // =============================================================================
@@ -81,7 +90,7 @@ export default function Edit({ page }: IPage) {
   };
 
   return (
-    <Container className="editWrite">
+    <Container>
       <Title>제목</Title>
       <Input
         type="text"
@@ -91,14 +100,11 @@ export default function Edit({ page }: IPage) {
         value={isLoading ? '로딩중..' : error ? '404 Not Found' : inputData}
       />
       <Title>본문</Title>
-      <CKEditor
-        editor={ClassicEditer}
-        onChange={(event, editor) => {
-          const editorData = editor.getData();
-
-          setEditorData(editorData);
+      <Editor
+        value={editorData}
+        onChange={(content: string) => {
+          setEditorData(content.replace('nesw-resize', 'default'));
         }}
-        data={isLoading ? '로딩중..' : error ? '404 Not Found' : editorData}
       />
 
       <Button onClick={postSubmit}>수정하기</Button>
