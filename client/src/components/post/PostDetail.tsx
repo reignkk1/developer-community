@@ -35,6 +35,11 @@ const ArticleText = styled.div`
   @media (max-width: 940px) {
     font-size: 15px;
   }
+  p {
+    img {
+      cursor: pointer;
+    }
+  }
 `;
 
 const ButtonBox = styled.div`

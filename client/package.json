@@ -4,8 +4,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^35.3.2",
-    "@ckeditor/ckeditor5-easy-image": "^36.0.1",
     "@emotion/css": "^11.10.5",
     "@emotion/react": "^11.10.5",
     "@testing-library/jest-dom": "^5.16.5",
@@ -15,6 +13,9 @@
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.0.9",
     "axios": "^1.2.1",
+    "quill-image-resize": "^3.0.9",
+    "quill-image-resize-module": "^3.0.0",
+    "quill-image-resize-module-ts": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.11",
@@ -52,9 +53,7 @@
     ]
   },
   "devDependencies": {
-    "@ckeditor/ckeditor5-react": "^5.0.3",
     "@emotion/styled": "^11.10.5",
-    "@types/ckeditor__ckeditor5-build-classic": "^29.0.1",
     "@types/node": "^18.15.11",
     "@types/react-router-dom": "^5.3.3",
     "axios-mock-adapter": "^1.21.5",

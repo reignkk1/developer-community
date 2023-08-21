@@ -1,9 +1,11 @@
 import * as React from 'react';
 import axios from 'axios';
 import 'react-quill/dist/quill.snow.css';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { RangeStatic } from 'quill';
+import { ImageResize } from 'quill-image-resize-module-ts';
+Quill.register('modules/ImageResize', ImageResize);
 
 const ReactEditor = ({ ...props }) => {
   const quillRef = React.useRef<ReactQuill>(null);
@@ -69,7 +71,7 @@ const ReactEditor = ({ ...props }) => {
             { indent: '-1' },
             { indent: '+1' },
           ], // 리스트, 인덴트 설정
-          ['link', 'image', 'video'], // 링크, 이미지, 비디오 업로드 설정
+          ['image'], // 링크, 이미지, 비디오 업로드 설정
           [{ align: [] }, { color: [] }, { background: [] }], // 정렬, 글씨 색깔, 글씨 배경색 설정
           ['clean'], // toolbar 설정 초기화 설정
         ],
@@ -78,6 +80,13 @@ const ReactEditor = ({ ...props }) => {
         handlers: {
           image: imageHandler, // 이미지 tool 사용에 대한 핸들러 설정
         },
+      },
+      ImageResize: {
+        handleStyles: {
+          backgroundColor: 'blue',
+          borderRadius: '10px',
+        },
+        modules: ['Resize'],
       },
     }),
     []
