@@ -10,7 +10,7 @@ import { ErrorBox, LoadingBox } from '../../components/common/LoadingError';
 
 // =============================================================================
 
-export default function GuestBooks() {
+export default function GuestBook() {
   return (
     <Main>
       <Title name="방명록" explain="쓰셔도 되고 굳이 안 쓰셔도 됩니다" />
