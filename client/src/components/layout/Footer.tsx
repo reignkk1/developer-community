@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { css, useTheme } from "@emotion/react";
-import { useLocation } from "react-router-dom";
+import { css, useTheme } from '@emotion/react';
+import { useLocation } from 'react-router-dom';
 
 const footer = (pathname: string) => css`
-  display: ${pathname === "/login" || pathname === "/signup"
-    ? "none"
-    : "block"};
-  margin-top: 50px;
+  display: ${pathname === '/login' || pathname === '/signup'
+    ? 'none'
+    : 'block'};
 `;
 
 const snowCat = css`
@@ -93,14 +92,14 @@ const Info = css`
 export default function Footer() {
   const theme = useTheme();
   const list = [
-    "회사소개",
-    "공지사항",
-    "연락처",
-    "광고문의",
-    "채용",
-    "버그제보",
-    "개인정보 처리방침",
-    "서비스 이용약관",
+    '회사소개',
+    '공지사항',
+    '연락처',
+    '광고문의',
+    '채용',
+    '버그제보',
+    '개인정보 처리방침',
+    '서비스 이용약관',
   ];
 
   const location = useLocation();

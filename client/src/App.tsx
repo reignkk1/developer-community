@@ -41,6 +41,7 @@ import LifeDetail from './pages/life/LifeDetail';
 const Main = styled.main`
   width: 100%;
   margin-top: 100px;
+  height: 100%;
 `;
 
 // =============================================================================
@@ -52,12 +53,11 @@ function App() {
     <>
       <RecoilRoot>
         <ThemeProvider>
-          <Main>
-            <QueryClientProvider client={client}>
-              <Router>
-                <GlobalStyle />
+          <QueryClientProvider client={client}>
+            <Router>
+              <GlobalStyle />
+              <Main>
                 <Header />
-                <ScrollToTop />
                 <Routes>
                   {/*==================== global page =================== */}
 
@@ -114,10 +114,10 @@ function App() {
                   <Route path="/life/:id/edit" element={<Edit page="life" />} />
                 </Routes>
                 <Footer />
-              </Router>
-              <ReactQueryDevtools />
-            </QueryClientProvider>
-          </Main>
+              </Main>
+            </Router>
+            <ReactQueryDevtools />
+          </QueryClientProvider>
         </ThemeProvider>
       </RecoilRoot>
     </>

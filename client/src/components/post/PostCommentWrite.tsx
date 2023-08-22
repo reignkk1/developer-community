@@ -146,7 +146,12 @@ export default function PostCommentWrite({
           <Box2 className="commentWrite">
             <AvartarEditor>
               <Avartar width="50px" heigth="50px" src={loginUser?.avartar} />
-              <Editor onChange={(text: string) => setText(text)} />
+              <Editor
+                value={text}
+                onChange={(text: string) =>
+                  setText(text.replace('nesw-resize', 'default'))
+                }
+              />
             </AvartarEditor>
             <ButtonBox>
               <Button

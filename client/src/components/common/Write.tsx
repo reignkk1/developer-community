@@ -15,10 +15,10 @@ import ReactEditor from './Editor';
 
 const Container = styled.div`
   width: 60%;
-  height: 120vh;
   margin: 0 auto;
   text-align: center;
-  margin-top: 100px;
+  margin-bottom: 100px;
+
   @media (max-width: 850px) {
     width: 80%;
   }
@@ -46,10 +46,10 @@ const Title = styled.div`
 `;
 
 const Editor = styled(ReactEditor)`
-  margin-bottom: 100px;
-  overflow: hidden;
+  margin-bottom: 50px;
+
   .ql-editor {
-    height: 500px;
+    min-height: 500px;
     font-size: 15.5px;
     line-height: 1.8;
   }
