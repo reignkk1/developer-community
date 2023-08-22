@@ -90,7 +90,7 @@ export default function Write({ page }: IPage) {
   };
 
   return loginUser ? (
-    <Container className="articleWrite">
+    <Container>
       <Title>제목</Title>
       <Input
         placeholder="제목을 입력해주세요!"
