@@ -13,8 +13,8 @@ export default function NoticeDetail() {
 
   return (
     <Main>
-      {components.map(component => (
-        <Suspense fallback={<LoadingBox />}>
+      {components.map((component, index) => (
+        <Suspense key={index} fallback={<LoadingBox />}>
           <ErrorBoundary fallback={<ErrorBox />}>{component}</ErrorBoundary>
         </Suspense>
       ))}
