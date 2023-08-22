@@ -89,7 +89,8 @@ export function articleDelete(req, res) {
 export function articleModify(req, res) {
   const { id } = req.params;
   const { title, content } = req.body;
-  const sqlQuery = `UPDATE posts SET title="${title}",content="${content}" WHERE id = ${id}`;
+
+  const sqlQuery = `UPDATE posts SET title="${title}",content='${content}' WHERE id = ${id}`;
   db.query(sqlQuery, (error, result) => {
     if (error) {
       console.log(error);

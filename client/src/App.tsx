@@ -55,6 +55,7 @@ function App() {
         <ThemeProvider>
           <QueryClientProvider client={client}>
             <Router>
+              <ScrollToTop />
               <GlobalStyle />
               <Main>
                 <Header />

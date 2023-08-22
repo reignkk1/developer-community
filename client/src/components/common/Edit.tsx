@@ -14,7 +14,6 @@ import ReactEditor from './Editor';
 
 const Container = styled.div`
   width: 60%;
-  height: 120vh;
   margin: 0 auto;
   text-align: center;
   margin-top: 100px;
@@ -44,10 +43,10 @@ const Title = styled.div`
 `;
 
 const Editor = styled(ReactEditor)`
-  margin-bottom: 100px;
-  overflow: hidden;
+  margin-bottom: 50px;
+
   .ql-editor {
-    height: 500px;
+    min-height: 500px;
     font-size: 15.5px;
     line-height: 1.8;
   }
@@ -71,7 +70,7 @@ export default function Edit({ page }: IPage) {
 
   const data = {
     title: inputData,
-    content: editorData,
+    content: editorData.replace('nwse-resize', 'default'),
   };
 
   const { mutate: editMutate } = useMutation(editPost(data, id), {
@@ -92,6 +91,7 @@ export default function Edit({ page }: IPage) {
   return (
     <Container>
       <Title>제목</Title>
+
       <Input
         type="text"
         placeholder="제목을 입력해주세요!"
@@ -103,7 +103,7 @@ export default function Edit({ page }: IPage) {
       <Editor
         value={editorData}
         onChange={(content: string) => {
-          setEditorData(content.replace('nesw-resize', 'default'));
+          setEditorData(content);
         }}
       />
 
