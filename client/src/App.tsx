@@ -13,7 +13,7 @@ import Home from './pages/Home';
 import Notice from './pages/notice/Notice';
 import Tech from './pages/tech/Tech';
 import Life from './pages/life/Life';
-import GuestBook from './pages/guestBook/Guestbook';
+import GuestBook from './pages/guestbook/Guestbook';
 
 import Edit from './components/common/Edit';
 import Write from './components/common/Write';
