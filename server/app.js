@@ -13,6 +13,8 @@ import articleRouter from './routers/articleRouter.js';
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 app.use(
   cors({
     origin: true,
@@ -42,7 +44,6 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 3600000,
-      sameSite: 'none',
     },
   })
 );
