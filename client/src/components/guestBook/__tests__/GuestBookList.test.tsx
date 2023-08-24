@@ -6,7 +6,6 @@ import axios from 'axios';
 import { IPost, IUser } from '../../../types/types';
 import GuestBookList from '../GuestBookList';
 import { DateToday } from '../../../utils/DateToday';
-import { useTestRecoilState } from '../../../utils/test/useTestRecoilState';
 import { Suspense } from 'react';
 import { LoadingBox } from '../../common/LoadingError';
 

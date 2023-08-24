@@ -1,10 +1,10 @@
 // File
-import { useParams } from 'react-router-dom';
 import { IComment, IPage } from '../../types/types';
 import PostCommentItem from './PostCommentItem';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 import { getComments } from '../../api/http';
+import PostReplyComment from './PostReplyComment';
 
 // =============================================================================
 
@@ -16,9 +16,11 @@ const Count = styled.div`
   margin-bottom: 20px;
 `;
 
-export default function PostCommentList({ page }: IPage) {
-  const { id } = useParams();
+interface IPostCommentList extends IPage {
+  id: string;
+}
 
+export default function PostCommentList({ page, id }: IPostCommentList) {
   // 해당 게시물의 댓글들 Fetch
   const { data: comments } = useQuery<IComment[]>(
     ['comments', `PostId: ${id}`],
@@ -33,7 +35,10 @@ export default function PostCommentList({ page }: IPage) {
         <ul>
           {comments?.map(comment =>
             !comment.parentID ? (
-              <PostCommentItem key={comment.id} comment={comment} />
+              <>
+                <PostCommentItem key={comment.id} comment={comment} />
+                <PostReplyComment parentID={comment.id} />
+              </>
             ) : null
           )}
         </ul>

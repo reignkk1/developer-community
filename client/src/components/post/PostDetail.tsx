@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Parser from 'html-react-parser';
 
 // File
@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 import useLoginUser from '../../hooks/useLoginUser';
 import { useMutation, useQuery } from 'react-query';
 import { deletePost } from '../../api/http';
-import { IPage } from '../../types/types';
+import { IPage, IPost } from '../../types/types';
 import PostCommentWrite from './PostCommentWrite';
 
 const ArticleContainer = styled.div`
@@ -67,19 +67,20 @@ const Date = styled.div`
   font-size: 14px;
 `;
 
+interface IPostDetail extends IPage {
+  id: string;
+}
+
 // =============================================================================
 
-export default function PostDetail({ page }: IPage) {
+export default function PostDetail({ page, id }: IPostDetail) {
   const navigate = useNavigate();
-
-  // URL 파라미터 ID값
-  const { id } = useParams();
 
   // 로그인 한 유저 정보
   const loginUser = useLoginUser();
 
   // 게시물
-  const { data: post } = useQuery(['postDetail', id], getPost(id), {
+  const { data: post } = useQuery<IPost>(['postDetail', id], getPost(id), {
     suspense: true,
   });
 

@@ -4,11 +4,13 @@ import { Main } from '../../styles/PageShareStyle';
 import { Suspense } from 'react';
 import { ErrorBox, LoadingBox } from '../../components/common/LoadingError';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useParams } from 'react-router-dom';
 
 export default function TechDetail() {
+  const { id } = useParams();
   const components = [
-    <PostDetail page="tech" />,
-    <PostCommentList page="tech" />,
+    <PostDetail page="tech" id={id || ''} />,
+    <PostCommentList page="tech" id={id || ''} />,
   ];
 
   return (

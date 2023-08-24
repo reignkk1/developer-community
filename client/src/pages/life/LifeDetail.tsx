@@ -4,11 +4,14 @@ import { Main } from '../../styles/PageShareStyle';
 import PostCommentList from '../../components/post/PostCommentList';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorBox, LoadingBox } from '../../components/common/LoadingError';
+import { useParams } from 'react-router-dom';
 
 export default function LifeDetail() {
+  const { id } = useParams();
+
   const components = [
-    <PostDetail page="life" />,
-    <PostCommentList page="life" />,
+    <PostDetail page="life" id={id || ''} />,
+    <PostCommentList page="life" id={id || ''} />,
   ];
 
   return (

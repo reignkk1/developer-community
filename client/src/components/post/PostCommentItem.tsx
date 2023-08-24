@@ -177,7 +177,6 @@ export default function PostCommentItem({ comment }: IPostCommentItem) {
           page={comment.page}
         />
       ) : null}
-      <PostReplyComment parentID={comment.id} />
     </Item>
   );
 }
