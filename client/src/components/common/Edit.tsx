@@ -61,12 +61,16 @@ export default function Edit({ page }: IPage) {
   const [inputData, setInputData] = useState('');
   const [editorData, setEditorData] = useState('');
 
-  const { isLoading, error } = useQuery<IPost>(['post', id], getPost(id), {
-    onSuccess: post => {
-      setInputData(post?.title || '');
-      setEditorData(post?.content || '');
-    },
-  });
+  const { isLoading, error } = useQuery<IPost>(
+    ['postDetail', id],
+    getPost(id),
+    {
+      onSuccess: post => {
+        setInputData(post?.title || '');
+        setEditorData(post?.content || '');
+      },
+    }
+  );
 
   const data = {
     title: inputData,
