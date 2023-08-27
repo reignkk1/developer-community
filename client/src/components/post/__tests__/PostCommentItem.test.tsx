@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { renderWithTest } from '../../../utils/test/renderWithTest';
 import axios from 'axios';
 import { IComment, IUser } from '../../../types/types';
-import { waitFor } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import PostCommentItem from '../PostCommentItem';
 import userEvent from '@testing-library/user-event';
 
@@ -33,6 +33,7 @@ const comment: IComment = {
 describe('PostCommentList test', () => {
   window.confirm = jest.fn();
   global.confirm = () => true;
+  window.alert = jest.fn();
 
   const setup = () => {
     const utils = renderWithTest(<PostCommentItem comment={comment} />);
@@ -76,5 +77,40 @@ describe('PostCommentList test', () => {
 
     await waitFor(() => userEvent.click(getByText('삭제')));
     expect(mock.history.delete.length).toBe(1);
+  });
+
+  test('수정 버튼 클릭 시 댓글이 수정된다.', async () => {
+    const mock = new MockAdapter(axios);
+    mock
+      .onGet(`${process.env.REACT_APP_API}/user/login-info`)
+      .reply(200, loginUser);
+    mock.onPatch(`${process.env.REACT_APP_API}/comment/54`).reply(200);
+    const { getByText, getByRole } = setup();
+
+    await waitFor(() => {
+      userEvent.click(getByText('수정'));
+      expect(getByRole('textbox')).toBeInTheDocument();
+      fireEvent.change(getByRole('textbox'), {
+        target: { value: 'testModify' },
+      });
+      expect(getByRole('textbox')).toHaveValue('testModify');
+      userEvent.click(getByText('수정완료'));
+      expect(mock.history.patch.length).toBe(1);
+    });
+  });
+
+  test('수정모드에서 취소 버튼 클릭 시 수정모드가 해제된다.', async () => {
+    const mock = new MockAdapter(axios);
+    mock
+      .onGet(`${process.env.REACT_APP_API}/user/login-info`)
+      .reply(200, loginUser);
+    const { getByText, getByRole, queryByRole } = setup();
+
+    await waitFor(() => {
+      userEvent.click(getByText('수정'));
+      expect(getByRole('textbox')).toBeInTheDocument();
+      userEvent.click(getByText('취소'));
+      expect(queryByRole('textbox')).not.toBeInTheDocument();
+    });
   });
 });
