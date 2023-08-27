@@ -2,6 +2,7 @@ import Avartar from '../common/Avartar';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import useLoginUser from '../../hooks/useLoginUser';
+import { useQueryClient } from 'react-query';
 
 const UserAvartarContainer = styled.div`
   img {
@@ -40,6 +41,7 @@ const InputAvartar = styled.input`
 `;
 
 export default function UserProfileAvartar() {
+  const queryClient = useQueryClient();
   const loginUser = useLoginUser();
 
   // 프로필 사진 변경 시
@@ -50,12 +52,14 @@ export default function UserProfileAvartar() {
     await axios.post('/user/upload', formData, {
       headers: { 'Content-type': 'multipart/form-data' },
     });
+    queryClient.invalidateQueries(['loginUser']);
   };
   return (
     <UserAvartarContainer>
       <Avartar width="155px" heigth="155px" src={loginUser?.avartar} />
       <UserAvartarModal htmlFor="image">변경</UserAvartarModal>
       <InputAvartar
+        data-testid="fileInput"
         id="image"
         type="file"
         accept="image/*"

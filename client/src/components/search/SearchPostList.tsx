@@ -50,12 +50,14 @@ const ItemList = (theme: ITheme) => css`
   margin-top: 10px;
 `;
 
-export default function SearchPostList() {
+interface ISearchPostList {
+  keyword: string;
+}
+
+export default function SearchPostList({ keyword }: ISearchPostList) {
   const theme = useTheme();
   const [query] = useSearchParams();
-  const [search] = useSearchParams();
   const pageCount = query.get('page');
-  const keyword = search.get('keyword');
 
   const { data: posts } = useQuery<IPost[]>(
     ['search', keyword],

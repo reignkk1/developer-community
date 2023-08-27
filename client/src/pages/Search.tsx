@@ -36,7 +36,7 @@ export default function Search() {
       <div css={SearchKeyword}>검색어 : {keyword}</div>
       <Suspense fallback={<LoadingBox />}>
         <ErrorBoundary fallback={<ErrorBox />}>
-          <SearchPostList />
+          <SearchPostList keyword={keyword || ''} />
         </ErrorBoundary>
       </Suspense>
     </main>
