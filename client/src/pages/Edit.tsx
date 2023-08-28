@@ -3,12 +3,13 @@ import styled from '@emotion/styled';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // File
-import { IPost, IPage } from '../../types/types';
-import Button from './button';
-import { getPost } from '../../api/http';
+import { IPost, IPage } from '../types/types';
+import Button from '../components/common/button';
+import { getPost } from '../api/http';
 import { useMutation, useQuery } from 'react-query';
-import { editPost } from '../../api/http';
-import ReactEditor from './Editor';
+import { editPost } from '../api/http';
+import ReactEditor from '../components/common/Editor';
+import InputText from '../components/common/InputText';
 
 // =============================================================================
 
@@ -19,20 +20,6 @@ const Container = styled.div`
   margin-top: 100px;
   @media (max-width: 850px) {
     width: 80%;
-  }
-`;
-
-const Input = styled.input`
-  width: 100%;
-  height: 35px;
-  margin-bottom: 50px;
-  padding: 5px 15px;
-  outline: none;
-  background-color: ${props => props.theme.inputColor};
-  border: 2px solid ${props => props.theme.borderColor};
-  color: ${props => props.theme.textColor};
-  &:focus {
-    border: 2px solid #0092fa;
   }
 `;
 
@@ -94,12 +81,11 @@ export default function Edit({ page }: IPage) {
 
   return (
     <Container>
-      <Title>제목</Title>
-
-      <Input
+      <InputText
+        label="제목"
         type="text"
         placeholder="제목을 입력해주세요!"
-        onChange={onChangeInput}
+        onChange={() => onChangeInput}
         required
         value={isLoading ? '로딩중..' : error ? '404 Not Found' : inputData}
       />

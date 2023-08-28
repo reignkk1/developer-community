@@ -15,8 +15,8 @@ import Tech from './pages/tech/Tech';
 import Life from './pages/life/Life';
 import GuestBook from './pages/guestbook/Guestbook';
 
-import Edit from './components/common/Edit';
-import Write from './components/common/Write';
+import Edit from './pages/Edit';
+import Write from './pages/Write';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Profile from './pages/Profile';

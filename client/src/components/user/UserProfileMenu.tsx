@@ -64,7 +64,7 @@ const MenuItem2 = styled(MenuItem)<{ active: boolean }>`
 
 // =============================================================================
 
-export default function MyPageMenu() {
+export default function UserProfileMenu() {
   const [profile, setProfile] = useState(false); // 유저가 프로필 페이지에 있는지 여부
   const [account, setAccount] = useState(false); // 유저가 계정 페이지에 있는지 여부
 

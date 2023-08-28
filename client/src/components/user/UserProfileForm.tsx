@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 // File
 import Button from '../common/button';
-import InputContainer from '../common/InputContainer';
+import InputContainer from '../auth/InputContainer';
 import styled from '@emotion/styled';
 import useLoginUser from '../../hooks/useLoginUser';
 
@@ -25,7 +25,7 @@ interface IProfileData {
 }
 
 // =============================================================================
-export default function UserForm() {
+export default function UserProgileForm() {
   // 유저 프로필 정보 가져오기
   const loginUser = useLoginUser();
 

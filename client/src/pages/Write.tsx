@@ -3,13 +3,14 @@ import styled from '@emotion/styled';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 // File
-import { IPage } from '../../types/types';
-import Button from './button';
-import useLoginUser from '../../hooks/useLoginUser';
-import { DateToday } from '../../utils/DateToday';
+import { IPage } from '../types/types';
+import Button from '../components/common/button';
+import useLoginUser from '../hooks/useLoginUser';
+import { DateToday } from '../utils/DateToday';
 import { useMutation } from 'react-query';
-import { createPost } from '../../api/http';
-import ReactEditor from './Editor';
+import { createPost } from '../api/http';
+import ReactEditor from '../components/common/Editor';
+import InputText from '../components/common/InputText';
 
 // =============================================================================
 
@@ -22,21 +23,6 @@ const Container = styled.div`
   @media (max-width: 850px) {
     width: 80%;
   }
-`;
-
-const Input = styled.input`
-  width: 100%;
-  height: 35px;
-  margin-bottom: 50px;
-  padding: 10px 15px;
-  outline: none;
-  border: 2px solid rgba(0, 0, 0, 0.3);
-  background-color: ${props => props.theme.inputColor};
-  color: ${props => props.theme.textColor};
-  &:focus {
-    border: 2px solid #0092fa;
-  }
-  border-radius: 5px;
 `;
 
 const Title = styled.div`
@@ -52,6 +38,9 @@ const Editor = styled(ReactEditor)`
     min-height: 500px;
     font-size: 15.5px;
     line-height: 1.8;
+    &:focus {
+      border: 2px solid #0092fa;
+    }
   }
 `;
 
@@ -91,11 +80,11 @@ export default function Write({ page }: IPage) {
 
   return loginUser ? (
     <Container>
-      <Title>제목</Title>
-      <Input
+      <InputText
+        label="제목"
         placeholder="제목을 입력해주세요!"
-        onChange={onChangeInput}
-        required
+        onChange={() => onChangeInput}
+        required={true}
       />
       <Title>본문</Title>
       <Editor

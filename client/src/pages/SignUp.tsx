@@ -6,7 +6,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 // File
 import { IUser } from '../types/types';
-import InputContainer from '../components/common/InputContainer';
+import InputContainer from '../components/auth/InputContainer';
 import useLoginUser from '../hooks/useLoginUser';
 
 // =============================================================================

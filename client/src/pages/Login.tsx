@@ -5,7 +5,7 @@ import { Link, Navigate } from 'react-router-dom';
 
 // File
 
-import InputContainer from '../components/common/InputContainer';
+import InputContainer from '../components/auth/InputContainer';
 import { IUser } from '../types/types';
 import KakaoAuthButton from '../components/auth/AuthKakaoButton';
 import useLoginUser from '../hooks/useLoginUser';
