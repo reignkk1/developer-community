@@ -52,6 +52,7 @@ export default function Edit({ page }: IPage) {
     ['postDetail', id],
     getPost(id),
     {
+      refetchOnWindowFocus: false,
       onSuccess: post => {
         setInputData(post?.title || '');
         setEditorData(post?.content || '');
