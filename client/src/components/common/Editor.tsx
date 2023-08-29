@@ -1,6 +1,5 @@
 import * as React from 'react';
 import axios from 'axios';
-import 'react-quill/dist/quill.snow.css';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { RangeStatic } from 'quill';

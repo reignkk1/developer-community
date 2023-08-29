@@ -30,6 +30,12 @@ const ArticleTitle = styled.div`
   }
 `;
 const ArticleText = styled.div`
+  blockquote {
+    border-left: 4px solid #0092fa;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px;
+  }
   font-size: 16px;
   line-height: 2;
   @media (max-width: 940px) {
@@ -112,7 +118,9 @@ export default function PostDetail({ page, id }: IPostDetail) {
           </NicknameBox>
         </UserBox>
         <ArticleTitle>{post?.title}</ArticleTitle>
-        <ArticleText>{Parser(post?.content || '')}</ArticleText>
+        <ArticleText className="ql-editor">
+          {Parser(post?.content || '')}
+        </ArticleText>
       </ArticleContainer>
 
       {loginUser?.id === post?.writerID ? (
