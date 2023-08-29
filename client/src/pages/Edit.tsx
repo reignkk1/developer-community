@@ -86,7 +86,7 @@ export default function Edit({ page }: IPage) {
         label="제목"
         type="text"
         placeholder="제목을 입력해주세요!"
-        onChange={() => onChangeInput}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeInput(e)}
         required
         value={isLoading ? '로딩중..' : error ? '404 Not Found' : inputData}
       />

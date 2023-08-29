@@ -24,7 +24,7 @@ const Input = styled.input`
 interface InputTextProps {
   type?: string;
   placeholder: string;
-  onChange(): void;
+  onChange(e: React.ChangeEvent<HTMLInputElement>): void;
   required: boolean;
   value?: string;
   label: string;
