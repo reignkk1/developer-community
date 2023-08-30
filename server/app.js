@@ -42,8 +42,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 3600000,
-      domain: '.kro.kr',
-      sameSite: 'none',
+      sameSite: false,
     },
   })
 );
