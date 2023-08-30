@@ -43,6 +43,7 @@ app.use(
     cookie: {
       maxAge: 3600000,
       domain: '.kro.kr',
+      sameSite: 'none',
     },
   })
 );
