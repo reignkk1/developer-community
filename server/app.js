@@ -42,7 +42,6 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 3600000,
-      domain: 'devforum.kro.kr',
     },
   })
 );
