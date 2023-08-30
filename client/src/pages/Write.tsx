@@ -83,7 +83,7 @@ export default function Write({ page }: IPage) {
       <InputText
         label="제목"
         placeholder="제목을 입력해주세요!"
-        onChange={() => onChangeInput}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeInput(e)}
         required={true}
       />
       <Title>본문</Title>
