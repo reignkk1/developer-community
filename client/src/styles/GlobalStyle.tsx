@@ -18,7 +18,6 @@ export default function GlobalStyles() {
     h6,
     p,
     blockquote,
-    pre,
     a,
     abbr,
     acronym,
@@ -146,6 +145,20 @@ export default function GlobalStyles() {
       @media (max-width: 850px) {
         zoom: 0.9;
       }
+    }
+
+    .ql-editor pre {
+      background-color: #23241f;
+      color: #f8f8f2;
+      overflow: visible;
+      white-space: pre-wrap;
+      margin-bottom: 5px;
+      margin-top: 5px;
+      padding: 5px 10px;
+      border-radius: 3px;
+    }
+    .ql-snow .ql-editor blockquote {
+      border-left: 4px solid #0092fa;
     }
   `;
   return <Global styles={reset} />;

@@ -92,7 +92,7 @@ export default function Write({ page }: IPage) {
         onChange={(content: string) => {
           setEditorData({
             ...editorData,
-            content: content.replace('nesw-resize', 'default'),
+            content,
           });
         }}
       />

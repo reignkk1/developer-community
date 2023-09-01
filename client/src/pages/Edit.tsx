@@ -56,17 +56,21 @@ export default function Edit({ page }: IPage) {
       onSuccess: post => {
         setInputData(post?.title || '');
         setEditorData(post?.content || '');
+        console.log(post.content);
       },
     }
   );
 
   const data = {
     title: inputData,
-    content: editorData.replace('nwse-resize', 'default'),
+    content: editorData,
   };
 
   const { mutate: editMutate } = useMutation(editPost(data, id), {
-    onSuccess: () => navigate(`/${page}/${id}`),
+    onSuccess: e => {
+      console.log(data.content);
+      navigate(`/${page}/${id}`);
+    },
   });
 
   const postSubmit = () => {

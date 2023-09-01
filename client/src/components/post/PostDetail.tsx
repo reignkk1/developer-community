@@ -36,6 +36,9 @@ const ArticleText = styled.div`
     margin-top: 5px;
     padding-left: 16px;
   }
+  img {
+    cursor: default !important;
+  }
   font-size: 16px;
   line-height: 2;
   @media (max-width: 940px) {

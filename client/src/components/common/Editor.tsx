@@ -41,7 +41,7 @@ const ReactEditor = ({ ...props }) => {
 
         quillEditor.clipboard.dangerouslyPasteHTML(
           index,
-          `<img src=${res.data} alt='image' />`
+          `<img src=${res.data} alt='image'/>`
         );
       }
     };
