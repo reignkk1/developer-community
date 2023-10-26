@@ -75,8 +75,10 @@ describe('PostCommentList test', () => {
 
     const { getByText } = setup();
 
-    await waitFor(() => userEvent.click(getByText('삭제')));
-    expect(mock.history.delete.length).toBe(1);
+    await waitFor(() => {
+      userEvent.click(getByText('삭제'));
+      expect(mock.history.delete.length).toBe(1);
+    });
   });
 
   test('수정 버튼 클릭 시 댓글이 수정된다.', async () => {

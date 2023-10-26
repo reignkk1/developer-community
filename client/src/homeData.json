@@ -1,0 +1,26 @@
+{
+  "title": "홈 | Developer",
+  "path": "/",
+  "routes": [
+    {
+      "title": "공지사항",
+      "path": "/notice",
+      "getURL": "/article/notice/all"
+    },
+    {
+      "title": "Tech",
+      "path": "/tech",
+      "getURL": "/article/tech/all"
+    },
+    {
+      "title": "사는 얘기",
+      "path": "/life",
+      "getURL": "/article/life/all"
+    },
+    {
+      "title": "방명록",
+      "path": "/guest-book",
+      "getURL": "/article/guest-book/all"
+    }
+  ]
+}

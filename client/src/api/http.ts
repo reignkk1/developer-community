@@ -4,6 +4,11 @@ axios.defaults.baseURL = process.env.REACT_APP_API;
 axios.defaults.withCredentials = true;
 
 // Get Method
+
+export function getFetch(url: string) {
+  return () => axios.get(url).then(response => response.data);
+}
+
 export function getAllPost(
   page:
     | 'search'

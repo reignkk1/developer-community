@@ -6,6 +6,7 @@ import { IPage } from '../types/types';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
+import homeSectionData from '../homeData.json';
 
 // =============================================================================
 
@@ -25,38 +26,17 @@ const Container = styled(Main)`
 
 // =============================================================================
 
-interface ICateogry extends IPage {
-  name: string;
-}
-
 export default function Home() {
-  const category: ICateogry[] = [
-    {
-      name: '공지사항',
-      page: 'notice',
-    },
-    {
-      name: 'Tech',
-      page: 'tech',
-    },
-    {
-      name: '사는 얘기',
-      page: 'life',
-    },
-    {
-      name: '방명록',
-      page: 'guest-book',
-    },
-  ];
+  const { routes } = homeSectionData;
 
   return (
     <Container>
-      {category.map(item => (
-        <div key={item.name}>
-          <HomePostTitle to={`/${item.page}`}>{item.name}</HomePostTitle>
+      {routes.map(({ title, path, getURL }, idx) => (
+        <div key={idx}>
+          <HomePostTitle to={path}>{title}</HomePostTitle>
           <Suspense fallback={<LoadingBox />}>
             <ErrorBoundary fallback={<ErrorBox />}>
-              <HomePostList page={item.page} />
+              <HomePostList routeTree={{ getURL, title, path }} />
             </ErrorBoundary>
           </Suspense>
         </div>

@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom';
-import { screen } from '@testing-library/react';
 import DrawerMenu from '../HeaderDrawerMenu';
 import HambugerButton from '../HeaderHambugerButton';
 import userEvent from '@testing-library/user-event';
@@ -7,43 +6,35 @@ import { renderWithTest } from '../../../utils/test/renderWithTest';
 
 describe('DrawerMenu test', () => {
   const setup = () => {
-    const clickOpenButton = () => {
-      expect(screen.getByTestId('drawer_menu')).toHaveStyle('display:none');
-      userEvent.click(screen.getByRole('button'));
-      expect(screen.getByTestId('drawer_menu')).toHaveStyle('display:block');
-    };
-    const closeDrawerMenu = () => {
-      expect(screen.getByTestId('drawer_menu')).toHaveStyle('display:none');
-    };
-
     const utils = renderWithTest(
       <>
         <HambugerButton style={{ display: 'block' }} />
         <DrawerMenu />
       </>
     );
-    return { ...utils, clickOpenButton, closeDrawerMenu };
+    return { ...utils };
   };
 
   test('햄버거 버튼 클릭하면 열린다', () => {
-    const { clickOpenButton } = setup();
+    const { getByRole, getByTestId } = setup();
 
-    clickOpenButton();
+    userEvent.click(getByRole('button'));
+    expect(getByTestId('drawer_menu')).toBeInTheDocument();
   });
 
   test('바깥을 클릭하면 닫힌다', () => {
-    const { getByTestId, clickOpenButton, closeDrawerMenu } = setup();
+    const { queryByTestId, getByRole, getByTestId } = setup();
 
-    clickOpenButton();
+    userEvent.click(getByRole('button'));
     userEvent.click(getByTestId('drawerMenu_wrapper'));
-    closeDrawerMenu();
+    expect(queryByTestId('drawer_menu')).toHaveStyle('display:none');
   });
 
   test('닫기 버튼 클릭하면 닫힌다', () => {
-    const { getByText, closeDrawerMenu, clickOpenButton } = setup();
+    const { getByText, queryByTestId, getByRole } = setup();
 
-    clickOpenButton();
+    userEvent.click(getByRole('button'));
     userEvent.click(getByText('✖'));
-    closeDrawerMenu();
+    expect(queryByTestId('drawer_menu')).toHaveStyle('display:none');
   });
 });

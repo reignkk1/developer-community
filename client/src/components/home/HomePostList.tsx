@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
 // File
-import { IPost, IPage } from '../../types/types';
+import { IPost } from '../../types/types';
 import Avartar from '../common/Avartar';
-import { getAllPost } from '../../api/http';
+import { getFetch } from '../../api/http';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 
@@ -58,11 +58,16 @@ const Nickname = styled.div`
   }
 `;
 
+interface HomePostListProps {
+  routeTree: { getURL: string; title: string; path: string };
+}
+
 // =============================================================================
 
-export default function PostList({ page }: IPage) {
-  // 모든 게시물 가져옴
-  const { data: posts } = useQuery<IPost[]>([page], getAllPost(page), {
+export default function HomePostList({
+  routeTree: { title, getURL, path },
+}: HomePostListProps) {
+  const { data: posts } = useQuery<IPost[]>(['HOME', title], getFetch(getURL), {
     suspense: true,
   });
 
@@ -90,7 +95,7 @@ export default function PostList({ page }: IPage) {
             <ListTitle>
               <Link
                 to={
-                  page === 'guest-book'
+                  path === '/guest-book'
                     ? `/${post.page}`
                     : `/${post.page}/${post.id}`
                 }
