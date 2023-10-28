@@ -19,7 +19,12 @@ export interface IPage {
     | 'guest-book'
     | 'search'
     | 'posts'
-    | 'comments';
+    | 'comments'
+    | string;
+}
+
+export interface ISection {
+  section: 'notice' | 'life' | 'tech' | 'guest-book' | undefined;
 }
 
 export interface IUser {
@@ -40,14 +45,7 @@ export interface IComment {
   text: string;
   postID: number;
   writerID: number;
-  page:
-    | 'notice'
-    | 'tech'
-    | 'life'
-    | 'guest-book'
-    | 'search'
-    | 'posts'
-    | 'comments';
+  page: 'notice' | 'tech' | 'life' | 'guest-book' | undefined;
   nickname: string;
   avartar: string;
   parentID: number;

@@ -10,10 +10,6 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 // Page
 import Header from './components/layout/Header';
 import Home from './pages/Home';
-import Notice from './pages/notice/Notice';
-import Tech from './pages/tech/Tech';
-import Life from './pages/life/Life';
-import GuestBook from './pages/guestbook/Guestbook';
 
 import Edit from './pages/Edit';
 import Write from './pages/Write';
@@ -32,9 +28,9 @@ import ScrollToTop from './utils/ScrollToTop';
 import Footer from './components/layout/Footer';
 import GlobalStyle from './styles/GlobalStyle';
 import ThemeProvider from './styles/ThemeProvider';
-import NoticeDetail from './pages/notice/NoticeDetail';
-import QuestionDetail from './pages/tech/TechDetail';
-import LifeDetail from './pages/life/LifeDetail';
+import { HelmetProvider } from 'react-helmet-async';
+import PostSection from './pages/PostSection';
+import Post from './pages/Post';
 
 // =============================================================================
 
@@ -57,65 +53,73 @@ function App() {
             <Router>
               <ScrollToTop />
               <GlobalStyle />
-              <Main>
-                <Header />
-                <Routes>
-                  {/*==================== global page =================== */}
+              <HelmetProvider>
+                <Main>
+                  <Header />
+                  <Routes>
+                    {/*==================== global page =================== */}
 
-                  <Route path="/" element={<Home />} />
-                  <Route path="/notice" element={<Notice />} />
-                  <Route path="/tech" element={<Tech />} />
-                  <Route path="/life" element={<Life />} />
-                  <Route path="/guest-book" element={<GuestBook />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/account" element={<Account />} />
-                  <Route
-                    path="/account/password-change"
-                    element={<PasswordChange />}
-                  />
-                  <Route
-                    path="/account/withdraw-confirm"
-                    element={<WithdrawConfirm />}
-                  />
-                  <Route path="/search" element={<Search />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/notice" element={<PostSection />} />
+                    <Route path="/tech" element={<PostSection />} />
+                    <Route path="/life" element={<PostSection />} />
+                    <Route path="/guest-book" element={<PostSection />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/account" element={<Account />} />
+                    <Route
+                      path="/account/password-change"
+                      element={<PasswordChange />}
+                    />
+                    <Route
+                      path="/account/withdraw-confirm"
+                      element={<WithdrawConfirm />}
+                    />
+                    <Route path="/search" element={<Search />} />
 
-                  {/*==================== write page =================== */}
+                    {/*==================== write page =================== */}
 
-                  <Route
-                    path="/notice/write"
-                    element={<Write page="notice" />}
-                  />
-                  <Route path="/tech/write" element={<Write page="tech" />} />
-                  <Route path="/life/write" element={<Write page="life" />} />
+                    <Route
+                      path="/notice/write"
+                      element={<Write page="notice" />}
+                    />
+                    <Route path="/tech/write" element={<Write page="tech" />} />
+                    <Route path="/life/write" element={<Write page="life" />} />
 
-                  {/*==================== detail page =================== */}
+                    {/*==================== detail page =================== */}
 
-                  <Route path="/notice/:id" element={<NoticeDetail />} />
-                  <Route path="/tech/:id" element={<QuestionDetail />} />
-                  <Route path="/life/:id" element={<LifeDetail />} />
+                    <Route path="/notice/:id" element={<Post />} />
+                    <Route path="/tech/:id" element={<Post />} />
+                    <Route path="/life/:id" element={<Post />} />
 
-                  <Route
-                    path="/user/:id/posts"
-                    element={<UserActivity page="posts" />}
-                  />
-                  <Route
-                    path="/user/:id/comments"
-                    element={<UserActivity page="comments" />}
-                  />
+                    <Route
+                      path="/user/:id/posts"
+                      element={<UserActivity page="posts" />}
+                    />
+                    <Route
+                      path="/user/:id/comments"
+                      element={<UserActivity page="comments" />}
+                    />
 
-                  {/*==================== edit page =================== */}
+                    {/*==================== edit page =================== */}
 
-                  <Route
-                    path="/notice/:id/edit"
-                    element={<Edit page="notice" />}
-                  />
-                  <Route path="/tech/:id/edit" element={<Edit page="tech" />} />
-                  <Route path="/life/:id/edit" element={<Edit page="life" />} />
-                </Routes>
-                <Footer />
-              </Main>
+                    <Route
+                      path="/notice/:id/edit"
+                      element={<Edit page="notice" />}
+                    />
+                    <Route
+                      path="/tech/:id/edit"
+                      element={<Edit page="tech" />}
+                    />
+                    <Route
+                      path="/life/:id/edit"
+                      element={<Edit page="life" />}
+                    />
+                  </Routes>
+                  <Footer />
+                </Main>
+              </HelmetProvider>
             </Router>
             <ReactQueryDevtools />
           </QueryClientProvider>

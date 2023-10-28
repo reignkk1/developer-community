@@ -1,9 +1,9 @@
 import { Link, useSearchParams } from 'react-router-dom';
 
 // File
-import { IPage, IPost } from '../../types/types';
+import { IPost } from '../../types/types';
 import PageNumberBar from '../common/pageNumBar';
-import { getAllPost } from '../../api/http';
+import { getFetch } from '../../api/http';
 import styled from '@emotion/styled';
 import Avartar from '../common/Avartar';
 import { useQuery } from 'react-query';
@@ -46,11 +46,25 @@ const Nickname = styled.div`
 
 // =============================================================================
 
-export default function CategoryPostList({ page }: IPage) {
+interface PostListProps {
+  routeTree: {
+    getFetchURL: string;
+    title: string;
+    section: string;
+  };
+}
+
+export default function PostSectionList({
+  routeTree: { getFetchURL, title, section },
+}: PostListProps) {
   // 모든 게시물 가져오기
-  const { data: posts } = useQuery<IPost[]>([page], getAllPost(page), {
-    suspense: true,
-  });
+  const { data: posts } = useQuery<IPost[]>(
+    ['POST_LIST', title],
+    getFetch(getFetchURL),
+    {
+      suspense: true,
+    }
+  );
   // URL 쿼리에 담긴 Page 데이터 가져옴
   const [query] = useSearchParams();
   const pageCount = query.get('page');
@@ -75,7 +89,7 @@ export default function CategoryPostList({ page }: IPage) {
                 </Link>
               </NicknameBox>
 
-              <Link to={`/${page}/${post.id}`}>
+              <Link to={`/${section}/${post.id}`}>
                 <ListTitle>{post.title}</ListTitle>
               </Link>
 
@@ -84,7 +98,7 @@ export default function CategoryPostList({ page }: IPage) {
           ))}
       </ul>
       <PageNumberBar
-        page={page}
+        page={section}
         dataLength={posts?.length}
         pageCount={pageCount}
       />

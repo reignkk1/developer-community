@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "section": "notice",
+      "title": "공지사항",
+      "path": "/notice",
+      "header": {
+        "title": "공지사항",
+        "description": "Developer의 새소식, 이벤트, 행사 정보를 공유하는 공간입니다."
+      },
+      "getFetchURL": "/article/notice/all"
+    },
+    {
+      "section": "life",
+      "title": "사는 얘기",
+      "path": "/life",
+      "header": {
+        "title": "사는 얘기",
+        "description": "삶과 애환에 관한 다양한 이야기를 나누는 공간입니다."
+      },
+      "getFetchURL": "/article/life/all"
+    },
+    {
+      "section": "tech",
+      "title": "Tech",
+      "path": "/tech",
+      "header": {
+        "title": "Tech",
+        "description": "기술 관련이나 CS지식을 적어주세요."
+      },
+      "getFetchURL": "/article/tech/all"
+    },
+    {
+      "section": "guest-book",
+      "title": "방명록",
+      "path": "/guest-book",
+      "header": {
+        "title": "방명록",
+        "description": "어서오세요~!"
+      },
+      "getFetchURL": "/article/guest-book/all"
+    }
+  ]
+}

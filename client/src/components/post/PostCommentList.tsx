@@ -20,7 +20,7 @@ interface IPostCommentList extends IPage {
   id: string;
 }
 
-export default function PostCommentList({ page, id }: IPostCommentList) {
+export default function PostCommentList({ page, id }: any) {
   // 해당 게시물의 댓글들 Fetch
   const { data: comments } = useQuery<IComment[]>(
     ['comments', `PostId: ${id}`],

@@ -73,7 +73,7 @@ export function createComment(data: {
   commentText: string;
   date: string;
   postID: number;
-  page: string;
+  page: 'notice' | 'tech' | 'life' | 'guest-book' | undefined;
   parentID?: number;
 }) {
   return () => axios.post('/comment', data).then(response => response.data);

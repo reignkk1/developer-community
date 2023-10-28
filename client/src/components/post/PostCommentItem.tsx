@@ -173,7 +173,7 @@ export default function PostCommentItem({ comment }: IPostCommentItem) {
         <CommentWrite
           parentCommentID={comment.id}
           setCommentWrite={setCommentWrite}
-          page={comment.page}
+          section={comment.page}
         />
       ) : null}
     </Item>

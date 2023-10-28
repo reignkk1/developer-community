@@ -6,7 +6,7 @@ import Avartar from '../common/Avartar';
 import { useMutation, useQueryClient } from 'react-query';
 import styled from '@emotion/styled';
 import useLoginUser from '../../hooks/useLoginUser';
-import { IPage } from '../../types/types';
+import { ISection } from '../../types/types';
 import { DateToday } from '../../utils/DateToday';
 import { createComment } from '../../api/http';
 import ReactEditor from '../common/Editor';
@@ -100,7 +100,7 @@ const Editor = styled(ReactEditor)``;
 
 // =============================================================================
 
-interface ICommentInfo extends IPage {
+interface ICommentInfo extends ISection {
   avartarURL?: string;
   parentCommentID?: number;
   setCommentWrite?: Dispatch<SetStateAction<boolean>>;
@@ -111,7 +111,7 @@ interface ICommentInfo extends IPage {
 export default function PostCommentWrite({
   parentCommentID,
   setCommentWrite,
-  page,
+  section,
 }: ICommentInfo) {
   const loginUser = useLoginUser();
   const [text, setText] = useState(''); // 댓글 Text
@@ -123,7 +123,7 @@ export default function PostCommentWrite({
     commentText: text,
     date: DateToday(),
     postID: Number(id),
-    page,
+    page: section,
     parentID: parentCommentID,
   };
 

@@ -59,17 +59,21 @@ const Nickname = styled.div`
 `;
 
 interface HomePostListProps {
-  routeTree: { getURL: string; title: string; path: string };
+  routeTree: { getFetchURL: string; header: string; path: string };
 }
 
 // =============================================================================
 
 export default function HomePostList({
-  routeTree: { title, getURL, path },
+  routeTree: { header, getFetchURL, path },
 }: HomePostListProps) {
-  const { data: posts } = useQuery<IPost[]>(['HOME', title], getFetch(getURL), {
-    suspense: true,
-  });
+  const { data: posts } = useQuery<IPost[]>(
+    ['HOME', header],
+    getFetch(getFetchURL),
+    {
+      suspense: true,
+    }
+  );
 
   return (
     <Container>
