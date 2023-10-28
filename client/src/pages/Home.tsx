@@ -5,8 +5,8 @@ import { Main } from '../styles/PageShareStyle';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
-import homeSectionData from '../homeSection.json';
-import Seo from '../Seo';
+import homeSectionData from '../sectionHome.json';
+import Head from '../Head';
 
 // =============================================================================
 
@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <Container>
-      <Seo title={title} />
+      <Head title={title} />
       {routes.map(({ header, path, getFetchURL }, idx) => (
         <div key={idx}>
           <HomePostTitle to={path}>{header}</HomePostTitle>

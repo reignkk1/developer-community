@@ -12,6 +12,7 @@ import { useMutation, useQuery } from 'react-query';
 import { deletePost } from '../../api/http';
 import { IPost, ISection } from '../../types/types';
 import PostCommentWrite from './PostCommentWrite';
+import Head from '../../Head';
 
 const ArticleContainer = styled.div`
   padding: 40px 0px;
@@ -108,6 +109,7 @@ export default function PostDetail({ section, id }: IPostDetail) {
 
   return (
     <>
+      <Head title={post?.title || ''} />
       <ArticleContainer>
         <UserBox>
           <Link to={`/user/${post?.writerID}/posts`}>

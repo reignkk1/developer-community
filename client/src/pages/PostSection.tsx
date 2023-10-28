@@ -7,10 +7,11 @@ import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
 import Title from '../components/category/CategoryTitle';
 import useLoginUser from '../hooks/useLoginUser';
 import { useNavigate } from 'react-router-dom';
-import postSection from '../postSection.json';
+import postSection from '../sectionPost.json';
 import useActiveSection from '../hooks/useCurrentSection';
 import GuestBookList from '../components/guestBook/GuestBookList';
 import GuestBookInput from '../components/guestBook/GuestBookInput';
+import Head from '../Head';
 
 // =============================================================================
 
@@ -51,6 +52,7 @@ export default function PostSection() {
 
   return (
     <Main>
+      <Head title={title} />
       <Title name={title} explain={description} />
       {writeButton}
       <Suspense fallback={<LoadingBox />}>

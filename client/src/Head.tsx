@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-interface SeoProps {
+interface HeadProps {
   title: string;
 }
 
-export default function Seo({ title }: SeoProps) {
+export default function Head({ title }: HeadProps) {
   return (
     <Helmet>
       <title>{`${title} | Developer`}</title>
