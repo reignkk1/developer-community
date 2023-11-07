@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { IPage } from '../../types/types';
+import { ISection } from '../../types/types';
 
 // =============================================================================
 
@@ -41,7 +41,7 @@ const PageBtn = (index: number, pageCount: string | null, theme: ITheme) => css`
 
 // =============================================================================
 
-interface IDataLength extends IPage {
+interface IDataLength extends ISection {
   dataLength?: number;
   pageCount: string | null;
   userID?: string;
@@ -55,7 +55,7 @@ export default function PageNumberBar({
   pageCount,
   userID,
   keyword,
-  page,
+  section,
 }: IDataLength) {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -66,10 +66,10 @@ export default function PageNumberBar({
 
   const onClick = (pageNumber: string) =>
     userID
-      ? navigate(`/user/${userID}/${page}?page=${pageNumber}`)
-      : page === 'search'
-      ? navigate(`/${page}?keyword=${keyword}&page=${pageNumber}`)
-      : navigate(`/${page}?page=${pageNumber}`);
+      ? navigate(`/user/${userID}/${section}?page=${pageNumber}`)
+      : section === 'search'
+      ? navigate(`/${section}?keyword=${keyword}&page=${pageNumber}`)
+      : navigate(`/${section}?page=${pageNumber}`);
   window.scrollTo(0, 0);
 
   return (

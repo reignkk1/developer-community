@@ -1,0 +1,9 @@
+{
+  "logoTitle": "Developer",
+  "menu": [
+    { "name": "공지사항", "path": "/notice" },
+    { "name": "사는얘기", "path": "/life" },
+    { "name": "Tech", "path": "/tech" },
+    { "name": "방명록", "path": "/guest-book" }
+  ]
+}

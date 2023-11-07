@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 // File
-import { IPage } from '../types/types';
 import Button from '../components/common/button';
 import useLoginUser from '../hooks/useLoginUser';
 import { DateToday } from '../utils/DateToday';
@@ -11,6 +10,7 @@ import { useMutation } from 'react-query';
 import { createPost } from '../api/http';
 import ReactEditor from '../components/common/Editor';
 import InputText from '../components/common/InputText';
+import useCurrentSection from '../hooks/useCurrentSection';
 
 // =============================================================================
 
@@ -46,8 +46,9 @@ const Editor = styled(ReactEditor)`
 
 // =============================================================================
 
-export default function Write({ page }: IPage) {
+export default function Write() {
   const navigate = useNavigate();
+  const currentSection = useCurrentSection() || '';
 
   const [editorData, setEditorData] = useState({
     title: '',
@@ -58,13 +59,16 @@ export default function Write({ page }: IPage) {
     content: editorData.content,
     date: DateToday(),
   };
-  const onSuccess = () => navigate(`/${page}`);
+  const onSuccess = () => navigate(`/${currentSection}`);
 
   const loginUser = useLoginUser();
 
-  const { mutate: createMutate } = useMutation(createPost(page, data), {
-    onSuccess,
-  });
+  const { mutate: createMutate } = useMutation(
+    createPost(currentSection, data),
+    {
+      onSuccess,
+    }
+  );
 
   const postSubmit = () => {
     if (editorData.title === '') return alert('제목을 입력해주세요!');

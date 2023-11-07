@@ -50,7 +50,16 @@ interface PostListProps {
   routeTree: {
     getFetchURL: string;
     title: string;
-    section: string;
+    section:
+      | 'search'
+      | 'notice'
+      | 'tech'
+      | 'life'
+      | 'guest-book'
+      | 'posts'
+      | 'comments'
+      | string
+      | undefined;
   };
 }
 
@@ -98,7 +107,7 @@ export default function PostSectionList({
           ))}
       </ul>
       <PageNumberBar
-        page={section}
+        section={section}
         dataLength={posts?.length}
         pageCount={pageCount}
       />

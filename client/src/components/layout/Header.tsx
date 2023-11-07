@@ -13,6 +13,7 @@ import HambugerButton from '../header/HeaderHambugerButton';
 import DrawerMenu from '../header/HeaderDrawerMenu';
 import styled from '@emotion/styled';
 import useLoginUser from '../../hooks/useLoginUser';
+import sectionHeader from '../../sectionHeader.json';
 
 const HeaderContainer = styled.header<{ pathname: String }>`
   display: ${props =>
@@ -54,8 +55,8 @@ const Logo = styled.h1`
 // =============================================================================
 
 export default function Header() {
-  const location = useLocation();
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
+  const location = useLocation();
   const loginUser = useLoginUser();
 
   useEffect(() => {
@@ -65,20 +66,15 @@ export default function Header() {
     );
   }, [setDrawerMenuOpen]);
 
-  const menuData = [
-    { name: '공지사항', path: '/notice' },
-    { name: '사는얘기', path: '/life' },
-    { name: 'Tech', path: '/tech' },
-    { name: '방명록', path: '/guest-book' },
-  ];
+  const { logoTitle, menu } = sectionHeader;
 
   return (
     <HeaderContainer pathname={location.pathname}>
       <HeaderBox>
         <Link to="/">
-          <Logo>Developer</Logo>
+          <Logo>{logoTitle}</Logo>
         </Link>
-        <Menu menu={menuData} />
+        <Menu menu={menu} />
         <SearchBar />
         <ThemeToggle />
         {loginUser ? <AvartarClickMenu /> : <LoginSignUpBtn />}

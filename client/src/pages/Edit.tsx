@@ -3,13 +3,14 @@ import styled from '@emotion/styled';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // File
-import { IPost, IPage } from '../types/types';
+import { IPost } from '../types/types';
 import Button from '../components/common/button';
 import { getPost } from '../api/http';
 import { useMutation, useQuery } from 'react-query';
 import { editPost } from '../api/http';
 import ReactEditor from '../components/common/Editor';
 import InputText from '../components/common/InputText';
+import useCurrentSection from '../hooks/useCurrentSection';
 
 // =============================================================================
 
@@ -41,9 +42,10 @@ const Editor = styled(ReactEditor)`
 
 // =============================================================================
 
-export default function Edit({ page }: IPage) {
+export default function Edit() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const currentSection = useCurrentSection() || '';
 
   const [inputData, setInputData] = useState('');
   const [editorData, setEditorData] = useState('');
@@ -69,7 +71,7 @@ export default function Edit({ page }: IPage) {
   const { mutate: editMutate } = useMutation(editPost(data, id), {
     onSuccess: e => {
       console.log(data.content);
-      navigate(`/${page}/${id}`);
+      navigate(`/${currentSection}/${id}`);
     },
   });
 

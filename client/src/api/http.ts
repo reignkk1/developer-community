@@ -27,8 +27,9 @@ export function getLoginUser() {
   return () => axios.get(`/user/login-info`).then(response => response.data);
 }
 
-export function getUserActivity(page: 'posts' | 'comments', id?: string) {
-  return () => axios.get(`/user/${page}/${id}`).then(response => response.data);
+export function getUserActivity(section: string | undefined, id?: string) {
+  return () =>
+    axios.get(`/user/${section}/${id}`).then(response => response.data);
 }
 
 export function getSearchResult(keyword: string | null) {
@@ -50,7 +51,7 @@ export function getChildrenComments(parentID: number) {
 }
 
 export function getComments(
-  page:
+  section:
     | 'search'
     | 'notice'
     | 'tech'
@@ -58,12 +59,13 @@ export function getComments(
     | 'guest-book'
     | 'posts'
     | 'comments'
-    | null,
+    | string
+    | undefined,
   id?: string
 ) {
   return () =>
     axios
-      .get(`/article/${page}/${id}/comments`)
+      .get(`/article/${section}/${id}/comments`)
       .then(response => response.data);
 }
 
@@ -73,7 +75,7 @@ export function createComment(data: {
   commentText: string;
   date: string;
   postID: number;
-  page: 'notice' | 'tech' | 'life' | 'guest-book' | undefined;
+  page: string | undefined;
   parentID?: number;
 }) {
   return () => axios.post('/comment', data).then(response => response.data);

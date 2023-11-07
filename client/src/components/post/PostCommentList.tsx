@@ -1,5 +1,5 @@
 // File
-import { IComment, IPage } from '../../types/types';
+import { IComment, ISection } from '../../types/types';
 import PostCommentItem from './PostCommentItem';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
@@ -16,15 +16,15 @@ const Count = styled.div`
   margin-bottom: 20px;
 `;
 
-interface IPostCommentList extends IPage {
+interface IPostCommentList extends ISection {
   id: string;
 }
 
-export default function PostCommentList({ page, id }: any) {
+export default function PostCommentList({ section, id }: IPostCommentList) {
   // 해당 게시물의 댓글들 Fetch
   const { data: comments } = useQuery<IComment[]>(
     ['comments', `PostId: ${id}`],
-    getComments(page, id),
+    getComments(section, id),
     { suspense: true }
   );
 

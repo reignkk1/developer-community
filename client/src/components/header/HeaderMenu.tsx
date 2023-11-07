@@ -19,7 +19,7 @@ interface IMenu {
   menu: { name: string; path: string }[];
 }
 
-export default function Menu({ menu }: IMenu) {
+export default function HeaderMenu({ menu }: IMenu) {
   const theme = useTheme();
   const location = useLocation();
   return (

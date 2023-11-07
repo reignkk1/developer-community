@@ -9,5 +9,9 @@ export default function useCurrentSection() {
     return 'tech';
   } else if (pathname.startsWith('/guest-book')) {
     return 'guest-book';
+  } else if (pathname.endsWith('/posts')) {
+    return 'posts';
+  } else if (pathname.endsWith('/comments')) {
+    return 'comments';
   }
 }

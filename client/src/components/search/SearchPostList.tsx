@@ -103,7 +103,7 @@ export default function SearchPostList({ keyword }: ISearchPostList) {
         dataLength={posts?.length}
         pageCount={pageCount}
         keyword={keyword}
-        page="search"
+        section="search"
       />
     </>
   );

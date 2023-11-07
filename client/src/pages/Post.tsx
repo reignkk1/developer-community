@@ -13,7 +13,7 @@ export default function Post() {
 
   const components = [
     <PostDetail section={currentSection} id={id || ''} />,
-    <PostCommentList page={currentSection} id={id || ''} />,
+    <PostCommentList section={currentSection} id={id || ''} />,
   ];
 
   return (

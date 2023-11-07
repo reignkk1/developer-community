@@ -11,8 +11,8 @@ export interface IPost {
   avartar: string;
 }
 
-export interface IPage {
-  page:
+export interface ISection {
+  section:
     | 'notice'
     | 'tech'
     | 'life'
@@ -20,11 +20,8 @@ export interface IPage {
     | 'search'
     | 'posts'
     | 'comments'
-    | string;
-}
-
-export interface ISection {
-  section: 'notice' | 'life' | 'tech' | 'guest-book' | undefined;
+    | string
+    | undefined;
 }
 
 export interface IUser {
@@ -55,7 +52,6 @@ export interface ILoginUserProp {
   loginUser: IUser | undefined;
 }
 
-export interface IActivityPage {
-  page: 'posts' | 'comments';
+export interface IActivityPage extends ISection {
   userId?: string;
 }

@@ -60,10 +60,10 @@ const ItemDate = styled.div`
   }
 `;
 
-export default function ActivityList({ page, userId }: IActivityPage) {
+export default function ActivityList({ section, userId }: IActivityPage) {
   const { data: posts } = useQuery<IPost[]>(
-    [`userActivity_${page}`, userId],
-    getUserActivity(page, userId),
+    [`userActivity_${section}`, userId],
+    getUserActivity(section, userId),
     { suspense: true }
   );
 
@@ -72,7 +72,7 @@ export default function ActivityList({ page, userId }: IActivityPage) {
 
   return (
     <>
-      {page === 'posts' ? (
+      {section === 'posts' ? (
         <ItemBox>
           {posts
             ?.slice(
@@ -140,7 +140,7 @@ export default function ActivityList({ page, userId }: IActivityPage) {
         dataLength={posts?.length}
         pageCount={pageCount}
         userID={userId}
-        page={page}
+        section={section}
       />
     </>
   );

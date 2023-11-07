@@ -80,12 +80,9 @@ function App() {
 
                     {/*==================== write page =================== */}
 
-                    <Route
-                      path="/notice/write"
-                      element={<Write page="notice" />}
-                    />
-                    <Route path="/tech/write" element={<Write page="tech" />} />
-                    <Route path="/life/write" element={<Write page="life" />} />
+                    <Route path="/notice/write" element={<Write />} />
+                    <Route path="/tech/write" element={<Write />} />
+                    <Route path="/life/write" element={<Write />} />
 
                     {/*==================== detail page =================== */}
 
@@ -93,29 +90,17 @@ function App() {
                     <Route path="/tech/:id" element={<Post />} />
                     <Route path="/life/:id" element={<Post />} />
 
-                    <Route
-                      path="/user/:id/posts"
-                      element={<UserActivity page="posts" />}
-                    />
+                    <Route path="/user/:id/posts" element={<UserActivity />} />
                     <Route
                       path="/user/:id/comments"
-                      element={<UserActivity page="comments" />}
+                      element={<UserActivity />}
                     />
 
                     {/*==================== edit page =================== */}
 
-                    <Route
-                      path="/notice/:id/edit"
-                      element={<Edit page="notice" />}
-                    />
-                    <Route
-                      path="/tech/:id/edit"
-                      element={<Edit page="tech" />}
-                    />
-                    <Route
-                      path="/life/:id/edit"
-                      element={<Edit page="life" />}
-                    />
+                    <Route path="/notice/:id/edit" element={<Edit />} />
+                    <Route path="/tech/:id/edit" element={<Edit />} />
+                    <Route path="/life/:id/edit" element={<Edit />} />
                   </Routes>
                   <Footer />
                 </Main>
