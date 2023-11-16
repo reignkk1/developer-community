@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 // File
 import { IPost } from '../../types/types';
 import PageNumberBar from '../common/pageNumBar';
-import { getFetch } from '../../api/http';
+import { getAllPost } from '../../api/http';
 import styled from '@emotion/styled';
 import Avartar from '../common/Avartar';
 import { useQuery } from 'react-query';
@@ -48,7 +48,6 @@ const Nickname = styled.div`
 
 interface PostListProps {
   routeTree: {
-    getFetchURL: string;
     title: string;
     section:
       | 'search'
@@ -63,13 +62,13 @@ interface PostListProps {
   };
 }
 
-export default function PostSectionList({
-  routeTree: { getFetchURL, title, section },
+export default function PostList({
+  routeTree: { title, section },
 }: PostListProps) {
   // 모든 게시물 가져오기
   const { data: posts } = useQuery<IPost[]>(
     ['POST_LIST', title],
-    getFetch(getFetchURL),
+    getAllPost(section),
     {
       suspense: true,
     }

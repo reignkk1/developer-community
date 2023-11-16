@@ -3,7 +3,7 @@ import { waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { renderWithTest } from '../../../utils/test/renderWithTest';
-import CategoryPostList from '../CategoryPostList';
+import CategoryPostList from '../PostList';
 import { IPost } from '../../../types/types';
 import { Suspense } from 'react';
 import { LoadingBox } from '../../common/LoadingError';

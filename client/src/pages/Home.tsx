@@ -5,8 +5,8 @@ import { Main } from '../styles/PageShareStyle';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
-import homeSectionData from '../sectionHome.json';
-import Head from '../Head';
+import sectionPost from '../sectionPost.json';
+import Head from '../components/Head';
 
 // =============================================================================
 
@@ -27,17 +27,17 @@ const Container = styled(Main)`
 // =============================================================================
 
 export default function Home() {
-  const { routes, title } = homeSectionData;
+  const { routes } = sectionPost;
 
   return (
     <Container>
-      <Head title={title} />
-      {routes.map(({ header, path, getFetchURL }, idx) => (
+      <Head title="홈" />
+      {routes.map(({ title, section }, idx) => (
         <div key={idx}>
-          <HomePostTitle to={path}>{header}</HomePostTitle>
+          <HomePostTitle to={`/${section}`}>{title}</HomePostTitle>
           <Suspense fallback={<LoadingBox />}>
             <ErrorBoundary fallback={<ErrorBox />}>
-              <HomePostList routeTree={{ getFetchURL, header, path }} />
+              <HomePostList routeTree={{ title, section }} />
             </ErrorBoundary>
           </Suspense>
         </div>

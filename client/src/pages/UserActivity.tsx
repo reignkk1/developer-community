@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 // File
 
@@ -8,17 +8,18 @@ import ActivityList from '../components/activity/ActivityList';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
-import useCurrentSection from '../hooks/useCurrentSection';
+import useActiveSection from '../hooks/useActiveSection';
 
 // =============================================================================
 
 export default function UserActivity() {
-  const { id } = useParams();
-  const currentSection = useCurrentSection();
+  const { pathname } = useLocation();
+  const id = pathname.split('/')[2];
+  const section = pathname.split('/')[3];
 
   const components = [
     <UserInfoContainer userId={id} />,
-    <ActivityList section={currentSection} userId={id} />,
+    <ActivityList section={section} userId={id} />,
   ];
 
   return (

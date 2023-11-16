@@ -1,12 +1,12 @@
 import '@testing-library/jest-dom';
 import MockAdapter from 'axios-mock-adapter';
 import { renderWithTest } from '../../../utils/test/renderWithTest';
-import PostDetail from '../PostDetail';
 import axios from 'axios';
 import { IPost, IUser } from '../../../types/types';
 import { Suspense } from 'react';
 import { LoadingBox } from '../../common/LoadingError';
 import { waitFor } from '@testing-library/react';
+import Post from '../Post';
 
 const loginUser: IUser = {
   id: 12,
@@ -43,7 +43,7 @@ describe('PostDetail test', () => {
   const setup = () => {
     const utils = renderWithTest(
       <Suspense fallback={<LoadingBox />}>
-        <PostDetail page="tech" id="12" />
+        <Post section="tech" id="12" />
       </Suspense>
     );
 

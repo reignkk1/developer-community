@@ -1,6 +1,8 @@
 import { useTheme } from '@emotion/react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import useActiveSection from '../../hooks/useActiveSection';
+import sectionPost from '../../sectionPost.json';
 
 const Container = styled.ul`
   display: flex;
@@ -15,26 +17,22 @@ const MenuItem = styled.li`
   font-weight: bold;
 `;
 
-interface IMenu {
-  menu: { name: string; path: string }[];
-}
-
-export default function HeaderMenu({ menu }: IMenu) {
+export default function HeaderMenu() {
   const theme = useTheme();
-  const location = useLocation();
+  const section = useActiveSection();
   return (
     <Container>
-      {menu.map((item, index) => (
+      {sectionPost.routes.map((item, index) => (
         <MenuItem key={index}>
           <Link
-            to={item.path}
+            to={`/${item.section}`}
             style={{
               color: `${
-                location.pathname === item.path ? '#0092fa' : theme.textColor
+                section === item.section ? '#0092fa' : theme.textColor
               }`,
             }}
           >
-            {item.name}
+            {item.title}
           </Link>
         </MenuItem>
       ))}

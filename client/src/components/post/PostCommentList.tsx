@@ -1,10 +1,12 @@
 // File
-import { IComment, ISection } from '../../types/types';
+import { IComment } from '../../types/types';
 import PostCommentItem from './PostCommentItem';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 import { getComments } from '../../api/http';
 import PostReplyComment from './PostReplyComment';
+import { useParams } from 'react-router-dom';
+import useActiveSection from '../../hooks/useActiveSection';
 
 // =============================================================================
 
@@ -16,11 +18,13 @@ const Count = styled.div`
   margin-bottom: 20px;
 `;
 
-interface IPostCommentList extends ISection {
+export default function PostCommentList({
+  section,
+  id,
+}: {
+  section: string;
   id: string;
-}
-
-export default function PostCommentList({ section, id }: IPostCommentList) {
+}) {
   // 해당 게시물의 댓글들 Fetch
   const { data: comments } = useQuery<IComment[]>(
     ['comments', `PostId: ${id}`],

@@ -10,7 +10,7 @@ import { useMutation, useQuery } from 'react-query';
 import { editPost } from '../api/http';
 import ReactEditor from '../components/common/Editor';
 import InputText from '../components/common/InputText';
-import useCurrentSection from '../hooks/useCurrentSection';
+import useActiveSection from '../hooks/useActiveSection';
 
 // =============================================================================
 
@@ -45,7 +45,7 @@ const Editor = styled(ReactEditor)`
 export default function Edit() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const currentSection = useCurrentSection() || '';
+  const currentSection = useActiveSection() || '';
 
   const [inputData, setInputData] = useState('');
   const [editorData, setEditorData] = useState('');

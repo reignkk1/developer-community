@@ -8,6 +8,7 @@ import SearchPostList from '../components/search/SearchPostList';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
+import useActiveSection from '../hooks/useActiveSection';
 
 // =============================================================================
 
@@ -30,6 +31,8 @@ const SearchKeyword = css`
 export default function Search() {
   const [search] = useSearchParams();
   const keyword = search.get('keyword');
+
+  useActiveSection();
 
   return (
     <main css={Main}>

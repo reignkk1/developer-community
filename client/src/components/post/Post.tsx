@@ -3,16 +3,15 @@ import Parser from 'html-react-parser';
 
 // File
 import Button from '../common/button';
-
 import Avartar from '../common/Avartar';
 import { getPost } from '../../api/http';
 import styled from '@emotion/styled';
 import useLoginUser from '../../hooks/useLoginUser';
 import { useMutation, useQuery } from 'react-query';
 import { deletePost } from '../../api/http';
-import { IPost, ISection } from '../../types/types';
+import { IPost } from '../../types/types';
 import PostCommentWrite from './PostCommentWrite';
-import Head from '../../Head';
+import Head from '../Head';
 
 const ArticleContainer = styled.div`
   padding: 40px 0px;
@@ -77,13 +76,9 @@ const Date = styled.div`
   font-size: 14px;
 `;
 
-interface IPostDetail extends ISection {
-  id: string;
-}
-
 // =============================================================================
 
-export default function PostDetail({ section, id }: IPostDetail) {
+export default function Post({ section, id }: { section: string; id: string }) {
   const navigate = useNavigate();
 
   // 로그인 한 유저 정보

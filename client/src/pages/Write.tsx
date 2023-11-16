@@ -10,7 +10,7 @@ import { useMutation } from 'react-query';
 import { createPost } from '../api/http';
 import ReactEditor from '../components/common/Editor';
 import InputText from '../components/common/InputText';
-import useCurrentSection from '../hooks/useCurrentSection';
+import useActiveSection from '../hooks/useActiveSection';
 
 // =============================================================================
 
@@ -48,7 +48,7 @@ const Editor = styled(ReactEditor)`
 
 export default function Write() {
   const navigate = useNavigate();
-  const currentSection = useCurrentSection() || '';
+  const currentSection = useActiveSection() || '';
 
   const [editorData, setEditorData] = useState({
     title: '',

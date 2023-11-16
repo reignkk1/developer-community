@@ -13,7 +13,6 @@ import HambugerButton from '../header/HeaderHambugerButton';
 import DrawerMenu from '../header/HeaderDrawerMenu';
 import styled from '@emotion/styled';
 import useLoginUser from '../../hooks/useLoginUser';
-import sectionHeader from '../../sectionHeader.json';
 
 const HeaderContainer = styled.header<{ pathname: String }>`
   display: ${props =>
@@ -66,15 +65,13 @@ export default function Header() {
     );
   }, [setDrawerMenuOpen]);
 
-  const { logoTitle, menu } = sectionHeader;
-
   return (
     <HeaderContainer pathname={location.pathname}>
       <HeaderBox>
         <Link to="/">
-          <Logo>{logoTitle}</Logo>
+          <Logo>Developer</Logo>
         </Link>
-        <Menu menu={menu} />
+        <Menu />
         <SearchBar />
         <ThemeToggle />
         {loginUser ? <AvartarClickMenu /> : <LoginSignUpBtn />}

@@ -9,16 +9,7 @@ export function getFetch(url: string) {
   return () => axios.get(url).then(response => response.data);
 }
 
-export function getAllPost(
-  page:
-    | 'search'
-    | 'notice'
-    | 'tech'
-    | 'life'
-    | 'guest-book'
-    | 'posts'
-    | 'comments'
-) {
+export function getAllPost(page?: string) {
   return () =>
     axios.get(`/article/${page}/all`).then(response => response.data);
 }

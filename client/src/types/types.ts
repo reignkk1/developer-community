@@ -1,3 +1,12 @@
+export interface SectionRouteItem {
+  section: string;
+  title: string;
+  header: {
+    title: string;
+    description: string;
+  };
+}
+
 export interface IPost {
   id: number;
   title: string;
