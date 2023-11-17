@@ -19,11 +19,6 @@
       "section": "guest-book",
       "title": "방명록",
       "description": "어서오세요~!"
-    },
-    {
-      "section": "game",
-      "title": "게임",
-      "description": "안녕하세요 게임방입니다."
     }
   ]
 }

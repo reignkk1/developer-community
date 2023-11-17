@@ -1,17 +1,12 @@
 import { useLocation } from 'react-router-dom';
-import sectionPost from '../sectionPost.json';
 
 export default function useActiveSection() {
   const { pathname } = useLocation();
   const cleanedPath = pathname.split(' ')[0];
 
-  // sectionPost.routes.forEach(({section})=>{
-  //   if(pathname.startsWith())
-  // })
-
   if (cleanedPath === '/') {
     return 'home';
-  } else if (pathname.startsWith('/notice')) {
+  } else if (pathname.startsWith(`/notice`)) {
     return 'notice';
   } else if (pathname.startsWith('/life')) {
     return 'life';

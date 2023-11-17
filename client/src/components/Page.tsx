@@ -1,6 +1,5 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import useActiveSection from '../hooks/useActiveSection';
-import sectionPost from '../sectionPost.json';
 import {
   Home,
   Login,
@@ -18,13 +17,17 @@ import {
 
 export default function Page() {
   const section = useActiveSection();
-  const { pathname } = useLocation();
-
   let element;
 
   switch (section) {
     case 'home':
       element = <Home />;
+      break;
+    case 'notice':
+    case 'life':
+    case 'tech':
+    case 'guest-book':
+      element = <PostSection />;
       break;
     case 'account':
       element = <Account />;
@@ -60,10 +63,7 @@ export default function Page() {
 
   return (
     <Routes>
-      {sectionPost.routes.map(({ section }) => (
-        <Route path={`/${section}`} element={<PostSection />} />
-      ))}
-      <Route path={pathname} element={element} />
+      <Route path="*" element={element} />
     </Routes>
   );
 }
