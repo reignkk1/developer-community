@@ -5,8 +5,6 @@ import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 import { getComments } from '../../api/http';
 import PostReplyComment from './PostReplyComment';
-import { useParams } from 'react-router-dom';
-import useActiveSection from '../../hooks/useActiveSection';
 
 // =============================================================================
 

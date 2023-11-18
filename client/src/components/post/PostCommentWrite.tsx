@@ -100,10 +100,11 @@ const Editor = styled(ReactEditor)``;
 
 // =============================================================================
 
-interface ICommentInfo extends ISection {
+interface ICommentInfo {
   avartarURL?: string;
   parentCommentID?: number;
   setCommentWrite?: Dispatch<SetStateAction<boolean>>;
+  section: string;
 }
 
 // =============================================================================

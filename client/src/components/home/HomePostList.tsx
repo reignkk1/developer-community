@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // File
 import { IPost } from '../../types/types';
 import Avartar from '../common/Avartar';
-import { getAllPost, getFetch } from '../../api/http';
+import { getAllPost } from '../../api/http';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 
@@ -59,21 +59,17 @@ const Nickname = styled.div`
 `;
 
 interface HomePostListProps {
-  routeTree: { title: string; section: string };
+  sectionData: { path: string; title: string };
 }
 
 // =============================================================================
 
 export default function HomePostList({
-  routeTree: { title, section },
+  sectionData: { path, title },
 }: HomePostListProps) {
-  const { data: posts } = useQuery<IPost[]>(
-    ['HOME', section],
-    getAllPost(section),
-    {
-      suspense: true,
-    }
-  );
+  const { data: posts } = useQuery<IPost[]>(['HOME', title], getAllPost(path), {
+    suspense: true,
+  });
 
   return (
     <Container>
@@ -99,7 +95,7 @@ export default function HomePostList({
             <ListTitle>
               <Link
                 to={
-                  section === 'guest-book'
+                  path === '/guest-book'
                     ? `/${post.page}`
                     : `/${post.page}/${post.id}`
                 }

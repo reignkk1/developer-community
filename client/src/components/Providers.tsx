@@ -3,9 +3,7 @@ import { ThemeProvider as ProviderContainer } from '@emotion/react';
 import { ReactNode } from 'react';
 import { RecoilRoot } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-
 import { DarkMode } from '../store/atom';
 import { darkMode, lightMode } from '../styles/theme';
 
@@ -15,9 +13,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={client}>
       <RecoilRoot>
         <ThemeProvider>
-          <HelmetProvider>
-            <BrowserRouter>{children}</BrowserRouter>
-          </HelmetProvider>
+          <HelmetProvider>{children}</HelmetProvider>
         </ThemeProvider>
       </RecoilRoot>
     </QueryClientProvider>

@@ -76,9 +76,14 @@ const Date = styled.div`
   font-size: 14px;
 `;
 
+interface PostProps {
+  section: string;
+  id: string;
+}
+
 // =============================================================================
 
-export default function Post({ section, id }: { section: string; id: string }) {
+export default function Post({ section, id }: PostProps) {
   const navigate = useNavigate();
 
   // 로그인 한 유저 정보
@@ -90,7 +95,7 @@ export default function Post({ section, id }: { section: string; id: string }) {
   });
 
   const { mutate: deleteMutate } = useMutation(deletePost(id), {
-    onSuccess: () => navigate(`/${section}`),
+    onSuccess: () => navigate('/' + section),
   });
 
   const deleteClick = () => {

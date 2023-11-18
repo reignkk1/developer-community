@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { useEffect } from 'react';
 
@@ -14,14 +14,8 @@ import DrawerMenu from '../header/HeaderDrawerMenu';
 import styled from '@emotion/styled';
 import useLoginUser from '../../hooks/useLoginUser';
 
-const HeaderContainer = styled.header<{ pathname: String }>`
-  display: ${props =>
-    props.pathname === '/signup' ||
-    props.pathname === '/login' ||
-    props.pathname === '/account/password-change' ||
-    props.pathname === '/account/withdraw-confirm'
-      ? 'none'
-      : 'flex'};
+const HeaderContainer = styled.header`
+  display: flex;
   width: 100%;
   height: 70px;
   background-color: ${props => props.theme.bgColor};
@@ -55,7 +49,6 @@ const Logo = styled.h1`
 
 export default function Header() {
   const [drawerMenuOpen, setDrawerMenuOpen] = useRecoilState(isOpendDrawerMenu);
-  const location = useLocation();
   const loginUser = useLoginUser();
 
   useEffect(() => {
@@ -66,7 +59,7 @@ export default function Header() {
   }, [setDrawerMenuOpen]);
 
   return (
-    <HeaderContainer pathname={location.pathname}>
+    <HeaderContainer>
       <HeaderBox>
         <Link to="/">
           <Logo>Developer</Logo>

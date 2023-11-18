@@ -1,11 +1,7 @@
 import './styles/signatureColor.css';
 import styled from '@emotion/styled';
-import Header from './components/layout/Header';
-import ScrollToTop from './utils/ScrollToTop';
-import Footer from './components/layout/Footer';
-import GlobalStyle from './styles/GlobalStyle';
 import Providers from './components/Providers';
-import Page from './components/Page';
+import Routes from './components/Routes';
 
 const Wrapper = styled.main`
   width: 100%;
@@ -16,12 +12,8 @@ const Wrapper = styled.main`
 function App() {
   return (
     <Providers>
-      <GlobalStyle />
-      <ScrollToTop />
       <Wrapper>
-        <Header />
-        <Page />
-        <Footer />
+        <Routes />
       </Wrapper>
     </Providers>
   );

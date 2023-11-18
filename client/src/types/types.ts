@@ -1,3 +1,9 @@
+export interface SectionData {
+  path: string;
+  title: string;
+  description: string;
+}
+
 export interface SectionRouteItem {
   section: string;
   title: string;

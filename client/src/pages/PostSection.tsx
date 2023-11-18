@@ -7,32 +7,36 @@ import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
 import Title from '../components/category/CategoryTitle';
 import useLoginUser from '../hooks/useLoginUser';
 import { useLocation, useNavigate } from 'react-router-dom';
-import postSection from '../sectionPost.json';
-import useActiveSection from '../hooks/useActiveSection';
 import GuestBookList from '../components/guestBook/GuestBookList';
 import GuestBookInput from '../components/guestBook/GuestBookInput';
 import Head from '../components/Head';
 import Post from '../components/post/Post';
 import PostCommentList from '../components/post/PostCommentList';
+import { SectionData } from '../types/types';
+
+interface PostSectionProps {
+  sectionData: SectionData[];
+}
 
 // =============================================================================
 
-export default function PostSection() {
+export default function PostSection({ sectionData }: PostSectionProps) {
+  const { pathname } = useLocation();
   const loginUser = useLoginUser();
   const navigate = useNavigate();
-  const currentSection = useActiveSection();
-  const { pathname } = useLocation();
-  const id = pathname.split('/')[2];
 
-  const { title, description, section } = postSection.routes.filter(
-    route => route.section === currentSection
+  const { title, description, path } = sectionData.filter(({ path }) =>
+    pathname.startsWith(path)
   )[0];
+
+  const section = path.substring(1);
+  const id = pathname.split('/')[2];
 
   const onClick = () => (loginUser ? navigate('write') : navigate('/login'));
 
   const isWriteButton =
-    (currentSection === 'notice' && loginUser?.manager) ||
-    (currentSection !== 'notice' && loginUser);
+    (path === '/notice' && loginUser?.manager) ||
+    (path !== '/notice' && loginUser);
 
   let content;
 
@@ -43,7 +47,7 @@ export default function PostSection() {
         <PostCommentList section={section} id={id} />
       </>
     );
-  } else if (currentSection === 'guest-book') {
+  } else if (path === '/guest-book') {
     content = (
       <>
         <Title name={title} explain={description} />
