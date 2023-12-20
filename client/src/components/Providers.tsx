@@ -6,6 +6,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { useRecoilValue } from 'recoil';
 import { DarkMode } from '../store/atom';
 import { darkMode, lightMode } from '../styles/theme';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const client = new QueryClient();
@@ -16,6 +17,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           <HelmetProvider>{children}</HelmetProvider>
         </ThemeProvider>
       </RecoilRoot>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }

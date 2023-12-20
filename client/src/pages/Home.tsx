@@ -2,13 +2,51 @@ import styled from '@emotion/styled';
 import HomePostList from '../components/home/HomePostList';
 import HomePostTitle from '../components/home/HomePostTitle';
 import { Main } from '../styles/PageShareStyle';
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
 import Head from '../components/Head';
-import { SectionData } from '../types/types';
+import { IPost } from '../types/types';
+import { useQuery } from 'react-query';
+import { getAllPost } from '../api/http';
+import AsyncSuspense from '../components/AsyncSuspense';
+import sectionData from '../sectionData.json';
 
 // =============================================================================
+
+export default function Home() {
+  const { data } = sectionData;
+
+  return (
+    <Container>
+      <Head title="홈" />
+      {data.map(({ title, path }, idx) => (
+        <div key={String(idx)}>
+          <HomePostTitle to={path}>{title}</HomePostTitle>
+          <AsyncSuspense>
+            <HomePostListFetcher title={title} path={path}>
+              <HomePostList title={title} path={path} />
+            </HomePostListFetcher>
+          </AsyncSuspense>
+        </div>
+      ))}
+    </Container>
+  );
+}
+
+interface HomePostListFetcherProps {
+  children: React.ReactElement;
+  title: string;
+  path: string;
+}
+
+function HomePostListFetcher({
+  children,
+  title,
+  path,
+}: HomePostListFetcherProps) {
+  useQuery<IPost[]>(['HOME', title], getAllPost(path), {
+    suspense: true,
+  });
+  return children;
+}
 
 const Container = styled(Main)`
   display: grid;
@@ -23,26 +61,3 @@ const Container = styled(Main)`
     width: 450px;
   }
 `;
-interface HomeProps {
-  sectionData: SectionData[];
-}
-
-// =============================================================================
-
-export default function Home({ sectionData }: HomeProps) {
-  return (
-    <Container>
-      <Head title="홈" />
-      {sectionData.map(({ title, path }, idx) => (
-        <div key={idx}>
-          <HomePostTitle to={path}>{title}</HomePostTitle>
-          <Suspense fallback={<LoadingBox />}>
-            <ErrorBoundary fallback={<ErrorBox />}>
-              <HomePostList sectionData={{ title, path }} />
-            </ErrorBoundary>
-          </Suspense>
-        </div>
-      ))}
-    </Container>
-  );
-}

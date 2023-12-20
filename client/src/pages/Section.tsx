@@ -1,36 +1,34 @@
-import { Suspense } from 'react';
 import Button from '../components/common/button';
 import { Main } from '../styles/PageShareStyle';
-import { ErrorBoundary } from 'react-error-boundary';
 import PostList from '../components/category/PostList';
-import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
 import Title from '../components/category/CategoryTitle';
 import useLoginUser from '../hooks/useLoginUser';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import GuestBookList from '../components/guestBook/GuestBookList';
 import GuestBookInput from '../components/guestBook/GuestBookInput';
 import Head from '../components/Head';
 import Post from '../components/post/Post';
 import PostCommentList from '../components/post/PostCommentList';
 import { SectionData } from '../types/types';
+import AsyncSuspense from '../components/AsyncSuspense';
 
-interface PostSectionProps {
+interface SectionProps {
   sectionData: SectionData[];
 }
 
 // =============================================================================
 
-export default function PostSection({ sectionData }: PostSectionProps) {
+export default function Section({ sectionData }: SectionProps) {
   const { pathname } = useLocation();
   const loginUser = useLoginUser();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const { title, description, path } = sectionData.filter(({ path }) =>
     pathname.startsWith(path)
   )[0];
 
   const section = path.substring(1);
-  const id = pathname.split('/')[2];
 
   const onClick = () => (loginUser ? navigate('write') : navigate('/login'));
 
@@ -68,9 +66,7 @@ export default function PostSection({ sectionData }: PostSectionProps) {
 
   return (
     <Main>
-      <Suspense fallback={<LoadingBox />}>
-        <ErrorBoundary fallback={<ErrorBox />}>{content}</ErrorBoundary>
-      </Suspense>
+      <AsyncSuspense>{content}</AsyncSuspense>
     </Main>
   );
 }

@@ -3,7 +3,7 @@ import Account from './Account';
 import Edit from './Edit';
 import Login from './Login';
 import PasswordChange from './PasswordChange';
-import PostSection from './PostSection';
+import Section from './Section';
 import Profile from './Profile';
 import Search from './Search';
 import SignUp from './SignUp';
@@ -16,7 +16,7 @@ export {
   Edit,
   Login,
   PasswordChange,
-  PostSection,
+  Section,
   Profile,
   Search,
   SignUp,

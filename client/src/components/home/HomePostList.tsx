@@ -1,11 +1,55 @@
 import { Link } from 'react-router-dom';
-
-// File
-import { IPost } from '../../types/types';
 import Avartar from '../common/Avartar';
-import { getAllPost } from '../../api/http';
 import styled from '@emotion/styled';
-import { useQuery } from 'react-query';
+import useGetQuery from '../../hooks/useGetQuery';
+import { IPost } from '../../types/types';
+
+interface HomePostListProps {
+  title: string;
+  path: string;
+}
+
+export default function HomePostList({ title, path }: HomePostListProps) {
+  const posts = useGetQuery(['HOME', title]) as IPost[];
+
+  return (
+    <Container>
+      <ListBox>
+        {posts?.slice(0, 4).map(post => (
+          <ListItem key={post.id}>
+            <NicknameBox>
+              <Link to={`/user/${post.writerID}/posts`}>
+                <Avartar
+                  width="20px"
+                  heigth="20px"
+                  src={
+                    post.avartar ||
+                    'https://graph.facebook.com/555897032021233/picture?width=200&height=200'
+                  }
+                />
+              </Link>
+              <Link to={`/user/${post.writerID}/posts`}>
+                <Nickname>{post.nickname}</Nickname>
+              </Link>
+              <ListDate>- {post.date}</ListDate>
+            </NicknameBox>
+            <ListTitle>
+              <Link
+                to={
+                  path === '/guest-book'
+                    ? `/${post.page}`
+                    : `/${post.page}/${post.id}`
+                }
+              >
+                {post.title}
+              </Link>
+            </ListTitle>
+          </ListItem>
+        ))}
+      </ListBox>
+    </Container>
+  );
+}
 
 const Container = styled.div`
   height: 500px;
@@ -57,55 +101,3 @@ const Nickname = styled.div`
     color: #0092fa;
   }
 `;
-
-interface HomePostListProps {
-  sectionData: { path: string; title: string };
-}
-
-// =============================================================================
-
-export default function HomePostList({
-  sectionData: { path, title },
-}: HomePostListProps) {
-  const { data: posts } = useQuery<IPost[]>(['HOME', title], getAllPost(path), {
-    suspense: true,
-  });
-
-  return (
-    <Container>
-      <ListBox>
-        {posts?.slice(0, 4).map(post => (
-          <ListItem key={post.id}>
-            <NicknameBox>
-              <Link to={`/user/${post.writerID}/posts`}>
-                <Avartar
-                  width="20px"
-                  heigth="20px"
-                  src={
-                    post.avartar ||
-                    'https://graph.facebook.com/555897032021233/picture?width=200&height=200'
-                  }
-                />
-              </Link>
-              <Link to={`/user/${post.writerID}/posts`}>
-                <Nickname>{post.nickname}</Nickname>
-              </Link>
-              <ListDate>- {post.date}</ListDate>
-            </NicknameBox>
-            <ListTitle>
-              <Link
-                to={
-                  path === '/guest-book'
-                    ? `/${post.page}`
-                    : `/${post.page}/${post.id}`
-                }
-              >
-                {post.title}
-              </Link>
-            </ListTitle>
-          </ListItem>
-        ))}
-      </ListBox>
-    </Container>
-  );
-}

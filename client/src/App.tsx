@@ -2,6 +2,7 @@ import './styles/signatureColor.css';
 import styled from '@emotion/styled';
 import Providers from './components/Providers';
 import Routes from './components/Routes';
+import React from 'react';
 
 const Wrapper = styled.main`
   width: 100%;
