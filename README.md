@@ -16,6 +16,10 @@
 
 <a href="https://web-board-web-6g2llexw0nts.sel3.cloudtype.app/">[🌍 배포 링크]</a>
 
+테스트용 아이디, 비밀번호
+test_ID : asdasd
+test_PW : asdasd
+
 ## What is React?
 
 - Facebook에서 주도적으로 개발한 SPA(Single Page Application)를 효과적으로 구축하기 위해 사용하는 JavaScript 기반의 라이브러리이다.
