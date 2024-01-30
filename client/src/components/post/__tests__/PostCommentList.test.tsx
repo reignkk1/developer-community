@@ -6,7 +6,7 @@ import { IComment, IUser } from '../../../types/types';
 import { Suspense } from 'react';
 import { LoadingBox } from '../../common/LoadingError';
 import { waitFor } from '@testing-library/react';
-import PostCommentList from '../PostCommentList';
+import PostCommentList from '../CommentList';
 
 const comment: IComment[] = [
   {

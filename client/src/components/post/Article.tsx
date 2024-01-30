@@ -10,7 +10,6 @@ import useLoginUser from '../../hooks/useLoginUser';
 import { useMutation, useQuery } from 'react-query';
 import { deletePost } from '../../api/http';
 import { IPost } from '../../types/types';
-import PostCommentWrite from './PostCommentWrite';
 import Head from '../Head';
 
 const ArticleContainer = styled.div`
@@ -78,12 +77,12 @@ const Date = styled.div`
 
 interface PostProps {
   section: string;
-  id: string;
+  id?: string;
 }
 
 // =============================================================================
 
-export default function Post({ section, id }: PostProps) {
+export default function Article({ section, id }: PostProps) {
   const navigate = useNavigate();
 
   // 로그인 한 유저 정보
@@ -134,8 +133,6 @@ export default function Post({ section, id }: PostProps) {
           <Button onClick={editClick}>수정</Button>
         </ButtonBox>
       ) : null}
-
-      <PostCommentWrite section={section} />
     </>
   );
 }

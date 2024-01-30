@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { renderWithTest } from '../../../utils/test/renderWithTest';
-import PostCommentWrite from '../PostCommentWrite';
+import PostCommentWrite from '../CommentWrite';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { waitFor } from '@testing-library/react';

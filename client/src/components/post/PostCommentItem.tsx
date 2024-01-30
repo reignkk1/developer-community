@@ -4,7 +4,7 @@ import Avartar from '../common/Avartar';
 import { IComment } from '../../types/types';
 import useComment from './hook/useComment';
 import Parser from 'html-react-parser';
-import CommentWrite from './PostCommentWrite';
+import CommentWrite from './CommentWrite';
 import useLoginUser from '../../hooks/useLoginUser';
 
 const Item = styled.li`

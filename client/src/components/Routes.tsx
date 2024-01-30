@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom';
 import {
   Home,
-  Section,
+  PostSection,
+  Post,
   Login,
   SignUp,
   Profile,
@@ -27,24 +28,12 @@ import sectionData from '../sectionData.json';
 
 export default function Routes() {
   const { data } = sectionData;
-  const sectionRoutes = data.map(({ path }, idx) => (
-    <Route key={idx} path={path} element={<Section sectionData={data} />} />
-  ));
-  const sectionDetailRoutes = data.map(({ path }, idx) => (
-    <Route
-      key={idx}
-      path={path + '/:id'}
-      element={<Section sectionData={data} />}
-    />
-  ));
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
-          {sectionRoutes}
-          {sectionDetailRoutes}
+          {createPostSection()}
           <Route path="/account" element={<Account />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/search" element={<Search />} />
@@ -60,6 +49,20 @@ export default function Routes() {
       </>
     )
   );
+
+  function createPostSection() {
+    const sectionRoutes = data.map(({ path }, idx) => (
+      <Route
+        key={idx}
+        path={path}
+        element={<PostSection sectionData={data} />}
+      />
+    ));
+    const sectionDetailRoutes = data.map(({ path }, idx) => (
+      <Route key={idx} path={path + '/:id'} element={<Post />} />
+    ));
+    return [...sectionRoutes, ...sectionDetailRoutes];
+  }
   return <RouterProvider router={router} />;
 }
 

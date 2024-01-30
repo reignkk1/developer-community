@@ -6,7 +6,7 @@ import { IPost, IUser } from '../../../types/types';
 import { Suspense } from 'react';
 import { LoadingBox } from '../../common/LoadingError';
 import { waitFor } from '@testing-library/react';
-import Post from '../Post';
+import Post from '../Article';
 
 const loginUser: IUser = {
   id: 12,

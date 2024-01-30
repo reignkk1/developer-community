@@ -16,12 +16,12 @@ const Count = styled.div`
   margin-bottom: 20px;
 `;
 
-export default function PostCommentList({
+export default function CommentList({
   section,
   id,
 }: {
   section: string;
-  id: string;
+  id?: string;
 }) {
   // 해당 게시물의 댓글들 Fetch
   const { data: comments } = useQuery<IComment[]>(

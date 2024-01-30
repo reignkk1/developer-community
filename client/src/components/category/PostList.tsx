@@ -1,12 +1,13 @@
 import { Link, useSearchParams } from 'react-router-dom';
+import * as router from 'react-router-dom';
 
 // File
 import { IPost } from '../../types/types';
-import PageNumberBar from '../common/pageNumBar';
 import { getAllPost } from '../../api/http';
 import styled from '@emotion/styled';
 import Avartar from '../common/Avartar';
 import { useQuery } from 'react-query';
+import { Paginate } from 'react-url-paginate';
 
 const ListItem = styled.li`
   padding: 20px 0px;
@@ -46,28 +47,13 @@ const Nickname = styled.div`
 
 // =============================================================================
 
-interface PostListProps {
-  routeTree: {
-    title: string;
-    section:
-      | 'search'
-      | 'notice'
-      | 'tech'
-      | 'life'
-      | 'guest-book'
-      | 'posts'
-      | 'comments'
-      | string
-      | undefined;
-  };
-}
-
-export default function PostList({
-  routeTree: { title, section },
-}: PostListProps) {
+export default function PostList() {
   // 모든 게시물 가져오기
+  const { pathname } = router.useLocation();
+  const section = pathname.split('/')[1];
+
   const { data: posts } = useQuery<IPost[]>(
-    ['POST_LIST', title],
+    ['POST_LIST', section],
     getAllPost(section),
     {
       suspense: true,
@@ -105,11 +91,7 @@ export default function PostList({
             </ListItem>
           ))}
       </ul>
-      <PageNumberBar
-        section={section}
-        dataLength={posts?.length}
-        pageCount={pageCount}
-      />
+      <Paginate total={100} pageItems={10} router={router} />
     </>
   );
 }

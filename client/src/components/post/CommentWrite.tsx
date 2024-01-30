@@ -109,7 +109,7 @@ interface ICommentInfo {
 
 // =============================================================================
 
-export default function PostCommentWrite({
+export default function CommentWrite({
   parentCommentID,
   setCommentWrite,
   section,
