@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { UseFormRegister } from "react-hook-form";
+import styled from '@emotion/styled';
+import { UseFormRegister } from 'react-hook-form';
 
 // =============================================================================
 
@@ -13,9 +13,10 @@ const Input = styled.input`
   padding: 10px 15px;
   font-size: 18px;
   border-radius: 5px;
-  color: ${(props) => props.theme.textColor};
-  border: 1px solid ${(props) => props.theme.borderColor};
-  background-color: ${(props) => props.theme.inputColor};
+  box-sizing: border-box;
+  color: ${props => props.theme.textColor};
+  border: 1px solid ${props => props.theme.borderColor};
+  background-color: ${props => props.theme.inputColor};
   &:focus {
     border: 1px solid #0580d7;
   }

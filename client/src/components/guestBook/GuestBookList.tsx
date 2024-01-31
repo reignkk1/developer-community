@@ -54,20 +54,20 @@ export default function GuestBookList() {
 
   return (
     <div>
-      {posts?.map(post => (
-        <GuestContainer key={post.id}>
+      {posts?.map(({ id, avartar, writerID, nickname, content }) => (
+        <GuestContainer key={id}>
           <Box>
             <User>
-              <Avartar width="30px" heigth="30px" src={post.avartar} />
-              <span>{post.nickname}</span>
+              <Avartar width="30px" heigth="30px" src={avartar} />
+              <span>{nickname}</span>
             </User>
-            <span>{post.content}</span>
+            <span>{content}</span>
           </Box>
-          {loginUser?.id && post.writerID ? (
+          {loginUser?.id && writerID && (
             <div>
-              <DeleteBtn onClick={() => handleDelete(post.id)}>삭제</DeleteBtn>
+              <DeleteBtn onClick={() => handleDelete(id)}>삭제</DeleteBtn>
             </div>
-          ) : null}
+          )}
         </GuestContainer>
       ))}
     </div>

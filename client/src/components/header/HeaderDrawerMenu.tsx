@@ -119,8 +119,8 @@ export default function DrawerMenu() {
   const menuData = [
     { name: '공지사항', path: '/notice' },
     { name: '사는얘기', path: '/life' },
-    { name: 'Q & A', path: '/question' },
-    { name: '오늘의 명언', path: '/quote' },
+    { name: 'Tech', path: '/tech' },
+    { name: '방명록', path: '/guest-book' },
   ];
 
   const closeDrawerMenu = () => setDrawerMenuOpen(false);

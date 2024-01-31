@@ -9,15 +9,18 @@ import InputContainer from '../components/auth/InputContainer';
 import { IUser } from '../types/types';
 import KakaoAuthButton from '../components/auth/AuthKakaoButton';
 import useLoginUser from '../hooks/useLoginUser';
-import useActiveSection from '../hooks/useActiveSection';
 
 // =============================================================================
 
 const Main = styled.main`
   width: 450px;
-  height: 1000px;
+  height: 800px;
   margin: 0 auto;
+  margin-bottom: 50px;
   text-align: center;
+  @media (max-width: 600px) {
+    width: 350px;
+  }
 `;
 const LogoBox = styled.div`
   margin-bottom: 80px;

@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import Avartar from '../common/Avartar';
 import styled from '@emotion/styled';
-import useGetQuery from '../../hooks/useGetQuery';
 import { IPost } from '../../types/types';
+import { getAllPost } from '../../api/http';
+import { useQuery } from 'react-query';
 
 interface HomePostListProps {
   title: string;
@@ -10,42 +11,44 @@ interface HomePostListProps {
 }
 
 export default function HomePostList({ title, path }: HomePostListProps) {
-  const posts = useGetQuery(['HOME', title]) as IPost[];
+  const { data } = useQuery<IPost[]>(['HOME', title], getAllPost(path), {
+    suspense: true,
+  });
+
+  const posts = data?.slice(0, 4);
 
   return (
     <Container>
       <ListBox>
-        {posts?.slice(0, 4).map(post => (
-          <ListItem key={post.id}>
-            <NicknameBox>
-              <Link to={`/user/${post.writerID}/posts`}>
-                <Avartar
-                  width="20px"
-                  heigth="20px"
-                  src={
-                    post.avartar ||
-                    'https://graph.facebook.com/555897032021233/picture?width=200&height=200'
-                  }
-                />
-              </Link>
-              <Link to={`/user/${post.writerID}/posts`}>
-                <Nickname>{post.nickname}</Nickname>
-              </Link>
-              <ListDate>- {post.date}</ListDate>
-            </NicknameBox>
-            <ListTitle>
-              <Link
-                to={
-                  path === '/guest-book'
-                    ? `/${post.page}`
-                    : `/${post.page}/${post.id}`
-                }
-              >
-                {post.title}
-              </Link>
-            </ListTitle>
-          </ListItem>
-        ))}
+        {posts?.map(
+          ({ id, writerID, avartar, nickname, date, page, title }) => (
+            <ListItem key={id}>
+              <NicknameBox>
+                <Link to={`/user/${writerID}/posts`}>
+                  <Avartar
+                    width="20px"
+                    heigth="20px"
+                    src={
+                      avartar ||
+                      'https://graph.facebook.com/555897032021233/picture?width=200&height=200'
+                    }
+                  />
+                </Link>
+                <Link to={`/user/${writerID}/posts`}>
+                  <Nickname>{nickname}</Nickname>
+                </Link>
+                <ListDate>- {date}</ListDate>
+              </NicknameBox>
+              <ListTitle>
+                <Link
+                  to={path === '/guest-book' ? `/${page}` : `/${page}/${id}`}
+                >
+                  {title}
+                </Link>
+              </ListTitle>
+            </ListItem>
+          )
+        )}
       </ListBox>
     </Container>
   );

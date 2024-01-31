@@ -9,9 +9,9 @@ export function getFetch(url: string) {
   return () => axios.get(url).then(response => response.data);
 }
 
-export function getAllPost(page?: string) {
+export function getAllPost(section?: string) {
   return () =>
-    axios.get(`/article/${page}/all`).then(response => response.data);
+    axios.get(`/article/${section}/all`).then(response => response.data);
 }
 
 export function getLoginUser() {

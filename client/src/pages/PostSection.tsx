@@ -55,13 +55,13 @@ function PostListSection({ path }: { path: string }) {
 
   const onClick = () => (loginUser ? navigate('write') : navigate('/login'));
 
-  const isWriteButton =
+  const writeButton =
     (path === '/notice' && loginUser?.manager) ||
     (path !== '/notice' && loginUser);
 
   return (
     <>
-      {isWriteButton && <Button onClick={onClick}>✏️작성하기</Button>}
+      {writeButton && <Button onClick={onClick}>✏️작성하기</Button>}
       <PostList />
     </>
   );
