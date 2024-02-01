@@ -70,7 +70,6 @@ export default function PageNumberBar({
       : section === 'search'
       ? navigate(`/${section}?keyword=${keyword}&page=${pageNumber}`)
       : navigate(`/${section}?page=${pageNumber}`);
-  window.scrollTo(0, 0);
 
   return (
     <div css={Container(theme)}>

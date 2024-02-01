@@ -38,7 +38,8 @@ export default function Routes() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/search" element={<Search />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/user" element={<UserActivity />} />
+          <Route path="/user/:id/posts" element={<UserActivity />} />
+          <Route path="/user/:id/comments" element={<UserActivity />} />
           <Route path="/:section/edit" element={<Edit />} />
           <Route path="/:section/write" element={<Write />} />
         </Route>

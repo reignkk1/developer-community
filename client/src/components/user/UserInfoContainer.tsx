@@ -60,10 +60,10 @@ interface IUserInfoContainer {
 }
 
 export default function UserInfoContainer({ userId }: IUserInfoContainer) {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  const urlArticleMatch = location.pathname === `/user/${userId}/posts`;
-  const urlCommentMatch = location.pathname === `/user/${userId}/comments`;
+  const urlArticleMatch = pathname === `/user/${userId}/posts`;
+  const urlCommentMatch = pathname === `/user/${userId}/comments`;
 
   // 유저정보 Fetch
   const { data: user } = useQuery<IUser>(

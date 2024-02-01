@@ -5,10 +5,8 @@ import { css } from '@emotion/react';
 //File
 
 import SearchPostList from '../components/search/SearchPostList';
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorBox, LoadingBox } from '../components/common/LoadingError';
 import useActiveSection from '../hooks/useActiveSection';
+import AsyncSuspense from '../components/AsyncSuspense';
 
 // =============================================================================
 
@@ -37,11 +35,9 @@ export default function Search() {
   return (
     <main css={Main}>
       <div css={SearchKeyword}>검색어 : {keyword}</div>
-      <Suspense fallback={<LoadingBox />}>
-        <ErrorBoundary fallback={<ErrorBox />}>
-          <SearchPostList keyword={keyword || ''} />
-        </ErrorBoundary>
-      </Suspense>
+      <AsyncSuspense>
+        <SearchPostList keyword={keyword || ''} />
+      </AsyncSuspense>
     </main>
   );
 }
