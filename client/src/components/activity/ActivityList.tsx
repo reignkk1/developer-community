@@ -50,15 +50,7 @@ function ActivityPosts({ posts }: { posts?: IPost[] }) {
           <ItemTitle>
             <ItemPage>
               <Page>
-                {page === 'notice' ? (
-                  <Link to="/notice">공지사항</Link>
-                ) : page === 'tech' ? (
-                  <Link to="/tech">Tech</Link>
-                ) : page === 'life' ? (
-                  <Link to="/life">사는얘기</Link>
-                ) : (
-                  <Link to="/guest-book">방명록</Link>
-                )}
+                <Link to={`/${page}`}>{convertSection(page)}</Link>
               </Page>
               <Span>에 게시물을 작성하였습니다.</Span>
             </ItemPage>
@@ -79,15 +71,7 @@ function ActivityComments({ comments }: { comments?: IComment[] }) {
           <ItemTitle>
             <ItemPage>
               <Page>
-                {page === 'notice' ? (
-                  <Link to={`/notice/${postID}`}>공지사항</Link>
-                ) : page === 'tech' ? (
-                  <Link to={`/tech/${postID}`}>Tech</Link>
-                ) : page === 'life' ? (
-                  <Link to={`/life/${postID}`}>사는얘기</Link>
-                ) : (
-                  <Link to={`/guest-book/${postID}`}>방명록</Link>
-                )}
+                <Link to={`/${page}/${postID}`}>{convertSection(page)}</Link>
               </Page>
               <Span>에 댓글을 달았습니다.</Span>
             </ItemPage>
@@ -100,6 +84,18 @@ function ActivityComments({ comments }: { comments?: IComment[] }) {
       ))}
     </ItemBox>
   );
+}
+
+function convertSection(page: string) {
+  if (page === 'notice') {
+    return '공지사항';
+  } else if (page === 'guest-book') {
+    return '방명록';
+  } else if (page === 'life') {
+    return '사는 얘기';
+  } else if (page === 'tech') {
+    return 'Tech';
+  }
 }
 
 const ItemBox = styled.ul`

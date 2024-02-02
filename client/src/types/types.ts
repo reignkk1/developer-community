@@ -57,7 +57,7 @@ export interface IComment {
   text: string;
   postID: number;
   writerID: number;
-  page: 'notice' | 'tech' | 'life' | 'guest-book' | undefined;
+  page: string;
   nickname: string;
   avartar: string;
   parentID: number;

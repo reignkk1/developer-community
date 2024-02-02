@@ -64,13 +64,14 @@ export default function PageNumberBar({
 
   const buttonCount = Math.ceil((dataLength || 0) / 10);
 
-  const onClick = (pageNumber: string) =>
+  const onClick = (pageNumber: string) => {
+    window.scrollTo(0, 0);
     userID
       ? navigate(`/user/${userID}/${section}?page=${pageNumber}`)
       : section === 'search'
       ? navigate(`/${section}?keyword=${keyword}&page=${pageNumber}`)
       : navigate(`/${section}?page=${pageNumber}`);
-
+  };
   return (
     <div css={Container(theme)}>
       <div css={PageBar}>

@@ -1,16 +1,80 @@
-import { css, useTheme } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
+import { css, useTheme } from '@emotion/react';
 import Parser from 'html-react-parser';
 import PageNumberBar from './../common/pageNumBar';
 import { useQuery } from 'react-query';
 import { IPost } from '../../types/types';
 import { getSearchResult } from '../../api/http';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Avartar from '../common/Avartar';
 
 interface ITheme {
   borderColor: string;
   textColor: string;
+}
+
+interface ISearchPostList {
+  keyword: string;
+  pageNumber: string;
+}
+
+export default function SearchPostList({
+  keyword,
+  pageNumber,
+}: ISearchPostList) {
+  const theme = useTheme();
+
+  const { data } = useQuery<IPost[]>(
+    ['search', keyword],
+    getSearchResult(keyword),
+    { suspense: true }
+  );
+  const posts = data?.slice(
+    pageNumber === null ? 0 : Number(pageNumber) * 10 - 10,
+    pageNumber === null ? 10 : Number(pageNumber) * 10
+  );
+
+  const markingTitleKeyword = (title: string) => {
+    return Parser(
+      title.replaceAll(
+        keyword,
+        `<mark style='background-color: #b2ddfc; font-weight:bold'>${keyword}</mark>`
+      )
+    );
+  };
+
+  return (
+    <>
+      <ul>
+        {posts?.map(
+          ({ id, writerID, avartar, nickname, date, page, title }) => (
+            <li key={id} css={ItemList(theme)}>
+              <div css={Info}>
+                <Link to={`/user/${writerID}/posts`}>
+                  <Avartar width="30px" heigth="30px" src={avartar} />
+                </Link>
+                <Link to={`/user/${writerID}/posts`}>
+                  <span css={Nickname(theme)}>{nickname}</span>
+                </Link>
+                <span>|</span>
+                <span>{date}</span>
+              </div>
+              <div css={Title(theme)}>
+                <Link to={`/${page}/${id}`}>{markingTitleKeyword(title)}</Link>
+              </div>
+            </li>
+          )
+        )}
+      </ul>
+
+      <PageNumberBar
+        dataLength={posts?.length}
+        pageCount={pageNumber}
+        keyword={keyword}
+        section="search"
+      />
+    </>
+  );
 }
 
 const Info = css`
@@ -49,62 +113,3 @@ const ItemList = (theme: ITheme) => css`
   padding-bottom: 30px;
   margin-top: 10px;
 `;
-
-interface ISearchPostList {
-  keyword: string;
-}
-
-export default function SearchPostList({ keyword }: ISearchPostList) {
-  const theme = useTheme();
-  const [query] = useSearchParams();
-  const pageCount = query.get('page');
-
-  const { data: posts } = useQuery<IPost[]>(
-    ['search', keyword],
-    getSearchResult(keyword),
-    { suspense: true }
-  );
-
-  return (
-    <>
-      <ul>
-        {posts
-          ?.slice(
-            pageCount === null ? 0 : Number(pageCount) * 10 - 10,
-            pageCount === null ? 10 : Number(pageCount) * 10
-          )
-          .map(post => (
-            <li key={post.id} css={ItemList(theme)}>
-              <div css={Info}>
-                <Link to={`/user/${post.writerID}/posts`}>
-                  <Avartar width="30px" heigth="30px" src={post.avartar} />
-                </Link>
-                <Link to={`/user/${post.writerID}/posts`}>
-                  <span css={Nickname(theme)}>{post.nickname}</span>
-                </Link>
-                <span>|</span>
-                <span>{post.date}</span>
-              </div>
-              <div css={Title(theme)}>
-                <Link to={`/${post.page}/${post.id}`}>
-                  {Parser(
-                    `${post.title.replaceAll(
-                      `${keyword}`,
-                      `<mark style='background-color: #b2ddfc; font-weight:bold'>${keyword}</mark>`
-                    )}`
-                  )}
-                </Link>
-              </div>
-            </li>
-          ))}
-      </ul>
-
-      <PageNumberBar
-        dataLength={posts?.length}
-        pageCount={pageCount}
-        keyword={keyword}
-        section="search"
-      />
-    </>
-  );
-}

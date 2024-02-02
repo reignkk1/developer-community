@@ -33,7 +33,7 @@ export default function Routes() {
       <>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
-          {createPostSection()}
+          {createPostSectionRoutes()}
           <Route path="/account" element={<Account />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/search" element={<Search />} />
@@ -51,7 +51,7 @@ export default function Routes() {
     )
   );
 
-  function createPostSection() {
+  function createPostSectionRoutes() {
     const sectionRoutes = data.map(({ path }, idx) => (
       <Route
         key={idx}

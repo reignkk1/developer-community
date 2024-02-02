@@ -1,11 +1,9 @@
-import { useSearchParams } from 'react-router-dom';
 /** @jsxImportSource @emotion/react */
+import { useSearchParams } from 'react-router-dom';
 import { css } from '@emotion/react';
 
 //File
-
 import SearchPostList from '../components/search/SearchPostList';
-import useActiveSection from '../hooks/useActiveSection';
 import AsyncSuspense from '../components/AsyncSuspense';
 
 // =============================================================================
@@ -27,16 +25,15 @@ const SearchKeyword = css`
 // =============================================================================
 
 export default function Search() {
-  const [search] = useSearchParams();
-  const keyword = search.get('keyword');
-
-  useActiveSection();
+  const [query] = useSearchParams();
+  const keyword = query.get('keyword') || '';
+  const pageNumber = query.get('page') || '1';
 
   return (
     <main css={Main}>
       <div css={SearchKeyword}>검색어 : {keyword}</div>
       <AsyncSuspense>
-        <SearchPostList keyword={keyword || ''} />
+        <SearchPostList keyword={keyword} pageNumber={pageNumber} />
       </AsyncSuspense>
     </main>
   );
