@@ -19,10 +19,10 @@ import {
   Edit,
   Write,
   UserActivity,
+  NotFound,
 } from '../pages';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
-import GlobalStyles from '../styles/GlobalStyle';
 import ScrollToTop from '../utils/ScrollToTop';
 import sectionData from '../sectionData.json';
 
@@ -47,6 +47,7 @@ export default function Routes() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/account/password-change" element={<PasswordChange />} />
         <Route path="/account/withdraw-Confirm" element={<WithdrawConfirm />} />
+        <Route path="*" element={<NotFound />} />
       </>
     )
   );
@@ -70,7 +71,6 @@ export default function Routes() {
 function Layout() {
   return (
     <>
-      <GlobalStyles />
       <ScrollToTop />
       <Header />
       <Outlet />

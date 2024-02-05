@@ -2,8 +2,10 @@ import { useSetRecoilState } from 'recoil';
 import { isOpendDrawerMenu } from '../../store/atom';
 import styled from '@emotion/styled';
 
-const Container = styled.div`
+const Container = styled.button`
   display: none;
+  border: none;
+  background: none;
 
   @media (max-width: 1065px) {
     display: block;
@@ -21,14 +23,10 @@ const Container = styled.div`
   }
 `;
 
-export default function HambugerButton({ ...props }) {
+export default function HambugerButton() {
   const setDrawerMenuOpen = useSetRecoilState(isOpendDrawerMenu);
   return (
-    <Container
-      {...props}
-      role="button"
-      onClick={() => setDrawerMenuOpen(current => !current)}
-    >
+    <Container onClick={() => setDrawerMenuOpen(current => !current)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

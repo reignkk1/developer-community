@@ -1,18 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from '@emotion/react';
-import { useLocation } from 'react-router-dom';
-
-const footer = (pathname: string) => css`
-  display: ${pathname === '/login' || pathname === '/signup'
-    ? 'none'
-    : 'block'};
-`;
-
-const snowCat = css`
-  position: relative;
-  left: 75%;
-`;
-
 interface ITheme {
   bgColor: string;
   textColor: string;
@@ -20,6 +7,11 @@ interface ITheme {
   bgTitleColor: string;
   bgCommentWriteColor: string;
 }
+
+const snowCat = css`
+  position: relative;
+  left: 75%;
+`;
 
 const Container = (theme: ITheme) => css`
   height: 200px;
@@ -102,10 +94,8 @@ export default function Footer() {
     '서비스 이용약관',
   ];
 
-  const location = useLocation();
-
   return (
-    <div css={footer(location.pathname)}>
+    <div>
       <div css={snowCat}>
         <img
           src="https://okky.kr/okky-snowman.svg"

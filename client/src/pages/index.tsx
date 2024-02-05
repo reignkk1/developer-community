@@ -11,6 +11,7 @@ import UserActivity from './UserActivity';
 import WithdrawConfirm from './WithdrawConfirm';
 import Write from './Write';
 import Post from './Post';
+import NotFound from './NotFound';
 
 export {
   Home,
@@ -26,4 +27,5 @@ export {
   WithdrawConfirm,
   Write,
   Post,
+  NotFound,
 };
