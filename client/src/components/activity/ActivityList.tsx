@@ -33,7 +33,9 @@ export default function ActivityList({ section, userId }: IActivityPage) {
       {activityContent}
       {resultData?.length !== 0 && (
         <Paginate
-          total={resultData?.length || 0}
+          prevLabel="< 이전"
+          nextLabel="다음 >"
+          total={data?.length || 0}
           pageItems={10}
           router={router}
         />

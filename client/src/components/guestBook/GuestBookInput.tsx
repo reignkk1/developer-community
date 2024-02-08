@@ -53,8 +53,7 @@ export default function GuestBookInput() {
     date: DateToday(),
   };
 
-  const onSuccess = () =>
-    queryClient.invalidateQueries(['GET', '/article/guest-book/all']);
+  const onSuccess = () => queryClient.invalidateQueries(['guest-book']);
 
   const { mutate: createMutate } = useMutation(createGuestBook(data), {
     onSuccess,

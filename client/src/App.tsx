@@ -25,3 +25,4 @@ function App() {
 export default App;
 
 // 작성하기 눌렀을 때 에러!
+// Paginate 에러 페이지 넘길 때

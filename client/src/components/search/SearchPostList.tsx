@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from '@emotion/react';
 import Parser from 'html-react-parser';
-import PageNumberBar from './../common/pageNumBar';
 import { useQuery } from 'react-query';
 import { IPost } from '../../types/types';
 import { getSearchResult } from '../../api/http';
 import { Link } from 'react-router-dom';
 import Avartar from '../common/Avartar';
+import { Paginate } from 'react-url-paginate';
+import * as router from 'react-router-dom';
 
 interface ITheme {
   borderColor: string;
@@ -66,12 +67,12 @@ export default function SearchPostList({
           )
         )}
       </ul>
-
-      <PageNumberBar
-        dataLength={posts?.length}
-        pageCount={pageNumber}
-        keyword={keyword}
-        section="search"
+      <Paginate
+        prevLabel="< 이전"
+        nextLabel="다음 >"
+        total={data?.length || 0}
+        pageItems={10}
+        router={router}
       />
     </>
   );

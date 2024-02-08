@@ -53,7 +53,13 @@ export default function PostList() {
           </ListItem>
         ))}
       </ul>
-      <Paginate total={posts?.length || 0} pageItems={10} router={router} />
+      <Paginate
+        prevLabel="< 이전"
+        nextLabel="다음 >"
+        total={data?.length || 0}
+        pageItems={10}
+        router={router}
+      />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 // File
 import Button from '../components/common/button';
@@ -10,7 +10,6 @@ import { useMutation } from 'react-query';
 import { createPost } from '../api/http';
 import ReactEditor from '../components/common/Editor';
 import InputText from '../components/common/InputText';
-import useActiveSection from '../hooks/useActiveSection';
 
 // =============================================================================
 
@@ -48,8 +47,7 @@ const Editor = styled(ReactEditor)`
 
 export default function Write() {
   const navigate = useNavigate();
-  const currentSection = useActiveSection() || '';
-
+  const { section } = useParams();
   const [editorData, setEditorData] = useState({
     title: '',
     content: '',
@@ -59,16 +57,13 @@ export default function Write() {
     content: editorData.content,
     date: DateToday(),
   };
-  const onSuccess = () => navigate(`/${currentSection}`);
+  const onSuccess = () => navigate(`/${section}`);
 
   const loginUser = useLoginUser();
 
-  const { mutate: createMutate } = useMutation(
-    createPost(currentSection, data),
-    {
-      onSuccess,
-    }
-  );
+  const { mutate: createMutate } = useMutation(createPost(section, data), {
+    onSuccess,
+  });
 
   const postSubmit = () => {
     if (editorData.title === '') return alert('제목을 입력해주세요!');

@@ -88,7 +88,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const onValid = async (data: IUser) => {
     await axios.post('/user', {
-      userID: data.id,
+      userID: data.userID,
       password: data.password,
       email: data.email,
       name: data.name,

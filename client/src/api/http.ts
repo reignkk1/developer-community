@@ -80,7 +80,7 @@ export function createGuestBook(data: {
     axios.post('/article/guest-book', data).then(response => response.data);
 }
 export function createPost(
-  page: string,
+  page = '',
   data: {
     title: string;
     content: string;

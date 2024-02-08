@@ -33,6 +33,8 @@ export default function Routes() {
       <>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/:section/:id/edit" element={<Edit />} />
+          <Route path="/:section/write" element={<Write />} />
           {createPostSectionRoutes()}
           <Route path="/account" element={<Account />} />
           <Route path="/profile" element={<Profile />} />
@@ -40,8 +42,6 @@ export default function Routes() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/user/:id/posts" element={<UserActivity />} />
           <Route path="/user/:id/comments" element={<UserActivity />} />
-          <Route path="/:section/edit" element={<Edit />} />
-          <Route path="/:section/write" element={<Write />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />

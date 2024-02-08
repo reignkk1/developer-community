@@ -10,7 +10,6 @@ import { useMutation, useQuery } from 'react-query';
 import { editPost } from '../api/http';
 import ReactEditor from '../components/common/Editor';
 import InputText from '../components/common/InputText';
-import useActiveSection from '../hooks/useActiveSection';
 
 // =============================================================================
 
@@ -43,9 +42,8 @@ const Editor = styled(ReactEditor)`
 // =============================================================================
 
 export default function Edit() {
-  const { id } = useParams();
+  const { id, section } = useParams();
   const navigate = useNavigate();
-  const currentSection = useActiveSection() || '';
 
   const [inputData, setInputData] = useState('');
   const [editorData, setEditorData] = useState('');
@@ -58,7 +56,6 @@ export default function Edit() {
       onSuccess: post => {
         setInputData(post?.title || '');
         setEditorData(post?.content || '');
-        console.log(post.content);
       },
     }
   );
@@ -71,7 +68,7 @@ export default function Edit() {
   const { mutate: editMutate } = useMutation(editPost(data, id), {
     onSuccess: e => {
       console.log(data.content);
-      navigate(`/${currentSection}/${id}`);
+      navigate(`/${section}/${id}`);
     },
   });
 
